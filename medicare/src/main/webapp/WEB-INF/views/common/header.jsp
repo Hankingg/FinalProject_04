@@ -51,6 +51,7 @@
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+             <a href="login.me">로그인</a>
               <i class="icon-bell mx-0"></i>
               <span class="count"></span>
             </a>
