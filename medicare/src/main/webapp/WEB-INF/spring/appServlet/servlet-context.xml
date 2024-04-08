@@ -21,6 +21,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- com.kh.spring 아래 있는 파일들 중에서 @(annotation) 있는 부분들을 다 찾아서 가지고와서 bean을 등록해줌 -->
 	<context:component-scan base-package="com.kh.medicare" />
 	
 	

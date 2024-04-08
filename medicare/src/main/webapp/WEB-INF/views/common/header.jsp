@@ -357,12 +357,12 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
               <i class="icon-contract menu-icon"></i>
-              <span class="menu-title">Icons</span>
+              <span class="menu-title">myPage</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="${ pageContext.request.contextPath }/resources/pages/icons/mdi.html">Mdi icons</a></li>
+                <li class="nav-item"> <a class="nav-link" href="myPage.me">마이페이지</a></li>
               </ul>
             </div>
           </li>
@@ -398,6 +398,7 @@
               <span class="menu-title">Documentation</span>
             </a>
           </li>
+          
         </ul>
       </nav>
       

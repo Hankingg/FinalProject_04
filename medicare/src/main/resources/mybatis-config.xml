@@ -7,6 +7,7 @@
    </settings>
    
    <typeAliases>
+   		<typeAlias type="com.kh.medicare.member.model.vo.Member" alias="Member"/>
    </typeAliases>
    <!-- 유의사항 : 미리등록해두려면 해당 클래스가 진짜 존재하고 있는 상태여야됨 -->
    
@@ -17,7 +18,7 @@
     -->
     
     <mappers>
-       
+       <mapper resource="/mappers/member-mapper.xml"/>
     </mappers>
     <!-- 유의사항 : 미리 등록해두려면 해당 mapper 파일이 진짜 존재하고 있는 상태여야함(뿐만 아니라 namespace 까지도 지정되어있어야됨) -->
     
