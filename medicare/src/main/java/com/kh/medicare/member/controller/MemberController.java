@@ -10,4 +10,14 @@ public class MemberController {
 	public String myPage() {
 		return "member/myPage";
 	}
-}
+	
+	@RequestMapping("login.me")
+	public String loginPage() {
+		
+		
+		
+		
+		return "member/login";
+	}
+	
+} //Class
