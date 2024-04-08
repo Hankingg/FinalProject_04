@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans 
+   						https://www.springframework.org/schema/beans/spring-beans.xsd
+   						 http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc.xsd">
    
    <!-- Root Context: defines shared resources visible to all other web components -->
       
@@ -51,10 +55,32 @@
             constructor-arg : 생성자주입
        -->
        
+       <bean class="org.springframework.web.client.RestTemplate" id="restTemplate" />
+       
        <!-- 파일 업로드 관련 빈 등록 -->
        <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
              <property name="maxUploadSize" value="100000000"/>
              <property name="maxInMemorySize" value="100000000"/>
        </bean>
+       
+       <!-- json bean등록 -->
+	       <!-- Jackson ObjectMapper 구성 -->
+	    <bean id="jacksonObjectMapper" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+	        <!-- ObjectMapper를 필요에 따라 사용자 정의 -->
+	    </bean>
+	
+	    <!-- MappingJackson2HttpMessageConverter 구성 -->
+	    <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	        <property name="objectMapper" ref="jacksonObjectMapper"/>
+	    </bean>
+	
+	    <!-- 컨버터를 컨버터 목록에 추가 -->
+	    <mvc:annotation-driven>
+	        <mvc:message-converters>
+	            <ref bean="jsonConverter"/>
+	        </mvc:message-converters>
+	    </mvc:annotation-driven>
+       
+       
      
 </beans>
