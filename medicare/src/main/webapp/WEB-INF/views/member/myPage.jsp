@@ -87,6 +87,45 @@
 						</li>
 					</ul>
 				</div>
+				<div class="myPage-info">
+					<!-- 내 정보 -->
+					<div id="myInfo" class="info active">
+						<form action="" method="post">
+							<table>
+								<tr>
+									<td width="100">아이디</td>
+									<td>
+										<input type="text" value="<%= loginUser.getMemId() %>" disabled>
+									</td>
+								</tr>
+								<tr>
+									<td>이&nbsp;&nbsp;&nbsp;름</td>
+									<td>
+										<input type="text" name="userName" value="<%= loginUser.getMemName() %>">
+										<span id="nameMsg" class="message" style="display: none"></span>
+									</td>
+								</tr>
+								<tr>
+									<td>닉네임</td>
+									<td>
+										<input type="text" name="nickname" value="<%= loginUser.getNickname() %>" oninput="nickCheck();">
+										<span id="nicknameMsg" class="message" style="display: none"></span>
+									</td>
+								</tr>
+								<tr>
+									<td>이메일</td>
+									<td>
+										<input type="text" value="<%= loginUser.getEmail() %>" disabled>
+									</td>
+								</tr>
+								<tr>
+									<td>거주지</td>
+									
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 	<jsp:include page="../common/footer.jsp"/>
