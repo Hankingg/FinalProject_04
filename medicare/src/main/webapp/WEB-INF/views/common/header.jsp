@@ -380,7 +380,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-              <i class="menu-icon mdi mdi-account" style="width: 16px; height: 19px;" ></i>
+              <i class="icon-head menu-icon"></i>
               <span class="menu-title">myPage</span>
               <i class="menu-arrow"></i>
             </a>
