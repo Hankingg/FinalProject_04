@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="${ pageContext.request.contextPath }/resources/images/favicon.png" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
 	 <div class="container-scroller">
