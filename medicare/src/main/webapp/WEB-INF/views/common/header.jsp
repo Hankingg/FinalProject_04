@@ -5,6 +5,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+  <style>
+    .navbar-brand{
+      cursor: pointer;
+    }
+
+    #logo{
+      width: 80px;
+      height: 60px;
+    }
+
+    #miniLogo{
+      width: 30px;
+      height: 30px;
+    }
+
+  </style>
  <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,9 +46,16 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="${ pageContext.request.contextPath }/resources/images/logo.svg" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="${ pageContext.request.contextPath }/resources/images/logo-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5"><img id="logo" src="${ pageContext.request.contextPath }/resources/logo/logo.png" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini"><img id="miniLogo" src="${ pageContext.request.contextPath }/resources/logo/logo-mini.png" alt="logo"/></a>
       </div>
+      <script>
+        $(function(){
+          $(".navbar-brand").click(function(){
+            location.href="/medicare";
+          });
+        });
+      </script>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
           <span class="icon-menu"></span>
@@ -357,7 +380,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-              <i class="icon-contract menu-icon"></i>
+              <i class="menu-icon mdi mdi-account" style="width: 16px; height: 19px;" ></i>
               <span class="menu-title">myPage</span>
               <i class="menu-arrow"></i>
             </a>
