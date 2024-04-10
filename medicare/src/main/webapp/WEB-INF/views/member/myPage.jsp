@@ -144,6 +144,7 @@
 		color: red;
 	}
 
+	.btn{background-color: none;}
 
 </style>
 </head>
@@ -210,8 +211,8 @@
 									<td colspan="2"><a href="" id="addressBtn">배송지 등록</a></td>
 								</tr>
 							</table>
-							<button type="button" id="changePwdBtn" data-toggle="modal" data-target="#changePwd">비밀번호 변경</button>
-							<button type="submit">회원정보 수정</button>
+							<button type="button" class="btn" id="changePwdBtn" data-toggle="modal" data-target="#changePwd">비밀번호 변경</button>
+							<button type="submit" class="btn">회원정보 수정</button>
 						</form>
 						<a id="leaveBtn" data-toggle="modal" data-target="#leaveMem" style="color: rgb(177 177 177); cursor: pointer;"> 회원 탈퇴 ></a>
 					</div>
