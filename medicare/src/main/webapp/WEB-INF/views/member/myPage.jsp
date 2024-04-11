@@ -230,24 +230,27 @@
 								infoList.removeClass("active");
 
 								$(this).addClass("active");
-								infoList.eq(tabList.index(this)).addClass(
-										"active");
+								infoList.eq(tabList.index(this)).addClass("active");
 							});
 							
 							$("#info").click(function(){
 								$(".myPage-info").html($("#myInfo").html());
+								$("#myInfo").css("display", "block");
 							});
 							
 							$("#heart").click(function(){
 								$(".myPage-info").html($("#myMark").html());
+								$("#myInfo").css("display", "block");
 							});
 							
 						    $("#review").click(function(){
 						    	$(".myPage-info").html($("#myReview").html());
+								$("#myInfo").css("display", "block");
 						    });
 						    
 						    $("#delivery").click(function(){
 						    	$(".myPage-info").html($("#myDelivery").html());
+								$("#myInfo").css("display", "block");
 						    });
 						    
 							/*
@@ -350,53 +353,53 @@
 												</td>
 											</tr>
 											<button class="btn btn-sm btn-danger" type="submit">탈퇴하기</button>
-											</form>
-											</div>
+										</table>
+									</form>
+								</div>
 
-											<!-- Modal footer -->
-											<div class="modal-footer">
-												<button type="button" class="btn btn-danger"
-													data-dismiss="modal">Close</button>
-											</div>
+								<!-- Modal footer -->
+								<div class="modal-footer">
+									<button type="button" class="btn btn-danger"
+										data-dismiss="modal">Close</button>
+								</div>
 
-											</div>
-											</div>
-											</div>
+							</div>
+						</div>
+					</div>
 
-											<!-- 좋아요 리스트 -->
-											<div id="myMark" class="info">
-												<span>좋아요 리스트입니당</span>
-												<table id="rest-table" align="center"></table>
-											</div>
+					<!-- 좋아요 리스트 -->
+					<div id="myMark" class="info" style="display: none;">
+						<span>좋아요 리스트입니당</span>
+						<table id="rest-table" align="center"></table>
+					</div>
 
-											<!-- 내가 쓴 리뷰 -->
-											<div id="myReview" class="info">
-												<span>리뷰리스트</span>
-												<div></div>
-											</div>
+					<!-- 내가 쓴 리뷰 -->
+					<div id="myReview" class="info" style="display: none;">
+						<span>리뷰리스트</span>
+						<div></div>
+					</div>
 
-											<!-- 작성한 게시글 -->
-											<div id="myDelivery" class="info">
-												<!-- 게시판 목록-->
-												<span>게시판</span> <br />
-												<table class="list-area" align="center">
-													<thead>
-														<tr>
-															<th width="100">작성번호</th>
-															<th width="200">게시판유형</th>
-															<th width="350">제목</th>
-															<th width="100">작성자</th>
-															<th width="100">조회수</th>
-															<th width="150">작성일자</th>
-														</tr>
-													</thead>
-													<tbody></tbody>
-												</table>
-											</div>
-											</div>
-											</div>
-											</div>
-											</div>
-											<jsp:include page="../common/footer.jsp" />
+					<!-- 택배 목록 -->
+					<div id="myDelivery" class="info" style="display: none;">
+						<!-- 게시판 목록-->
+						<span>게시판</span> <br />
+						<table class="list-area" align="center">
+							<thead>
+								<tr>
+									<th width="100">작성번호</th>
+									<th width="200">게시판유형</th>
+									<th width="350">제목</th>
+									<th width="100">작성자</th>
+									<th width="100">조회수</th>
+									<th width="150">작성일자</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	<jsp:include page="../common/footer.jsp" />
 </body>
 </html>
