@@ -13,95 +13,95 @@
   justify-content: left;
 }
 .outer{
-  width: 1400px;
-  height: 1000px; 
+  width: 1260px;
+  height: 900px; 
   /* border: 1px solid blue; */
 }
 .outer>div{
-  width: 1400px;
+  width: 1260px;
 }
 .inner1{
-  height: 350px;
+  height: 315px;
   display: flex;
   justify-content: center;
 }
 .inner2{
-  height: 190px;
+  height: 171px;
   display: flex;
   justify-content: center;
 }
 .inner3{
-  height: 190px;
+  height: 171px;
   display: flex;
   justify-content: center;
 }
 .inner4{
-  height: 100px;
+  height: 90px;
 }
 .inner5{
-  height: 120px;
-  padding-left: 100px;
-  width: 1300px;
+  height: 108px;
+  padding-left: 90px;
+  width: 1170px;
 }
 .inner6{
-  height: 30px;
-  padding-left: 100px;
-  width: 1300px;
+  height: 27px;
+  padding-left: 90px;
+  width: 1170px;
 }
 
 .inner1s{
-  height: 300px;
+  height: 270px;
   float: left;
-  margin-left: 80px;
-  margin-top: 50px;
-  width: 250px;
+  margin-left: 72px;
+  margin-top: 45px;
+  width: 225px;
   background-color: rgb(233, 231, 231);
   border-radius: 15px;
 }
 
 .inner2s{
-  height: 140px;
+  height: 126px;
   float: left;
-  margin-left: 80px;
-  margin-top: 50px;
-  width: 580px;
+  margin-left: 72px;
+  margin-top: 45px;
+  width: 522px;
   border: 3px solid lightgrey;
   border-radius: 10px;
 }
 
 .inner3s{
-  height: 140px;
+  height: 126px;
   float: left;
-  margin-left: 80px;
-  margin-top: 50px;
-  width: 580px;
+  margin-left: 72px;
+  margin-top: 45px;
+  width: 522px;
   border: 3px solid lightgrey;
   border-radius: 10px;
 }
 
 .inner4s{
-  height: 40px;
-  margin-top: 50px;
+  height: 36px;
+  margin-top: 45px;
   float: left;
 }
 
 .inner4s_1{
-  margin-left: 120px;
+  margin-left: 108px;
 }
 
 .inner5s{
-  height: 120px;
-  width: 120px;
+  height: 108px;
+  width: 108px;
   float: left;
-  margin-left: 30px;
+  margin-left: 27px;
   border-radius: 20px;
 }
 
 .inner6s{
-  height: 30px;
-  width: 120px;
+  height: 27px;
+  width: 108px;
   float: left;
-  margin-left: 30px;
+  margin-left: 27px;
 }
 
 /* ==========================================여기까지 큰 틀 나누기============================================== */
@@ -110,187 +110,194 @@
 /* 폰트 스타일 */
 .searchAmbulance_1 p{
   font-weight: bolder;
-  font-size: 30px;
-  line-height: 45px;
+  font-size: 27px;
+  line-height: 40px;
 }
 .receiveHospital_1 p{
   font-weight: bolder;
-  font-size: 30px;
-  line-height: 45px;
+  font-size: 27px;
+  line-height: 40px;
 }
 .reserveHospital_1 p{
   font-weight: bolder;
-  font-size: 30px;
-  line-height: 45px;
+  font-size: 27px;
+  line-height: 40px;
 }
 .telemedicine_1 p{
   font-weight: bolder;
-  font-size: 30px;
-  line-height: 45px;
+  font-size: 27px;
+  line-height: 40px;
 }
 /* div 스타일 */
 .searchAmbulance_1{
-  height: 150px;
-  padding-top: 40px;
-  padding-left: 65px;
+  height: 135px;
+  padding-top: 36px;
+  padding-left: 58.5px;
 }
 .searchAmbulance_2{
-  height: 150px;
-  padding-left: 60px;
+  height: 135px;
+  padding-left: 54px; 
 }
 
 .receiveHospital_1{
-  height: 150px;
-  padding-top: 70px;
-  padding-left: 65px;
+  height: 135px;
+  padding-top: 63px;
+  padding-left: 58.5px;
 }
 .receiveHospital_2{
-  height: 150px;
-  padding-left: 60px;
+  height: 135px;
+  padding-left: 54px;
 }
 
 .reserveHospital_1{
-  height: 150px;
-  padding-top: 70px;
-  padding-left: 65px;
+  height: 135px;
+  padding-top: 63px;
+  padding-left: 58.5px;
 }
 .reserveHospital_2{
-  height: 150px;
-  padding-left: 60px;
+  height: 135px;
+  padding-left: 54px;
 }
 
 .telemedicine_1{
-  height: 150px;
-  padding-top: 60px;
-  padding-left: 60px;
+  height: 135px;
+  padding-top: 54px;
+  padding-left: 54px;
 }
 .telemedicine_2{
-  height: 150px;
-  padding-left: 100px;
+  height: 135px;
+  padding-left: 90px;
 }
 
 /* ------------- inner2 스타일 -------------- */
 /* ---------- 한의원 ---------- */
 .kHospital>div{
-  height: 140px;
+  height: 126px;
   float: left;
 }
 .kHospital_1{
-  width: 160px;
+  width: 144px;
 }
 .kHospital_2{
-  width: 415px;
-  padding-top: 10px;
+  width: 372px;
+  padding-top: 9px;
 }
 .searchKHospital_1>p{
   font-weight: bolder;
-  font-size: 30px;
-  line-height: 45px;
-  padding-left: 50px;
-  padding-top: 30px;
+  font-size: 27px;
+  line-height: 40.5px;
+  padding-left: 45px;
+  padding-top: 20px;
 }
 .searchKHospital_2>p{
-  font-size: 20px;
-  padding-left: 30px;
+  font-size: 18px;
+  padding-left: 27px;
 }
 
 /* ---------- 약국 ---------- */
 .pharmacy>div{
-  height: 140px;
+  height: 126px;
   float: left;
 }
 .pharmacy_1{
-  width: 180px;
-  padding-left: 25px;
-  padding-top: 5px;
+  width: 162px;
+  padding-left: 22.5px;
+  padding-top: 4.5px;
 }
 .pharmacy_2{
-  width: 395px;
-  padding-top: 10px;
-  padding-left: 10px;
+  width: 354px;
+  padding-top: 9px;
+  padding-left: 9px;
 }
 .searchPharmacy_1>p{
   font-weight: bolder;
-  font-size: 30px;
-  line-height: 45px;
-  padding-left: 50px;
-  padding-top: 30px;
+  font-size: 27px;
+  line-height: 40.5px;
+  padding-left: 45px;
+  padding-top: 20px;
 }
 .searchPharmacy_2>p{
-  font-size: 20px;
-  padding-left: 30px;
+  font-size: 18px;
+  padding-left: 27px;
 }
 
 /* ---------- 멤버십 ---------- */
 .membership_1{
-  height: 60px;
-  padding-left: 160px;
-  padding-top: 30px;
+  height: 54px;
+  padding-left: 144px;
+  padding-top: 27px;
 }
 .membership_2{
-  height: 80px;
-  padding-left: 67px;
+  height: 72px;
+  padding-left: 60.3px;
 }
 .membership_btn{
-  width: 440px;
-  height: 50px;
+  width: 396px;
+  height: 45px;
   background-color: rgb(249, 118, 133);
-  font-size: 23px;
+  font-size: 20.7px;
   font-weight: bold;
   color: white;
   border: 0px;
   border-radius: 10px;
 }
 .membership_1>p{
-    font-size: 18px;
+    font-size: 16.2px;
     font-weight: bold;
 }
 
 /* ---------- 우리아이 몸무게 ---------- */
 .weight>div{
-  height: 140px;
+  height: 124px;
   float: left;
 }
 .weight_1{
-  width: 415px;
+  width: 372px;
 }
 .weight_2{
-  width: 160px;
-  padding-top: 20px;
+  width: 144px;
+  padding-top: 10px;
+  padding-left: 10px;
 }
 .weight_1_1{
-  height: 70px;
-  padding-left: 100px;
-  padding-top: 45px;
+  height: 63px;
+  padding-left: 90px;
+  padding-top: 40.5px;
 }
 .weight_1_2{
-  height: 70px;
-  padding-left: 60px;
-  padding-top: 20px;
+  height: 63px;
+  padding-left: 80px;
+  padding-top: 18px;
 }
 .weight_1_1 p{
-  font-size: 21px;
+  font-size: 23px;
   font-weight: bolder;
 }
 .weight_1_2 p{
-  font-size: 20px;
+  font-size: 18px;
 }
 
 /* ---------- 진료과목 별 병원 찾기 ---------- */
 .inner4s_1>p{
-    font-size: 22px;
+    font-size: 19.8px;
     font-weight:bolder;
-    padding-top: 10px;
+    padding-top: 9px;
 }
 .h_typeName{
-    font-size: 19px;
+    font-size: 17.1px;
     font-weight: bold;
     text-align: center;
-    padding-top: 5px;
+    padding-top: 4.5px;
 }
-.innser5s_img{
-    padding-left: 30px;
-    padding-top: 10px;
+
+.inner5s{
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+}
+.inner5s_img{
+  width: 80px;
+  height: 80px;
 }
 .inner5s_1{background-color: rgb(222, 255, 255);}
 .inner5s_2{background-color: rgb(255, 239, 222);}
@@ -316,7 +323,7 @@
                 <p>바로가기</p> 
               </div>
               <div class="searchAmbulance_2">
-                <img style="height: 130px; width: 130px;" src="resources/mainIcon/119.png">
+                <img style="height: 120px; width: 120px;" src="resources/mainIcon/119.png">
               </div>
             </div>
             <div class="inner1s">
@@ -324,7 +331,7 @@
                 <p>접수하기</p>
               </div>
               <div class="receiveHospital_2">
-                <img style="height: 130px; width: 130px;" src="resources/mainIcon/hospital.png">
+                <img style="height: 110px; width: 110px;" src="resources/mainIcon/hospital.png">
               </div>
             </div>
             <div class="inner1s">
@@ -332,7 +339,7 @@
                 <p>예약하기</p>
               </div>
               <div class="reserveHospital_2">
-                <img style="height: 140px; width: 140px;" src="resources/mainIcon/calender.png">
+                <img style="height: 120px; width: 120px;" src="resources/mainIcon/calender.png">
               </div>
             </div>
             <div class="inner1s">
@@ -341,14 +348,14 @@
                 <p>진료</p>
               </div>
               <div class="telemedicine_2">
-                <img style="height: 140px; width: 140px;" src="resources/mainIcon/doctor.png">
+                <img style="height: 130px; width: 130px;" src="resources/mainIcon/doctor.png">
               </div>
             </div>
           </div>
           <div class="inner2">
             <div class="inner2s kHospital">
               <div class="kHospital_1">
-                <img style="height: 130px; width: 150px;" src="resources/mainIcon/kDoctor.png">
+                <img style="height: 120px; width: 130px;" src="resources/mainIcon/kDoctor.png">
               </div>
               <div class="kHospital_2">
                 <div class="searchKHospital_1"><p>내 주변 한의원 찾기 ▶</p></div>
@@ -357,7 +364,7 @@
             </div>
             <div class="inner2s pharmacy">
               <div class="pharmacy_1">
-                <img style="height: 120px; width: 140px;" src="resources/mainIcon/pharmacy.png">
+                <img style="height: 120px; width: 120px;" src="resources/mainIcon/pharmacy.png">
               </div>
               <div class="pharmacy_2">
                 <div class="searchPharmacy_1"><p>내 주변 약국 찾기 ▶</p></div>
@@ -385,14 +392,14 @@
             <div class="inner4s"><img style="width: 100%; height: 100%;" src="resources/mainIcon/whereHospital.png"></div>
           </div>
           <div class="inner5">
-            <div class="inner5s inner5s_1"><img class="innser5s_img" style="width: 100px; height: 100px;" src="resources/mainIcon/hType_child.png"></div>
-            <div class="inner5s inner5s_2"><img class="innser5s_img" style="width: 100px; height: 100px;" src="resources/mainIcon/hType_ear.png"></div>
-            <div class="inner5s inner5s_3"><img class="innser5s_img" style="width: 100px; height: 100px;" src="resources/mainIcon/hType_home.png"></div>
-            <div class="inner5s inner5s_4"><img class="innser5s_img" style="width: 100px; height: 100px;" src="resources/mainIcon/hType_love.png"></div>
-            <div class="inner5s inner5s_5"><img class="innser5s_img" style="width: 100px; height: 100px;" src="resources/mainIcon/hType_inbody.png"></div>
-            <div class="inner5s inner5s_6"><img class="innser5s_img" style="width: 100px; height: 100px;" src="resources/mainIcon/hType_bone.png"></div>
-            <div class="inner5s inner5s_7"><img class="innser5s_img" style="width: 100px; height: 100px;" src="resources/mainIcon/hType_skin.png"></div>
-            <div class="inner5s inner5s_8"><img class="innser5s_img" style="width: 100px; height: 100px;" src="resources/mainIcon/hType_eye.png"></div>
+            <div class="inner5s inner5s_1"><img class="inner5s_img" src="resources/mainIcon/hType_child.png"></div>
+            <div class="inner5s inner5s_2"><img class="inner5s_img" src="resources/mainIcon/hType_ear.png"></div>
+            <div class="inner5s inner5s_3"><img class="inner5s_img" src="resources/mainIcon/hType_home.png"></div>
+            <div class="inner5s inner5s_4"><img class="inner5s_img" src="resources/mainIcon/hType_love.png"></div>
+            <div class="inner5s inner5s_5"><img class="inner5s_img" src="resources/mainIcon/hType_inbody.png"></div>
+            <div class="inner5s inner5s_6"><img class="inner5s_img" src="resources/mainIcon/hType_bone.png"></div>
+            <div class="inner5s inner5s_7"><img class="inner5s_img" src="resources/mainIcon/hType_skin.png"></div>
+            <div class="inner5s inner5s_8"><img class="inner5s_img" src="resources/mainIcon/hType_eye.png"></div>
           </div>
           <div class="inner6">
             <div class="inner6s"><p class="h_typeName">소아청소년과</p></div>
