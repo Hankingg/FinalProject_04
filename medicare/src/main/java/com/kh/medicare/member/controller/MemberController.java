@@ -20,4 +20,9 @@ public class MemberController {
 		return "member/login";
 	}
 	
+	@RequestMapping("enrollForm.dv")
+	public String deliveryEnrollForm() {
+		return "member/deliveryEnrollForm";
+	}
+	
 } //Class

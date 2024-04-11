@@ -209,7 +209,7 @@
 										style="font-size: 15px;"></td>
 								</tr>
 								<tr>
-									<td colspan="2"><a href="" id="addressBtn">배송지 등록</a></td>
+									<td colspan="2"><a href="enrollForm.dv" id="addressBtn">배송지 등록</a></td>
 								</tr>
 							</table>
 							<button type="button" class="btn" id="changePwdBtn"
