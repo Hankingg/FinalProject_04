@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,15 +50,16 @@
               
               
               
-              <form action="" class="pt-3">
+              <form action="login.me" class="pt-3">
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="아이디">
+                  <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" name="memId" placeholder="아이디">
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="비밀번호">
+                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" name="memPwd" placeholder="비밀번호">
                 </div>
+                
                 <div class="mt-3">
-                  <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="${ pageContext.request.contextPath }/resources/index.html">로그인</a>
+                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="${ pageContext.request.contextPath }/resources/index.html">로그인</button>
                 </div>
                 <div class="my-2 d-flex justify-content-between align-items-center">
                   <div class="form-check">
@@ -104,7 +106,7 @@
   
   <script>
         // 카카오 SDK 초기화
-        Kakao.init('2e9ad81f2d94fa28edbb4d9ebe990822');
+        Kakao.init('3f5835319f7ece0664694d3fcb94d958);
 
         // 카카오 로그인 버튼 클릭 시 호출되는 함수
         document.getElementById('kakao-login-btn').addEventListener('click', function() {
@@ -126,12 +128,12 @@
                             console.log('Profile Image:', kakaoProfileImage);
                         },
                         fail: function(error) {
-                            console.error('Failed to get user information:', error);
+                            console.error('실패1:', error);
                         }
                     });
                 },
                 fail: function(error) {
-                    console.error('Failed to log in:', error);
+                    console.error('실패:', error);
                 }
             });
         });

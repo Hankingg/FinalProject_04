@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.medicare.member.model.service.MemberServiceImpl;
 import com.kh.medicare.member.model.vo.Member;
@@ -55,11 +56,56 @@ public class MemberController {
 	} // myPage
 	
 	
-	@RequestMapping("login.me")
+	@RequestMapping("moveLoginPage.me")
 	public String loginPage() {
 		
 		return "member/login";
 	} // loginPage
+	
+	@RequestMapping("login.me") 
+	public ModelAndView loginMember(Member m, HttpSession session, ModelAndView mv) {
+		
+		Member loginUser = mService.loginMember(m);		
+		
+		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemPwd(), loginUser.getMemPwd())) {						
+			session.setAttribute("loginUser", loginUser);
+			mv.setViewName("main");				
+		} else {		
+			mv.addObject("errorMsg", "로그인 실패");
+			mv.setViewName("common/errorPage");							
+		}
+			
+		return mv;
+		
+	} // loginMember
+	
+	@RequestMapping("logout.me")
+	public String logoutMember(HttpSession session) {
+		
+		session.invalidate();
+		return "redirect:/";	
+		
+	} //  logoutMember
+	
+	
+	@RequestMapping("kakaoLogin.me")
+	public ModelAndView kakaoLogin(Member m, HttpSession session, ModelAndView mv) {
+		
+		Member kakaoUser = mService.kakaoLogin(m);
+		System.out.println(kakaoUser);
+		
+		if(kakaoUser != null) {						
+			session.setAttribute("loginUser", kakaoUser);
+			mv.setViewName("main");				
+		} else {		
+			mv.addObject("errorMsg", "로그인 실패");
+			mv.setViewName("common/errorPage");							
+		}
+		
+		return mv;
+		
+	} // kakaoLogin
+	
 	
 	
 	

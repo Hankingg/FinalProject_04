@@ -18,6 +18,37 @@
 		<result column="MODIFY_DATE" property="modifyDate"/>
 	</resultMap>
 	
+	<select id="loginMember" resultMap="memberResultSet">
+		select
+			 MEM_NO
+		   , MT_ID
+		   , MEM_ID
+		   , MEM_PWD
+		   , MEM_NAME
+		   , NICKNAME
+		   , EMAIL
+		   , ADDRESS
+		   , PHONE
+		   , MEMBERSHIP
+		   , STATUS
+		   , ENROLL_DATE
+		   , MODIFY_DATE
+	     from member
+	   where status = 'Y'
+	    and MEM_ID = #{ memId }  
+	</select>
+	
+	<select id="kakaoLogin">
+		select	
+			  mem_no
+	        , mem_id
+	        , mem_name
+	        , email
+	     from member
+	    where mem_id = #{ memId }   
+      	  and status = 'Y' 	
+	</select>
+	
 	<insert id="insertMember">
 		insert 
 		  into member
