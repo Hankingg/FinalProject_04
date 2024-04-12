@@ -2,5 +2,79 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
 
+	<resultMap  id="memberResultSet" type="Member">
+		<result column="MEM_NO" property="memNo"/>
+		<result column="MT_ID" property="mtId"/>
+		<result column="MEM_ID" property="memId"/>
+		<result column="MEM_PWD" property="memPwd"/>
+		<result column="MEM_NAME" property="memName"/>
+		<result column="NICKNAME" property="nickName"/>
+		<result column="EMAIL" property="email"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="PHONE" property="phone"/>
+		<result column="MEMBERSHIP" property="membership"/>
+		<result column="STATUS" property="status"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+	</resultMap>
+	
+	<select id="loginMember" resultMap="memberResultSet">
+		select
+			 MEM_NO
+		   , MT_ID
+		   , MEM_ID
+		   , MEM_PWD
+		   , MEM_NAME
+		   , NICKNAME
+		   , EMAIL
+		   , ADDRESS
+		   , PHONE
+		   , MEMBERSHIP
+		   , STATUS
+		   , ENROLL_DATE
+		   , MODIFY_DATE
+	     from member
+	   where status = 'Y'
+	    and MEM_ID = #{ memId }  
+	</select>
+	
+	<select id="kakaoLogin">
+		select	
+			  mem_no
+	        , mem_id
+	        , mem_name
+	        , email
+	     from member
+	    where mem_id = #{ memId }   
+      	  and status = 'Y' 	
+	</select>
+	
+	<insert id="insertMember">
+		insert 
+		  into member
+		  (
+		    mem_no
+		  , mt_id
+		  , mem_id
+		  , mem_pwd	  
+		  , mem_name
+		  , nickname
+		  , email
+		  , address
+		  , phone	
+		  )	
+		  values
+		  (
+		    seq_mno.nextval
+		  , #{ mtId }
+		  , #{ memId }
+		  , #{ memPwd }
+		  , #{ memName }
+		  , #{ nickName }
+		  , #{ email }
+		  , #{ address }
+		  , #{ phone }
+		  )
+	</insert>
 
 </mapper>
