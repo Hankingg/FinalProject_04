@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +19,16 @@
     #miniLogo{
       width: 30px;
       height: 30px;
+    }
+    
+    #loginBtn {
+    	color:black;
+    	margin-top:2px;
+    	text-decoration-line: none;
+    }
+
+    #loginBtn:hover {
+    	color:gray;
     }
 
   </style>
@@ -74,11 +85,16 @@
             </div>
           </li>
         </ul>
+        
+        
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-             <a href="login.me">로그인</a>
-              <i class="icon-bell mx-0"></i>
+           
+          <!-- 로그인 칸 -->
+          <c:choose> 
+          	<c:when test="${ empty loginUser }">
+             <a href="moveLoginPage.me" id="loginBtn">로그인</a>            
               <span class="count"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
@@ -124,22 +140,30 @@
               </a>
             </div>
           </li>
+          </c:when>
+          <c:otherwise>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
               <!-- <img src="${ pageContext.request.contextPath }/resources/images/faces/face28.jpg" alt="profile"/> -->
-              <i class="fa-solid fa-circle-user" style="width: 30px; height: 30px; margin-top: 10px;"></i>
-            </a>
+              <i class="icon-bell mx-0" style="width: 30px; height: 30px; margin-bottom: 5px;"></i>
+              <i class="fa-solid fa-circle-user" style="width: 30px; height: 30px; margin-top: 10px;"></i>&nbsp;&nbsp;&nbsp;           	
+            </a>	
+             <label style="margin-top: 8px;"><strong style="color: black;">${ loginUser.memId }님</strong> 환영합니다</label>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
                 <i class="ti-settings text-primary"></i>
                 Settings
               </a>
-              <a class="dropdown-item">
+              <a href="logout.me" class="dropdown-item">
                 <i class="ti-power-off text-primary"></i>
                 Logout
               </a>
             </div>
           </li>
+			</c:otherwise>
+		</c:choose>
+		<!-- 여기까지 로그인칸 -->
+          
           <li class="nav-item nav-settings d-none d-lg-flex">
             <a class="nav-link" href="#">
               <i class="icon-ellipsis"></i>

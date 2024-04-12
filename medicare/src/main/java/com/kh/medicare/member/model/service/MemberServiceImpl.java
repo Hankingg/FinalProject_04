@@ -16,10 +16,31 @@ public class MemberServiceImpl implements MemberService{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
+	public Member loginMember(Member m) {
+		
+		Member loginUser = mDao.loginMember(sqlSession, m);
+		
+		return loginUser;
+	}
+	
+	@Override
 	public int insertMember(Member m) {
 		int result = mDao.insertMember(sqlSession, m);
 		return result;
 	}
+
+	@Override
+	public Member kakaoLogin(Member m) {// TODO Auto-generated method stub
+		
+		Member kakaoUser = mDao.kakaoLogin(sqlSession, m);
+		
+		return kakaoUser;
+		
+	}
+	
+	
+
+	
 
 	
 	

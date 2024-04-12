@@ -6,4 +6,8 @@ public interface MemberService  {
 
 	int insertMember(Member m);
 	
+	Member loginMember(Member m);
+	
+	Member kakaoLogin(Member m);
+	
 } // Class
