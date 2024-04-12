@@ -392,7 +392,7 @@
             </a>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="">병원 목록</a></li>
+                <li class="nav-item"> <a class="nav-link" href="hospital.do">병원 목록</a></li>
                 <li class="nav-item"> <a class="nav-link" href="">비대면 진료</a></li>
                 <li class="nav-item"> <a class="nav-link" href="">예약하기</a></li>
                 <li class="nav-item"> <a class="nav-link" href="">접수하기</a></li>
