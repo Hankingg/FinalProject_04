@@ -15,17 +15,31 @@
   .content-wrapper{
     border: 1px solid green;
   }
+  .content-wrapper>div{
+    float: left;
+  }
   .outer{
-    width: 1320px;
+    width: 1200px;
+    height: 2000px;
     border: 1px solid red;
-    margin-left: 200px;
+  }
+  .right{
+    width: 300px;
+    height: 1000px;
+    border: 1px solid black;
+    margin-left: 50px;
+  }
+  .right>div{
+    position: sticky;
+    top: 0;
+    border: 1px solid yellowgreen;
   }
   .outer div{
     border: 1px solid blue;
   }
 
 
-  .phName {
+  .mName {
     font-size: 30px;
     font-weight: 600;
   }
@@ -55,11 +69,11 @@
     font-size:20px;
   }
 
-  .phInfo{
+  .mInfo{
    border-bottom: 3px solid lightgray;
   }
 
-  .phInfo button{
+  .mInfo button{
     border: none;
     background-color: #F5F7FF;
     width: 150px;
@@ -101,11 +115,11 @@
 </style>
 <body>
    <jsp:include page="../common/header.jsp"/>
-    <div class="main-panel">
+      <div class="main-panel">
         <div class="content-wrapper">
-          <br><br><br><br>
+            <br><br><br><br>
             <div class="outer">
-                <div class="phName">          
+                <div class="mName">          
                   태평양 약국
                 </div>
                 <br>
@@ -115,13 +129,13 @@
                 </div>
                 <br>
                 <div class="distance">
-                  <p>약국까지의 거리(m)</p>
+                  <p>현위치와의 거리 : xxxx(m)</p>
                 </div>   
                 <div class="map">
                   지도
                 </div>
                 <br><br><br>
-                <div class="phInfo">
+                <div class="mInfo">
                   <button>병원정보</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <button>진료정보</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <button>리뷰</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -153,17 +167,22 @@
                   <div class="hDetail2">
                     <strong>진료과목</strong>
                     <br><br>
-                    <button readonly>안과</button>
                   </div>
                   <br><br>
                   </div>
                   <br><br>
                   
               </div>    
-              <br><br><br><br><br><br><br>
-          </div>
+              <div class="right">
+                  
+                  <div>
+                    최근 본 의료기관
+                  </div>
+               
+              </div>
+        </div>
     
-        <jsp:include page="../common/footer.jsp"/>
+    <jsp:include page="../common/footer.jsp"/>
      
 
        
