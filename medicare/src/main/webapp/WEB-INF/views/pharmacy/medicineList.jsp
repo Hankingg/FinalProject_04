@@ -21,9 +21,8 @@
         	<div class="outer">
         		
 				
-        		약국리스트 <br>
-        		
-        		<button onclick="location.href='selectDetail.ph'">약국 상세페이지 버튼</button>
+        		의약품리스트
+        	
         	
         	
         	</div>
@@ -33,10 +32,6 @@
         	
         
         </div>
-        
-        
-        
-        
     <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

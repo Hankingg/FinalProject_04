@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,49 +8,58 @@
 <title>Insert title here</title>
 </head>
 <style>
-  .hName {
+
+  .main-panel{
+    border: 1px solid green;
+  }
+  .content-wrapper{
+    border: 1px solid green;
+  }
+  .outer{
+    width: 1320px;
+    border: 1px solid red;
+    margin-left: 200px;
+  }
+  .outer div{
+    border: 1px solid blue;
+  }
+
+
+  .phName {
     font-size: 30px;
     font-weight: 600;
-    margin-left: 70px;
   }
 
   .diagnosis {
     font-size: 25px;
     font-weight: 600;
-    margin-left: 70px;
+
   }
 
   .diagnosisStatus {
     width: 200px;
   }
 
+  .map {
+    width: 1000px;
+    height: 600px;
+    border-radius: 10px;
+    border: 1px solid black;
+  }
+
   .distance {
-    margin-left: 80px;
+    margin-left: 0px
   }
 
   .distance p {
-    font-size:25px;
+    font-size:20px;
   }
 
-  .hImg {
-    width: 1200px;
-    height: 800px;
-    margin-left: 190px;
-
-  }
-
-  .hImg img{
-    width: 1200px;
-    height: 800px;
-  }
-
-  .hInfo{
-   margin-left: 180px;
+  .phInfo{
    border-bottom: 3px solid lightgray;
-   padding-left: 110px;
   }
 
-  .hInfo button{
+  .phInfo button{
     border: none;
     background-color: #F5F7FF;
     width: 150px;
@@ -59,7 +69,6 @@
   }
 
   .infoStatus {
-    margin-left: 230px;
     font-size: 20px;
     border-bottom: 3px solid lightgray;
   }
@@ -70,26 +79,9 @@
   }
 
   .infoMap {
-    margin-left: 230px;
     font-size: 20px;
     border-bottom: 3px solid lightgray;
   }
-
-  .infoMap button {
-    margin-left: 750px;
-    border-radius: 5px;
-    background-color: lightgray;
-    border: 0px;
-  }
-
-  .map {
-    width: 750px;
-    height: 900px;
-    margin-left: 150px;
-    border-radius: 10px;
-    background-color: white;
-  }
-
 
   .phoneDetail button{
     margin-left: 850px;
@@ -102,18 +94,6 @@
     border-radius: 5px;
   }
 
-  .review {
-    margin-left: 230px;
-    font-size: 20px;
-  }
-
-  .reviewDetail {
-    width: 1000px;
-    height: 400px;
-    border-radius: 10px;
-    background-color: white;
-  }
-
   #strNum {
     color: red;
   }
@@ -124,9 +104,9 @@
     <div class="main-panel">
         <div class="content-wrapper">
           <br><br><br><br>
-            <div class="content">
-                <div class="hName">          
-                  힐링안과의원
+            <div class="outer">
+                <div class="phName">          
+                  태평양 약국
                 </div>
                 <br>
                 <div class="diagnosis">
@@ -135,12 +115,13 @@
                 </div>
                 <br>
                 <div class="distance">
-                  <p>855m | 안과</p>
+                  <p>약국까지의 거리(m)</p>
                 </div>   
-                <br><br> 
-                <div class="hImg"><img src="https://www.modoodoc.com/_next/image?url=https%3A%2F%2Fd23zwvh2kbhdec.cloudfront.net%2Fmedia%2Fpublic%2Fhospitals%2Fphotos%2F12757%2F10%25EC%25B8%25B5_%25EC%25A0%2584%25EA%25B2%25BD1.jpg&w=3840&q=75"></div>
+                <div class="map">
+                  지도
+                </div>
                 <br><br><br>
-                <div class="hInfo">
+                <div class="phInfo">
                   <button>병원정보</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <button>진료정보</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <button>리뷰</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -152,6 +133,7 @@
                   <strong>진료시간</strong>
                   <div class="infoDetail">🔴 지금은 진료 중이에요.</div>
                 </div>
+                
                 <br>
                 <div class="infoMap">
                   <strong>위치</strong>
@@ -159,9 +141,6 @@
                   &nbsp;&nbsp;서울특별시 강남구 강남대로 470
                   <button>주소복사</button>
                   <br><br>
-                  <div class="map">
-                    지도
-                  </div>
                   <br><br>
                   <div class="infoPhone">
                     <strong>전화번호</strong>
@@ -179,17 +158,11 @@
                   <br><br>
                   </div>
                   <br><br>
-                  <div class="review">
-                    <strong>리뷰</strong><strong id="strNum">&nbsp;&nbsp;69</strong>
-                    <br><br><br>
-                    <div class="reviewDetail">
-                        리뷰존
-                    </div>
-                </div>
+                  
               </div>    
               <br><br><br><br><br><br><br>
           </div>
-    </div>
+    
         <jsp:include page="../common/footer.jsp"/>
      
 
