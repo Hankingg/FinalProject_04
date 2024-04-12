@@ -576,7 +576,7 @@
 										<div id="hpName"><p>하얀이비인후과</p></div>
 										<div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
 										<div id="hpRate"><p>4</p></div>
-										<div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-black2.png" id="heartImg"></div>
+										<div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-full.png" id="heartImg"></div>
 									</div>
 									<div id="myreview2">
 										<div id="rvProfile">
