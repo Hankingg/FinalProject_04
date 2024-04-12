@@ -7,34 +7,76 @@
 <title>Insert title here</title>
 <style>
 	
-#outer{
-	width: 500px;
-	height: 800px;
-}
-	
+	#outer{
+		width: 1000px;
+		margin: auto;
+		margin-top: 80px;
+		margin-bottom: 50px;
+		padding: 50px;
+	}
+
+	#address{
+		padding-left: 300px;
+		margin: 20px 0px;
+	}
+
+	/* 우편번호, 주소 input */
+	#address>input[type=text]{
+		width: 300px;
+		height: 50px;
+		margin: 10px ;
+		border: 1px solid gray;
+		border-radius: 10px;
+		padding-left: 20px;
+	}
+
+	/* 우편번호 찾기 */
+	#address>input[type=button]{
+		width: 150px;
+		height: 50px;
+		border-radius: 10px;
+		border: 1px solid gray;
+
+	}
+
+	/* 배송지 등록버튼 감싼 div */
+	#button{
+		display: flex;
+		justify-content: center;
+		margin: 20px 0px;
+
+	}
+
+	/* 배송지 등록버튼 */
+	#button>button{
+		width: 200px;
+		height: 50px;
+		border: none;
+		border-radius: 10px;
+		background-color: #F96C85;
+		color: white;
+	}
 
 </style>
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
 	<div class="main-panel">
-		<div class="content-wrapper">
-			<div id="outer" align="center" style="border: 1px solid red;">
+		<div class="content-wrapper" style="background-color: white;">
+			<div id="outer">
 
-				<p align="center" style="font-size: 25px; font-weight: 500;">나의 배송지 등록</p>
+				<h2 align="center" style="color: gray;">나의 배송지 등록</h2>
 					
 				<br><br>
 				<div id="address">
+					<input type="text" placeholder="배송지명" value="">
 					<input type="text" id="sample6_postcode" placeholder="우편번호">
 					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 					<input type="text" id="sample6_address" placeholder="주소"><br>
 					<input type="text" id="sample6_detailAddress" placeholder="상세주소">
 					<input type="text" id="sample6_extraAddress" placeholder="참고항목">
-					
 				</div>
-					
-
-				
+	
 				<div id="button">
 					<button>배송지 추가</button>
 				</div>

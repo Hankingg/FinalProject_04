@@ -6,171 +6,329 @@
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <style>
-.myPage {
-	width: 1000px;
-	margin: auto;
-	margin-top: 80px;
-	margin-bottom: 50px;
-}
+	.myPage {
+		width: 1000px;
+		margin: auto;
+		margin-top: 110px;
+		margin-bottom: 50px;
+	}
 
-#myPage-tab {
-	height: 40px;
-	border-bottom: 1px solid lightgray;
-}
+	#myPage-tab {
+		height: 40px;
+		border-bottom: 1px solid lightgray;
+	}
 
-#myPage-tab ul {
-	margin: 0;
-	padding: 0;
-	height: 100%;
-}
+	#myPage-tab ul {
+		margin: 0;
+		padding: 0;
+		height: 100%;
+	}
 
-#myPage-tab ul li {
-	list-style-type: none;
-	float: left;
-	width: 220px;
-	height: 100%;
-	text-align: center;
-	line-height: 40px;
-}
+	#myPage-tab ul li {
+		list-style-type: none;
+		float: left;
+		width: 220px;
+		height: 100%;
+		text-align: center;
+		line-height: 40px;
+	}
 
-#heart {
-	margin-left: 40px;
-}
+	.myPage-info{
+		padding-top: 50px;
+	}
 
-#heart, #review {
-	margin-right: 40px;
-}
+	#heart {
+		margin-left: 40px;
+	}
 
-#myPage-tab ul li a {
-	width: 100%;
-	height: 100%;
+	#heart, #review {
+		margin-right: 40px;
+	}
+
+	#myPage-tab ul li a {
+		width: 100%;
+		height: 100%;
+		display: block;
+		text-decoration: none;
+		color: gray;
+		font-size: 20px;
+		cursor: pointer;
+	}
+
+	#myPage-tab ul li a.active {
+		border-radius: 5px 5px 0px 0px;
+		background-color: #F96C85;
+		color: white;
+	}
+
+	#myPage-tab ul li a:hover {
+		border-radius: 5px 5px 0px 0px;
+		background-color: #F96C85;
+		color: white;
+	}
+
+	#myInfo {
+		text-align: center;
+	}
+
+	#myInfo table {
+		margin: auto;
+		margin-top: 50px;
+		margin-bottom: 30px;
+		color: gray;
+		font-size: 18px;
+	}
+
+	#myInfo table td {
+		height: 58px;
+	}
+
+	#myInfo p {
+		display: inline;
+		color: black;
+	}
+
+	#myInfo table span {
+		display: block;
+		/* color: black; */
+		text-align: left;
+		padding-left: 10px;
+	}
+
+	#myInfo input {
+		width: 300px;
+		height: 45px;
+		margin: 5px;
+		border-radius: 5px;
+		border: 1px solid gray;
+		padding-left: 10px;
+	}
+
+	#myInfo input:disabled {
+		background-color: lightgray;
+	}
+
+	/* 배송지 등록 버튼 */
+	#addressBtn {
+		color: white;
+		margin: 0px 20px;
+		float: right;
+		font-size: 16px;
+		width: 150px;
+		height: 50px;
+		background-color: #F96C85;
+		border-radius: 15px;
+		margin: auto;
+		line-height: 50px;
+		cursor: pointer;
+		text-decoration: none;
+		border: none;
+		margin-top: 20px;
+		margin-right: 10px;
+	}
+
+	/* 비밀번호 변경, 회원정보 수정 버튼 */
+	#myInfo button {
+		margin-left: 60px;
+		color: #F96C85;
+		background-color: none;
+		border: none;
+	}
+
+	#leaveBtn {
+		float: right;
+		font-size: 13px;
+	}
+
+	#changePwdTB, #leaveMemTB {
+		margin: auto;
+	}
+
+	#leaveMem .modal-header>h4 {
+		padding-left: 190px;
+		color: red;
+	}
+
+	.btn {
+		background-color: none;
+	}
+
+	#leaveMem .modal-body>span {
+		display: block;
+		text-align: center;
+	}
+
+	.modal-body button {
+		display: block;
+		margin: auto;
+		/* margin-top: 20px; */
+		margin-bottom: 10px;
+	}
+
+	.message {
+		color: red;
+		font-size: 13px;
+		font-weight: bold;
+	}
+
+	/* 리뷰리스트 span */
+	#review-div span {
 	display: block;
-	text-decoration: none;
-	color: gray;
-	font-size: 20px;
-	cursor: pointer;
-}
-
-#myPage-tab ul li a.active {
-	border-radius: 5px 5px 0px 0px;
-	background-color: #F96C85;
-	color: white;
-}
-
-#myPage-tab ul li a:hover {
-	border-radius: 5px 5px 0px 0px;
-	background-color: #F96C85;
-	color: white;
-}
-
-#myInfo {
-	text-align: center;
-}
-
-#myInfo table {
-	margin: auto;
 	margin-top: 50px;
-	margin-bottom: 50px;
-	color: gray;
-	font-size: 18px;
-}
+	margin-right: 30px;
+	text-align: right;
+	font-weight: 600;
+    font-size: 18px;
+    color: gray;
+	}
 
-#myInfo table td {
-	height: 58px;
-}
+	/* 리뷰리스트 */
+	#reviewList{
+		width: 1000px;
+		margin: auto;
+		display: flex;
+		justify-content: center;
+		height: 1300px;
+	}
 
-#myInfo p {
-	display: inline;
-	color: black;
-}
+	#review-div{
+		width: 800px;
+		height: 500px;
+	}
 
-#myInfo table span {
-	display: block;
-	/* color: black; */
-	text-align: left;
-	padding-left: 10px;
-}
+	#myreview{
+		width: 600px;
+		height: 250px;
+		border: 2px solid #F96C85;
+		border-radius: 10px;
+		margin: 50px 100px;
+	}
 
-#myInfo input {
-	width: 300px;
-	height: 45px;
-	margin: 5px;
-	border-radius: 5px;
-	border: 1px solid gray;
-	padding-left: 10px;
-}
+	#myreview1{
+		width: 600px;
+		height: 50px;
+	}
 
-#myInfo input:disabled {
-	background-color: lightgray;
-}
+	#myreview1>div{
+		float: left;
+		height: 50px;
+	}
 
-/* 배송지 등록 버튼 */
-#addressBtn {
-	color: #F96C85;
-	margin: 0px 20px;
-	float: right;
-	font-size: 16px;
-	width: 150px;
-	height: 50px;
-	background-color: lightgray;
-	border-radius: 15px;
-	margin: auto;
-	line-height: 50px;
-	cursor: pointer;
-	text-decoration: none;
-	border: none;
-}
+	/* 병원이름 */
+	#hpName{
+		width: 180px;
+	}
 
-/* 비밀번호 변경, 회원정보 수정 버튼 */
-#myInfo button {
-	margin-left: 60px;
-	color: #F96C85;
-	background-color: none;
-	border: none;
-}
+	#hpName p{
+		margin-top: 25px;
+		margin-left: 15px;
+		font-size: 20px;
+		font-weight: bold;
+		color: rgb(58, 58, 58);
+		
+	}
 
-#leaveBtn {
-	float: right;
-	font-size: 13px;
-}
+	/* 별 이미지 */
+	#hpStar{
+		width: 35px;
+		padding-top: 17px;
+	}
 
-#changePwdTB, #leaveMemTB {
-	margin: auto;
-}
+	/* 별점 */
+	#hpRate{
+		width: 300px;
+	}
 
-#leaveMem .modal-header>h4 {
-	padding-left: 190px;
-	color: red;
-}
+	#hpRate p{
+		margin-top: 25px;
+		font-size: 19px;
+		font-weight: bold;
+		color: rgb(58, 58, 58);
+	}
 
-.btn {
-	background-color: none;
-}
+	/* 하트 */
+	#hpHeart{
+		width: 50px;
+		float: right;
+		padding-top: 17px;
+	}
 
-#leaveMem .modal-body>span {
-	display: block;
-	text-align: center;
-}
+	#starImg, #heartImg{
+		width: 25px;
+		height: 25px;
+		margin-top: 3px;
+	}
 
-.modal-body button {
-	display: block;
-	margin: auto;
-	margin-top: 20px;
-	margin-bottom: 10px;
-}
+	/* 리뷰 큰 div */
+	#myreview2{
+		width: 600px;
+		height: 200px;
+		
+	}
 
-.message {
-	color: red;
-	font-size: 13px;
-	font-weight: bold;
-}
+	#myreview2>div{
+		float: left;
+		
+	}
+
+	/* 리뷰 닉네임, 프로필사진 감싼 div */
+	#rvProfile{
+		width: 100px;
+	}
+
+	#rvProfile>div{
+		width: 100%;
+	}
+
+	#nickName{
+		height: 50px;
+		margin-left: 20px;
+		margin-top: 15px;
+		color: gray;
+	}
+
+	#nickName>p{
+		text-align: center;
+		padding-top: 15px;
+		font-size: 20px;
+		font-weight: bold;
+	}
+	/* 리뷰 프로필 이미지 담긴 div */
+	#profile{
+		height: 100px;
+		margin-left: 20px;
+		padding-left: 2px;
+	}
+
+	/* 리뷰프로필 이미지 */
+	#profileImg{
+		width: 90px;
+		height: 90px;
+	}
+
+	#rvCont{
+		width: 400px;
+		height: 150px;
+		border-radius: 10px;
+		margin-left: 35px;
+		margin-top: 15px;
+		padding-top: 40px;
+		padding-left: 15px;
+		background-color: rgb(242, 242, 242);
+		
+
+	}
+
+	
 </style>
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
 	<div class="main-panel">
-		<div class="content-wrapper">
+		<div class="content-wrapper" style="background-color: white;">
 			<div class="myPage">
+				<h2 align="center" style="color: gray;">마이페이지</h2>
+				<br>
 				<div id="myPage-tab">
 					<ul>
 						<li id="info"><a class="tab active">내정보</a></li>
@@ -186,27 +344,34 @@
 							<table>
 								<tr>
 									<td width="100">아이디</td>
-									<td><input type="text" value="" disabled></td>
+									<td><input type="text" value="user01" disabled></td>
 								</tr>
 								<tr>
 									<td>이&nbsp;&nbsp;&nbsp;름</td>
-									<td><input type="text" name="userName" value=""> <span
+									<td><input type="text" name="userName" value="노정민" disabled> <span
 										id="nameMsg" class="message" style="display: none"></span></td>
 								</tr>
 								<tr>
 									<td>닉네임</td>
-									<td><input type="text" name="nickname" value=""> <span
+									<td><input type="text" name="nickname" value="정밍"> <span
 										id="nicknameMsg" class="message" style="display: none"></span>
 									</td>
 								</tr>
 								<tr>
 									<td>이메일</td>
-									<td><input type="text" value="" disabled></td>
+									<td><input type="text" value="jm@naver.com" disabled></td>
 								</tr>
 								<tr>
 									<td>배송지</td>
-									<td><input type="text" value="서울특별시"
-										style="font-size: 15px;"></td>
+									<td>
+										<input type="text" value="서울특별시 강남대로94길" style="font-size: 15px;">
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>
+										<input type="text" value="71-8 309호" style="font-size: 15px;">
+									</td>
 								</tr>
 								<tr>
 									<td colspan="2"><a href="enrollForm.dv" id="addressBtn">배송지 등록</a></td>
@@ -280,6 +445,7 @@
 						
 					</script>
 
+					<!-- 비밀번호 변경 Modal -->
 					<!-- The Modal -->
 					<div class="modal" id="changePwd">
 						<div class="modal-dialog">
@@ -297,39 +463,43 @@
 										<input type="hidden" name="memNo" value="">
 										<table id="changePwdTB">
 											<tr>
-												<td width="120">현재 비밀번호</td>
-												<td width="210"><input type="password"
-													name="currentPwd"> <span id="currentPwdMsg"
-													class="message" style="display: none"></span></td>
-											</tr>
-											<tr>
-												<td>새 비밀번호</td>
-												<td><input type="password" name="newPwd"> <span
-													id="newPwdMsg" class="message" style="display: none"></span>
+												<td width="160">현재 비밀번호</td>
+												<td width="210">
+													<input type="password" name="currentPwd">
+													
+													<span id="currentPwdMsg" class="message" style="display: none"></span>
 												</td>
 											</tr>
 											<tr>
-												<td>새 비밀번호 확인</td>
-												<td><input type="password" id="newPwdCheck"> <span
-													id="newPwdCheckMsg" class="message" style="display: none"></span>
+												<br><br>
+												<td>변경할 비밀번호</td>
+												<td>
+													<input type="password" name="newPwd">
+													<span id="newPwdMsg" class="message" style="display: none"></span>
+												</td>
+											</tr>
+											<tr>
+												<td>변경할 비밀번호 확인</td>
+												<td><input type="password" id="newPwdCheck"> 
+													<span id="newPwdCheckMsg" class="message" style="display: none"></span>
 												</td>
 											</tr>
 										</table>
-										<button class="btn btn-sm btn-secondary" type="submit"
-											onclick="return modalValidate();">변경</button>
+										<button class="btn btn-warning" type="submit" onclick="return modalValidate();" style="margin-top: 20px;">변경</button>
 									</form>
 								</div>
 
 								<!-- Modal footer -->
 								<div class="modal-footer">
-									<button type="button" class="btn btn-danger"
+									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">Close</button>
 								</div>
 
 							</div>
 						</div>
 					</div>
-
+					
+					<!-- 회원 탈퇴시 보여질 Modal -->
 					<!-- The Modal -->
 					<div class="modal" id="leaveMem">
 						<div class="modal-dialog">
@@ -342,24 +512,28 @@
 								</div>
 
 								<!-- Modal body -->
-								<div class="modal-body">
-									<span style="color: red;">* 탈퇴하고자 한다면, 비밀번호를 입력해주세요.</span>
+								<div class="modal-body" align="center">
+
+									<b>
+										&nbsp;&nbsp;&nbsp;탈퇴 후 복구가 불가능합니다. <br>   
+                                   				정말로 탈퇴 하시겠습니까?
+                   					</b>
+									<br><br>
 									<form action="" method="post">
-										<input type="hidden" name="memNo" value="">
-										<table id="leaveMemTB">
-											<tr>
-												<td width="100">비밀번호</td>
-												<td width="210"><input type="password" name="userPwd">
-												</td>
-											</tr>
-											<button class="btn btn-sm btn-danger" type="submit">탈퇴하기</button>
-										</table>
+										
+										
+										비밀번호 : 
+											&nbsp;&nbsp;&nbsp;
+											<input type="hidden" name="memNo" value="loginUser-userId">
+											<input type="password" name="userPwd">
+											<button class="btn btn-sm btn-danger" type="submit" style="width: 100px; height: 40px; margin-top: 20px;">탈퇴하기</button>
+										
 									</form>
 								</div>
 
 								<!-- Modal footer -->
 								<div class="modal-footer">
-									<button type="button" class="btn btn-danger"
+									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">Close</button>
 								</div>
 
@@ -375,8 +549,49 @@
 
 					<!-- 내가 쓴 리뷰 -->
 					<div id="myReview" class="info" style="display: none;">
-						<span>리뷰리스트</span>
-						<div></div>
+						<div id="reviewList">
+							<div id="review-div">
+								<span>리뷰(총 23개)</span>
+								<div id="myreview">
+									<div id="myreview1">
+										<div id="hpName"><p>하늘피부과</p></div>
+										<div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
+										<div id="hpRate"><p>3.5</p></div>
+										<div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-black2.png" id="heartImg"></div>
+									</div>
+									<div id="myreview2">
+										<div id="rvProfile">
+											<div id="nickName"><p>정밍</p></div>
+											<div id="profile"><img src="resources/reviewImg/profile/profile1.png" id="profileImg"></div>
+										</div>
+										<div id="rvCont">
+											<p> 이 피부과 진짜 추천이에여!! <br>
+												완전 물광피부 됐어요 친구도 추천해줄라구요~
+											</p>
+										</div>
+									</div>
+								</div>
+								<div id="myreview">
+									<div id="myreview1">
+										<div id="hpName"><p>하얀이비인후과</p></div>
+										<div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
+										<div id="hpRate"><p>4</p></div>
+										<div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-black2.png" id="heartImg"></div>
+									</div>
+									<div id="myreview2">
+										<div id="rvProfile">
+											<div id="nickName"><p>정밍</p></div>
+											<div id="profile"><img src="resources/reviewImg/profile/profile1.png" id="profileImg"></div>
+										</div>
+										<div id="rvCont">
+											<p> 비염 때문에 이비인후과 자주가는데
+												약도 잘들고 의사쌤 완전 친절하세요!!!!
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 
 					<!-- 택배 목록 -->
