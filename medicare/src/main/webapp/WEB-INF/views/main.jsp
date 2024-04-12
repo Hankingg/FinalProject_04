@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<<<<<<< HEAD
 <style>
 .content-wrapper{
   /* border: 1px solid black; */
@@ -311,10 +310,6 @@
 
 
 </style>
-=======
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
->>>>>>> jm
 </head>
 <body>
 	<jsp:include page="common/header.jsp"/>
