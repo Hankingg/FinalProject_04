@@ -105,39 +105,60 @@
   <!-- endinject -->
   
   <script>
-        // 카카오 SDK 초기화
-        Kakao.init('3f5835319f7ece0664694d3fcb94d958);
+    // 카카오 SDK 초기화
+    Kakao.init('2e9ad81f2d94fa28edbb4d9ebe990822');
 
-        // 카카오 로그인 버튼 클릭 시 호출되는 함수
-        document.getElementById('kakao-login-btn').addEventListener('click', function() {
-            // 카카오 로그인 창 열기
-            Kakao.Auth.login({
-                success: function(authObj) {
-                    // 로그인 성공 시 사용자 정보 가져오기
-                    Kakao.API.request({
-                        url: '/v2/user/me',
-                        success: function(response) {
-                            var kakaoId = response.id; // 카카오 사용자 고유 ID
-                            var kakaoNickname = response.properties.nickname; // 카카오 닉네임
-                            var kakaoProfileImage = response.properties.profile_image; // 프로필 이미지 URL
-                            
-                            // 로그인 성공 후 처리할 작업 수행
-                            // 예를 들어, 서버에 사용자 정보 전송 등의 작업을 수행할 수 있습니다.
-                            console.log('Kakao ID:', kakaoId);
-                            console.log('Nickname:', kakaoNickname);
-                            console.log('Profile Image:', kakaoProfileImage);
-                        },
-                        fail: function(error) {
-                            console.error('실패1:', error);
-                        }
-                    });
-                },
-                fail: function(error) {
-                    console.error('실패:', error);
-                }
-            });
+    // 카카오 로그인 버튼 클릭 시 호출되는 함수
+    document.getElementById('kakao-login-btn').addEventListener('click', function () {
+        // 카카오 로그인 창 열기
+        Kakao.Auth.login({
+            success: function (response) {
+                // 로그인 성공 시 사용자 정보 가져오기
+                Kakao.API.request({
+                    url: '/v2/user/me',
+                    success: function (response) {
+                        let id = response.id; // 카카오 사용자 고유 ID
+                        let nickname = response.properties.nickname; // 카카오 닉네임
+                        let email = response.kakao_account.email;
+
+                        alert("성공적으로 로그인이 완료 되었습니다.")
+
+                        // 로그인 정보를 서버로 전송
+                        $.ajax({
+                            url: 'kakaoLogin.me',
+                            type: 'POST',
+                            data: {
+                                memId: id,
+                                memName: nickname,
+                                email: email
+                            },
+                            success: function (data) {
+                            	console.log(data)
+                                if (data === 'success') {
+                                    // 로그인 성공 시 메인 페이지로 이동
+                                    
+                                    window.location.replace("${pageContext.request.contextPath}/");
+                                } else {
+                                    alert('로그인 실패');
+                                }
+                            },
+                            error: function (data) {
+                                alert('서버 오류');
+                            }
+                        });
+
+                    },
+                    fail: function (error) {
+                        alert(JSON.stringify(error))
+                    }
+                });
+            },
+            fail: function (error) {
+                alert(JSON.stringify(error))
+            }
         });
-   </script>
+    });
+</script>
   
 </body>
 

@@ -32,9 +32,9 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Member kakaoLogin(Member m) {// TODO Auto-generated method stub
 		
-		Member kakaoUser = mDao.kakaoLogin(sqlSession, m);
+		Member loginUser = mDao.kakaoLogin(sqlSession, m);
 		
-		return kakaoUser;
+		return loginUser;
 		
 	}
 	
