@@ -40,6 +40,8 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="${ pageContext.request.contextPath }/resources/images/favicon.png" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <!-- icon CDN -->
+  <script src="https://use.fontawesome.com/releases/v6.5.0/js/all.js"></script>
 </head>
 <body>
 	 <div class="container-scroller">
@@ -124,7 +126,8 @@
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="${ pageContext.request.contextPath }/resources/images/faces/face28.jpg" alt="profile"/>
+              <!-- <img src="${ pageContext.request.contextPath }/resources/images/faces/face28.jpg" alt="profile"/> -->
+              <i class="fa-solid fa-circle-user" style="width: 30px; height: 30px; margin-top: 10px;"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
@@ -323,7 +326,7 @@
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="${ pageContext.request.contextPath }/index.jsp">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Dashboard</span>
@@ -343,46 +346,67 @@
               </ul>
             </div>
           </li>
+          -->      
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-              <i class="icon-columns menu-icon"></i>
-              <span class="menu-title">Form elements</span>
+              <i class="fa-solid fa-truck-medical"></i> &nbsp;&nbsp;&nbsp;&nbsp;
+              <span class="menu-title">응급실</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.request.contextPath }/resources/pages/forms/basic_elements.html">Basic Elements</a></li>
+                <li class="nav-item"><a class="nav-link" href="">가용병상조회</a></li>
               </ul>
             </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-              <i class="icon-bar-graph menu-icon"></i>
-              <span class="menu-title">Charts</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="charts">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="${ pageContext.request.contextPath }/resources/pages/charts/chartjs.html">ChartJs</a></li>
-              </ul>
-            </div>
-          </li>
+
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-              <i class="icon-grid-2 menu-icon"></i>
-              <span class="menu-title">Tables</span>
+              <i class="fa-solid fa-hospital"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+              <span class="menu-title">병원</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="${ pageContext.request.contextPath }/resources/pages/tables/basic-table.html">Basic table</a></li>
+                <li class="nav-item"> <a class="nav-link" href="">병원 목록</a></li>
+                <li class="nav-item"> <a class="nav-link" href="">비대면 진료</a></li>
+                <li class="nav-item"> <a class="nav-link" href="">예약하기</a></li>
+                <li class="nav-item"> <a class="nav-link" href="">접수하기</a></li>
               </ul>
             </div>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+              <i class="fa-solid fa-capsules"></i> &nbsp;&nbsp;&nbsp;&nbsp;
+              <span class="menu-title">약국</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="charts">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="">약국 목록</a></li>
+                <li class="nav-item"> <a class="nav-link" href="">의약품 목록</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <i class="fa-solid fa-mortar-pestle"></i> &nbsp;&nbsp;&nbsp;&nbsp;
+              <span class="menu-title">한의원</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="selectList.kh">한의원 목록</a></li>
+              </ul>
+            </div>
+          </li>
+
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-              <i class="icon-head menu-icon"></i>
-              <span class="menu-title">myPage</span>
+              <i class="fa-solid fa-user"></i> &nbsp;&nbsp;&nbsp;&nbsp;
+              <span class="menu-title">마이페이지</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="icons">
@@ -391,19 +415,7 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="icon-head menu-icon"></i>
-              <span class="menu-title">한의원</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="selectList.kh"> 한의원 목록</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
               <i class="icon-ban menu-icon"></i>
               <span class="menu-title">Error pages</span>
@@ -421,7 +433,7 @@
               <i class="icon-paper menu-icon"></i>
               <span class="menu-title">Documentation</span>
             </a>
-          </li>
+          </li> -->
           
         </ul>
       </nav>

@@ -19699,7 +19699,7 @@ code {
 
 /* Footer */
 .footer {
-  background: #F5F7FF;
+  
   padding: 30px 2.45rem;
   transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
@@ -19994,7 +19994,7 @@ code {
   padding-top: 16px;
   padding-bottom: 16px;
   z-index: 10;
-  background: #F5F7FF;
+  
 }
 
 .doc-content {
@@ -28449,7 +28449,7 @@ div.tagsinput span.tag a {
 }
 
 .content-wrapper {
-  background: #F5F7FF;
+  background: white;
   padding: 2.375rem 2.375rem;
   width: 100%;
   -webkit-flex-grow: 1;
