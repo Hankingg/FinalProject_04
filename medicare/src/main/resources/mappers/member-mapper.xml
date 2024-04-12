@@ -38,7 +38,7 @@
 	    and MEM_ID = #{ memId }  
 	</select>
 	
-	<select id="kakaoLogin">
+	<select id="kakaoLogin" resultMap="memberResultSet">
 		select	
 			  mem_no
 	        , mem_id
