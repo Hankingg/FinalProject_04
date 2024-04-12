@@ -308,6 +308,59 @@
 .inner5s_7{background-color: rgb(241, 227, 255);}
 .inner5s_8{background-color: rgb(239, 255, 222);}
 
+/* -------------- 효과 css ----------------*/
+.inner1s, .inner2s, .weight, .inner5s{overflow: hidden;}
+
+.inner1s:hover{
+  background-color: lightgrey;
+  cursor: pointer;
+}
+.inner1s img{
+  transition: all 0.2s linear;
+}
+.inner1s:hover img{
+  transform: scale(1.2);
+}
+
+.inner2s:hover{
+  background-color: rgb(233, 231, 231);
+  cursor: pointer;
+}
+.inner2s img{
+  transition: all 0.2s linear;
+}
+.inner2s:hover img{
+  transform: scale(1.1);
+}
+
+.membership_btn{
+  transition: all 0.2s linear;
+}
+.membership_btn:hover{
+  background-color: rgb(240, 130, 120);
+  transform: scale(1.05);
+}
+
+.weight:hover{
+  cursor: pointer;
+  background-color: rgb(233, 231, 231);
+}
+.weight img{
+  transition: all 0.2s linear;
+}
+.weight:hover img{
+  transform: scale(1.1);
+}
+
+.inner5s img{
+  transition: all 0.2s linear;
+}
+.inner5s:hover{
+  cursor: pointer;
+}
+.inner5s:hover img{
+  transform: scale(1.2);
+}
 
 </style>
 </head>
@@ -317,7 +370,7 @@
         <div class="content-wrapper" style="background-color: white;">
         <div class="outer">
           <div class="inner1">
-            <div class="inner1s searchAmbulance">
+            <div class="inner1s">
               <div class="searchAmbulance_1">
                 <p>응급실</p> 
                 <p>바로가기</p> 
