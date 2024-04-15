@@ -38,7 +38,6 @@
     border: 1px solid blue;
   }
 
-
   .mName {
     font-size: 30px;
     font-weight: 600;
