@@ -22,7 +22,7 @@ public class MemberDao {
 	
 	public Member kakaoLogin(SqlSession sqlSession, Member m) {
 		
-		return sqlSession.selectOne("memberMapper.kakaoLgin", m);
+		return sqlSession.selectOne("memberMapper.kakaoLogin", m);
 		
 	} // kakaoLogin
 	

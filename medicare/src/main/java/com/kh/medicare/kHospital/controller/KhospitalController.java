@@ -7,7 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class KhospitalController {
 
 	@RequestMapping("selectList.kh")
-	public String myPage() {
+	public String selectKhospitalList() {
 		return "kHospital/kHospitalListView";
+	}
+	
+	@RequestMapping("detail.kh")
+	public String selectKhospitalDetail() {
+		return "kHospital/kHospitalDetailView";
 	}
 }
