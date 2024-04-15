@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=gxxbcfildl"></script>
+
   <style>
     .navbar-brand{
       cursor: pointer;
@@ -31,6 +33,19 @@
     	color:gray;
     }
 
+	/* 탑버튼 */
+	  #topBtn{
+	        position: fixed;
+	        left: 95%;
+	        top: 90%;
+	        z-index: 999;
+	  }
+	
+	  #topBtnImg{
+	    width: 45px;
+	    height: 45px;
+	  }
+  
   </style>
  <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -179,7 +194,7 @@
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_settings-panel.html -->
       <div class="theme-setting-wrapper">
-        <div id="settings-trigger"><i class="ti-settings"></i></div>
+        
         <div id="theme-settings" class="settings-panel">
           <i class="settings-close ti-close"></i>
           <p class="settings-heading">SIDEBAR SKINS</p>
