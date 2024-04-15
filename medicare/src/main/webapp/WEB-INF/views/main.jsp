@@ -397,8 +397,8 @@
             </div>
             <div class="inner1s">
               <div class="telemedicine_1">
-                <p>비대면</p> 
-                <p>진료</p>
+               <a href="webrtc.go" style="text-decoration: none; color: black;"><p>비대면</p> 
+                <p>진료</p></a>
               </div>
               <div class="telemedicine_2">
                 <img style="height: 130px; width: 130px;" src="resources/mainIcon/doctor.png">
