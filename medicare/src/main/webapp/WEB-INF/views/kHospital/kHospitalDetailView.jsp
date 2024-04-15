@@ -9,20 +9,13 @@
 </head>
 <style>
 
-  .main-panel{
-    border: 1px solid green;
-  }
-  .content-wrapper{
-    border: 1px solid green;
-  }
   .outer{
     width: 1200px;
     height: auto;
-    border: 1px solid red;
+    border: 2px solid #F96C85;
+    border-radius: 10px;
     padding-left: 50px;
-  }
-  .outer div{
-    border: 1px solid blue;
+    padding-top: 30px;
   }
 
   /* 병원 이름 */
@@ -89,11 +82,12 @@
   .infoStatus {
     font-size: 20px;
     border-bottom: 3px solid lightgray;
+    padding-bottom: 20px;
   }
 
+  /* 진료시간 디테일 */
   .infoDetail {
     margin-top: 20px;
-    margin-bottom: 20px;
     margin-left: 20px;
     font-size: 16px;
     color: rgb(58, 58, 58);
@@ -102,7 +96,19 @@
   .infoMap {
     font-size: 20px;
     border-bottom: 3px solid lightgray;
-    
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .mapDetail{
+    margin-top: 20px;
+    padding-left: 20px;
+  }
+
+  /* 전화번호 */
+  .infoPhone{
+    font-size: 20px;
+    border-bottom: 3px solid lightgray;
   }
 
   .phoneDetail button{
@@ -110,7 +116,9 @@
   }
   
   .phoneDetail{
+    margin-top: 20px;
     padding-left: 20px;
+    padding-bottom: 30px;
   }
 
   .hDetail2 button {
@@ -140,17 +148,6 @@
     
   }
 
-  #recentView>div{
-    position: sticky;
-    border: 1px solid gray;
-    top: 0;
-  }
-
-  #recentSticky{
-    width: 300px;
-    height: 1000px;
-    
-  }
   .content-wrapper>div{
     float: left;
   }
@@ -173,7 +170,7 @@
 		float: left;
 		height: 50px;
 	}
-
+  
   /* 리뷰리스트 span */
 	#review-div span {
     display: block;
@@ -182,9 +179,36 @@
     margin-left: 150px;
     text-align: left;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 20px;
     color: gray;
 	}
+
+  /* 리뷰더보기 div */
+  #moreReview{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+
+  /* 리뷰더보기버튼 */
+  #moreReviewBtn{
+    width: 500px;
+    height: 50px;
+    border-radius: 10px;
+    color: #F96C85;
+    background-color: white;
+    border: 1px solid #F96C85;
+    font-size: 18px;
+    font-weight: bold;
+    
+  }
+
+  /* 리뷰더보기버튼 아이콘 */
+  #moreBtnImg{
+    width: 30px;
+    height: 30px;
+    margin: 0px 10px;
+  }
 
   /* 병원이름 */
 	#hpName{
@@ -224,6 +248,7 @@
 		width: 50px;
 		float: right;
 		padding-top: 17px;
+    cursor: pointer;
 	}
 
 	#starImg, #heartImg{
@@ -317,12 +342,33 @@
   #graph{
     width: 700px;
     height: 300px;
-    border: 1px solid red;
+    border: 2px solid gray;
     border-radius: 10px;
     margin-left: 250px;
     margin-top: 50px;
-
   }
+
+  #graphImg{
+    width: 90%;
+    height: 90%;
+  }
+
+  /* 탑버튼 */
+  #topBtn{
+        position: fixed;
+        left: 93%;
+        top: 90%;
+        z-index: 999;
+    }
+
+  #topBtnImg{
+    width: 50px;
+    height: 50px;
+  }
+
+  
+
+
 </style>
 <body>
    <jsp:include page="../common/header.jsp"/>
@@ -330,6 +376,18 @@
         <div class="content-wrapper">
             <br><br><br><br>
             <div class="outer">
+              <div id="topBtn">
+                <a href="#"> <svg xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" width="45" height="45"
+                    viewBox="0 0 32 32" fill="rgb(230, 126, 34)"
+                    data-svg-content="true">
+                                  <g>
+                                    <path
+                      d="M 17,2C 8.716,2, 2,8.716, 2,17S 8.716,32, 17,32S 32,25.284, 32,17S 25.284,2, 17,2z M 23.708,15.708 c-0.39,0.39-1.024,0.39-1.414,0L 18,11.414L 18,27 C 18,27.552, 17.552,28, 17,28S 16,27.552, 16,27L 16,11.414 L 11.708,15.708 c-0.39,0.39-1.024,0.39-1.414,0c-0.39-0.39-0.39-1.024,0-1.414l 6-6C 16.296,8.29, 16.298,8.29, 16.3,8.288 c 0.090-0.088, 0.198-0.162, 0.316-0.21c 0.244-0.102, 0.52-0.102, 0.764,0C 17.504,8.128, 17.614,8.2, 17.708,8.292l 6,6 C 24.098,14.684, 24.098,15.316, 23.708,15.708z"></path>
+                                  </g>
+                                </svg>
+                </a>
+              </div>
                 <div class="mName">          
                   오 이비인후과
                 </div>
@@ -348,7 +406,6 @@
                 <br><br><br>
                 <div class="mInfo">
                   <button>병원정보</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <button>진료정보</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <button>리뷰</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <button>접수</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <button>예약</button>
@@ -370,10 +427,11 @@
                 <br>
                 <div class="infoMap">
                   <strong>위치</strong>
-                  <br><br>
-                  &nbsp;&nbsp;서울특별시 강남구 강남대로 470
-                  <button id="addressCopy">주소복사</button>
-                  <br><br>
+                  <div class="mapDetail">
+                    서울특별시 강남구 강남대로 470
+                    <button id="addressCopy">주소복사</button>
+                  </div>
+                </div>
                   <br><br>
                   <div class="infoPhone">
                     <strong>전화번호</strong>
@@ -382,19 +440,15 @@
                       <button id="phoneCopy">전화번호 복사</button>
                     </div>
                   </div>
-                  <br><br>
-                </div>
-                  <br><br>
                   <!-- 리뷰 -->
                   <div id="myReview" class="info">
                     <div id="reviewList">
                       <div id="review-div">
-                        <span>리뷰(총 23개)</span>
+                        <span>리뷰 ( 총 23개 )</span>
                         <div id="graph">
-
+                            <img id="graphImg" src="resources/reviewImg/4.png">
                         </div>
                         <div id="myreview">
-                          
                           <div id="myreview1">
                             <div id="hpName"><p>하늘피부과</p></div>
                             <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
@@ -432,23 +486,66 @@
                             </div>
                           </div>
                         </div>
+                        <div id="myreview">
+                          <div id="myreview1">
+                            <div id="hpName"><p>하늘피부과</p></div>
+                            <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
+                            <div id="hpRate"><p>3.5</p></div>
+                            <div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-black2.png" id="heartImg"></div>
+                          </div>
+                          <div id="myreview2">
+                            <div id="rvProfile">
+                              <div id="nickName"><p>정밍</p></div>
+                              <div id="profile"><img src="resources/reviewImg/profile/profile1.png" id="profileImg"></div>
+                            </div>
+                            <div id="rvCont">
+                              <p> 이 피부과 진짜 추천이에여!! <br>
+                                완전 물광피부 됐어요 친구도 추천해줄라구요~
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="myreview">
+                          <div id="myreview1">
+                            <div id="hpName"><p>하얀이비인후과</p></div>
+                            <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
+                            <div id="hpRate"><p>4</p></div>
+                            <div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-full.png" id="heartImg"></div>
+                          </div>
+                          <div id="myreview2">
+                            <div id="rvProfile">
+                              <div id="nickName"><p>정밍</p></div>
+                              <div id="profile"><img src="resources/reviewImg/profile/profile1.png" id="profileImg"></div>
+                            </div>
+                            <div id="rvCont">
+                              <p> 비염 때문에 이비인후과 자주가는데
+                                약도 잘들고 의사쌤 완전 친절하세요!!!!
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="moreReview">
+                          <!-- <button id="moreReviewBtn"><img id="moreBtnImg" src="resources/mainIcon/menu1.png">리뷰 더보기</button> -->
+                          <button id="moreReviewBtn"><img id="moreBtnImg" src="resources/mainIcon/menu2.png">리뷰 더보기</button>
+                          <!-- <button id="moreReviewBtn"><img id="moreBtnImg" src="resources/mainIcon/menu3.png">리뷰 더보기</button> -->
+                          
+                        </div>
                       </div>
                     </div>
                   </div>
                   
             </div>    
-          
+            <script>
+                $('a').click(function(event){
+                  event.preventDefault(); 
+                });
+            </script>
             <div id="recentView">
-              <div id="recentSticky">
-                  <p>최근 본 의료기관</p>
-
-                </div>
+              <p>최근 본 의료기관</p>
             </div>
         </div>
     
         <jsp:include page="../common/footer.jsp"/>
-     
 
-       
 </body>
 </html>
