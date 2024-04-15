@@ -248,6 +248,34 @@
 	          <artifactId>gson</artifactId>
 	          <version>2.8.5</version>
 	      </dependency>
+	      <!-- Spring Boot Web Starter -->
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-web</artifactId>
+	        <version>2.6.4</version>
+	    </dependency>
+	    
+	    <!-- Spring Boot Websocket Starter -->
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-websocket</artifactId>
+	        <version>2.6.4</version>
+	    </dependency>
+		     <!-- Spring Boot Devtools -->
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-devtools</artifactId>
+	        <version>2.6.4</version>
+	        <scope>runtime</scope>
+	    </dependency>
+	    
+	    <!-- Spring Boot Test Starter -->
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-test</artifactId>
+	        <version>2.6.4</version>
+	        <scope>test</scope>
+	    </dependency>
                   
    </dependencies>
     <build>
