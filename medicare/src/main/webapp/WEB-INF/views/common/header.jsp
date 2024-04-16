@@ -45,6 +45,17 @@
 	    width: 45px;
 	    height: 45px;
 	  }
+
+    /* 폰트!!!!!!!!!!! */
+    @font-face {
+      font-family: 'LINESeedKR-Bd';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+    }
+    * {
+    font-family: 'LINESeedKR-Bd';
+    }
   
   </style>
  <!-- Required meta tags -->
@@ -68,6 +79,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <!-- icon CDN -->
   <script src="https://use.fontawesome.com/releases/v6.5.0/js/all.js"></script>
+  
 </head>
 <body>
 	 <div class="container-scroller">

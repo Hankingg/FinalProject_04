@@ -173,74 +173,76 @@
 
 	.selectBox * { box-sizing: border-box;}
 	.selectBox {
-	position: relative;
-	width: 150px;
-	height: 35px;
-	border-radius: 4px;
-	border: 2px solid lightcoral;
-	background: url('https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png') calc(100% - 7px) center no-repeat;
-	background-size: 20px;
-	cursor: pointer;
+		position: relative;
+		width: 150px;
+		height: 35px;
+		border-radius: 4px;
+		border: 2px solid lightcoral;
+		/* background: url('https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png') calc(100% - 7px) center no-repeat; */
+		background-size: 20px;
+		cursor: pointer;
 	}
 
 	.selectBox:after {
-	content: '';
-	display: block; 
-	width: 2px;
-	height: 100%; 
-	position: absolute; 
-	top: 0; 
-	right: 35px;
-	background: lightcoral;
+		content: '';
+		display: block; 
+		width: 2px;
+		height: 100%; 
+		position: absolute; 
+		top: 0; 
+		right: 35px;
+		background: lightcoral;
 	}
 
 	.selectBox .label {
-	display: flex;
-	align-items: center;
-	width: inherit;
-	height: inherit;
-	border: 0 none;
-	outline: 0 none;
-	padding-left: 15px;
-	background: transparent;
-	cursor: pointer;
+		display: flex;
+		align-items: center;
+		width: inherit;
+		height: inherit;
+		border: 0 none;
+		outline: 0 none;
+		padding-left: 15px;
+		background: transparent;
+		cursor: pointer;
 	}
 
 	.selectBox .optionList {
-	position: absolute; 
-	top: 28px;
-	left: 0;
-	width: 100%;
-	background: lightcoral;
-	color: #fff;
-	list-style-type: none;
-	padding: 0;
-	border-radius: 6px;
-	overflow: hidden;
-	max-height: 0;
-	transition: .3s ease-in;
+		position: absolute; 
+		top: 28px;
+		left: 0;
+		width: 100%;
+		background: lightcoral;
+		color: #fff;
+		list-style-type: none;
+		padding: 0;
+		border-radius: 6px;
+		overflow: hidden;
+		max-height: 0;
+		transition: .3s ease-in;
 	}
 
 	.selectBox.active .optionList {
-	max-height: 1000px;
+		max-height: 1000px;
 	}
 
 	.selectBox .optionItem {
-	border-bottom: 1px dashed rgb(170, 72, 72);
-	padding: 5px 15px 5px;
-	transition: .1s;
+		border-bottom: 1px dashed rgb(170, 72, 72);
+		padding: 5px 15px 5px;
+		transition: .1s;
 	}
 
 	.selectBox .optionItem:hover {
-	background: rgb(175, 93, 93);
+		background: rgb(175, 93, 93);
 	}
 
 	.selectBox .optionItem:last-child {
-	border-bottom: 0 none;
+		border-bottom: 0 none;
 	}
 
 	.optionList{
 		margin-top: 5px;
+		position: relative;
+		z-index: 1;
 	}
 
 	/* 스크롤 커스텀 */
@@ -300,7 +302,7 @@
 					<div class="wrap_3">
 						<div id="searchBox">
 							<div>
-								<input type="text" name="QN" id="QN">
+								<input type="text" name="QN" id="QN" placeholder="약국 이름으로 검색해보세요.">
 							</div>
 							<div class="btnBox">
 								<input type="button" value="검색" id="btn">
@@ -309,7 +311,7 @@
 					</div>
 				</div>
 				<div id="map" >
-					지도 들어갈 자리
+					
 				</div>
 				<br><br><br>
 				<div class="listView"><p>약국목록</p></div>
@@ -382,6 +384,40 @@
 		} else {
 			label.parentNode.classList.add('active');
 		}
+		});
+
+		// 지도 api 스크립트
+		naver.maps.Service.geocode({
+			query: "경기도 수원시 장안구 정자동 945"
+		}, function(status, response) {
+			if (status !== naver.maps.Service.Status.OK) {
+				return alert('주소를 지리적 좌표로 변환하는 중 오류가 발생했습니다.');
+			}
+
+			var result = response.v2, // 검색 결과의 컨테이너
+				items = result.addresses; // 검색 결과의 배열
+
+			var position = new naver.maps.LatLng(items[0].y, items[0].x);
+
+			// 지도 생성
+			var map = new naver.maps.Map('map', {
+				center: position,
+				zoom: 18
+			});
+
+			// 마커 위치
+			var markerOptions = {
+				position: position,
+				map: map,
+				icon: {
+					url: 'resources/logo/logo-mini.png',
+					scaledSize: new naver.maps.Size(45, 45), // 아이콘 사이즈 조정
+					origin: new naver.maps.Point(0, 0),
+					anchor: new naver.maps.Point(11, 35)
+				}
+			};
+			
+			var marker = new naver.maps.Marker(markerOptions);
 		});
 
 	</script>
