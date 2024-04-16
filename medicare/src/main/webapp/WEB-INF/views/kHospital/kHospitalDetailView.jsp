@@ -428,6 +428,7 @@
     margin-bottom: 50px;
   }
 
+
 </style>
 </head>
 
@@ -447,12 +448,12 @@
                 </div>
                 <br>
                 <div class="distance">
-                  <p>현 위치와의 거리 : 885m</p>
+                  <p>885m | 이비인후과 </p>
                 </div>   
                 <div id="map">
                   
                 </div>
-                
+               
                 <script>
 				  
                   naver.maps.Service.geocode({
@@ -503,7 +504,7 @@
                 <div class="infoStatus">
                   <strong>진료시간</strong>
                   <div class="infoDetail">
-                
+                      
                   </div>
                 </div>
                 
@@ -627,64 +628,65 @@
             <script>
 
                 $(function(){
-                	pharmacyInfo();
-                })
-
-
-
-                // 상세정보 ajax 기능 시작!!!
-                function pharmacyInfo(){
-                	var hpid = "${hpid}";
-                
+                	// 상세정보 조회 ajax 시작
                 	$.ajax({
-                		url:"selectDetailInfo.ph",
-                		data:{hpid:hpid},
+                		url:"selectDetailInfo.kh",
+                		data:{hpid:"${hpid}"},
                 		success:function(data){
-
-                      let name = "";
+                			console.log(data);
+                			
+                			let name = "";
                       let phone = "";
                       let time = "";
                       let todayTime = "";
                       let address = "";
                       let onOff = "";
-
+                          
                       var now = new Date();
                       var currentHour = now.getHours();
                       var currentMinute = now.getMinutes();
                       var currentTime = currentHour * 100 + currentMinute; // 현재시간!!
-                    
-                			$(data).find("item").each(function(i, item){
+
+                      $(data).find("item").each(function(i, item){
                         name += $(item).find("dutyName").text()
                         phone += $(item).find("dutyTel1").text()
                         address += $(item).find("dutyAddr").text()
-
-                        // 진료시간
+                        
+                        
+                        // 진료시간에 : 넣기 
                         function formatTime(time) {
                             return time.substring(0, 2) + " : " + time.substring(2);
                         }
+
+                        // 휴진은 빨간색으로
                         function formatClosed(day) {
                             return "<span style='color: red;'>" + day + " 휴진</span><br>";
                         }
+
                         if($(item).find("dutyTime1s").text() != ""){
                             time += "월요일 " + formatTime($(item).find("dutyTime1s").text()) + " ~ " + formatTime($(item).find("dutyTime1c").text()) + "<br>";
                         }else{
                             time += formatClosed("월요일");
                         }
+
                         if($(item).find("dutyTime2s").text() != ""){
                             time += "화요일 " + formatTime($(item).find("dutyTime2s").text()) + " ~ " + formatTime($(item).find("dutyTime2c").text()) + "<br>";
                         }else{
                             time += formatClosed("화요일");
                         }
+
                         if($(item).find("dutyTime3s").text() != ""){
                             time += "수요일 " + formatTime($(item).find("dutyTime3s").text()) + " ~ " + formatTime($(item).find("dutyTime3c").text()) + "<br>";
                         }else{
                             time += formatClosed("수요일");
                         }
+
                         if($(item).find("dutyTime4s").text() != ""){
                             time += "목요일 " + formatTime($(item).find("dutyTime4s").text()) + " ~ " + formatTime($(item).find("dutyTime4c").text()) + "<br>";
                         }else{
                             time += formatClosed("목요일");
                         }
+
                         if($(item).find("dutyTime5s").text() != ""){
                             time += "금요일 " + formatTime($(item).find("dutyTime5s").text()) + " ~ " + formatTime($(item).find("dutyTime5c").text()) + "<br>";
                         }else{
@@ -696,17 +698,19 @@
                         }else{
                             time += formatClosed("토요일");
                         }
+
                         if($(item).find("dutyTime7s").text() != ""){
                             time += "일요일 " + formatTime($(item).find("dutyTime7s").text()) + " ~ " + formatTime($(item).find("dutyTime7c").text()) + "<br>";
                         }else{
                             time += formatClosed("일요일");
                         }
+
                         if($(item).find("dutyTime8s").text() != ""){
                             time += "공휴일 " + formatTime($(item).find("dutyTime8s").text()) + " ~ " + formatTime($(item).find("dutyTime8c").text());
                         }else{
                             time += formatClosed("공휴일");
                         }
-                        
+
                         // 오늘 진료시간
                         switch(new Date().getDay()){
                             case 0 : 
@@ -801,28 +805,26 @@
                                 onOff += "🔴 영업종료";
                             }
                         }
-                         
+
+	                              
                       })
-
-                      $(".mName").text(name);
-                      $(".phoneDetail span").text(phone);
-                      $(".mapDetail span").text(address);
-                      $(".infoDetail").html(time);
-                      $(".diagnosisTime").text(todayTime);
-                      $(".diagnosisStatus").text(onOff);
-
-
-                		},
-                		error:function(){
-                			
+                               
+                        $(".mName").text(name);
+                        $(".phoneDetail span").text(phone);
+                        $(".mapDetail span").text(address);
+                        $(".infoDetail").html(time);
+                        $(".diagnosisTime").html(todayTime);
+                        $(".diagnosisStatus").text(onOff);
+                               
+                		}, error:function(){
+                			console.log("상세정보 조회 ajax 통신 실패");
                 		}
-                		
                 	})
-                }
-                // 상세정보 ajax 기능 끝!!!
-                
-                // 주소 복사
-                $('#addressCopy').click(function() {
+                  // 상세정보 ajax 끝
+
+
+                  // 주소 복사
+                  $('#addressCopy').click(function() {
                     var address = $('.mapDetail span').text();
                     var tempInput = $('<input>');
                     $('body').append(tempInput);
@@ -842,9 +844,10 @@
                     tempInput.remove();
                     alertify.alert('한의원 전화번호 복사', '전화번호가 복사되었습니다.');
                  });
-                
-                
-                
+                          
+                	
+                	
+                	
                   // 탭 클릭시 해당 div로 스크롤 이동
                   $("#scrollInfo").on('click', function(){
                     event.preventDefault(); // 기본 동작 방지
@@ -882,7 +885,7 @@
                     targetDiv.scrollIntoView({ behavior: 'smooth' });
                   });
 
-                
+                })
 
                 
             </script>
