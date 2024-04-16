@@ -34,6 +34,7 @@ public class KhospitalController {
 		String url = "https://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire";
 		url += "?serviceKey=" + serviceKey;
 		url += "&Q0=" + URLEncoder.encode("서울특별시", "UTF-8");
+		url += "&Q1=" + URLEncoder.encode(location, "UTF-8");
 		url += "&numOfRows=20";
 		
 		URL requestUrl = new URL(url);
