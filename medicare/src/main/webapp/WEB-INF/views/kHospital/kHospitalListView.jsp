@@ -19,17 +19,13 @@
       margin-left: 100px;
    }
    
-   .outer div{
-      /* border: 1px solid red; */
-   }
-   
    #result{
       z-index: 30; 
       height: 800px; 
       overflow: auto; 
       width: 1000px;
       margin:auto;
-      border-top: 1px solid gray;
+      border-top: 2px solid gray;
       padding-top: 50px;
    }
 
@@ -105,13 +101,15 @@
 
     /* 여기부터 검색 결과창 관련 css */
    .hos_wrap {
-      margin-top: 10px;
+      margin-top: 20px;
       display: flex;
       border-radius: 10px;
       box-sizing: border-box;
-      border: 1px solid black;
+      border: 2px solid gray;
       width: 800px;
-      height: 150px;
+      height: 200px;
+      padding-top: 30px;
+	  cursor: pointer;
    }
    .hos_wrap > div {
       height: 100%;
@@ -128,18 +126,20 @@
    }
    .hos1_1 {
       height: 20%;
+	  margin-bottom: 10px;
+
    }
    .hos1_1 > div {
       display: inline-block;
       margin-left: 30px;
-      margin-top: 5px;
-      color: green;
    }
    .hos1_2 {
       height: 30%;
+	  margin-bottom: 20px;
+
+
    }
    .hos1_2 > div {
-      display: inline-block;
       margin-top: 6px;
       margin-left: 30px;
       font-size: 20px;
@@ -250,6 +250,18 @@
 		margin-top: 50px;
 		margin: auto;
   	}
+
+	#hosPhone{
+		padding-top: 5px;
+		font-size: 15px;
+	}
+
+	#phoneImg{
+		width: 20px;
+		height: 20px;
+		margin-right: 10px;
+		
+	}
 </style>
 </head>
 <body>
@@ -301,7 +313,7 @@
                <div class="wrap_3">
                   <div id="searchBox">
                      <div>
-                        <input type="text" name="QN" id="QN" placeholder="한의원 이름으로 검색해보세요">
+                        <input type="text" name="QN" id="QN" placeholder="지역, 한의원 이름으로 검색해보세요">
                      </div>
                      <div class="btnBox">
                         <input type="button" value="검색" id="btn">
@@ -311,22 +323,59 @@
             </div>
 			<br><br>
             <div id="map">
-               지도 들어갈 자리
+               
             </div>
             <br><br><br>
             <div id="result">
-               <p>한의원을 검색해보세요!</p>
+               
             </div>
             <br> <br> <br> <br> <br> <br> <br>
             <br>
 
             <script>
 			
-				$("#btn").click(function(){
+            	$(function(){
+            		$.ajax({
+            			url:"selectList.kh",
+            			success:function(data){
+            				
+            				let itemArr = $(data).find("item");
+    						
+    						let value = "";
+    						
+    						itemArr.each(function(i, item){
+    							
+    							value += "<div class='hos_wrap' onclick='location.href=\"detail.kh?hpid=" + $(item).find("hpid").text() + "\"'>"
+    										+ "<div class='hos1'>"
+											+ "<div class='hos1_1'>"
+											+ "<div> 🟢 영업중</div>"
+											+ "</div>"
+											+ "<div class='hos1_2'>"
+										 	+ "<div>" + $(item).find("dutyName").text() + "</div>"
+											+ "<div id='hosPhone'> <img id='phoneImg' src='resources/icon/phone5.png'>" + $(item).find("dutyTel1").text() + "</div>"
+											+ "</div>"
+											+ "<div class='hos1_3'>"
+											+ "<div class='hos1_3_1'>" + $(item).find("dutyAddr").text() + "</div>"
+											+ "</div>"
+											+ "</div>"
+											+ "</div>";
+    						})
+
+    							$("#result").html(value);
+    						
+            			}, error:function(){
+            				console.log("한의원 목록조회 ajax 통신 실패!");
+            			}
+            		})
+
+            	})
+
+            	// 지역, 이름 검색결과 이동 
+				$(".hos_wrap").click(function(){
 					$.ajax({
-					url:"pharmacyListAPI.do",
+					url:"detail.kh",
 					data:{Q1:$("#selectOption").text()
-						,QN:$("#QN").val()},
+						, QN:$("#QN").val()},
 					success:function(data){
 						
 						let value = "";
@@ -346,7 +395,7 @@
 								+"</div>"
 						})
 					} else{
-						value += "<div id='hos_wrap' style='width: 600px; height: 150px'>";
+						value += "<div id='hos_wrap' style='width: 800px; height: 200px'>";
 								+ "<p style='font-size=20px'>검색 결과가 없습니다.</p>"
 								+ "</div>";
 					}
