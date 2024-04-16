@@ -26,4 +26,10 @@ public class MemberDao {
 		
 	} // kakaoLogin
 	
+	public Member naverLogin(SqlSession sqlSession, Member m) {
+		
+		return sqlSession.selectOne("memberMapper.naverLogin", m);
+		
+	}
+	
 } // Class

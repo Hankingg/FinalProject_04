@@ -94,7 +94,7 @@
           <!-- 로그인 칸 -->
           <c:choose> 
           	<c:when test="${ empty loginUser }">
-             <a href="moveLoginPage.me" id="loginBtn">로그인</a>            
+             <a href="moveLoginPage.me" id="loginBtn">로그인</a>                        
               <span class="count"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
@@ -148,7 +148,7 @@
               <i class="icon-bell mx-0" style="width: 30px; height: 30px; margin-bottom: 5px;"></i>
               <i class="fa-solid fa-circle-user" style="width: 30px; height: 30px; margin-top: 10px;"></i>&nbsp;&nbsp;&nbsp;           	
             </a>	
-             <label style="margin-top: 8px;"><strong style="color: black;">${ loginUser.memId }님</strong> 환영합니다</label>
+             <label style="margin-top: 8px;"><strong style="color: black;">${ loginUser.memName }님</strong> 환영합니다</label>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
                 <i class="ti-settings text-primary"></i>
