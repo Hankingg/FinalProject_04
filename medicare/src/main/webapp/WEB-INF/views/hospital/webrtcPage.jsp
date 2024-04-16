@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
 </head>
 <body>
 <div>
@@ -26,7 +27,7 @@
     </div>
 		<!-- webRTC 연결을 위한 js  -->
     <script>
- // let remoteStreamElement = document.querySelector('#remoteStream');
+  let remoteStreamElement = document.querySelector('#remoteStream');
     let localStreamElement = document.querySelector('#localStream');
     const myKey = Math.random().toString(36).substring(2, 11);
     let pcListMap = new Map();
@@ -54,10 +55,10 @@
        
     // 소켓 연결
     const connectSocket = async () =>{
-        const socket = new SockJS('/signaling');
+    	console.log("지나가냐")
+        const socket = new SockJS('/medicare/signaling');
+    	
         stompClient = Stomp.over(socket);
-        stompClient.debug = null;
-       
         stompClient.connect({}, function () {
             console.log('Connected to WebRTC server');
                
@@ -129,8 +130,8 @@
         }
        
         //
-        // remoteStreamElement.srcObject = event.streams[0];
-        // remoteStreamElement.play();
+         remoteStreamElement.srcObject = event.streams[0];
+         remoteStreamElement.play();
     };
        
     const createPeerConnection = (otherKey) =>{

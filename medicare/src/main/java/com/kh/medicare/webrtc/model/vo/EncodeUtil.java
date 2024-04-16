@@ -1,4 +1,4 @@
-package com.kh.spring.webrtc.model;
+package com.kh.medicare.webrtc.model.vo;
 
 public class EncodeUtil {
 	// Method to encode a string using Base64
