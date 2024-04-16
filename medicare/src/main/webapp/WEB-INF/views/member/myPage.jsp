@@ -405,6 +405,7 @@
 							
 							$("#heart").click(function(){
 								$(".myPage-info").html($("#myMark").html());
+								console.log($(".myPage-info").html());
 								$("#myInfo").css("display", "block");
 							});
 							
