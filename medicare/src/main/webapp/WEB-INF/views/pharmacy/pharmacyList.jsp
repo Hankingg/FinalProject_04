@@ -103,6 +103,16 @@
 		float: left;
 	}
 
+	.listView{
+		width: 1000px;
+		margin: auto;
+	}
+
+	.listView>p{
+		font-size: 20px;
+		font-weight: bold;
+	}
+
 	 /* 여기부터 검색 결과창 관련 css */
 	.hos_wrap {
 		margin-top: 10px;
@@ -302,7 +312,7 @@
 					지도 들어갈 자리
 				</div>
 				<br><br><br>
-				<div class=""><p>약국목록</p></div>
+				<div class="listView"><p>약국목록</p></div>
 				<div id="result">
 					<p>내 주변 약국을 검색해보세요!</p>
 				</div>
