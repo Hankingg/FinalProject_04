@@ -428,6 +428,7 @@
     margin-bottom: 50px;
   }
 
+
 </style>
 </head>
 
@@ -438,12 +439,12 @@
             <br><br><br>
             <div class="outer">
                 <div class="mName">          
-                  오 이비인후과
+                  
                 </div>
                 <br>
                 <div class="diagnosis">
-                  <div class="diagnosisStatus">🟢 진료중 | 🔴 진료종료 </div> 
-                  <div class="diagnosisTime">&nbsp;오늘 09:00 ~ 21:00</div> 
+                  <div class="diagnosisStatus"></div> 
+                  <div class="diagnosisTime"></div> 
                 </div>
                 <br>
                 <div class="distance">
@@ -452,7 +453,7 @@
                 <div id="map">
                   
                 </div>
-                
+               
                 <script>
 				  
                   naver.maps.Service.geocode({
@@ -490,12 +491,7 @@
 
                 </script>
                 <br><br><br>
-                <!-- <div class="mInfo">
-                  <button>병원정보</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <button>리뷰</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <button>접수</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <button>예약</button>
-                </div> -->
+                
                 <div id="info-tab">
                   <ul>
                     <li id="info"><a class="tab active " id="scrollInfo">병원정보</a></li>
@@ -508,13 +504,7 @@
                 <div class="infoStatus">
                   <strong>진료시간</strong>
                   <div class="infoDetail">
-                      월요일 휴진 <br>
-                      화요일 09 : 00 ~ 18 : 00 <br>
-                      수요일 09 : 00 ~ 18 : 00 <br>
-                      목요일 09 : 00 ~ 18 : 00 <br>
-                      금요일 09 : 00 ~ 18 : 00 <br>
-                      토요일 09 : 00 ~ 13 : 00 <br>
-                      일요일 휴진
+                      
                   </div>
                 </div>
                 
@@ -522,7 +512,7 @@
                 <div class="infoMap">
                   <strong>위치</strong>
                   <div class="mapDetail">
-                    서울특별시 강남구 강남대로 470
+                    <span></span>
                     <button id="addressCopy">주소복사</button>
                   </div>
                 </div>
@@ -530,7 +520,7 @@
                   <div class="infoPhone">
                     <strong>전화번호</strong>
                     <div class="phoneDetail">
-                      02-5560-1222
+                      <span></span>
                       <button id="phoneCopy">전화번호 복사</button>
                     </div>
                   </div>
@@ -638,8 +628,227 @@
             <script>
 
                 $(function(){
-                  // 탭 클릭시 해당 div로 스크롤 이동
+                	// 상세정보 조회 ajax 시작
+                	$.ajax({
+                		url:"selectDetailInfo.kh",
+                		data:{hpid:"${hpid}"},
+                		success:function(data){
+                			console.log(data);
+                			
+                			let name = "";
+                      let phone = "";
+                      let time = "";
+                      let todayTime = "";
+                      let address = "";
+                      let onOff = "";
+                          
+                      var now = new Date();
+                      var currentHour = now.getHours();
+                      var currentMinute = now.getMinutes();
+                      var currentTime = currentHour * 100 + currentMinute; // 현재시간!!
 
+                      $(data).find("item").each(function(i, item){
+                        name += $(item).find("dutyName").text()
+                        phone += $(item).find("dutyTel1").text()
+                        address += $(item).find("dutyAddr").text()
+                        
+                        
+                        // 진료시간에 : 넣기 
+                        function formatTime(time) {
+                            return time.substring(0, 2) + " : " + time.substring(2);
+                        }
+
+                        // 휴진은 빨간색으로
+                        function formatClosed(day) {
+                            return "<span style='color: red;'>" + day + " 휴진</span><br>";
+                        }
+
+                        if($(item).find("dutyTime1s").text() != ""){
+                            time += "월요일 " + formatTime($(item).find("dutyTime1s").text()) + " ~ " + formatTime($(item).find("dutyTime1c").text()) + "<br>";
+                        }else{
+                            time += formatClosed("월요일");
+                        }
+
+                        if($(item).find("dutyTime2s").text() != ""){
+                            time += "화요일 " + formatTime($(item).find("dutyTime2s").text()) + " ~ " + formatTime($(item).find("dutyTime2c").text()) + "<br>";
+                        }else{
+                            time += formatClosed("화요일");
+                        }
+
+                        if($(item).find("dutyTime3s").text() != ""){
+                            time += "수요일 " + formatTime($(item).find("dutyTime3s").text()) + " ~ " + formatTime($(item).find("dutyTime3c").text()) + "<br>";
+                        }else{
+                            time += formatClosed("수요일");
+                        }
+
+                        if($(item).find("dutyTime4s").text() != ""){
+                            time += "목요일 " + formatTime($(item).find("dutyTime4s").text()) + " ~ " + formatTime($(item).find("dutyTime4c").text()) + "<br>";
+                        }else{
+                            time += formatClosed("목요일");
+                        }
+
+                        if($(item).find("dutyTime5s").text() != ""){
+                            time += "금요일 " + formatTime($(item).find("dutyTime5s").text()) + " ~ " + formatTime($(item).find("dutyTime5c").text()) + "<br>";
+                        }else{
+                            time += formatClosed("금요일");
+                        }
+
+                        if($(item).find("dutyTime6s").text() != ""){
+                            time += "토요일 " + formatTime($(item).find("dutyTime6s").text()) + " ~ " + formatTime($(item).find("dutyTime6c").text()) + "<br>";
+                        }else{
+                            time += formatClosed("토요일");
+                        }
+
+                        if($(item).find("dutyTime7s").text() != ""){
+                            time += "일요일 " + formatTime($(item).find("dutyTime7s").text()) + " ~ " + formatTime($(item).find("dutyTime7c").text()) + "<br>";
+                        }else{
+                            time += formatClosed("일요일");
+                        }
+
+                        if($(item).find("dutyTime8s").text() != ""){
+                            time += "공휴일 " + formatTime($(item).find("dutyTime8s").text()) + " ~ " + formatTime($(item).find("dutyTime8c").text());
+                        }else{
+                            time += formatClosed("공휴일");
+                        }
+
+                        // 오늘 진료시간
+                        switch(new Date().getDay()){
+                            case 0 : 
+                                if($(item).find("dutyTime7s").text() == ""){
+                                    todayTime += "<span style='color: red;'>일요일 영업안함</span>";
+                                    onOff += "⚫ 영업안함";
+                                }else{
+                                    todayTime += "오늘(일요일) " + formatTime($(item).find("dutyTime7s").text())
+                                                + " ~ " + formatTime($(item).find("dutyTime7c").text());
+                                    checkBusinessHours("dutyTime7s", "dutyTime7c");            
+                                }
+                                break;
+                            case 1 : 
+                                if($(item).find("dutyTime1s").text() == ""){
+                                    todayTime += "<span style='color: red;'>월요일 영업안함</span>";
+                                    onOff += "⚫ 영업안함";
+                                }else{
+                                    todayTime += "오늘(월요일) " + formatTime($(item).find("dutyTime1s").text())
+                                                + " ~ " + formatTime($(item).find("dutyTime1c").text());
+                                    checkBusinessHours("dutyTime1s", "dutyTime1c");
+                                }
+                                break;
+                            case 2 : 
+                                if($(item).find("dutyTime2s").text() == ""){
+                                    todayTime += "<span style='color: red;'>화요일 영업안함</span>";
+                                    onOff += "⚫ 영업안함";
+                                }else{
+                                    todayTime += "오늘(화요일) " + formatTime($(item).find("dutyTime2s").text())
+                                                + " ~ " + formatTime($(item).find("dutyTime2c").text());
+                                    checkBusinessHours("dutyTime2s", "dutyTime2c");
+                                }
+                                break;
+                            case 3 : 
+                                if($(item).find("dutyTime3s").text() == ""){
+                                    todayTime += "<span style='color: red;'>수요일 영업안함</span>";
+                                    onOff += "⚫ 영업안함";
+                                }else{
+                                    todayTime += "오늘(수요일) " + formatTime($(item).find("dutyTime3s").text())
+                                                + " ~ " + formatTime($(item).find("dutyTime3c").text());
+                                    checkBusinessHours("dutyTime3s", "dutyTime3c");
+                                }
+                                break;
+                            case 4 : 
+                                if($(item).find("dutyTime4s").text() == ""){
+                                    todayTime += "<span style='color: red;'>목요일 영업안함</span>";
+                                    onOff += "⚫ 영업안함";
+                                }else{
+                                    todayTime += "오늘(목요일) " + formatTime($(item).find("dutyTime4s").text())
+                                                + " ~ " + formatTime($(item).find("dutyTime4c").text());
+                                    checkBusinessHours("dutyTime4s", "dutyTime4c");
+                                }
+                                break;  
+                            case 5 : 
+                                if($(item).find("dutyTime5s").text() == ""){
+                                    todayTime += "<span style='color: red;'>금요일 영업안함</span>";
+                                    onOff += "⚫ 영업안함";
+                                }else{
+                                    todayTime += "오늘(금요일) " + formatTime($(item).find("dutyTime5s").text())
+                                                + " ~ " + formatTime($(item).find("dutyTime5c").text());
+                                    checkBusinessHours("dutyTime5s", "dutyTime5c");
+                                }
+                                break;   
+                            case 6 : 
+                                if($(item).find("dutyTime6s").text() == ""){
+                                    todayTime += "<span style='color: red;'>토요일 영업안함</span>";
+                                    onOff += "⚫ 영업안함";
+                                }else{
+                                    todayTime += "오늘(토요일) " + formatTime($(item).find("dutyTime6s").text())
+                                                + " ~ " + formatTime($(item).find("dutyTime6c").text());
+                                    checkBusinessHours("dutyTime6", "dutyTime6c");
+                                }
+                                break;
+                            default : 
+                                if($(item).find("dutyTime8s").text() == ""){
+                                    todayTime += "<span style='color: red;'>공휴일 영업안함</span>";
+                                    onOff += "⚫ 영업안함";
+                                }else{
+                                    todayTime += "오늘(공휴일) " + formatTime($(item).find("dutyTime8s").text())
+                                                + " ~ " + formatTime($(item).find("dutyTime8c").text());
+                                    checkBusinessHours("dutyTime8s", "dutyTime8c");
+                                }
+                                break;
+                        }
+                        
+                        function checkBusinessHours(startTimeClass, endTimeClass) {
+                            var startTime = $(item).find(startTimeClass).text();
+                            var endTime = $(item).find(endTimeClass).text();
+
+                            if(currentTime >= startTime && currentTime <= endTime) {
+                                onOff += "🟢 영업중";
+                            } else {
+                                onOff += "🔴 영업종료";
+                            }
+                        }
+
+	                              
+                      })
+                               
+                        $(".mName").text(name);
+                        $(".phoneDetail span").text(phone);
+                        $(".mapDetail span").text(address);
+                        $(".infoDetail").html(time);
+                        $(".diagnosisTime").html(todayTime);
+                        $(".diagnosisStatus").text(onOff);
+                               
+                		}, error:function(){
+                			console.log("상세정보 조회 ajax 통신 실패");
+                		}
+                	})
+                  // 상세정보 ajax 끝
+
+
+                  // 주소 복사
+                  $('#addressCopy').click(function() {
+                    var address = $('.mapDetail span').text();
+                    var tempInput = $('<input>');
+                    $('body').append(tempInput);
+                    tempInput.val(address).select();
+                    document.execCommand('copy');
+                    tempInput.remove();
+                    alertify.alert('한의원 주소 복사', '주소가 복사되었습니다.');
+                  });
+
+                 // 전화번호 복사
+                 $('#phoneCopy').click(function() {
+                    var address = $('.phoneDetail span').text();
+                    var tempInput = $('<input>');
+                    $('body').append(tempInput);
+                    tempInput.val(address).select();
+                    document.execCommand('copy');
+                    tempInput.remove();
+                    alertify.alert('한의원 전화번호 복사', '전화번호가 복사되었습니다.');
+                 });
+                          
+                	
+                	
+                	
+                  // 탭 클릭시 해당 div로 스크롤 이동
                   $("#scrollInfo").on('click', function(){
                     event.preventDefault(); // 기본 동작 방지
                     // 이동할 대상 div 요소 선택자
