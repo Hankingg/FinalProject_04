@@ -253,20 +253,6 @@
         <div class="content-wrapper" style="background-color: white;">
            
            <div class="outer">
-			<!-- top 버튼 -->
-            <div id="topBtn">
-				<a href="#">
-				  <svg xmlns="http://www.w3.org/2000/svg"
-					xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50"
-					viewBox="0 0 32 32" fill="#F96C85" data-svg-content="true">
-					  <g>
-						<path
-						  d="M 17,2C 8.716,2, 2,8.716, 2,17S 8.716,32, 17,32S 32,25.284, 32,17S 25.284,2, 17,2z M 23.708,15.708 c-0.39,0.39-1.024,0.39-1.414,0L 18,11.414L 18,27 C 18,27.552, 17.552,28, 17,28S 16,27.552, 16,27L 16,11.414 L 11.708,15.708 c-0.39,0.39-1.024,0.39-1.414,0c-0.39-0.39-0.39-1.024,0-1.414l 6-6C 16.296,8.29, 16.298,8.29, 16.3,8.288 c 0.090-0.088, 0.198-0.162, 0.316-0.21c 0.244-0.102, 0.52-0.102, 0.764,0C 17.504,8.128, 17.614,8.2, 17.708,8.292l 6,6 C 24.098,14.684, 24.098,15.316, 23.708,15.708z">
-						</path>
-					  </g>
-				  </svg>
-				</a>
-			  </div>
             <br><br><br><br>
             <div class="wrap">
                <div class="wrap_1"><p>한의원 목록</p></div>
@@ -324,7 +310,7 @@
             </div>
             <br><br><br>
             <div id="result">
-               <p>내 주변 약국을 검색해보세요!</p>
+               <p>한의원을 검색해보세요!</p>
             </div>
             <br> <br> <br> <br> <br> <br> <br>
             <br>
@@ -395,31 +381,9 @@
             
 
 			<script>
-				var position = new naver.maps.LatLng(37.3849483, 127.1229117);
-
-				// 지도 위치
-				var map = new naver.maps.Map('map', {
-					center: position,
-					zoom: 18
-				});
-				
-				// 마커 위치
-				var markerOptions = {
-					position: position.destinationPoint(90, 15),
-					map: map,
-					icon: {
-						url: 'resources/logo/logo-mini.png',
-						scaledSize: new naver.maps.Size(45,45), // 아이콘 사이즈 조정
-						origin: new naver.maps.Point(0, 0),
-						anchor: new naver.maps.Point(11, 35)
-					}
-				};
-
-				var marker = new naver.maps.Marker(markerOptions);
-
 
 				naver.maps.Service.geocode({
-					query: "경기도 수원시 장안구 정자동 이목로24"
+					query: "경기도 수원시 장안구 정자동 945"
 				}, function(status, response) {
 					if (status !== naver.maps.Service.Status.OK) {
 						return alert('주소를 지리적 좌표로 변환하는 중 오류가 발생했습니다.');
