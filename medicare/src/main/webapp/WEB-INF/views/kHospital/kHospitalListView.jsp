@@ -163,71 +163,76 @@
 
    .selectBox * { box-sizing: border-box; }
    .selectBox {
-   position: relative;
-   width: 150px;
-   height: 35px;
-   border-radius: 4px;
-   border: 2px solid lightcoral;
-   background: url('https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png') calc(100% - 7px) center no-repeat;
-   background-size: 20px;
-   cursor: pointer;
+		position: relative;
+		width: 150px;
+		height: 35px;
+		border-radius: 4px;
+		border: 2px solid lightcoral;
+		background: url('https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png') calc(100% - 7px) center no-repeat;
+		background-size: 20px;
+		cursor: pointer;
    }
 
    .selectBox:after {
-   content: '';
-   display: block; 
-   width: 2px;
-   height: 100%; 
-   position: absolute; 
-   top: 0; 
-   right: 35px;
-   background: lightcoral;
+		content: '';
+		display: block; 
+		width: 2px;
+		height: 100%; 
+		position: absolute; 
+		top: 0; 
+		right: 35px;
+		background: lightcoral;
    }
 
    .selectBox .label {
-   display: flex;
-   align-items: center;
-   width: inherit;
-   height: inherit;
-   border: 0 none;
-   outline: 0 none;
-   padding-left: 15px;
-   background: transparent;
-   cursor: pointer;
+		display: flex;
+		align-items: center;
+		width: inherit;
+		height: inherit;
+		border: 0 none;
+		outline: 0 none;
+		padding-left: 15px;
+		background: transparent;
+		cursor: pointer;
    }
 
    .selectBox .optionList {
-   position: absolute; 
-   top: 28px;
-   left: 0;
-   width: 100%;
-   background: lightcoral;
-   color: #fff;
-   list-style-type: none;
-   padding: 0;
-   border-radius: 6px;
-   overflow: hidden;
-   max-height: 0;
-   transition: .3s ease-in;
-   margin-top: 5px;
+		position: absolute; 
+		top: 28px;
+		left: 0;
+		width: 100%;
+		background: lightcoral;
+		color: #fff;
+		list-style-type: none;
+		padding: 0;
+		border-radius: 6px;
+		overflow: hidden;
+		max-height: 0;
+		transition: .3s ease-in;
+	}
+
+	.optionList{
+		margin-top: 5px;
+		position: relative;
+		z-index: 1;
 	}
 
    .selectBox.active .optionList {
-   max-height: 1000px;
+  	 max-height: 1000px;
    }
 
    .selectBox .optionItem {
-   border-bottom: 1px dashed rgb(170, 72, 72);
-   padding: 5px 15px 5px;
-   transition: .1s;
+		border-bottom: 1px dashed rgb(170, 72, 72);
+		padding: 5px 15px 5px;
+		transition: .1s;
    }
 
    .selectBox .optionItem:hover {
-   background: rgb(175, 93, 93);
+   		background: rgb(175, 93, 93);
    }
 
    .selectBox .optionItem:last-child {
-   border-bottom: 0 none;
+   		border-bottom: 0 none;
    }
 
    /* 스크롤 커스텀 */
@@ -258,7 +263,7 @@
                <div class="wrap_1"><p>한의원 목록</p></div>
                <div class="wrap_2">
 
-                  <div class="box">
+            	<div class="box">
                      <div class="selectBox">
                         <button id="selectOption" class="label" type="button">지역 선택</button>
                         <ul class="optionList">
@@ -290,7 +295,7 @@
                           <li class="optionItem">중랑구</li>
                         </ul>
                      </div>
-                   </div>
+                </div>
 
                </div>
                <div class="wrap_3">
