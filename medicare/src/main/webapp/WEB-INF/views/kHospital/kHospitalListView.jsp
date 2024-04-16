@@ -301,7 +301,7 @@
                <div class="wrap_3">
                   <div id="searchBox">
                      <div>
-                        <input type="text" name="QN" id="QN" placeholder="한의원 이름으로 검색해보세요">
+                        <input type="text" name="QN" id="QN" placeholder="지역, 한의원 이름으로 검색해보세요">
                      </div>
                      <div class="btnBox">
                         <input type="button" value="검색" id="btn">
@@ -311,11 +311,23 @@
             </div>
 			<br><br>
             <div id="map">
-               지도 들어갈 자리
+               
             </div>
             <br><br><br>
             <div id="result">
-               <p>한의원을 검색해보세요!</p>
+               <div class='hos_wrap'>
+					<div class='hos1'>
+						<div class='hos1_1'>
+							<div>영업중 | 영업종료</div>
+						</div>
+						<div class='hos1_2'>
+							<div>오이비인후과</div>
+						</div>
+						<div class='hos1_3'>
+							<div class='hos1_3_1'> 885m | 서울특별시 강남대로94길 71-8 </div>
+						</div>
+					</div>
+				</div>
             </div>
             <br> <br> <br> <br> <br> <br> <br>
             <br>
