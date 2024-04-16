@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,9 +18,9 @@
 		margin-left: 100px;
 	}
 	
-	.outer div{
+	/* .outer div{ */
 		/* border: 1px solid red; */
-	}
+	/* } */
 	
 	#result{
 		z-index: 30; 
@@ -123,6 +122,11 @@
 		width: 1000px;
 		height: 150px;
 	}
+	.hos_wrap:hover{
+		cursor: pointer;
+		background-color: green;
+	}
+	
 	.hos_wrap > div {
 		height: 100%;
 	}
@@ -338,7 +342,8 @@
 						
 					if(data != null){
 						$(data).find("item").each(function(i, item){
-							value += "<div class='hos_wrap'>"
+							// value += "<div class='hos_wrap' onclick='location.href=selectDetail.ph?hpid="+ $(item).find("hpid").text() +">"
+							value += "<div class='hos_wrap' onclick='location.href=\"selectDetail.ph?hpid=" + $(item).find("hpid").text() + "\"'>"
 							     + "<div class='hos1'>"
 							     + "<div class='hos1_1'>"
 							     +    "<div>영업중 | 영업종료</div>"
@@ -361,10 +366,9 @@
 					},error:function(){
 						console.log("ajax 통신 실패");
 					}
-					
-					
 				})
 			})
+
 
 		const label = document.querySelector('.label');
 		const options = document.querySelectorAll('.optionItem');
