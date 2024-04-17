@@ -33,6 +33,8 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="${ pageContext.request.contextPath }/resources/images/favicon.png" />
   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+  <script src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="UTF-8"></script>
 </head>
 
 <body>
@@ -69,18 +71,16 @@
                     </label>
                   </div>
                   <a href="#" class="auth-link text-black">비밀번호 찾기</a>
-                </div>
-                <div class="mb-3">
-                	<img src="${ pageContext.request.contextPath }/resources/images/kakao_login.png"style="width:40%; height:50px;" id="kakao-login-btn"></img>   	
-                </div>
+                </div>             
                 <div class="text-center mt-4 font-weight-light">
                  계정이 없으신가요? <a href="enrollForm.me" class="text-primary">회원가입</a>
                 </div>
-              </form>
-              
-              
-              
-              
+                </form>
+                <br>
+                 <div class="mb-3">
+                	<img src="${ pageContext.request.contextPath }/resources/images/kakao_login.png"style="width:40%; height:50px;" id="kakao-login-btn" onlick="return kakao()"></img>   	               		             		
+             		<div id="naver_id_login" style="text-align:center"><a href="naverlogin">네이버</a></div>                 
+              	 </div>
               
             </div>
           </div>
@@ -104,10 +104,13 @@
   <script src="${ pageContext.request.contextPath }/resources/js/todolist.js"></script>
   <!-- endinject -->
   
+	<script>
+    	naver_id_login.setButton("green", 3,50);
+	</script>
+ 
   <script>
     // 카카오 SDK 초기화
     Kakao.init('2e9ad81f2d94fa28edbb4d9ebe990822');
-
     // 카카오 로그인 버튼 클릭 시 호출되는 함수
     document.getElementById('kakao-login-btn').addEventListener('click', function () {
         // 카카오 로그인 창 열기

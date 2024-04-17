@@ -37,6 +37,14 @@ public class MemberServiceImpl implements MemberService{
 		return loginUser;
 		
 	}
+
+	@Override
+	public Member naverLogin(Member m) {
+		
+		Member loginUser = mDao.naverLogin(sqlSession, m);
+		
+		return loginUser;
+	}
 	
 	
 

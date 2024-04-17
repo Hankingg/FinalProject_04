@@ -49,6 +49,18 @@
       	  and status = 'Y' 	
 	</select>
 	
+	<select id="naverLogin" resultMap="memberResultSet">
+		select	
+			  mem_id
+	        , nickname
+	        , email	        
+	        , phone
+	        , mem_name
+	     from member
+	    where mem_id = #{ memId }   
+      	  and status = 'Y' 	
+	</select>
+	
 	<insert id="insertMember">
 		insert 
 		  into member
