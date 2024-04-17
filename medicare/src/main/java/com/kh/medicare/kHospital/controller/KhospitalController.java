@@ -32,11 +32,11 @@ public class KhospitalController {
 	@RequestMapping(value="selectList.kh", produces = "text/xml; charset=utf-8")
 	public String kHospital() throws IOException {
 		
-		String url = "https://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire";
+		String url = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncLcinfoInqire";
 		url += "?serviceKey=" + serviceKey;
-		url += "&Q0=" + URLEncoder.encode("서울특별시", "UTF-8");
-		url += "&QN=" + URLEncoder.encode("한의원", "UTF-8");
-		url += "&numOfRows=20";
+		url += "&WGS84_LAT=37.4989913";
+		url += "&WGS84_LON=127.03282";
+		url += "&numOfRows=40";
 		
 		URL requestUrl = new URL(url);
 		HttpURLConnection urlConnection = (HttpURLConnection)requestUrl.openConnection();
@@ -94,5 +94,36 @@ public class KhospitalController {
 		
 	}
 	
+	// 한의원 검색목록 조회
+	@ResponseBody
+	@RequestMapping(value="search.kh", produces = "text/xml; charset=utf-8")
+	public String searchKhospital(String Q1, String QN) throws IOException {
+		
+		String url = "https://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire";
+		url += "?serviceKey=" + serviceKey;
+		url += "&Q0=" + URLEncoder.encode("서울특별시", "UTF-8");
+		url += "&Q1=" + URLEncoder.encode(Q1, "UTF-8");
+		url += "&QN=" + URLEncoder.encode(QN, "UTF-8");
+		url += "&numOfRows=20";
+		url += "&ORD=ADDR";
+		
+		URL requestUrl = new URL(url);
+		HttpURLConnection urlConnection = (HttpURLConnection)requestUrl.openConnection();
+		urlConnection.setRequestMethod("GET");
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+		
+		String responseText = "";
+		String line;
+		while((line = br.readLine()) != null) {
+			responseText += line;
+		}
+		
+		br.close();
+		urlConnection.disconnect();
+		
+		return responseText;
+		
+	}
 	
 }

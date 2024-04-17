@@ -406,16 +406,16 @@
             </div>
           </div>
           <div class="inner2">
-            <div class="inner2s kHospital">
+            <div class="inner2s kHospital" onclick="location.href='list.kh'">
               <div class="kHospital_1">
-                <img style="height: 120px; width: 130px;" src="resources/mainIcon/kDoctor.png">
+                <img style="width: 140px; height: 115px; margin-left: 10px;" src="resources/kHospital/kDoctor7.png">
               </div>
               <div class="kHospital_2">
                 <div class="searchKHospital_1"><p>내 주변 한의원 찾기 ▶</p></div>
                 <div class="searchKHospital_2"><p>몸이 허약하다면? 명의를 찾아오세요~</p></div>
               </div>
             </div>
-            <div class="inner2s pharmacy">
+            <div class="inner2s pharmacy" onclick="location.href='selectList.ph'">
               <div class="pharmacy_1">
                 <img style="height: 120px; width: 120px;" src="resources/mainIcon/pharmacy.png">
               </div>
