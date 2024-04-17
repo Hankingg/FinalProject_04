@@ -636,11 +636,11 @@
                 			console.log(data);
                 			
                 			let name = "";
-                      let phone = "";
-                      let time = "";
-                      let todayTime = "";
-                      let address = "";
-                      let onOff = "";
+		                      let phone = "";
+		                      let time = "";
+		                      let todayTime = "";
+		                      let address = "";
+		                      let onOff = "";
                           
                       var now = new Date();
                       var currentHour = now.getHours();
@@ -844,8 +844,6 @@
                     tempInput.remove();
                     alertify.alert('한의원 전화번호 복사', '전화번호가 복사되었습니다.');
                  });
-                          
-                	
                 	
                 	
                   // 탭 클릭시 해당 div로 스크롤 이동
