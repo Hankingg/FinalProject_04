@@ -18,8 +18,11 @@
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="suffix" value=".jsp" />		
 	</beans:bean>
+	
+	<beans:bean id="naverLoginBO" class="com.kh.medicare.member.controller.NaverLoginBO"/>
+	
 	
 	<!-- com.kh.spring 아래 있는 파일들 중에서 @(annotation) 있는 부분들을 다 찾아서 가지고와서 bean을 등록해줌 -->
 	<context:component-scan base-package="com.kh.medicare" />

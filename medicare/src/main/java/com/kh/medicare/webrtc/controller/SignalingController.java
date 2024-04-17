@@ -18,7 +18,8 @@ public class SignalingController {
     @SendTo("/topic/peer/offer/{camKey}/{roomId}")
     public String PeerHandleOffer(@Payload String offer, @DestinationVariable(value = "roomId") String roomId,
                                   @DestinationVariable(value = "camKey") String camKey) {
-        log.info("[OFFER] {} : {}", camKey, offer);
+    	System.out.println("오냐1");
+    	log.info("[OFFER] {} : {}", camKey, offer);
         return offer;
     }
 		
@@ -28,6 +29,7 @@ public class SignalingController {
     @SendTo("/topic/peer/iceCandidate/{camKey}/{roomId}")
     public String PeerHandleIceCandidate(@Payload String candidate, @DestinationVariable(value = "roomId") String roomId,
                                          @DestinationVariable(value = "camKey") String camKey) {
+    	System.out.println("오냐2");
         log.info("[ICECANDIDATE] {} : {}", camKey, candidate);
         return candidate;
     }
@@ -38,7 +40,8 @@ public class SignalingController {
     @SendTo("/topic/peer/answer/{camKey}/{roomId}")
     public String PeerHandleAnswer(@Payload String answer, @DestinationVariable(value = "roomId") String roomId,
                                    @DestinationVariable(value = "camKey") String camKey) {
-        log.info("[ANSWER] {} : {}", camKey, answer);
+    	System.out.println("오냐3");
+    	log.info("[ANSWER] {} : {}", camKey, answer);
         return answer;
     }
 		
@@ -46,6 +49,7 @@ public class SignalingController {
     @MessageMapping("/call/key")
     @SendTo("/topic/call/key")
     public String callKey(@Payload String message) {
+    	System.out.println("오냐4");
         log.info("[Key] : {}", message);
         return message;
     }
@@ -54,6 +58,7 @@ public class SignalingController {
     @MessageMapping("/send/key")
     @SendTo("/topic/send/key")
     public String sendKey(@Payload String message) {
+    	System.out.println("오냐5");
         return message;
     }
 
