@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.ProtocolException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -20,26 +21,85 @@ public class PharmacyController {
 	
 	private static final String serviceKey = "pNCWmkUMAcA3lgnlH2TQLZJiIjuL7U%2BRBtCVzEEDzSUUNNJj0ret29u%2BISuTUyOsb67C7sUwm95m%2FWL34lyXAQ%3D%3D";
 
-	// 약국 리스트 조회
+	// 약국 통합페이지 진입
 	@RequestMapping(value="selectList.ph")
 	public String selectPharmacyList() {
 		
 		return "pharmacy/pharmacyList";
 	} 
 	
-	// 의약품 리스트 조회
-	@RequestMapping(value="selectList.md")
-	public String selectMedicine() {
+	// 약국 통합페이지 진입시 바로 조회
+	@ResponseBody
+	@RequestMapping(value="selectFirstList.ph", produces="text/xml; charset=UTF-8")
+	public String selectPharmacyFirstList() throws IOException {
 		
-		return "pharmacy/medicineList";
-	} 
+		double lat = 37.3002861;
+		double lang = 126.9710944;
+		
+		String url = "https://apis.data.go.kr/B552657/ErmctInsttInfoInqireService/getParmacyLcinfoInqire";  
+			   url += "?serviceKey=" + serviceKey;
+			   url += "&WGS84_LON=126.9710944";
+			   url += "&WGS84_LAT=37.3002861";
+			   url += "&numOfRows=10"; 	   
+	
+		URL requestUrl = new URL(url);
+		HttpURLConnection urlConnection = (HttpURLConnection)requestUrl.openConnection();
+		urlConnection.setRequestMethod("GET");
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+		
+		String responseText = "";
+		String line;
+		while((line = br.readLine()) != null) {
+			   responseText += line;
+		}
+		
+		br.close();
+		urlConnection.disconnect();
+			
+		return responseText;
+		
+	}
+	
+	// 약국 리스트페이지 조회
+	@ResponseBody
+	@RequestMapping(value="pharmacyListAPI.do", produces="text/xml; charset=UTF-8")
+	public String pharmacyInfo(String Q1, String QN) throws IOException {
+		
+		if(Q1.equals("전체") || Q1.equals("지역 선택")) {
+			Q1 = "";
+		}
+		
+		String url = "https://apis.data.go.kr/B552657/ErmctInsttInfoInqireService/getParmacyListInfoInqire";
+			   url += "?serviceKey=" + serviceKey;
+			   url += "&Q0=" + URLEncoder.encode("서울특별시");
+			   url += "&Q1=" + URLEncoder.encode(Q1, "UTF-8");
+			   url += "&QN=" + URLEncoder.encode(QN, "UTF-8");
+			   url += "&numOfRows=10";
+			   url += "&ORD=ADDR";
+
+	   URL requestUrl = new URL(url);
+       HttpURLConnection urlConnection = (HttpURLConnection)requestUrl.openConnection();
+       urlConnection.setRequestMethod("GET");
+       
+       BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+
+       String responseText = "";
+       String line;
+       while((line = br.readLine()) != null) {
+    	   responseText += line;
+       }
+       
+       br.close();
+       urlConnection.disconnect();
+		
+       return responseText;
+	}
 	
 	// 약국 상세페이지 조회
 	@RequestMapping(value="selectDetail.ph", produces="text/xml; charset=UTF-8")
 	public String selectPharmacyDetail(String hpid, Model model) throws IOException {
-		
-		System.out.println(hpid);
-		
+	
 		model.addAttribute("hpid", hpid);
 		return "pharmacy/pharmacyDetail";
 	} 
@@ -73,46 +133,19 @@ public class PharmacyController {
 	}
 	
 	
-	// 약국 리스트페이지 조회
-	@ResponseBody
-	@RequestMapping(value="pharmacyListAPI.do", produces="text/xml; charset=UTF-8")
-	public String pharmacyInfo(String Q1, String QN) throws IOException {
+	
+	
+	
+	
+	
+	
+	
+	// 의약품 리스트 조회
+	@RequestMapping(value="selectList.md")
+	public String selectMedicine() {
 		
-		if(Q1.equals("전체") || Q1.equals("지역 선택")) {
-			Q1 = "";
-		}
-		
-		String url = "https://apis.data.go.kr/B552657/ErmctInsttInfoInqireService/getParmacyListInfoInqire";
-			   url += "?serviceKey=" + serviceKey;
-			   url += "&Q0=" + URLEncoder.encode("서울특별시");
-			   url += "&Q1=" + URLEncoder.encode(Q1, "UTF-8");
-			   url += "&QN=" + URLEncoder.encode(QN, "UTF-8");
-			   url += "&numOfRows=10"; 	   
-
-	   URL requestUrl = new URL(url);
-       HttpURLConnection urlConnection = (HttpURLConnection)requestUrl.openConnection();
-       urlConnection.setRequestMethod("GET");
-       
-       BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-
-       String responseText = "";
-       String line;
-       while((line = br.readLine()) != null) {
-    	   responseText += line;
-       }
-       
-       br.close();
-       urlConnection.disconnect();
-		
-       return responseText;
-	}
-	
-	
-	
-	
-	
-	
-	
+		return "pharmacy/medicineList";
+	} 
 	
 	
 	
