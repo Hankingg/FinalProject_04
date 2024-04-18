@@ -72,7 +72,7 @@ COMMENT ON COLUMN MEMBER.MODIFY_DATE IS '수정일';
 
 -------------------------------- 병원 카테고리 TABLE -----------------------------
 CREATE TABLE H_CATEGORY(
-   H_CTG NUMBER PRIMARY KEY,
+   H_CTG CHAR(1) PRIMARY KEY,
    CTG_NAME VARCHAR2(30) NOT NULL
 );
 
@@ -82,21 +82,51 @@ COMMENT ON COLUMN H_CATEGORY.CTG_NAME IS '카테고리이름';
 
 -------------------------------- 병원 TABLE -----------------------------
 CREATE TABLE HOSPITAL(
-   H_CODE VARCHAR2(20) PRIMARY KEY,
-   H_CTG NUMBER NOT NULL REFERENCES H_CATEGORY,
-   H_NAME VARCHAR2(50) NOT NULL,
-   H_ADDRESS VARCHAR2(300) NOT NULL,
-   H_TEL VARCHAR2(20),
-   EMG_YN CHAR(1) NOT NULL CHECK(EMG_YN IN ('Y','N')),
-   H_TREATTIME VARCHAR2(20) NOT NULL
+    H_CODE VARCHAR2(50) PRIMARY KEY,
+    H_ADDRESS VARCHAR2(4000) NOT NULL,
+    H_CTG CHAR(1) NOT NULL REFERENCES H_CATEGORY,
+    EMG_YN CHAR(1) NOT NULL,
+    H_NAME	VARCHAR2(2000) NOT NULL,
+    H_TEL VARCHAR2(15),
+    H_CT_MON VARCHAR2(10),
+    H_CT_TUE VARCHAR2(10),
+    H_CT_WEN VARCHAR2(10),
+    H_CT_THU VARCHAR2(10),
+    H_CT_FRI VARCHAR2(10),
+    H_CT_SAT VARCHAR2(10),
+    H_CT_SUN VARCHAR2(10),
+    H_CT_HOL VARCHAR2(10),
+    H_ST_MON VARCHAR2(10),
+    H_ST_TUE VARCHAR2(10),
+    H_ST_WEN VARCHAR2(10),
+    H_ST_THU VARCHAR2(10),
+    H_ST_FRI VARCHAR2(10),
+    H_ST_SAT VARCHAR2(10),
+    H_ST_SUN VARCHAR2(10),
+    H_ST_HOL VARCHAR2(10)																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								
 );
 COMMENT ON COLUMN HOSPITAL.H_CODE IS '병원기관코드';
-COMMENT ON COLUMN HOSPITAL.H_CTG IS '병원카테고리';
-COMMENT ON COLUMN HOSPITAL.H_NAME IS '병원이름';
 COMMENT ON COLUMN HOSPITAL.H_ADDRESS IS '병원주소';
-COMMENT ON COLUMN HOSPITAL.H_TEL IS '병원 전화번호';
+COMMENT ON COLUMN HOSPITAL.H_CTG IS '병원카테고리';
 COMMENT ON COLUMN HOSPITAL.EMG_YN IS '응급실운영여부';
-COMMENT ON COLUMN HOSPITAL.H_TREATTIME IS '병원 진료시간';
+COMMENT ON COLUMN HOSPITAL.H_NAME IS '병원이름';
+COMMENT ON COLUMN HOSPITAL.H_TEL IS '병원 전화번호';
+COMMENT ON COLUMN HOSPITAL.H_CT_MON IS '진료종료(월)';
+COMMENT ON COLUMN HOSPITAL.H_CT_TUE IS '진료종료(화)';
+COMMENT ON COLUMN HOSPITAL.H_CT_WEN IS '진료종료(수)';
+COMMENT ON COLUMN HOSPITAL.H_CT_THU IS '진료종료(목)';
+COMMENT ON COLUMN HOSPITAL.H_CT_FRI IS '진료종료(금)';
+COMMENT ON COLUMN HOSPITAL.H_CT_SAT IS '진료종료(토)';
+COMMENT ON COLUMN HOSPITAL.H_CT_SUN IS '진료종료(일)';
+COMMENT ON COLUMN HOSPITAL.H_CT_HOL IS '진료종료(공휴일)';
+COMMENT ON COLUMN HOSPITAL.H_ST_MON IS '진료시작(월)';
+COMMENT ON COLUMN HOSPITAL.H_ST_TUE IS '진료시작(화)';
+COMMENT ON COLUMN HOSPITAL.H_ST_WEN IS '진료시작(수)';
+COMMENT ON COLUMN HOSPITAL.H_ST_THU IS '진료시작(목)';
+COMMENT ON COLUMN HOSPITAL.H_ST_FRI IS '진료시작(금)';
+COMMENT ON COLUMN HOSPITAL.H_ST_SAT IS '진료시작(토)';
+COMMENT ON COLUMN HOSPITAL.H_ST_SUN IS '진료시작(일)';
+COMMENT ON COLUMN HOSPITAL.H_ST_HOL IS '진료시작(공휴일)';
 
 -------------------------------- 첨부파일 TABLE -----------------------------
 CREATE TABLE IMG_FILE(

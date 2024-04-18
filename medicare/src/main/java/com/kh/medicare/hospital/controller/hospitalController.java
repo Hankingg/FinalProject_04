@@ -9,6 +9,9 @@ public class hospitalController {
 	
 	@RequestMapping("hospital.do")
 	public String selectHospitalPage() {
-		return "hospital/hospitalList";
+		return "hospital/hospitalListModi";
 	}
+	
+	
+	
 }
