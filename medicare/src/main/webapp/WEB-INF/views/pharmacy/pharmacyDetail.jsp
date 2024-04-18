@@ -11,7 +11,7 @@
   .outer{
     width: 1200px;
     height: auto;
-    border: 2px solid #F96C85;
+    border: 2px solid rgb(140, 192, 81);
     border-radius: 10px;
     padding-left: 50px;
     padding-top: 30px;
@@ -111,13 +111,13 @@
 
 	#info-tab ul li a.active {
 		border-radius: 5px 5px 0px 0px;
-		background-color: #F96C85;
+		background-color: rgb(121, 207, 129);
 		color: white;
 	}
 
 	#info-tab ul li a:hover {
 		border-radius: 5px 5px 0px 0px;
-		background-color: #F96C85;
+		background-color: rgb(121, 207, 129);
 		color: white;
 	}
 
