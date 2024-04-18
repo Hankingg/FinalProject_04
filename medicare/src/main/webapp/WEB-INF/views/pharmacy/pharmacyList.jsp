@@ -6,12 +6,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.outer>.wrap, #map{
+	#map{
 		text-align:center;
 		margin: auto;
 	}
 	.outer{
-		border: 2px solid #f96c85;
+		border: 2px solid rgb(140, 192, 81);
 		border-radius: 10px;
 		width: 1200px;
 		height: auto;
@@ -38,9 +38,8 @@
 	}
 	
 	.wrap{
-		height: 50px;
-		width: 900px;
-		margin:auto;
+		/* width: 900px; */
+		margin-left: 100px;
 	}
 	
 	.wrap * {
@@ -49,11 +48,12 @@
 	
 	.wrap>div{
 		float:left;
-	 	height:50px;
 	}
-	.wrap_1{ width:250px;}
-	.wrap_2{ width:200px; padding-top: 8px;}
-	.wrap_3{ width:340px; padding-top: 8px;}
+	.wrap_0{ width: 120px; height: 120px;}
+	.wrap_0 img{width: 140px; height: 100px;}
+	.wrap_1{ width:250px; padding-top: 30px;}
+	.wrap_2{ width:200px; padding-top: 38px;}
+	.wrap_3{ width:340px; padding-top: 38px;}
 	.wrap_1>p{
 		font-size: 24px;
 		font-weight: border;
@@ -66,7 +66,7 @@
 		border: 0;
 		border-radius: 15px;
 		/* outline: none; */
-		background-color: rgb(233, 233, 233);
+		background-color: rgb(205, 228, 180);
 	}
 	select {
 		width: 150px;
@@ -82,12 +82,17 @@
 
 	#btn{
 		border: 0px;
-		border-radius: 15px;
-		background-color: rgb(233, 233, 233);
+		border-radius: 10px;
+		background-color: rgb(205, 228, 180);
+		width: 50px;
+		height: 32px;
+	}
+
+	#btn:hover{
+		background-color: rgb(187, 228, 180);
 	}
 	.btnBox{
-		padding-left: 10px;
-		padding-top: 3px;
+		padding-left: 15px;
 	}
 	
 	#map{
@@ -118,49 +123,62 @@
 		display: flex;
 		border-radius: 10px;
 		box-sizing: border-box;
-		border: 1px solid black;
-		width: 1000px;
-		height: 150px;
+		border: 1px solid gray;
+		width: 800px;
+		height: 200px;
 	}
 	.hos_wrap:hover{
 		cursor: pointer;
-		background-color: green;
+		background-color: rgb(220, 220, 220)
 	}
 	
 	.hos_wrap > div {
-		height: 100%;
+		width: 100%;
 	}
 	.hos_wrap div {
 		border: 0px;
 	}
 
 	.hos1 {
-		width: 80%;
+		height: 80%;
 	}
 	.hos2 {
-		width: 20%;
+		height: 20%;
 	}
 	.hos1_1 {
 		height: 20%;
 	}
-	.hos1_1 > div {
+	.hos1_1 > span {
 		display: inline-block;
 		margin-left: 30px;
-		margin-top: 5px;
+		margin-top: 10px;
 		color: green;
 	}
+
+	.onOffDiv{
+		margin-left: 30px;
+		margin-top: 10px;
+	}
+
 	.hos1_2 {
 		height: 30%;
 	}
 	.hos1_2 > div {
-		display: inline-block;
-		margin-top: 6px;
+		/* display: inline-block; */
+		margin-top: 10px;
 		margin-left: 30px;
-		font-size: 20px;
+		font-size: 25px;
 		font-weight: bold;
 	}
+
+	.hos1_2 span{
+		font-size: 15px;
+	}
+
 	.hos1_3 {
 		height: 30%;
+		margin-top: 50px;
+		font-size: 18px;
 	}
 	.hos1_3 > div {
 		display: inline-block;
@@ -178,11 +196,10 @@
 	.selectBox * { box-sizing: border-box;}
 	.selectBox {
 		position: relative;
-		width: 150px;
+		width: 180px;
 		height: 35px;
 		border-radius: 4px;
-		border: 2px solid lightcoral;
-		/* background: url('https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png') calc(100% - 7px) center no-repeat; */
+		border: 2px solid rgb(64, 163, 47);
 		background-size: 20px;
 		cursor: pointer;
 	}
@@ -195,7 +212,7 @@
 		position: absolute; 
 		top: 0; 
 		right: 35px;
-		background: lightcoral;
+		background: white;
 	}
 
 	.selectBox .label {
@@ -215,7 +232,7 @@
 		top: 28px;
 		left: 0;
 		width: 100%;
-		background: lightcoral;
+		background: rgb(121, 207, 159);
 		color: #fff;
 		list-style-type: none;
 		padding: 0;
@@ -230,13 +247,13 @@
 	}
 
 	.selectBox .optionItem {
-		border-bottom: 1px dashed rgb(170, 72, 72);
+		border-bottom: 1px dashed rgb(64, 163, 47);
 		padding: 5px 15px 5px;
 		transition: .1s;
 	}
 
 	.selectBox .optionItem:hover {
-		background: rgb(175, 93, 93);
+		background: rgb(60, 179, 113);
 	}
 
 	.selectBox .optionItem:last-child {
@@ -249,12 +266,24 @@
 		z-index: 1;
 	}
 
+	#downImg{
+		width: 20px;
+		height: 20px;
+		margin-left: 70px;
+	}
+
 	/* 스크롤 커스텀 */
 	.selectBox .optionList::-webkit-scrollbar {width: 6px;}
 	.selectBox .optionList::-webkit-scrollbar-track {background: transparent; }
 	.selectBox .optionList::-webkit-scrollbar-thumb {background: #303030; border-radius: 45px;}
 	.selectBox2.optionList::-webkit-scrollbar-thumb:hover {background: #303030;}
 
+
+	.phoneImg{
+		width: 20px;
+		height: 20px;
+		margin-right: 10px;
+	}
 </style>
 </head>
 <body>
@@ -265,12 +294,16 @@
         	<div class="outer">
 				<br><br><br><br>
         		<div class="wrap">
-					<div class="wrap_1"><p>약국 찾기</p></div>
+					<div class="wrap_0">
+						<img src="resources/mainIcon/pharmacymain2rm.png">
+					</div>
+					<div class="wrap_1"><p>서울특별시 약국 검색</p></div>
 					<div class="wrap_2">
 
 						<div class="box">
 							<div class="selectBox">
-							   <button id="selectOption" class="label" type="button">지역 선택</button>
+							   <button id="selectOption" class="label" type="button">지역 선택 <img id="downImg" src="resources/mainIcon/downgreen.png"></button>
+							   
 							   <ul class="optionList">
 								  <li class="optionItem">전체</li>
 								  <li class="optionItem">강남구</li>
@@ -322,15 +355,61 @@
 				<div id="result">
 					<p>내 주변 약국을 검색해보세요!</p>
 				</div>
-				<br> <br> <br> <br> <br> <br> <br>
-				<br>
+				<br> <br> <br> <br> <br>
 			
-        		<button onclick="location.href='selectDetail.ph'">약국 상세페이지 버튼</button>
+        		
         	</div>
         	
         </div>
 
 		<script>
+
+			$(function(){
+				selectFirstList();
+			})
+
+			function selectFirstList(){
+				$.ajax({
+                     url:"selectFirstList.ph",
+                     success:function(data){
+                        
+                      let itemArr = $(data).find("item");
+                      
+                      let value = "";
+					  let ViewName = "약국목록 (가장 가까운 약국으로 보여드려요!)";
+                      
+                      itemArr.each(function(i, item){
+                        console.log($(item).find("hpid").text())
+
+                         value += "<div class='hos_wrap' onclick='location.href=\"selectDetail.ph?hpid=" + $(item).find("hpid").text() + "\"'>"
+                                 +     "<div class='hos1'>"
+                                 +       "<div class='hos1_1'>"           
+                                 +       "<span>현 위치와의 거리 : " + $(item).find("distance").text() + "(km)</span>"
+                                 +     "</div>"
+                                 +     "<div class='hos1_2'>"
+                                 +       "<div>" + $(item).find("dutyName").text() + " <span>💊</span></div>"
+                                 +       "<div class='hosPhone'> <img class='phoneImg' src='resources/icon/phone5.png'><span>" + $(item).find("dutyTel1").text() + "</span></div>"
+                                 +     "</div>"
+                                 +     "<div class='hos1_3'>"
+                                 +       "<div class='hos1_3_1'>" + $(item).find("dutyAddr").text() + "</div>"
+                                 +     "</div>"
+                                 +   "</div>"
+                                 + "</div>";
+                      })
+
+                         $("#result").html(value);
+						 $(".listView p").text(ViewName);
+                      
+                     }, error:function(){
+                        console.log("약국 목록조회 ajax 통신 실패!");
+                     }
+                  })
+			}
+
+
+
+
+
 			$("#btn").click(function(){
 				$.ajax({
 					url:"pharmacyListAPI.do",
@@ -339,21 +418,104 @@
 					success:function(data){
 						 
 						let value = "";
-						
+
+						// 현재시간!!
+						var now = new Date();
+						var currentHour = now.getHours();
+						var currentMinute = now.getMinutes();
+						var currentTime = currentHour * 100 + currentMinute; 
+
+						let ViewName = "약국목록 검색결과";
+							
 					if(data != null){
 						$(data).find("item").each(function(i, item){
-							// value += "<div class='hos_wrap' onclick='location.href=selectDetail.ph?hpid="+ $(item).find("hpid").text() +">"
+							let onOff = "";
+
 							value += "<div class='hos_wrap' onclick='location.href=\"selectDetail.ph?hpid=" + $(item).find("hpid").text() + "\"'>"
 							     + "<div class='hos1'>"
-							     + "<div class='hos1_1'>"
-							     +    "<div>영업중 | 영업종료</div>"
-							     + "</div>"
-							     + "<div class='hos1_2'><div>" + $(item).find("dutyName").text() + "</div></div>"
-							     +   "<div class='hos1_3'>"
-							     +    "<div class='hos1_3_1'> xxx(m) | "+ $(item).find("dutyAddr").text() +" | </div>"
-							     +  "</div>"
+							     + "<div class='hos1_1'>";
+
+									// 오늘 진료시간
+									switch(new Date().getDay()){
+                                            case 0 : 
+                                                if($(item).find("dutyTime7s").text() == ""){
+                                                    onOff += "⚫ 영업안함";
+                                                }else{
+                                                    checkBusinessHours("dutyTime7s", "dutyTime7c");            
+                                                }
+                                                break;
+                                            case 1 : 
+                                                if($(item).find("dutyTime1s").text() == ""){
+                                                    onOff += "⚫ 영업안함";
+                                                }else{
+                                                    checkBusinessHours("dutyTime1s", "dutyTime1c");
+                                                }
+                                                break;
+                                            case 2 : 
+                                                if($(item).find("dutyTime2s").text() == ""){
+                                                    onOff += "⚫ 영업안함";
+                                                }else{
+                                                    checkBusinessHours("dutyTime2s", "dutyTime2c");
+                                                }
+                                                break;
+                                            case 3 : 
+                                                if($(item).find("dutyTime3s").text() == ""){
+                                                    onOff += "⚫ 영업안함";
+                                                }else{
+                                                    checkBusinessHours("dutyTime3s", "dutyTime3c");
+                                                }
+                                                break;
+                                            case 4 : 
+                                                if($(item).find("dutyTime4s").text() == ""){
+                                                    onOff += "⚫ 영업안함";
+                                                }else{
+                                                    checkBusinessHours("dutyTime4s", "dutyTime4c");
+                                                }
+                                                break;  
+                                            case 5 : 
+                                                if($(item).find("dutyTime5s").text() == ""){
+                                                    onOff += "⚫ 영업안함";
+                                                }else{
+                                                    checkBusinessHours("dutyTime5s", "dutyTime5c");
+                                                }
+                                                break;   
+                                            case 6 : 
+                                                if($(item).find("dutyTime6s").text() == ""){
+                                                    onOff += "⚫ 영업안함";
+                                                }else{
+                                                    checkBusinessHours("dutyTime6", "dutyTime6c");
+                                                }
+                                                break;
+                                            default : 
+                                                if($(item).find("dutyTime8s").text() == ""){
+                                                    onOff += "⚫ 영업안함";
+                                                }else{
+                                                    checkBusinessHours("dutyTime8s", "dutyTime8c");
+                                                }
+                                                break;
+                                        }
+                                        
+                                        function checkBusinessHours(startTimeClass, endTimeClass) {
+                                            var startTime = $(item).find(startTimeClass).text();
+                                            var endTime = $(item).find(endTimeClass).text();
+         
+                                            if(currentTime >= startTime && currentTime <= endTime) {
+                                                onOff += "🟢 영업중";
+                                            } else {
+                                                onOff += "🔴 영업종료";
+                                            }
+                                        }
+                         value   += "<div class='onOffDiv'>"+ onOff + "</div>"
+						   		 + "</div>"
+								 +     "<div class='hos1_2'>"
+                                 +       "<div>" + $(item).find("dutyName").text() + " <span>💊</span></div>"
+                                 +       "<div class='hosPhone'> <img class='phoneImg' src='resources/icon/phone5.png'><span>" + $(item).find("dutyTel1").text() + "</span></div>"
+                                 +     "</div>"
+                                 +     "<div class='hos1_3'>"
+                                 +       "<div class='hos1_3_1'>" + $(item).find("dutyAddr").text() + "</div>"
+                                 +     "</div>"
 							     +"</div>"
-							     +"</div>"
+							     +"</div>";
 						})
 					} else{
 						value += "<div id='hos_wrap' style='width: 600px; height: 150px'>";
@@ -361,7 +523,7 @@
 							   + "</div>";
 					}
 						$("#result").html(value);
-						
+						$(".listView p").text(ViewName);
 						
 					},error:function(){
 						console.log("ajax 통신 실패");

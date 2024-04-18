@@ -78,7 +78,7 @@
 		  values
 		  (
 		    seq_mno.nextval
-		  , #{ mtId }
+		  , 'M'
 		  , #{ memId }
 		  , #{ memPwd }
 		  , #{ memName }
