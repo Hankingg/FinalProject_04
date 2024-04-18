@@ -437,6 +437,7 @@
 			#kHosPosition {
 				margin-top: 13px;
 				margin-left: 10px;
+				margin-bottom: 20px;
 			}
 			
 			#kHosList{
@@ -470,6 +471,36 @@
 			
 			#kHosTitle span{
 				font-size: 25px;
+			}
+
+			/* 지도 호버시 정보창 */
+			.infoWindow{
+				width: auto;
+				height: 40px;
+				text-align:center;
+				border-radius: 10px;
+				border: 2px solid #f96c85;
+				font-size: 15px;
+				padding-top: 7px;
+				padding-right: 15px;
+				background-color: white;
+				
+			} 
+			 
+			.infoWindow>div{
+				float: left;
+			}
+			
+			.hosName{
+				margin-top: 5px;
+				margin-bottom: 10px;
+			}
+
+			.hosImg{
+				width: 25px;
+				height: 25px;
+				margin-left: 10px;
+				margin-right: 8px;
 			}
 </style>
 </head>
@@ -596,11 +627,6 @@
     						zoom: 14
     					});
     					
-    					// infowindow.setContent('<div style="padding:20px;">' + '현위치' + '</div>');
-    						// 마커에 안내해줄 문구
-    					// infowindow.open(map, location);
-    					// console.log('Coordinates:' + location.toString());
-    					
     					// 마커 위치
 
     					var marker = new naver.maps.Marker({
@@ -675,15 +701,51 @@
 		    								
 											 // 한의원 위치에 대한 마커 추가
 						                    var hosLocation = new naver.maps.LatLng($(item).find("latitude").text(), $(item).find("longitude").text());
-						                    new naver.maps.Marker({
+						                    var marker = new naver.maps.Marker({
 						                        position: hosLocation,
 						                        map: map, // map 변수는 전역으로 선언되어야 함
 						                        icon: {
-						                            url: 'resources/map/pin3.png',
+						                            url: 'resources/map/pin10.png',
 						                            scaledSize: new naver.maps.Size(40, 40)
 						                        }
 						                    });
-						                    
+						                 	
+						                    /* 마커 호버시 정보창 내용 */
+						                    var content = '<div class="infoWindow">'
+						                    	+ '<div class="hosImgDiv">'
+						                    	+ '<img class="hosImg" src="resources/map/hos3.png">'
+						                    	+ '</div>'
+						                    	+ '<div class="hosName">'
+						                        + '<h4>' + $(item).find("dutyName").text() + '</h4>'
+						                        + '</div>'
+						                        + '</div>';
+						                 	
+						                    /* 마커 호버시 정보창 */
+						                    var infoWindow = new naver.maps.InfoWindow({
+						                        content: content,
+						                        maxWidth: 'auto',
+												maxHeight: 40,						                        
+						                        borderWidth: 0,
+						                        borderRadius: '10',
+												backgroundColor: 'transparent',
+												disableAnchor: true,
+						                    });
+
+						                    // 마커에 마우스 진입 이벤트
+						                    marker.addListener('mouseover', function() {
+						                        infoWindow.open(map, marker);
+						                    });
+
+						                    // 마커에서 마우스가 벗어난 경우 정보창 닫기
+						                    marker.addListener('mouseout', function() {
+						                        infoWindow.close();
+						                    });
+
+											$(marker.getElement()).on('click', function(){
+												var hpid = $(item).find("hpid").text();
+												location.href = 'detail.kh?hpid=' + hpid;
+											});
+
 											}
 
 	    							})
