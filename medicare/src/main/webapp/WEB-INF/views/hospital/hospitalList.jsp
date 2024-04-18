@@ -190,12 +190,13 @@
 							</div>
 						</div>
 					</div>
+					
+					<button id="near" style="border:none; background-color:white;">가까운순</button>
 				</div>
 				<div class="map-jm" >
 					<div id="map-jm_1"><img src="${ pageContext.request.contextPath }/resources/images/mapimg.jpg" style="width: 100%; height: 100%; border-radius:30px;"></div>
 				</div>
-				<div id="result3"
-					style="">
+				<div id="result3">
 
 				</div>
 				<br> <br> <br> <br> <br> <br> <br>
@@ -214,7 +215,7 @@
 						let value = "";
 						
 						$(data).find("item").each(function(i, item){
-							value += "<div id='hos_wrap' style='width: 600px; height: 150px'>"
+							value += "<div id='hos_wrap' style='width: 600px; height: 150px' onclick='location.href=\"hosDetail.go?hpid=" + $(item).find("hpid").text()+ "\"'>"
 							     + "<div id='hos1'>"
 							     + "<div id='hos1_1'>"
 							     +    "<div>진료중</div>"
@@ -234,13 +235,10 @@
 							     + "<div id='hos2_1'><p>♡</p></div>"
 							     +  "<div id='hos2_2'><div id='hos2_2_1'> 대기없음 </div></div>"
 							     +"</div>"
-							    +"</div>"
+							    +"</div>" 
 						})
 						
-						
-						
 						$("#result3").html(value);
-						
 						
 					},error:function(){
 						console.log("ajax 통신 실패");
@@ -249,8 +247,52 @@
 					
 				})
 			})
+			$("#near").click(function(){
+				console.log("여긴 지나는거지?")
+				$.ajax({
+					url:"nearhos.in",
+					success:function(data){
+						 console.log("오냐")
+						let value = "";
+						
+						$(data).find("item").each(function(i, item){
+							value += "<div id='hos_wrap' style='width: 600px; height: 150px' onclick='location.href=\"hosDetail.go?hpid=" + $(item).find("hpid").text()+ "\"'>"
+							     + "<div id='hos1'>"
+							     + "<div id='hos1_1'>"
+							     +    "<div>진료중</div>"
+							     + "</div>"
+							     + "<div id='hos1_2'><div>" + $(item).find("dutyName").text() + "</div></div>"
+							     +   "<div id='hos1_3'>"
+							     +     "<div id='hos1_3_1'>★5.0</div>"
+							     + "<br>"
+							     +    "<div id='hos1_3_2'> 552m | 서울 서초구 효령로 |  </div>"
+							     +  "</div>"
+							     +  "<div id='hos1_4'>"
+							     +    "<div style='background-color: rgb(174, 214, 214)'> 접수 </div>"
+							     +    "<div style='background-color: rgb(174, 214, 214)'> 예약 </div>"
+							     +  "</div>"
+							     +"</div>"
+							     +"<div id='hos2'>"
+							     + "<div id='hos2_1'><p>♡</p></div>"
+							     +  "<div id='hos2_2'><div id='hos2_2_1'> 대기없음 </div></div>"
+							     +"</div>"
+							    +"</div>"
+						})
+						
+						$("#result3").html(value);
+						
+					},error:function(){
+						console.log("ajax 통신 실패");
+					}
+				})
+			})
+			
+			$("")
+			
 		})
+		
 	</script>
+	<a href="hosDetail.go">sdfs</a>
 			</div>
 		</div>
 		<jsp:include page="../common/footer.jsp" />

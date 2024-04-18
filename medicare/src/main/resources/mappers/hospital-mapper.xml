@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hospitalMapper">
+
+	<resultMap type="Hospital" id="hospitalResult">
+		<result column="h_code" property="hosCode"/>
+		<result column="h_address" property="hosAddress"/>
+		<result column="h_ctg" property="hosCtg"/>
+		<result column="emg_yn" property="emgYn"/>
+		<result column="h_name" property="hosName"/>
+		<result column="h_tel" property="hosTel"/>
+		<result column="h_ct_mon" property="hosCtMon"/>
+		<result column="h_ct_tue" property="hosCtTue"/>
+		<result column="h_ct_wen" property="hosCtWen"/>
+		<result column="h_ct_thu" property="hosCtThu"/>
+		<result column="h_ct_fri" property="hosCtFri"/>
+		<result column="h_ct_sat" property="hosCtSat"/>
+		<result column="h_ct_sun" property="hosCtSun"/>
+		<result column="h_ct_hol" property="hosCtHol"/>
+		<result column="h_st_mon" property="hosStMon"/>
+		<result column="h_st_tue" property="hosStTue"/>
+		<result column="h_st_wen" property="hosStWen"/>
+		<result column="h_st_thu" property="hosStThu"/>
+		<result column="h_st_fri" property="hosStFri"/>
+		<result column="h_st_sat" property="hosStSat"/>
+		<result column="h_st_sun" property="hosStSun"/>
+		<result column="h_st_hol" property="hosStHol"/>
+	</resultMap>
+
+	<select id="selectHospitalInfo" resultMap="hospitalResult">
+		select
+			    H_CODE
+			  , H_ADDRESS
+			  , H_CTG
+			  , EMG_YN
+			  , H_NAME
+			  , H_TEL
+			  , H_CT_MON
+			  , H_CT_TUE
+			  , H_CT_WEN
+			  , H_CT_THU
+			  , H_CT_FRI
+			  , H_CT_SAT
+			  , H_CT_SUN
+			  , H_CT_HOL
+			  , H_ST_MON
+			  , H_ST_TUE
+			  , H_ST_WEN
+			  , H_ST_THU
+			  , H_ST_FRI
+			  , H_ST_SAT
+			  , H_ST_SUN
+			  , H_ST_HOL
+		  from hospital
+		 where h_code = #{ hpid }
+	</select>
+
+</mapper>

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@RestController
+@Controller
 public class SignalingController {
 		//offer 정보를 주고 받기 위한 websocket
 		//camKey : 각 요청하는 캠의 key , roomId : 룸 아이디
@@ -30,6 +30,7 @@ public class SignalingController {
     public String PeerHandleIceCandidate(@Payload String candidate, @DestinationVariable(value = "roomId") String roomId,
                                          @DestinationVariable(value = "camKey") String camKey) {
     	System.out.println("오냐2");
+    	System.out.println(candidate);
         log.info("[ICECANDIDATE] {} : {}", camKey, candidate);
         return candidate;
     }
@@ -58,6 +59,7 @@ public class SignalingController {
     @MessageMapping("/send/key")
     @SendTo("/topic/send/key")
     public String sendKey(@Payload String message) {
+    	System.out.println(message);
     	System.out.println("오냐5");
         return message;
     }
