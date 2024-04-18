@@ -266,6 +266,12 @@
 		z-index: 1;
 	}
 
+	#downImg{
+		width: 20px;
+		height: 20px;
+		margin-left: 70px;
+	}
+
 	/* 스크롤 커스텀 */
 	.selectBox .optionList::-webkit-scrollbar {width: 6px;}
 	.selectBox .optionList::-webkit-scrollbar-track {background: transparent; }
@@ -296,7 +302,8 @@
 
 						<div class="box">
 							<div class="selectBox">
-							   <button id="selectOption" class="label" type="button">지역 선택</button>
+							   <button id="selectOption" class="label" type="button">지역 선택 <img id="downImg" src="resources/mainIcon/downgreen.png"></button>
+							   
 							   <ul class="optionList">
 								  <li class="optionItem">전체</li>
 								  <li class="optionItem">강남구</li>
