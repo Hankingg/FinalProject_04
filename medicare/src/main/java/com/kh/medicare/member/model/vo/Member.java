@@ -22,6 +22,7 @@ public class Member {
 	private String nickName;
 	private String email;
 	private String address;
+	private String detailAddr;
 	private String phone;
 	private String membership;
 	private String status;

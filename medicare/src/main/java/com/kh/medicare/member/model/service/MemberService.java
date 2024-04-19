@@ -19,4 +19,7 @@ public interface MemberService  {
 	
 	int updateMembershipMonth(Member m);
 	
+	// 회원탈퇴 서비스(update)
+	int deleteMember(String memId);
+	
 } // Class

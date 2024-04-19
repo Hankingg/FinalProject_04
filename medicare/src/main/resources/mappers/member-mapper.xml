@@ -11,6 +11,7 @@
 		<result column="NICKNAME" property="nickName"/>
 		<result column="EMAIL" property="email"/>
 		<result column="ADDRESS" property="address"/>
+		<result column="DETAIL_ADDR" property="detailAddr"/>
 		<result column="PHONE" property="phone"/>
 		<result column="MEMBERSHIP" property="membership"/>
 		<result column="STATUS" property="status"/>
@@ -32,6 +33,7 @@
 		   , NICKNAME
 		   , EMAIL
 		   , ADDRESS
+		   , DETAIL_ADDR
 		   , PHONE
 		   , MEMBERSHIP
 		   , STATUS
@@ -110,10 +112,11 @@
 	<update id="updateMember">
 		update member
    		   set 
-   		   	   nickName = #{nickName}
+   		   	   nickname = #{nickName}
 		     , email = #{email}
 		     , phone = #{phone}
 		     , address = #{address}
+		     , detail_addr = #{detailAddr}
 		     , modify_date = sysdate
 		 where mem_id = #{memId}
 
@@ -128,4 +131,10 @@
 		     mem_id = #{ memId }
 	</update>
 
+	<update id="deleteMember">
+		update
+			   member
+		   set status = 'N'
+		 where mem_id = #{ memId }
+	</update>
 </mapper>

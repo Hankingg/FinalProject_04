@@ -345,20 +345,20 @@
 								<tr>
 									<td width="100">아이디</td>
 									<td>
-										<input type="text" name="memId" value="${ loginUser.memId }" disabled>
+										<input type="text" name="memId" value="${ loginUser.memId }" readonly>
 									</td>
 								</tr>
 								<tr>
 									<td>이&nbsp;&nbsp;&nbsp;름</td>
 									<td>
-										<input type="text" name="memName" value="${ loginUser.memName }" disabled> 
+										<input type="text" name="memName" value="${ loginUser.memName }" readonly> 
 										<span id="nameMsg" class="message" style="display: none"></span>
 									</td>
 								</tr>
 								<tr>
 									<td>닉네임</td>
 									<td>
-										<input type="text" name="nickname" value="${ loginUser.nickName }">
+										<input type="text" name="nickName" value="${ loginUser.nickName }">
 										<span id="nicknameMsg" class="message" style="display: none"></span>
 									</td>
 								</tr>
@@ -370,29 +370,29 @@
 								</tr>
 								<tr>
 									<td>이메일</td>
-									<td><input type="text" name="email" value="${ loginUser.email }" disabled></td>
+									<td><input type="text" name="email" value="${ loginUser.email }"></td>
 								</tr>
 								<tr>
-									<td>배송지</td>
+									<td>주소</td>
 									<td>
-										<input type="text" name="address" value="${ loginUser.address }주소" style="font-size: 15px;">
+										<input type="text" name="address" value="${ loginUser.address }" style="font-size: 15px;">
 									</td>
 								</tr>
 								<tr>
-									<td></td>
+									<td>상세주소</td>
 									<td>
-										<input type="text" name="address" value="${ loginUser.address }상세주소" style="font-size: 15px;">
+										<input type="text" name="detailAddr" value="${ loginUser.detailAddr }" style="font-size: 15px;">
 									</td>
 								</tr>
 								<tr>
-									<td colspan="2"><a href="enrollForm.dv" id="addressBtn">배송지 등록</a></td>
+									<td colspan="2"><a href="enrollForm.dv" id="addressBtn">주소 수정</a></td>
 								</tr>
 							</table>
 							<button type="button" class="btn" id="changePwdBtn"
 								data-toggle="modal" data-target="#changePwd">비밀번호 변경</button>
 							<button type="submit" class="btn">회원정보 수정</button>
 						</form>
-						<a id="leaveBtn" data-toggle="modal" data-target="#leaveMem"
+						<a id="leaveBtn" data-toggle="modal" data-target="#deleteForm"
 							style="color: rgb(177, 177, 177); cursor: pointer;"> 회원 탈퇴 ></a>
 					</div>
 
@@ -513,7 +513,7 @@
 					
 					<!-- 회원 탈퇴시 보여질 Modal -->
 					<!-- The Modal -->
-					<div class="modal" id="leaveMem">
+					<div class="modal" id="deleteForm">
 						<div class="modal-dialog">
 							<div class="modal-content">
 
@@ -531,13 +531,12 @@
                                    				정말로 탈퇴 하시겠습니까?
                    					</b>
 									<br><br>
-									<form action="" method="post">
-										
+									<form action="delete.me" method="post">
 										
 										비밀번호 : 
 											&nbsp;&nbsp;&nbsp;
-											<input type="hidden" name="memNo" value="loginUser-userId">
-											<input type="password" name="userPwd">
+											<input type="hidden" name="memId" value="${ loginUser.memId }">
+											<input type="password" name="memPwd" required>
 											<button class="btn btn-sm btn-danger" type="submit" style="width: 100px; height: 40px; margin-top: 20px;">탈퇴하기</button>
 										
 									</form>

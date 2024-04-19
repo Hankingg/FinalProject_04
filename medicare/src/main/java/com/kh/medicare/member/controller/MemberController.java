@@ -81,7 +81,7 @@ public class MemberController {
 			session.setAttribute("alertMsg", "성공적으로 회원가입 되었습니다.");
 			return "main";		
 		} else { 
-			model.addAttribute("errormsg", "회원가입 실패");
+			model.addAttribute("errorMsg", "회원가입 실패");
 			return "common/errorPage";
 		}
 		
@@ -236,6 +236,7 @@ public class MemberController {
 		return "member/deliveryEnrollForm";
 	}
 	
+	// 회원정보 수정
 	@RequestMapping("update.me")
 	public ModelAndView updateMember(Member m, HttpSession session, ModelAndView mv) {
 		
@@ -253,6 +254,34 @@ public class MemberController {
 		}
 		
 		return mv;
+	}
+	
+	// 회원 탈퇴
+	@RequestMapping("delete.me")
+	public String deleteMember(String memId, String memPwd, HttpSession session, Model model) { 
+		
+		String encPwd = ((Member)session.getAttribute("loginUser")).getMemPwd();
+	    
+		if(bcryptPasswordEncoder.matches(memPwd, encPwd)) { 
+			
+			int result = mService.deleteMember(memId);
+			
+			if(result > 0) { 
+				session.removeAttribute("loginUser");
+				session.setAttribute("alertMsg", "성공적으로 탈퇴되었습니다. 그동안 이용해 주셔서 감사합니다.");
+				return "redirect:/";
+				
+			}else { 
+				model.addAttribute("errorMsg", "회원 탈퇴 실패!");
+				return "common/errorPage";
+			}
+			
+		}else { 
+			
+			session.setAttribute("alertMsg", "비밀번호를 잘못 입력하셨습니다. 확인해주세요");
+			return "redirect:myPage.me";
+		}
+		
 	}
 	
 } //Class

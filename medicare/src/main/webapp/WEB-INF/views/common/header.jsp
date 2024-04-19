@@ -94,6 +94,13 @@
   
 </head>
 <body>
+	<c:if test="${ not empty alertMsg }">
+		<script>
+			alertify.alert("알림", "${ alertMsg }");
+		</script>
+		<c:remove var="alertMsg" scope="session"/> <!-- scope를 써줘야 거기서 실행시켜줌!! -->
+	</c:if>
+	
 	 <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
