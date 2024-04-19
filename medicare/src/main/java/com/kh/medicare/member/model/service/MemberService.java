@@ -14,4 +14,6 @@ public interface MemberService  {
 	
 	Member naverLogin(Member m);
 	
+	int updateMembershipMonth(Member m);
+	
 } // Class
