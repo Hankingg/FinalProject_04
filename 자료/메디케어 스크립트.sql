@@ -49,6 +49,7 @@ CREATE TABLE MEMBER
     , EMAIL VARCHAR2(100) UNIQUE
     , EMAIL_AUTH NUMBER DEFAULT 0 NOT NULL CHECK(EMAIL_AUTH IN (0,1))
     , ADDRESS VARCHAR2(100)
+    , DETAIL_ADDR VARCHAR2(50)
     , PHONE VARCHAR2(13)
     , MEMBERSHIP CHAR(1) DEFAULT 'N' CONSTRAINT MEMBERSHIP_CK CHECK(MEMBERSHIP IN('Y', 'N'))
     , STATUS CHAR(1) DEFAULT 'Y' CONSTRAINT STATUS_CK CHECK(STATUS IN('Y', 'N'))
@@ -68,6 +69,7 @@ COMMENT ON COLUMN MEMBER.NICKNAME IS '닉네임';
 COMMENT ON COLUMN MEMBER.EMAIL IS '이메일';
 COMMENT ON COLUMN MEMBER.EMAIL_AUTH IS '이메일인증여부(미인증:0, 인증:1)';
 COMMENT ON COLUMN MEMBER.ADDRESS IS '주소';
+COMMENT ON COLUMN MEMBER.DETAIL_ADDR IS '상세주소';
 COMMENT ON COLUMN MEMBER.PHONE IS '전화번호';
 COMMENT ON COLUMN MEMBER.MEMBERSHIP IS '멤버쉽구매여부';
 COMMENT ON COLUMN MEMBER.STATUS IS '상태';
@@ -111,7 +113,9 @@ CREATE TABLE HOSPITAL(
     H_ST_FRI VARCHAR2(10),
     H_ST_SAT VARCHAR2(10),
     H_ST_SUN VARCHAR2(10),
-    H_ST_HOL VARCHAR2(10)																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								
+    H_ST_HOL VARCHAR2(10),
+    hos_longitude VARCHAR2(40) NOT NULL,
+    hos_latitude VARCHAR2(40) NOT NULL												
 );
 COMMENT ON COLUMN HOSPITAL.H_CODE IS '병원기관코드';
 COMMENT ON COLUMN HOSPITAL.H_ADDRESS IS '병원주소';
@@ -135,6 +139,8 @@ COMMENT ON COLUMN HOSPITAL.H_ST_FRI IS '진료시작(금)';
 COMMENT ON COLUMN HOSPITAL.H_ST_SAT IS '진료시작(토)';
 COMMENT ON COLUMN HOSPITAL.H_ST_SUN IS '진료시작(일)';
 COMMENT ON COLUMN HOSPITAL.H_ST_HOL IS '진료시작(공휴일)';
+COMMENT ON COLUMN HOSPITAL.hos_longitude IS '병원경도';
+COMMENT ON COLUMN HOSPITAL.hos_latitude IS '병원위도';
 
 -------------------------------- 첨부파일 TABLE -----------------------------
 CREATE TABLE IMG_FILE(
@@ -155,7 +161,7 @@ COMMENT ON COLUMN IMG_FILE.IMG_FILE_PATH IS '파일저장경로';
 COMMENT ON COLUMN IMG_FILE.UPLOAD_DATE IS '업로드일';
 COMMENT ON COLUMN IMG_FILE.IMG_STATUS IS '파일상태';
 
--------------------------------- 리뷰 카테고리 TABLE -----------------------------
+-------------------------------- 리뷰 TABLE -----------------------------
 CREATE TABLE REVIEW(
    R_NO NUMBER PRIMARY KEY,
    MEM_NO VARCHAR2(20)  NOT NULL REFERENCES MEMBER,
@@ -164,7 +170,7 @@ CREATE TABLE REVIEW(
    RATE NUMBER NOT NULL,
    RV_STATUS CHAR(1) NOT NULL CHECK (RV_STATUS IN ('Y','N')),
    H_CODE VARCHAR2(20) NOT NULL REFERENCES HOSPITAL,
-   IMG_FILE_NO NUMBER NOT NULL REFERENCES IMG_FILE
+   IMG_FILE_NO NUMBER REFERENCES IMG_FILE
 );
 
 COMMENT ON COLUMN REVIEW.R_NO IS '리뷰번호';
