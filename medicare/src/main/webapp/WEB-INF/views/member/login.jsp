@@ -77,9 +77,9 @@
                 </div>
                 </form>
                 <br>
-                 <div class="mb-3">
+                 <div class="mb-3" style="margin-left:50px;">
                 	<img src="${ pageContext.request.contextPath }/resources/images/kakao_login.png"style="width:40%; height:50px;" id="kakao-login-btn" onlick="return kakao()"></img>   	               		             		
-             		<div id="naver_id_login" style="text-align:center"><a href="naverlogin">네이버</a></div>                 
+             		<a href="naverlogin"><img src="${ pageContext.request.contextPath }/resources/images/btnG_완성형.png" style="width:40%; height:50px; margin-left:20px; border-radius:5px;"></img></a>      
               	 </div>
               
             </div>
