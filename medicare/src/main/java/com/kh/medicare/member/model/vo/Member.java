@@ -27,6 +27,10 @@ public class Member {
 	private String status;
 	private Date enrollDate;
 	private Date modifyDate;
+	private String msMonth;
+	private String msYear;
+	private Date buyDate;
+	private Date endDate;
 	
 	
 }

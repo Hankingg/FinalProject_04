@@ -54,6 +54,10 @@ CREATE TABLE MEMBER
     , STATUS CHAR(1) DEFAULT 'Y' CONSTRAINT STATUS_CK CHECK(STATUS IN('Y', 'N'))
     , ENROLL_DATE DATE DEFAULT SYSDATE
     , MODIFY_DATE DATE DEFAULT SYSDATE
+    , MS_MONTH CHAR(1) DEFAULT 'N' CONSTRAINT MS_MONTH_CK CHECK(MS_MONTH IN('Y', 'N'))
+    , MS_YEAR CHAR(1) DEFAULT 'N' CONSTRAINT MS_YEAR_CK CHECK(MS_YEAR IN('Y', 'N'))
+    , BUY_DATE DATE DEFAULT SYSDATE
+    , END_DATE DATE 
       );
 COMMENT ON COLUMN MEMBER.MEM_NO IS '회원번호';
 COMMENT ON COLUMN MEMBER.MT_ID IS '회원유형ID';
@@ -69,10 +73,14 @@ COMMENT ON COLUMN MEMBER.MEMBERSHIP IS '멤버쉽구매여부';
 COMMENT ON COLUMN MEMBER.STATUS IS '상태';
 COMMENT ON COLUMN MEMBER.ENROLL_DATE IS '가입일';
 COMMENT ON COLUMN MEMBER.MODIFY_DATE IS '수정일';
+COMMENT ON COLUMN MEMBER.MS_MONTH IS '월간이용권';
+COMMENT ON COLUMN MEMBER.MS_YEAR IS '연간이용권';
+COMMENT ON COLUMN MEMBER.BUY_DATE IS '구매일';
+COMMENT ON COLUMN MEMBER.END_DATE IS '종료일';
 
 -------------------------------- 병원 카테고리 TABLE -----------------------------
 CREATE TABLE H_CATEGORY(
-   H_CTG NUMBER PRIMARY KEY,
+   H_CTG CHAR(1) PRIMARY KEY,
    CTG_NAME VARCHAR2(30) NOT NULL
 );
 
@@ -82,21 +90,51 @@ COMMENT ON COLUMN H_CATEGORY.CTG_NAME IS '카테고리이름';
 
 -------------------------------- 병원 TABLE -----------------------------
 CREATE TABLE HOSPITAL(
-   H_CODE VARCHAR2(20) PRIMARY KEY,
-   H_CTG NUMBER NOT NULL REFERENCES H_CATEGORY,
-   H_NAME VARCHAR2(50) NOT NULL,
-   H_ADDRESS VARCHAR2(300) NOT NULL,
-   H_TEL VARCHAR2(20),
-   EMG_YN CHAR(1) NOT NULL CHECK(EMG_YN IN ('Y','N')),
-   H_TREATTIME VARCHAR2(20) NOT NULL
+    H_CODE VARCHAR2(50) PRIMARY KEY,
+    H_ADDRESS VARCHAR2(4000) NOT NULL,
+    H_CTG CHAR(1) NOT NULL REFERENCES H_CATEGORY,
+    EMG_YN CHAR(1) NOT NULL,
+    H_NAME	VARCHAR2(2000) NOT NULL,
+    H_TEL VARCHAR2(15),
+    H_CT_MON VARCHAR2(10),
+    H_CT_TUE VARCHAR2(10),
+    H_CT_WEN VARCHAR2(10),
+    H_CT_THU VARCHAR2(10),
+    H_CT_FRI VARCHAR2(10),
+    H_CT_SAT VARCHAR2(10),
+    H_CT_SUN VARCHAR2(10),
+    H_CT_HOL VARCHAR2(10),
+    H_ST_MON VARCHAR2(10),
+    H_ST_TUE VARCHAR2(10),
+    H_ST_WEN VARCHAR2(10),
+    H_ST_THU VARCHAR2(10),
+    H_ST_FRI VARCHAR2(10),
+    H_ST_SAT VARCHAR2(10),
+    H_ST_SUN VARCHAR2(10),
+    H_ST_HOL VARCHAR2(10)																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								
 );
 COMMENT ON COLUMN HOSPITAL.H_CODE IS '병원기관코드';
-COMMENT ON COLUMN HOSPITAL.H_CTG IS '병원카테고리';
-COMMENT ON COLUMN HOSPITAL.H_NAME IS '병원이름';
 COMMENT ON COLUMN HOSPITAL.H_ADDRESS IS '병원주소';
-COMMENT ON COLUMN HOSPITAL.H_TEL IS '병원 전화번호';
+COMMENT ON COLUMN HOSPITAL.H_CTG IS '병원카테고리';
 COMMENT ON COLUMN HOSPITAL.EMG_YN IS '응급실운영여부';
-COMMENT ON COLUMN HOSPITAL.H_TREATTIME IS '병원 진료시간';
+COMMENT ON COLUMN HOSPITAL.H_NAME IS '병원이름';
+COMMENT ON COLUMN HOSPITAL.H_TEL IS '병원 전화번호';
+COMMENT ON COLUMN HOSPITAL.H_CT_MON IS '진료종료(월)';
+COMMENT ON COLUMN HOSPITAL.H_CT_TUE IS '진료종료(화)';
+COMMENT ON COLUMN HOSPITAL.H_CT_WEN IS '진료종료(수)';
+COMMENT ON COLUMN HOSPITAL.H_CT_THU IS '진료종료(목)';
+COMMENT ON COLUMN HOSPITAL.H_CT_FRI IS '진료종료(금)';
+COMMENT ON COLUMN HOSPITAL.H_CT_SAT IS '진료종료(토)';
+COMMENT ON COLUMN HOSPITAL.H_CT_SUN IS '진료종료(일)';
+COMMENT ON COLUMN HOSPITAL.H_CT_HOL IS '진료종료(공휴일)';
+COMMENT ON COLUMN HOSPITAL.H_ST_MON IS '진료시작(월)';
+COMMENT ON COLUMN HOSPITAL.H_ST_TUE IS '진료시작(화)';
+COMMENT ON COLUMN HOSPITAL.H_ST_WEN IS '진료시작(수)';
+COMMENT ON COLUMN HOSPITAL.H_ST_THU IS '진료시작(목)';
+COMMENT ON COLUMN HOSPITAL.H_ST_FRI IS '진료시작(금)';
+COMMENT ON COLUMN HOSPITAL.H_ST_SAT IS '진료시작(토)';
+COMMENT ON COLUMN HOSPITAL.H_ST_SUN IS '진료시작(일)';
+COMMENT ON COLUMN HOSPITAL.H_ST_HOL IS '진료시작(공휴일)';
 
 -------------------------------- 첨부파일 TABLE -----------------------------
 CREATE TABLE IMG_FILE(
@@ -154,27 +192,6 @@ COMMENT ON COLUMN ALERT.MEM_NO IS '회원번호';
 COMMENT ON COLUMN ALERT.ALERT_CONTENT IS '알림내용';
 COMMENT ON COLUMN ALERT.ALERT_DATE IS '알림일시';
 COMMENT ON COLUMN ALERT.A_STATUS IS '알림상태';
-
------------------------------- 멤버십 TABLE --------------------------------
-
-CREATE TABLE MEMBERSHIP
-      (
-      MEM_NO VARCHAR2(20) REFERENCES MEMBER PRIMARY KEY
-    , MS_PRICE NUMBER CONSTRAINT MS_PRICE_NN NOT NULL
-    , MS_MONTH CHAR(1) DEFAULT 'N' CONSTRAINT MS_MONTH_CK CHECK(MS_MONTH IN('Y', 'N'))
-    , MS_YEAR CHAR(1) DEFAULT 'N' CONSTRAINT MS_YEAR_CK CHECK(MS_YEAR IN('Y', 'N'))
-    , EXPIRATION_DATE DATE 
-    , BUY_DATE DATE DEFAULT SYSDATE
-    , END_DATE DATE CONSTRAINT END_DATE_NN NOT NULL 
-      );
-
-COMMENT ON COLUMN MEMBERSHIP.MEM_NO IS '회원번호';
-COMMENT ON COLUMN MEMBERSHIP.MS_PRICE IS '가격';
-COMMENT ON COLUMN MEMBERSHIP.MS_MONTH IS '월간이용권';
-COMMENT ON COLUMN MEMBERSHIP.MS_YEAR IS '연간이용권';
-COMMENT ON COLUMN MEMBERSHIP.EXPIRATION_DATE IS '유효기간';
-COMMENT ON COLUMN MEMBERSHIP.BUY_DATE IS '구매일';
-COMMENT ON COLUMN MEMBERSHIP.END_DATE IS '종료일';
 
 -------------------------------- 약국 TABLE -----------------------------
 CREATE TABLE PHARMACY(

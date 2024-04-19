@@ -1,6 +1,14 @@
 package com.kh.medicare.member.controller;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -113,6 +121,7 @@ public class MemberController {
 		
 	} // loginMember
 	
+	
 	@RequestMapping("logout.me")
 	public String logoutMember(HttpSession session) {
 		
@@ -124,25 +133,25 @@ public class MemberController {
 	
 	@RequestMapping("kakaoLogin.me")
 	public void kakaoLogin(Member m, HttpSession session, Model model, HttpServletResponse response) throws IOException {
-	    // 카카오에서 받아온 사용자 정보를 확인하여 이미 데이터베이스에 있는지 여부를 판단하고, 없는 경우 추가합니다.
+	   
 	    Member loginUser = mService.kakaoLogin(m);
-	    System.out.println(loginUser);
+	    
 	    if (loginUser != null) {
-	        // 이미 회원이 있는 경우 로그인 처리
+	      
 	        session.setAttribute("loginUser", loginUser);
 	        response.setContentType("text/html; charset=UTF-8");
             response.getWriter().print("success");
 	    } else {
-	        // 회원이 없는 경우 새로 추가
+	    
 	    	m.setMtId("M");
 	        int result = mService.insertMember(m);
 	        if (result > 0) {
-	            // 회원 추가 성공 시 로그인 처리
+	      
 	            session.setAttribute("loginUser", m);
 	            response.setContentType("text/html; charset=UTF-8");
 	            response.getWriter().print("success");            
 	        } else {
-	            // 회원 추가 실패 시 오류 처리
+	 
 	            model.addAttribute("errorMsg", "회원 추가 실패");
 	            response.setContentType("text/html; charset=UTF-8");
 	            response.getWriter().print("fail");
@@ -151,6 +160,8 @@ public class MemberController {
 	    // 메인 페이지로 리다이렉트
 	     
 	} // kakaoLogin
+	
+	
 	
 	
 	@RequestMapping(value = "naverlogin", method = { RequestMethod.GET, RequestMethod.POST })
@@ -178,44 +189,47 @@ public class MemberController {
 	       
 	        JsonObject jObj = JsonParser.parseString(apiResult).getAsJsonObject();
 	        
-	        String memId = ((JsonObject)jObj.get("response")).get("id").getAsString();       
+	           String memId = ((JsonObject)jObj.get("response")).get("id").getAsString();       
 	           String nickName = ((JsonObject)jObj.get("response")).get("nickname").getAsString();          
 	           String email = ((JsonObject)jObj.get("response")).get("email").getAsString();
 	           String phone = ((JsonObject)jObj.get("response")).get("mobile").getAsString();
 	           String memName = ((JsonObject)jObj.get("response")).get("name").getAsString();
 	    
-	           	m.setMtId("M");
+
+	            m.setMtId("M");
 		        m.setMemId(memId);
 		        m.setMemName(memName);
 		        m.setNickName(nickName);
 		        m.setEmail(email);
 		        m.setPhone(phone);
+		        m.setMembership("N");
+		        m.setMsMonth("N");
+		        m.setMsYear("N");
 		        
 		        Member loginUser = mService.naverLogin(m);
-		        
+		       System.out.println(m);
 	      if(loginUser == null) {	    	 
 	    	   	    
 	        int result = mService.insertMember(m);
 	        
 	        if(result > 0) {           
-	            session.setAttribute("loginUser", m);
-	           return "redirect:/";
+	            session.setAttribute("loginUser", m);         
+	            return "redirect:/";
 	        } else {	            
 	            model.addAttribute("errorMsg", "회원가입 실패");
-	            return "redirect:/"; 
+	            return "common/errorPage"; 
 	        }
 	        
-	      } else {
-	    	 
+	      } else {	    	 
 	    	  session.setAttribute("loginUser", m);
 	    	  return "redirect:/";
 	      }
 	       
-	       // return "redirect:/";
+	       
 	      
 	    } // callback
-	
-	
+	 
+	 
 	 
 	@RequestMapping("enrollForm.dv")
 	public String deliveryEnrollForm() {

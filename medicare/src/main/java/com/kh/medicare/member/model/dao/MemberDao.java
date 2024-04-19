@@ -31,7 +31,13 @@ public class MemberDao {
 		
 		return sqlSession.selectOne("memberMapper.naverLogin", m);
 		
-	}
+	} // naverLogin
+	
+	public int updateMembershipMonth(SqlSession sqlSession, Member m) {
+		
+		return sqlSession.update("memberMapper.updateMembershipMonth", m);
+		
+	} // updateMembership
 	
 	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
 		

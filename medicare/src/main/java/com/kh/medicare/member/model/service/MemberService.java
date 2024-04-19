@@ -17,4 +17,6 @@ public interface MemberService  {
 	// 정보수정 서비스(update)
 	int updateMember(Member m);
 	
+	int updateMembershipMonth(Member m);
+	
 } // Class
