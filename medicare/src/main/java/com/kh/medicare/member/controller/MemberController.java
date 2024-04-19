@@ -222,4 +222,23 @@ public class MemberController {
 		return "member/deliveryEnrollForm";
 	}
 	
+	@RequestMapping("update.me")
+	public ModelAndView updateMember(Member m, HttpSession session, ModelAndView mv) {
+		
+		int result = mService.updateMember(m);
+		
+		if(result > 0) {
+			
+			session.setAttribute("loginUser", mService.loginMember(m));
+			session.setAttribute("alertMsg", "성공적으로 수정되었습니다.");
+			
+			mv.setViewName("member/myPage");
+		}else {
+			mv.addObject("errorMsg", "회원정보 수정 실패!!");
+			mv.setViewName("common/errorPage");
+		}
+		
+		return mv;
+	}
+	
 } //Class

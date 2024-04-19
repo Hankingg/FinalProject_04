@@ -1,6 +1,7 @@
 package com.kh.medicare.member.model.dao;
 
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.medicare.member.model.vo.Member;
@@ -30,6 +31,11 @@ public class MemberDao {
 		
 		return sqlSession.selectOne("memberMapper.naverLogin", m);
 		
+	}
+	
+	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
+		
+		return sqlSession.update("memberMapper.updateMember", m);
 	}
 	
 } // Class

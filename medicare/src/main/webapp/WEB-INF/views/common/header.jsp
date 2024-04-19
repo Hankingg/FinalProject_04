@@ -187,11 +187,11 @@
               <i class="icon-bell mx-0" style="width: 30px; height: 30px; margin-bottom: 5px;"></i>
               <i class="fa-solid fa-circle-user" style="width: 30px; height: 30px; margin-top: 10px;"></i>&nbsp;&nbsp;&nbsp;           	
             </a>	
-             <label style="margin-top: 8px;"><strong style="color: black;">${ loginUser.memName }님</strong> 환영합니다</label>
+             <label style="margin-top: 8px;"><strong style="color: black;">${ loginUser.memName }님</strong>&nbsp;&nbsp;&nbsp;&nbsp;환영합니다</label>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
-                <i class="ti-settings text-primary"></i>
-                Settings
+              <a href="myPage.me" class="dropdown-item">
+                <i class="fa-solid fa-user text-primary"></i>&nbsp;&nbsp;
+                마이페이지
               </a>
               <a href="logout.me" class="dropdown-item">
                 <i class="ti-power-off text-primary"></i>

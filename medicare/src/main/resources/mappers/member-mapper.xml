@@ -88,5 +88,16 @@
 		  , #{ phone }
 		  )
 	</insert>
+	
+	<update id="updateMember">
+		update member
+   		   set 
+   		   	   nickName = #{nickName}
+		     , email = #{email}
+		     , phone = #{phone}
+		     , address = #{address}
+		     , modify_date = sysdate
+		 where mem_id = #{memId}
+	</update>
 
 </mapper>

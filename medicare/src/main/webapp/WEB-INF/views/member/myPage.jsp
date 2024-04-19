@@ -340,37 +340,48 @@
 				<div class="myPage-info">
 					<!-- 내 정보 -->
 					<div id="myInfo" class="info active">
-						<form action="" method="post">
+						<form action="update.me" method="post">
 							<table>
 								<tr>
 									<td width="100">아이디</td>
-									<td><input type="text" value="user01" disabled></td>
+									<td>
+										<input type="text" name="memId" value="${ loginUser.memId }" disabled>
+									</td>
 								</tr>
 								<tr>
 									<td>이&nbsp;&nbsp;&nbsp;름</td>
-									<td><input type="text" name="userName" value="노정민" disabled> <span
-										id="nameMsg" class="message" style="display: none"></span></td>
+									<td>
+										<input type="text" name="memName" value="${ loginUser.memName }" disabled> 
+										<span id="nameMsg" class="message" style="display: none"></span>
+									</td>
 								</tr>
 								<tr>
 									<td>닉네임</td>
-									<td><input type="text" name="nickname" value="정밍"> <span
-										id="nicknameMsg" class="message" style="display: none"></span>
+									<td>
+										<input type="text" name="nickname" value="${ loginUser.nickName }">
+										<span id="nicknameMsg" class="message" style="display: none"></span>
+									</td>
+								</tr>
+								<tr>
+									<td>번&nbsp;&nbsp;&nbsp;호</td>
+									<td>
+										<input type="text" name="phone" value="${ loginUser.phone }">
 									</td>
 								</tr>
 								<tr>
 									<td>이메일</td>
-									<td><input type="text" value="jm@naver.com" disabled></td>
+									<td><input type="text" name="email" value="${ loginUser.email }" disabled></td>
 								</tr>
 								<tr>
 									<td>배송지</td>
 									<td>
-										<input type="text" value="서울특별시 강남대로94길" style="font-size: 15px;">
+										<input type="text" name="address" value="${ loginUser.address }주소" style="font-size: 15px;">
 									</td>
 								</tr>
 								<tr>
 									<td></td>
 									<td>
-										<input type="text" value="71-8 309호" style="font-size: 15px;">
+										<input type="text" name="address" value="${ loginUser.address }상세주소" style="font-size: 15px;">
 									</td>
 								</tr>
 								<tr>
