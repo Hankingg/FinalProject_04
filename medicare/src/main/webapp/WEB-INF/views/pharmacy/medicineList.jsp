@@ -7,9 +7,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-.outer{
-	height : 800px;
+.main-panel div{
+	border: 1px solid red;
 }
+
+.outer{
+		border: 2px solid rgb(140, 192, 81);
+		border-radius: 10px;
+		width: 1300px;
+		height: 1000px;
+		margin-left: 100px;
+}
+
 
 </style>
 <!-- 아임포트 라이브러리 -->
@@ -20,15 +29,16 @@
 	<jsp:include page="../common/header.jsp"/>
 	 <div class="main-panel">
         <div class="content-wrapper" style="background-color: white;">
-        	
+        	<h2>일반의약품 구매하기</h2>
         	<div class="outer">
         		
 				
-        		<button onclick="requestPay();">결제하기</button>
-        	
-        	
-        	
+        		
+				
+				
+				
         	</div>
+			<button onclick="requestPay();">결제하기</button>
         	
         </div>
     <jsp:include page="../common/footer.jsp"/>
@@ -55,16 +65,12 @@
 					buyer_postcode: "01181"
 				}, function (rsp) { // callback
 					if (rsp.success) {
-					console.log("아오성공");
-						
 						// 결제 성공 시 로직,
-						
+						console.log("아오성공");
 					} else {
-					console.log("아오실패ㅔ");
-					console.log(rsp.error_msg);
-						
 						// 결제 실패 시 로직,
-						
+						console.log("아오실패");
+						console.log(rsp.error_msg);
 					}
 				});
 			}
