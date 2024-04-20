@@ -33,13 +33,11 @@ public class PharmacyController {
 	@RequestMapping(value="selectFirstList.ph", produces="text/xml; charset=UTF-8")
 	public String selectPharmacyFirstList() throws IOException {
 		
-		double lat = 37.3002861;
-		double lang = 126.9710944;
 		
 		String url = "https://apis.data.go.kr/B552657/ErmctInsttInfoInqireService/getParmacyLcinfoInqire";  
 			   url += "?serviceKey=" + serviceKey;
-			   url += "&WGS84_LON=126.9710944";
-			   url += "&WGS84_LAT=37.3002861";
+			   url += "&WGS84_LAT=37.4989913";
+			   url += "&WGS84_LON=127.03282";
 			   url += "&numOfRows=10"; 	   
 	
 		URL requestUrl = new URL(url);

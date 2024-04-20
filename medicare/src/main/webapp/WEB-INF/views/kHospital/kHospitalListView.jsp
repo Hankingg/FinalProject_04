@@ -652,10 +652,7 @@
     						zoom: 15
     						
     					});
-    					/* infowindow.setContent('<div style="padding:20px;">' +
-    						'<h5 style="margin-bottom:5px; color:#f00;">현위치 조회 실패!</h5>' + "latitude: " + center.lat() + "<br />longitude:" + center.lng() + '</div>');
-    					
-    					infowindow.open(map, center); */
+    				
     				}
 
             	function selectList(){
@@ -769,13 +766,13 @@
 							if(data != null && $(data).find("item").length > 0){
 								// 지도 초기화 및 첫번째 마커 생성
 								if(first){
-										var initialLocation = new naver.maps.LatLng($(data).find("item:first").find("latitude").text(), $(data).find("item:first").find("longitude").text());
-										// 지도 생성
-										map = new naver.maps.Map('map', {
-											center: initialLocation,
-											zoom: 14
-										});
-										first = false;  // 첫 번째 항목을 처리한 후 false로 설정
+									var initialLocation = new naver.maps.LatLng($(data).find("item:first").find("latitude").text(), $(data).find("item:first").find("longitude").text());
+									// 지도 생성
+									map = new naver.maps.Map('map', {
+										center: initialLocation,
+										zoom: 14
+									});
+									first = false;  // 첫 번째 항목을 처리한 후 false로 설정
 									
 								}
 
@@ -958,61 +955,6 @@
 
    			</script>
             
-
-			<script>
-
-				/* 주소로 좌표 찍는 geocode
-				naver.maps.Service.geocode({
-					query: "경기도 수원시 장안구 정자동 945"
-				}, function(status, response) {
-					if (status !== naver.maps.Service.Status.OK) {
-						return alert('주소를 지리적 좌표로 변환하는 중 오류가 발생했습니다.');
-					}
-
-					var result = response.v2, // 검색 결과의 컨테이너
-						items = result.addresses; // 검색 결과의 배열
-
-					var position = new naver.maps.LatLng(items[0].y, items[0].x);
-
-					// 지도 생성
-					var map = new naver.maps.Map('map', {
-						center: position,
-						zoom: 18
-					});
-
-					// 마커 위치
-					var markerOptions = {
-						position: position,
-						map: map,
-						icon: {
-							url: 'resources/map/pin3.png',
-							scaledSize: new naver.maps.Size(45, 45), // 아이콘 사이즈 조정
-							origin: new naver.maps.Point(0, 0),
-							anchor: new naver.maps.Point(11, 35)
-						}
-					};
-
-					var marker = new naver.maps.Marker(markerOptions);
-				}); */
-
-				
-				
-				
-				
-				/* $(window).on("load", function(){ // 창이 실행되면 현 위치 값 구하는 함수 실행되는 제이쿼리
-					if(navigator.geolocation){
-						
-						navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
-					}else {
-						var center = map.getCenter();
-						infowindow.setContent('<div style="padding:20px;"><h5 style="margin-bottom:5px; color:#f00;">Geolocation not supported</h5></div>');
-						infowindow.open(map, center);
-					}
-				});
-	 */
-					
-			  </script>
-              
            </div>
  
         </div>

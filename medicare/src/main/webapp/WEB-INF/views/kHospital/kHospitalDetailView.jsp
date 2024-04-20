@@ -495,49 +495,11 @@
                   <div class="diagnosisTime"></div> 
                 </div>
                 <br>
-               <!--  <div class="distance">
-                  <p>885m | 이비인후과 </p>
-                </div>    -->
+
                 <div id="map">
                   
                 </div>
-               
-                <script>
-				  
-                  /* naver.maps.Service.geocode({
-                      query: "경기도 수원시 장안구 정자동 945"
-                  }, function(status, response) {
-                      if (status !== naver.maps.Service.Status.OK) {
-                          return alert('주소를 지리적 좌표로 변환하는 중 오류가 발생했습니다.');
-                      }
 
-                      var result = response.v2, // 검색 결과의 컨테이너
-                          items = result.addresses; // 검색 결과의 배열
-
-                      var position = new naver.maps.LatLng(items[0].y, items[0].x);
-
-                      // 지도 생성
-                      var map = new naver.maps.Map('map', {
-                          center: position,
-                          zoom: 18
-                      });
-
-                      // 마커 위치
-                      var markerOptions = {
-                          position: position,
-                          map: map,
-                          icon: {
-                              url: 'resources/map/pin10.png',
-                              scaledSize: new naver.maps.Size(45, 45), // 아이콘 사이즈 조정
-                              origin: new naver.maps.Point(0, 0),
-                              anchor: new naver.maps.Point(11, 35)
-                          }
-                      };
-
-                      var marker = new naver.maps.Marker(markerOptions);
-                  }); */
-
-                </script>
                 <br><br><br>
                 
                 <div id="info-tab">
@@ -745,11 +707,11 @@
 			                    var infoWindow = new naver.maps.InfoWindow({
 			                        content: content,
 			                        maxWidth: 'auto',
-									maxHeight: 40,						                        
+									            maxHeight: 40,						                        
 			                        borderWidth: 0,
 			                        borderRadius: '10',
-									backgroundColor: 'transparent',
-									disableAnchor: true,
+                              backgroundColor: 'transparent',
+                              disableAnchor: true,
 			                    });
 
 			                    // 마커에 마우스 진입 이벤트
