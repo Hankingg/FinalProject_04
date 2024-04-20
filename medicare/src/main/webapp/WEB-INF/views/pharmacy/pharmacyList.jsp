@@ -483,7 +483,7 @@
 									position: hosLocation,
 									map: map, // map 변수는 전역으로 선언되어야 함
 									icon: {
-										url: 'resources/map/pin10.png',
+										url: 'resources/map/phar1.png',
 										scaledSize: new naver.maps.Size(40, 40)
 									}
 								});
