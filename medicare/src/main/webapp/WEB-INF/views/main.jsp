@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 .content-wrapper{
   /* border: 1px solid black; */
@@ -362,6 +363,16 @@
   transform: scale(1.2);
 }
 
+#emerList {
+  text-decoration-line: none;
+  color: black;
+}
+
+#membership {
+  text-decoration-line: none;
+  color: black;
+}
+
 </style>
 </head>
 <body>
@@ -371,6 +382,7 @@
         <div class="outer">
           <div class="inner1">
             <div class="inner1s">
+              <a href="emergencyList.em" id="emerList">
               <div class="searchAmbulance_1">
                 <p>응급실</p> 
                 <p>바로가기</p> 
@@ -378,6 +390,7 @@
               <div class="searchAmbulance_2">
                 <img style="height: 120px; width: 120px;" src="resources/mainIcon/119.png">
               </div>
+              </a>
             </div>
             <div class="inner1s">
               <div class="receiveHospital_1">
@@ -425,11 +438,26 @@
               </div>
             </div>
           </div>
-          <div class="inner3 membership">
-            <div class="inner3s">
-              <div class="membership_1"><p>구독 후 접수, 예약이 가능해요!</p></div>
-              <div class="membership_2"><button class="membership_btn">멤버십 구독하기</button></div>
+          
+         
+          <c:choose>
+           <c:when test="${ not empty loginUser and loginUser.membership eq Y }">
+           <div class="inner3 membership">         	
+            <div class="inner3s">             
+              <div class="membership_2"><button class="membership_btn" style="margin-top:30px; height:60px;">멤버십 만료일 : ${ loginUser.endDate } </button></div>      
             </div>
+           </c:when>
+           <c:otherwise>
+          <div class="inner3 membership">
+          	<a href="membership.me" id="membership">
+            <div class="inner3s">
+              <div class="membership_1"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;구독 후 접수, 예약이 가능해요!</p></div>
+              <div class="membership_2"><button class="membership_btn">멤버십 구독하기</button></div>
+            </a>
+            </div>
+            </c:otherwise>
+           </c:choose>
+            
             <div class="inner3s weight">
                 <div class="weight_1">
                     <div class="weight_1_1"><p>우리 아이 키 ▪ 몸무게</p></div>
@@ -469,6 +497,6 @@
         
         </div>
         <jsp:include page="common/footer.jsp"/>
-     
+        
 </body>
 </html>

@@ -45,6 +45,24 @@ public class MemberServiceImpl implements MemberService{
 		
 		return loginUser;
 	}
+
+	@Override
+	public int updateMember(Member m) {
+		return mDao.updateMember(sqlSession, m);
+	}
+	
+	public int updateMembershipMonth(Member m) {
+		int result = mDao.updateMembershipMonth(sqlSession, m);
+		return result;
+	}
+
+	@Override
+	public int deleteMember(String memId) {
+		
+		return mDao.deleteMember(sqlSession, memId);
+	}
+
+	
 	
 	
 

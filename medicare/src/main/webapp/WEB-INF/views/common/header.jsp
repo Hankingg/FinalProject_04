@@ -94,6 +94,13 @@
   
 </head>
 <body>
+	<c:if test="${ not empty alertMsg }">
+		<script>
+			alertify.alert("알림", "${ alertMsg }");
+		</script>
+		<c:remove var="alertMsg" scope="session"/> <!-- scope를 써줘야 거기서 실행시켜줌!! -->
+	</c:if>
+	
 	 <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -187,11 +194,11 @@
               <i class="icon-bell mx-0" style="width: 30px; height: 30px; margin-bottom: 5px;"></i>
               <i class="fa-solid fa-circle-user" style="width: 30px; height: 30px; margin-top: 10px;"></i>&nbsp;&nbsp;&nbsp;           	
             </a>	
-             <label style="margin-top: 8px;"><strong style="color: black;">${ loginUser.memName }님</strong> 환영합니다</label>
+             <label style="margin-top: 8px;"><strong style="color: black;">${ loginUser.memName }님</strong>&nbsp;&nbsp;&nbsp;&nbsp;환영합니다</label>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
-                <i class="ti-settings text-primary"></i>
-                Settings
+              <a href="myPage.me" class="dropdown-item">
+                <i class="fa-solid fa-user text-primary"></i>&nbsp;&nbsp;
+                마이페이지
               </a>
               <a href="logout.me" class="dropdown-item">
                 <i class="ti-power-off text-primary"></i>

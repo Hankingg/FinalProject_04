@@ -23,7 +23,6 @@
       height: auto; 
       width: 1000px;
       margin:auto;
-      border-top: 2px solid gray;
       padding-top: 50px;
    }
 
@@ -412,6 +411,97 @@
 				margin-left: 90px;
 				margin-top: -2px;
 			}
+			
+			#hosMapInfo{
+				width: 300px;
+				height: 50px;
+				margin-top: 90px;
+				margin-left: 50px;
+			}
+			
+			#hosMapInfo>div{
+				float: left;
+			}
+						
+			#hosMapImg{
+				width: 40px;
+				height: 40px;
+				margin-right: 10px;
+			}
+			
+			#kHosPosition span{
+				font-size: 20px;
+				
+			}
+			
+			#kHosPosition {
+				margin-top: 13px;
+				margin-left: 10px;
+				margin-bottom: 20px;
+			}
+			
+			#kHosList{
+				width: 1100px;
+				height: 50px;
+				margin-left: 50px;
+				border-top: 2px solid gray;
+				padding-top: 30px;
+				margin-bottom: 40px;
+				
+			}
+			
+			#kHosList>div{
+				float: left;
+			}
+			
+			#kHosList p{
+				font-size: 20px;
+			}
+			
+			#kDoctor2Img{
+				width: 150px;
+				height: 100px;
+			}
+			
+			#kHosTitle{
+				margin-left: 30px;
+				margin-top: 50px;
+				margin-bottom: 30px;
+			}
+			
+			#kHosTitle span{
+				font-size: 25px;
+			}
+
+			/* 지도 호버시 정보창 */
+			.infoWindow{
+				width: auto;
+				height: 40px;
+				text-align:center;
+				border-radius: 10px;
+				border: 2px solid #f96c85;
+				font-size: 15px;
+				padding-top: 7px;
+				padding-right: 15px;
+				background-color: white;
+				
+			} 
+			 
+			.infoWindow>div{
+				float: left;
+			}
+			
+			.hosName{
+				margin-top: 5px;
+				margin-bottom: 10px;
+			}
+
+			.hosImg{
+				width: 25px;
+				height: 25px;
+				margin-left: 10px;
+				margin-right: 8px;
+			}
 </style>
 </head>
 <body>
@@ -428,7 +518,7 @@
 
             	<div class="box">
                      <div class="selectBox">
-                        <button id="selectOption" class="label" type="button">지역 선택<img id="downImg" src="resources/kHospital/down1.png"></button>
+                        <button id="selectOption" class="label" type="button">지역 선택<img id="downImg" src="resources/kHospital/arrow1.png"></button>
 						
                         <ul class="optionList">
                           <li class="optionItem">전체</li>
@@ -468,22 +558,35 @@
 						<input id="QN" class="sc-hnmMDg bccLDB Search__Input" placeholder="한의원 이름으로 검색해보세요" name="keyword">
 						<button id="searchBtn" class="sc-jPQLIr gZgnOG search" type="submit" aria-label="검색하기 버튼"></button>
 					</div>
-                     <!-- <div class="searchDiv">
-                        <div><input type="text" name="QN" id="QN" placeholder="한의원 이름으로 검색해보세요"></div>
-						<div id="btn"> <img id="searchImg" src="resources/icon/search1.png"></div>
-                     </div> -->
                      <div class="btnBox">
                      </div>
                   </div>
                </div>
             </div>
 			<br><br>
+			<div id="hosMapInfo">
+				<div id="hosMap">
+					<img id="hosMapImg" src="resources/map/map1.png">				
+				</div>
+				<div id="kHosPosition">
+					<span>한의원 위치</span>				
+				</div>
+			</div>
+			
             <div id="map">
                
             </div>
             <br><br><br>
+            <div id="kHosList">
+            	<div id="kDoctor2">
+	            	<img id="kDoctor2Img" src="resources/kHospital/kDoctor8.png">
+            	</div>
+            	<div id="kHosTitle">
+            		<span>주변 한의원 목록</span>
+            	</div>
+           	</div>
             <div id="result">
-               
+              
             </div>
             <br> <br> <br> <br> <br> <br> <br>
             <br>
@@ -495,11 +598,63 @@
             var currentHour = now.getHours();
             var currentMinute = now.getMinutes();
             var currentTime = currentHour * 100 + currentMinute;
-            
+
             	$(function(){
-            		selectList();
-            	})
-            	
+            		
+					if(navigator.geolocation){
+						
+						navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
+					}else {
+						var center = map.getCenter();
+						infowindow.setContent('<div style="padding:20px;"><h5 style="margin-bottom:5px; color:#f00;">Geolocation not supported</h5></div>');
+						infowindow.open(map, center);
+					}
+            		
+            	});
+            		
+            	var map; // 전역변수로 선언
+            			
+    			var infowindow = new naver.maps.InfoWindow();
+    				
+    				function onSuccessGeolocation(position){ // 실행할 함수
+    					var location = new naver.maps.LatLng(position.coords.latitude,
+    														 position.coords.longitude);
+    					
+    					// 지도 생성
+    					map = new naver.maps.Map('map', {
+    						center: location,
+    						zoom: 14
+    					});
+    					
+    					// 마커 위치
+
+    					var marker = new naver.maps.Marker({
+    						position: location,
+    						map: map,
+    						icon: {
+    							url: 'resources/map/person2.png',
+    							scaledSize: new naver.maps.Size(40, 40), // 아이콘 사이즈 조정
+    							origin: new naver.maps.Point(0, 0),
+    							anchor: new naver.maps.Point(11, 35)
+    						}
+    					});
+    				
+    					// 한의원 목록 가져오기
+    					selectList();	
+    				}
+    				
+    				function onErrorGeolocation(){ // 오류 시 발생될 예외처리용 함수
+    					alert("현위치 조회실패");
+    					var center = new naver.maps.LatLng(37.3595704, 127.105399);
+    					
+    					map = new naver.maps.Map('map', {
+    						center: center,
+    						zoom: 15
+    						
+    					});
+    				
+    				}
+
             	function selectList(){
 
 	            	$.ajax({
@@ -516,7 +671,7 @@
 	    							
 			    						distance = $(item).find("distance").text();
 		    							
-		    							value += "<div class='hos_wrap' onclick='location.href=\"detail.kh?hpid=" + $(item).find("hpid").text() + "\"'>"
+		    							value +=  "<div class='hos_wrap' onclick='location.href=\"detail.kh?hpid=" + $(item).find("hpid").text() + "\"'>"
 		    										+ "<div class='hos1'>"
 													+ "<div class='hos1_1'>";
 													
@@ -537,7 +692,56 @@
 													+ "</div>"
 													+ "</div>"
 													+ "</div>";
-		    							}
+		    								
+											// 한의원 위치에 대한 마커 추가
+						                    var hosLocation = new naver.maps.LatLng($(item).find("latitude").text(), $(item).find("longitude").text());
+						                    var marker = new naver.maps.Marker({
+						                        position: hosLocation,
+						                        map: map, // map 변수는 전역으로 선언되어야 함
+						                        icon: {
+						                            url: 'resources/map/pin10.png',
+						                            scaledSize: new naver.maps.Size(40, 40)
+						                        }
+						                    });
+						                 	
+						                    /* 마커 호버시 정보창 내용 */
+						                    var content = '<div class="infoWindow">'
+						                    	+ '<div class="hosImgDiv">'
+						                    	+ '<img class="hosImg" src="resources/map/hos3.png">'
+						                    	+ '</div>'
+						                    	+ '<div class="hosName">'
+						                        + '<h4>' + $(item).find("dutyName").text() + '</h4>'
+						                        + '</div>'
+						                        + '</div>';
+						                 	
+						                    /* 마커 호버시 정보창 */
+						                    var infoWindow = new naver.maps.InfoWindow({
+						                        content: content,
+						                        maxWidth: 'auto',
+												maxHeight: 40,						                        
+						                        borderWidth: 0,
+						                        borderRadius: '10',
+												backgroundColor: 'transparent',
+												disableAnchor: true,
+						                    });
+
+						                    // 마커에 마우스 진입 이벤트
+						                    marker.addListener('mouseover', function() {
+						                        infoWindow.open(map, marker);
+						                    });
+
+						                    // 마커에서 마우스가 벗어난 경우 정보창 닫기
+						                    marker.addListener('mouseout', function() {
+						                        infoWindow.close();
+						                    });
+
+											$(marker.getElement()).on('click', function(){
+												var hpid = $(item).find("hpid").text();
+												location.href = 'detail.kh?hpid=' + hpid;
+											});
+
+											}
+
 	    							})
 	
 	    							$("#result").html(value);
@@ -557,9 +761,71 @@
 						success:function(data){
 							
 							let value = "";
-							
-							if(data != null){
+							let first = true;
+
+							if(data != null && $(data).find("item").length > 0){
+								// 지도 초기화 및 첫번째 마커 생성
+								if(first){
+									var initialLocation = new naver.maps.LatLng($(data).find("item:first").find("latitude").text(), $(data).find("item:first").find("longitude").text());
+									// 지도 생성
+									map = new naver.maps.Map('map', {
+										center: initialLocation,
+										zoom: 14
+									});
+									first = false;  // 첫 번째 항목을 처리한 후 false로 설정
+									
+								}
+
 								$(data).find("item").each(function(i, item){
+
+									// 한의원 위치에 대한 마커 추가
+									var hosLocation = new naver.maps.LatLng($(item).find("latitude").text(), $(item).find("longitude").text());
+						            
+									var marker = new naver.maps.Marker({
+										position: hosLocation,
+										map: map, // map 변수는 전역으로 선언되어야 함
+										icon: {
+											url: 'resources/map/pin10.png',
+											scaledSize: new naver.maps.Size(40, 40)
+										}
+									});
+						                 	
+									/* 마커 호버시 정보창 내용 */
+									var content = '<div class="infoWindow">'
+										+ '<div class="hosImgDiv">'
+										+ '<img class="hosImg" src="resources/map/hos3.png">'
+										+ '</div>'
+										+ '<div class="hosName">'
+										+ '<h4>' + $(item).find("dutyName").text() + '</h4>'
+										+ '</div>'
+										+ '</div>';
+									
+									/* 마커 호버시 정보창 */
+									var infoWindow = new naver.maps.InfoWindow({
+										content: content,
+										maxWidth: 'auto',
+										maxHeight: 40,						                        
+										borderWidth: 0,
+										borderRadius: '10',
+										backgroundColor: 'transparent',
+										disableAnchor: true,
+									});
+
+									// 마커에 마우스 진입 이벤트
+									marker.addListener('mouseover', function() {
+										infoWindow.open(map, marker);
+									});
+
+									// 마커에서 마우스가 벗어난 경우 정보창 닫기
+									marker.addListener('mouseout', function() {
+										infoWindow.close();
+									});
+
+									$(marker.getElement()).on('click', function(){
+										var hpid = $(item).find("hpid").text();
+										location.href = 'detail.kh?hpid=' + hpid;
+									});
+
 									let onOff = "";
 									
 									value += "<div class='hos_wrap' onclick='location.href=\"detail.kh?hpid=" + $(item).find("hpid").text() + "\"'>"
@@ -649,6 +915,7 @@
 											+ "</div>"
 											+ "</div>"
 											+ "</div>";
+
 								})
 								
 							} else{
@@ -688,44 +955,6 @@
 
    			</script>
             
-
-			<script>
-
-				naver.maps.Service.geocode({
-					query: "경기도 수원시 장안구 정자동 945"
-				}, function(status, response) {
-					if (status !== naver.maps.Service.Status.OK) {
-						return alert('주소를 지리적 좌표로 변환하는 중 오류가 발생했습니다.');
-					}
-
-					var result = response.v2, // 검색 결과의 컨테이너
-						items = result.addresses; // 검색 결과의 배열
-
-					var position = new naver.maps.LatLng(parseFloat(items[0].y), parseFloat(items[0].x));
-
-					// 지도 생성
-					var map = new naver.maps.Map('map', {
-						center: position,
-						zoom: 18
-					});
-
-					// 마커 위치
-					var markerOptions = {
-						position: position,
-						map: map,
-						icon: {
-							url: 'resources/logo/logo-mini.png',
-							scaledSize: new naver.maps.Size(45, 45), // 아이콘 사이즈 조정
-							origin: new naver.maps.Point(0, 0),
-							anchor: new naver.maps.Point(11, 35)
-						}
-					};
-
-					var marker = new naver.maps.Marker(markerOptions);
-				});
-
-			  </script>
-              
            </div>
  
         </div>

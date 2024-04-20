@@ -14,4 +14,12 @@ public interface MemberService  {
 	
 	Member naverLogin(Member m);
 	
+	// 정보수정 서비스(update)
+	int updateMember(Member m);
+	
+	int updateMembershipMonth(Member m);
+	
+	// 회원탈퇴 서비스(update)
+	int deleteMember(String memId);
+	
 } // Class

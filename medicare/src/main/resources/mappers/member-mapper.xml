@@ -11,11 +11,16 @@
 		<result column="NICKNAME" property="nickName"/>
 		<result column="EMAIL" property="email"/>
 		<result column="ADDRESS" property="address"/>
+		<result column="DETAIL_ADDR" property="detailAddr"/>
 		<result column="PHONE" property="phone"/>
 		<result column="MEMBERSHIP" property="membership"/>
 		<result column="STATUS" property="status"/>
 		<result column="ENROLL_DATE" property="enrollDate"/>
 		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="MS_MONTH" property="msMonth" />
+		<result column="MS_YEAR" property="msYear" />
+		<result column="BUY_DATE" property="buyDate" />
+		<result column="END_DATE" property="endDate" />
 	</resultMap>
 	
 	<select id="loginMember" resultMap="memberResultSet">
@@ -28,11 +33,16 @@
 		   , NICKNAME
 		   , EMAIL
 		   , ADDRESS
+		   , DETAIL_ADDR
 		   , PHONE
 		   , MEMBERSHIP
 		   , STATUS
 		   , ENROLL_DATE
 		   , MODIFY_DATE
+		   , MS_MONTH
+		   , MS_YEAR
+		   , BUY_DATE
+		   , END_DATE
 	     from member
 	   where status = 'Y'
 	    and MEM_ID = #{ memId }  
@@ -44,6 +54,10 @@
 	        , mem_id
 	        , mem_name
 	        , email
+	        , MS_MONTH
+		    , MS_YEAR
+		    , BUY_DATE
+		    , END_DATE
 	     from member
 	    where mem_id = #{ memId }   
       	  and status = 'Y' 	
@@ -56,6 +70,10 @@
 	        , email	        
 	        , phone
 	        , mem_name
+	        , MS_MONTH
+		    , MS_YEAR
+		    , BUY_DATE
+		    , END_DATE
 	     from member
 	    where mem_id = #{ memId }   
       	  and status = 'Y' 	
@@ -74,6 +92,7 @@
 		  , email
 		  , address
 		  , phone	
+		  , buy_date
 		  )	
 		  values
 		  (
@@ -86,7 +105,36 @@
 		  , #{ email }
 		  , #{ address }
 		  , #{ phone }
+		  , default
 		  )
 	</insert>
+	
+	<update id="updateMember">
+		update member
+   		   set 
+   		   	   nickname = #{nickName}
+		     , email = #{email}
+		     , phone = #{phone}
+		     , address = #{address}
+		     , detail_addr = #{detailAddr}
+		     , modify_date = sysdate
+		 where mem_id = #{memId}
 
+	</update>	 
+	
+	<update id="updateMembershipMonth">
+	 UPDATE member
+		SET MEMBERSHIP = 'Y',
+		    MS_MONTH = 'Y',
+		    END_DATE = BUY_DATE + INTERVAL '30' DAY
+		WHERE 
+		     mem_id = #{ memId }
+	</update>
+
+	<update id="deleteMember">
+		update
+			   member
+		   set status = 'N'
+		 where mem_id = #{ memId }
+	</update>
 </mapper>

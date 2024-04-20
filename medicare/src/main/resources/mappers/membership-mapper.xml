@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="membershipMapper">
+
+	<resultMap  id="membershipResultSet" type="Membership">
+		<result column="MEM_NO" property="memNo"/>
+		<result column="MS_PRICE" property="price"/>
+		<result column="MS_MONTH" property="msMonth"/>
+		<result column="MS_YEAR" property="msYear"/>
+		<result column="EXPIRATION_DATE" property="expirationDate"/>
+		<result column="BUY_DATE" property="buyDate"/>
+		<result column="END_DATE" property="endDate"/>		
+	</resultMap>
+
+	<select id="membershipList" resultMap="membershipResultSet">
+	  select	
+			MEM_NO
+		  , MS_PRICE
+		  , MS_MONTH
+		  , MS_YEAR
+		  , EXPIRATION_DATE
+		  , BUY_DATE
+		  , END_DATE
+	   from membership
+	</select>
+	
+	<insert id="insertMembership">
+		insert
+		  into member
+		  (
+		  	MEM_NO
+		  , MS_PRICE
+		  , MS_MONTH
+		  , BUY_DATE 	
+		  , END_DATE
+		  )
+		  values
+		  (
+		  
+		  )		  
+	</insert>
+
+</mapper>
