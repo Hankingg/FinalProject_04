@@ -765,6 +765,7 @@
 							let first = true;
 
 							if(data != null && $(data).find("item").length > 0){
+								
 								// 지도 초기화 및 첫번째 마커 생성
 								if(first){
 									var initialLocation = new naver.maps.LatLng($(data).find("item:first").find("wgs84Lat").text(), $(data).find("item:first").find("wgs84Lon").text());
@@ -778,6 +779,7 @@
 								}
 
 								$(data).find("item").each(function(i, item){
+									if($(item).find("dutyDiv").text() == "G"){
 
 									// 한의원 위치에 대한 마커 추가
 									var hosLocation = new naver.maps.LatLng($(item).find("wgs84Lat").text(), $(item).find("wgs84Lon").text());
@@ -916,7 +918,7 @@
 											+ "</div>"
 											+ "</div>"
 											+ "</div>";
-
+									}
 								})
 								
 							} else{
