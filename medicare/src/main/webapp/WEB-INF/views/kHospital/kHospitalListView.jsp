@@ -582,7 +582,7 @@
 	            	<img id="kDoctor2Img" src="resources/kHospital/kDoctor8.png">
             	</div>
             	<div id="kHosTitle">
-            		<span>주변 한의원 목록</span>
+            		<span>현재 진료중인 한의원 목록</span>
             	</div>
            	</div>
             <div id="result">
@@ -616,6 +616,7 @@
             			
     			var infowindow = new naver.maps.InfoWindow();
     				
+            		// 현위치 찍기
     				function onSuccessGeolocation(position){ // 실행할 함수
     					var location = new naver.maps.LatLng(position.coords.latitude,
     														 position.coords.longitude);
@@ -766,7 +767,7 @@
 							if(data != null && $(data).find("item").length > 0){
 								// 지도 초기화 및 첫번째 마커 생성
 								if(first){
-									var initialLocation = new naver.maps.LatLng($(data).find("item:first").find("latitude").text(), $(data).find("item:first").find("longitude").text());
+									var initialLocation = new naver.maps.LatLng($(data).find("item:first").find("wgs84Lat").text(), $(data).find("item:first").find("wgs84Lon").text());
 									// 지도 생성
 									map = new naver.maps.Map('map', {
 										center: initialLocation,
@@ -779,7 +780,7 @@
 								$(data).find("item").each(function(i, item){
 
 									// 한의원 위치에 대한 마커 추가
-									var hosLocation = new naver.maps.LatLng($(item).find("latitude").text(), $(item).find("longitude").text());
+									var hosLocation = new naver.maps.LatLng($(item).find("wgs84Lat").text(), $(item).find("wgs84Lon").text());
 						            
 									var marker = new naver.maps.Marker({
 										position: hosLocation,

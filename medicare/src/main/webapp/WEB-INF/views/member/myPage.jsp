@@ -7,7 +7,7 @@
 <title>마이페이지</title>
 <style>
 	.myPage {
-		width: 1000px;
+		width: 1200px;
 		margin: auto;
 		margin-top: 110px;
 		margin-bottom: 50px;
@@ -38,11 +38,11 @@
 	}
 
 	#heart {
-		margin-left: 40px;
+		margin-left: 20px;
 	}
 
-	#heart, #review {
-		margin-right: 40px;
+	#heart, #review, #delivery {
+		margin-right: 20px;
 	}
 
 	#myPage-tab ul li a {
@@ -319,6 +319,42 @@
 
 	}
 
+	#document-outer>div{
+		float: left;
+	}
+
+	#document-outer{
+		margin-left: 30px;
+	}
+
+	/* 처방전 */
+	.prescription{
+		width: 350px;
+		height: 480px;
+		border: 1px solid gray;
+		border-radius: 10px;
+		padding: 15px;
+		margin-right: 30px;
+		margin-bottom: 30px;
+
+	}
+
+	#hosName{
+		font-size: 20px;
+		text-align: center;
+		margin-top: 10px;
+	}
+
+	#psDate{
+		text-align: right;
+	}
+
+	/* 처방전 사진 */
+	.psImg{
+		width: 300px;
+		height: 400px;
+		margin-left: 10px;
+	}
 	
 </style>
 </head>
@@ -335,6 +371,7 @@
 						<li id="heart"><a class="tab">좋아요 리스트</a></li>
 						<li id="review"><a class="tab">내가 쓴 리뷰</a></li>
 						<li id="delivery"><a class="tab">택배 목록</a></li>
+						<li id="documents"><a class="tab">문서함</a></li>
 					</ul>
 				</div>
 				<div class="myPage-info">
@@ -427,6 +464,11 @@
 						    
 						    $("#delivery").click(function(){
 						    	$(".myPage-info").html($("#myDelivery").html());
+								$("#myInfo").css("display", "block");
+						    });
+
+							$("#documents").click(function(){
+						    	$(".myPage-info").html($("#myDocument").html());
 								$("#myInfo").css("display", "block");
 						    });
 						    
@@ -622,6 +664,59 @@
 							</thead>
 							<tbody></tbody>
 						</table>
+					</div>
+
+					<div id="myDocument" class="info" style="display: none;">
+						<h3 style="margin-left: 30px;">처방전 목록</h3>
+						<br><br>
+						<div id="document-outer">
+							<div class="prescription">
+								<div id="hosName">
+									하늘치과
+								</div>
+								<div id="psDate">
+									2024-04-20
+								</div>
+								<div id="psImgDiv">
+									<img class="psImg" src="resources/images/prescription1.jpg">
+								</div>
+							</div>
+							<div class="prescription">
+								<div id="hosName">
+									하늘치과
+								</div>
+								<div id="psDate">
+									2024-04-20
+								</div>
+								<div id="psImgDiv">
+									<img class="psImg" src="resources/images/prescription1.jpg">
+								</div>
+							</div>
+							<div class="prescription">
+								<div id="hosName">
+									하늘치과
+								</div>
+								<div id="psDate">
+									2024-04-20
+								</div>
+								<div id="psImgDiv">
+									<img class="psImg" src="resources/images/prescription1.jpg">
+								</div>
+							</div>
+							<div class="prescription">
+								<div id="hosName">
+									하늘치과
+								</div>
+								<div id="psDate">
+									2024-04-20
+								</div>
+								<div id="psImgDiv">
+									<img class="psImg" src="resources/images/prescription1.jpg">
+								</div>
+							</div>
+						</div>
+						
+
 					</div>
 				</div>
 			</div>
