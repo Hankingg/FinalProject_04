@@ -10,6 +10,7 @@
    		<typeAlias type="com.kh.medicare.member.model.vo.Member" alias="Member"/>
    		<typeAlias type="com.kh.medicare.hospital.model.vo.Hospital" alias="Hospital"/>
    		<typeAlias type="com.kh.medicare.membership.model.vo.Membership" alias="Membership"/>
+   		<typeAlias type="com.kh.medicare.hospital.model.vo.Review" alias="Review"/>
    		<typeAlias type="com.kh.medicare.document.model.vo.Document" alias="Document"/>
    </typeAliases>
    <!-- 유의사항 : 미리등록해두려면 해당 클래스가 진짜 존재하고 있는 상태여야됨 -->

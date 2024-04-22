@@ -309,31 +309,31 @@
 					</div>
 					<div class="wrap_2">
 					<select id="dgidIdName">
-						<option value="D001">내과</option>
-						<option value="D002">소아청소년과</option>
-						<option value="D003">신경과</option>
-						<option value="D004">정신건강의학과</option>
-						<option value="D005">피부과</option>
-						<option value="D006">외과</option>
-						<option value="D007">흉부외과</option>
-						<option value="D008">정형외과</option>
-						<option value="D009">신경외과</option>
-						<option value="D010">성형외과</option>
-						<option value="D011">산부인과</option>
-						<option value="D012">안과</option>
-						<option value="D013">이비인후과</option>
-						<option value="D014">비뇨기과</option>
-						<option value="D016">재활의학과</option>
-						<option value="D017">마취통증의학과</option>
-						<option value="D018">영상의학과</option>
-						<option value="D019">치료방사선과</option>
-						<option value="D020">임상병리과</option>
-						<option value="D021">해부병리과</option>
-						<option value="D022">가정의학과</option>
-						<option value="D023">핵의학과</option>
-						<option value="D024">응급의학과</option>
-						<option value="D026">치과</option>
-						<option value="D034">구강악안면외과</option>
+						<option id="D001" value="D001">내과</option>
+						<option id="D002" value="D002">소아청소년과</option>
+						<option id="D003" value="D003">신경과</option>
+						<option id="D004" value="D004">정신건강의학과</option>
+						<option id="D005" value="D005">피부과</option>
+						<option id="D006" value="D006">외과</option>
+						<option id="D007" value="D007">흉부외과</option>
+						<option id="D008" value="D008">정형외과</option>
+						<option id="D009" value="D009">신경외과</option>
+						<option id="D010" value="D010">성형외과</option>
+						<option id="D011" value="D011">산부인과</option>
+						<option id="D012" value="D012">안과</option>
+						<option id="D013" value="D013">이비인후과</option>
+						<option id="D014" value="D014">비뇨기과</option>
+						<option id="D016" value="D016">재활의학과</option>
+						<option id="D017" value="D017">마취통증의학과</option>
+						<option id="D018" value="D018">영상의학과</option>
+						<option id="D019" value="D019">치료방사선과</option>
+						<option id="D020" value="D020">임상병리과</option>
+						<option id="D021" value="D021">해부병리과</option>
+						<option id="D022" value="D022">가정의학과</option>
+						<option id="D023" value="D023">핵의학과</option>
+						<option id="D024" value="D024">응급의학과</option>
+						<option id="D026" value="D026">치과</option>
+						<option id="D034" value="D034">구강악안면외과</option>
 					</select>
 					</div>
 					<div class="wrap_3">
@@ -364,6 +364,9 @@
 			
             $(function(){
     			$("#btn3").click(function(){
+    				
+
+    				
     				$.ajax({
     					url:"hospital.in",
     					data:{Q0:$("#Q0").val()
@@ -371,10 +374,18 @@
     						 ,QN:$("#QN").val()},
     					success:function(data){
     						 
+    						var selectedValue = $('#dgidIdName').val();
+
+		    				// Find the option element with the corresponding value
+		    				var selectedOption = $('#dgidIdName option[value="' + selectedValue + '"]');
+
+		    				// Get the text content of the selected option
+		    				var selectedOptionText = selectedOption.text();
+    						
     						let value = "";
     						
     						$(data).find("item").each(function(i, item){
-    							value += "<div id='hos_wrap' style='width: 600px; height: 150px; margin-left:200px;' onclick='location.href=\"hosDetail.go?hpid=" + $(item).find("hpid").text()+ "\"'>"
+    							value += "<div id='hos_wrap' style='width: 600px; height: 150px; margin-left:200px;' onclick='location.href=\"hosDetail.go?hpid=" + $(item).find("hpid").text()+  "\"'>"
     							     + "<div id='hos1'>"
     							     + "<div id='hos1_1'>"
     							     +    "<div>진료중</div>"
@@ -383,7 +394,7 @@
     							     +   "<div id='hos1_3'>"
     							     +     "<div id='hos1_3_1'>★5.0</div>"
     							     + "<br>"
-    							     +    "<div id='hos1_3_2'> 552m | 서울 서초구 효령로 | " +$("#dgidIdName").val() + "</div>"
+    							     +    "<div id='hos1_3_2'> 552m | 서울 서초구 효령로 | " + selectedOptionText + "</div>"
     							     +  "</div>"
     							     +  "<div id='hos1_4'>"
     							     +    "<div style='background-color: rgb(174, 214, 214)'> 접수 </div>"
@@ -407,24 +418,33 @@
     				})
     			})
     			$("#near").click(function(){
-    				console.log("여긴 지나는거지?")
     				$.ajax({
     					url:"nearhos.in",
+    					data:{Q0:$("#Q0").val()
+   						 ,QD:$("#dgidIdName").val()
+   						 ,QN:$("#QN").val()},
     					success:function(data){
-    						 console.log("오냐")
+    						 console.log(data)
     						let value = "";
+    						 var selectedValue = $('#dgidIdName').val();
+
+    		    				// Find the option element with the corresponding value
+    		    				var selectedOption = $('#dgidIdName option[value="' + selectedValue + '"]');
+
+    		    				// Get the text content of the selected option
+    		    				var selectedOptionText = selectedOption.text();
     						
-    						$(data).find("item").each(function(i, item){
-    							value += "<div id='hos_wrap' style='width: 600px; height: 150px' onclick='location.href=\"hosDetail.go?hpid=" + $(item).find("hpid").text()+ "\"'>"
+    						for(let i in data){
+    							value += "<div id='hos_wrap' style='width: 600px; height: 150px' onclick='location.href=\"hosDetail.go?hpid=" + data[i].hosCode + "&distance=" + data[i].distance + "&dot=" + selectedOptionText + "\"'>"
     							     + "<div id='hos1'>"
     							     + "<div id='hos1_1'>"
     							     +    "<div>진료중</div>"
     							     + "</div>"
-    							     + "<div id='hos1_2'><div>" + $(item).find("dutyName").text() + "</div></div>"
+    							     + "<div id='hos1_2'><div>" + data[i].hosName + "</div></div>"
     							     +   "<div id='hos1_3'>"
     							     +     "<div id='hos1_3_1'>★5.0</div>"
     							     + "<br>"
-    							     +    "<div id='hos1_3_2'> 552m | 서울 서초구 효령로 |  </div>"
+    							     +    "<div id='hos1_3_2'> " + data[i].distance +"m | "+ extractSubstringUpToThirdSpace(data[i].hosAddress) + " | " + selectedOptionText + "</div>"
     							     +  "</div>"
     							     +  "<div id='hos1_4'>"
     							     +    "<div style='background-color: rgb(174, 214, 214)'> 접수 </div>"
@@ -436,7 +456,7 @@
     							     +  "<div id='hos2_2'><div id='hos2_2_1'> 대기없음 </div></div>"
     							     +"</div>"
     							    +"</div>"
-    						})
+    						}
     						
     						$("#result").html(value);
     						
@@ -446,6 +466,20 @@
     				})
     			})
     			
+    			
+    			function extractSubstringUpToThirdSpace(str) {
+    			    let count = 0;
+    			    for (let i = 0; i < str.length; i++) {
+    			        if (str[i] === ' ') {
+    			            count++;
+    			            if (count === 3) {
+    			                return str.substring(0, i);
+    			            }
+    			        }
+    			    }
+    			    return str; // If there are less than three spaces, return the original string
+    			}
+
     			
     		})
    			</script>
