@@ -830,6 +830,20 @@
 									});
 
 									let onOff = "";
+									let span = "";
+									
+									
+									if($("#QN").val() != ""){
+										span += '"' + $("#QN").val() + '"' + " 에 대한 검색결과 <br>";
+									}
+									
+									if($("#selectOption").text() == "지역 선택" || $("#selectOption").text() == "전체"){
+										span += "한의원 목록";
+									}else {
+										span += $("#selectOption").text() + " 한의원 목록";
+									}
+									
+									$("#kHosTitle span").html(span);
 									
 									value += "<div class='hos_wrap' onclick='location.href=\"detail.kh?hpid=" + $(item).find("hpid").text() + "\"'>"
 											+ "<div class='hos1'>"

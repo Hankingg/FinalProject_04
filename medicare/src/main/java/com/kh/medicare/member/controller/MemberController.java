@@ -285,4 +285,10 @@ public class MemberController {
 		
 	}
 	
+	@RequestMapping("myInfo.me")
+	public String myInfo() {
+		
+		return "redirect:myPage.me";
+	}
+	
 } //Class

@@ -367,9 +367,9 @@
 				<br>
 				<div id="myPage-tab">
 					<ul>
-						<li id="info"><a class="tab active">내정보</a></li>
+						<li id="info"><a href="myInfo.me" class="tab active">내정보</a></li>
 						<li id="heart"><a class="tab">좋아요 리스트</a></li>
-						<li id="review"><a class="tab">내가 쓴 리뷰</a></li>
+						<li id="review"><a onclick="reviewList(${ memNo });" class="tab">내가 쓴 리뷰</a></li>
 						<li id="delivery"><a class="tab">택배 목록</a></li>
 						<li id="documents"><a class="tab">문서함</a></li>
 					</ul>
@@ -446,56 +446,232 @@
 								infoList.eq(tabList.index(this)).addClass("active");
 							});
 							
-							$("#info").click(function(){
+							
+						
+							
+							/* $("#info").click(function(){
+								
+								$.ajax({
+									url:"myInfo.me",
+									success:function(data){
+										
+									}, error:function(){
+										console.log("내정보 목록조회 ajax 통신 실패");
+									}
+								})
+								
 								$(".myPage-info").html($("#myInfo").html());
 								$("#myInfo").css("display", "block");
-							});
+							}); */
 							
 							$("#heart").click(function(){
+								
+								$.ajax({
+									url:"",
+									success:function(){
+										
+									}, error:function(){
+										console.log("좋아요 목록조회 ajax 통신 실패");
+									}
+								})
+								
 								$(".myPage-info").html($("#myMark").html());
 								console.log($(".myPage-info").html());
 								$("#myInfo").css("display", "block");
 							});
 							
 						    $("#review").click(function(){
+						    	
+						    	$.ajax({
+									url:"rvList.me",
+									success:function(result){
+										
+									}, error:function(){
+										console.log("리뷰 목록조회 ajax 통신 실패");
+									}
+								})
+						    	
 						    	$(".myPage-info").html($("#myReview").html());
 								$("#myInfo").css("display", "block");
 						    });
 						    
 						    $("#delivery").click(function(){
+						    	
+						    	$.ajax({
+									url:"",
+									success:function(){
+										
+									}, error:function(){
+										console.log("택배 목록조회 ajax 통신 실패");
+									}
+								})
+								
 						    	$(".myPage-info").html($("#myDelivery").html());
 								$("#myInfo").css("display", "block");
 						    });
 
 							$("#documents").click(function(){
+								
+								$.ajax({
+									url:"",
+									success:function(){
+										
+									}, error:function(){
+										console.log("문서함 목록조회 ajax 통신 실패");
+									}
+								})
+								
 						    	$(".myPage-info").html($("#myDocument").html());
 								$("#myInfo").css("display", "block");
 						    });
 						    
-							/*
-							$("#info").click(myInfoList);
-							$("#heart").click(heartList);
-						    $("#review").click(reviewList);
-						    $("#delivery").click(deliveryList);
-						    */
+							
 						});
 						
-
-						/* function myInfoList(){
-							$(".myPage-info").html($("#myInfo").html());
-						}
 						
-						function heartList() {
-							$(".myPage-info").html($("#myMark").html());
+						// 이름 실시간 체크
+						$("#myInfo input[name=userName]").on(
+							"propertychange change paste input",
+							function () {
+							// 이름: 한글 2자 이상 10자 이내
+							const regExp = /^[가-힣]{2,10}$/;
+
+							const msg = $("#nameMsg");
+
+							if (!regExp.test($(this).val())) {
+								msg.css("display", "block");
+								msg.text("* 이름: 2~10자의 한글만 사용 가능합니다.");
+							} else {
+								msg.css("display", "none");
+								msg.text("");
+							}
+							}
+						);
+
+						// 비밀번호 실시간 체크
+						$("input[name=newPwd]").on("propertychange change paste input", function() {
+							// 비밀번호: 영문(대소문자 구분), 숫자, 특수문자(!@#$%^&*) 포함 8자 이상 15자 이내
+							const regExp = /^[a-zA-Z\d!@#$%^&*]{8,15}$/;
+
+							const msg = $("#newPwdMsg");
+
+							if(!regExp.test($(this).val())) {
+								msg.css("display", "block");
+								msg.text("* 8~15자의 영문, 숫자, 특수기호(!@#$%^&*)만 사용 가능합니다.");
+							} else {
+								msg.css("display", "none");
+								msg.text("");
+							}
+						});
+
+						// 비밀번호 확인 실시간 체크
+						$("#newPwdCheck").on("propertychange change paste input", function() {
+							// 비밀번호 확인: 위에 입력한 비밀번호와 동일한지 확인
+							const msg = $("#newPwdCheckMsg");
+
+							if($(this).val() != $("input[name=newPwd]").val()) {
+								msg.css("display", "block");
+								msg.text("* 입력한 비밀번호와 일치하지 않습니다.");
+							} else {
+								msg.css("display", "none");
+								msg.text("");
+							}
+						});
+
+						$("#changePwdBtn").on('click', function () {
+							$("#changePwdTB input").val("");
+							$("#changePwdTB span").text("");
+						});
+
+						$("#leaveBtn").on("click", function() {
+							$("#leaveMemTB input").val("");
+							$("#leaveMemTB span").text("");
+						})
+
+						// 개인정보 수정하기 버튼 클릭 시, 유효성 검사
+						function validate() {
+						const nameInput = $("#myInfo input[name=userName]");
+						const nicknameInput = $("#myInfo input[name=nickname]");
+
+						// 이름: 한글 2자 이상 10자 이내
+						regExp = /^[가-힣]{2,10}$/;
+
+						msg = $("#nameMsg");
+
+						if (!regExp.test(nameInput.val())) {
+							msg.css("display", "block");
+							msg.text("* 이름: 2~10자의 한글만 사용 가능합니다.");
+
+							nameInput.select();
+
+							return false;
 						}
 
-						function reviewList() {
-							$(".myPage-info").html($("#myReview").html());
+						// 닉네임: 영문, 한글, 숫자, _ 포함 2자 이상 10자 이내
+						regExp = /^[가-힣\w]{2,10}$/;
+
+						msg = $("#nicknameMsg");
+
+						if (!regExp.test(nicknameInput.val())) {
+							msg.css("display", "block");
+							msg.text("* 2~10자의 영문, 한글, 숫자, 특수문자(_)만 사용 가능합니다.");
+
+							nicknameInput.select();
+
+							return false;
+						} else if (msg.text() != "") {
+							nicknameInput.select();
+
+							return false;
+						}
 						}
 
-						function deliveryList() {
-							$(".myPage-info").html($("#myDelivery").html());
-						} */
+						// 변경 버튼 클릭 시, 유효성 검사
+						function modalValidate() {
+						const currentPwdInput = $("input[name=currentPwd");
+						const newPwdInput = $("input[name=newPwd]");
+						const newPwdCheckInput = $("#newPwdCheck");
+
+						// 현재 비밀번호 : 비어 있으면 안 된다.
+						let msg = $("#currentPwdMsg");
+
+						if(currentPwdInput.val() === "") {
+							msg.css("display", "block");
+							msg.text("* 현재 비밀번호를 입력해주세요.");
+							
+							currentPwdInput.select();
+
+							return false;
+						}
+
+						// 비밀번호: 영문(대소문자 구분), 숫자, 특수문자(!@#$%^&*) 포함 8자 이상 15자 이내
+						regExp = /^[a-zA-Z\d!@#$%^&*]{8,15}$/;
+
+						msg = $("#newPwdMsg");
+
+						if(!regExp.test(newPwdInput.val())) {
+							msg.css("display", "block");
+							msg.text("* 8~15자의 영문, 숫자, 특수기호(!@#$%^&*)만 사용 가능합니다.");
+
+							newPwdInput.select();
+
+							return false;
+						}
+
+						// 비밀번호 확인: 위에 입력한 비밀번호와 동일한지 확인
+						msg = $("#newPwdCheckMsg");
+
+						if(newPwdCheckInput.val() != newPwdInput.val()) {
+							msg.css("display", "block");
+							msg.text("* 입력한 비밀번호와 일치하지 않습니다.");
+
+							newPwdCheckInput.select();
+
+							return false;
+						}
+						}
+
+						
 						
 					</script>
 
@@ -620,25 +796,6 @@
 										<div id="rvCont">
 											<p> 이 피부과 진짜 추천이에여!! <br>
 												완전 물광피부 됐어요 친구도 추천해줄라구요~
-											</p>
-										</div>
-									</div>
-								</div>
-								<div id="myreview">
-									<div id="myreview1">
-										<div id="hpName"><p>하얀이비인후과</p></div>
-										<div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
-										<div id="hpRate"><p>4</p></div>
-										<div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-full.png" id="heartImg"></div>
-									</div>
-									<div id="myreview2">
-										<div id="rvProfile">
-											<div id="nickName"><p>정밍</p></div>
-											<div id="profile"><img src="resources/reviewImg/profile/profile1.png" id="profileImg"></div>
-										</div>
-										<div id="rvCont">
-											<p> 비염 때문에 이비인후과 자주가는데
-												약도 잘들고 의사쌤 완전 친절하세요!!!!
 											</p>
 										</div>
 									</div>
