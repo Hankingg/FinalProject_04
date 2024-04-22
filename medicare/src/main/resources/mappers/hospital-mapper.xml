@@ -25,6 +25,16 @@
 		<result column="h_st_sat" property="hosStSat"/>
 		<result column="h_st_sun" property="hosStSun"/>
 		<result column="h_st_hol" property="hosStHol"/>
+		<result column="hos_longitude" property="hosLongitude"/>
+		<result column="hos_latitude" property="hosLatitude"/>
+	</resultMap>
+
+	<resultMap type="Review" id="reviewResult">
+		<result column="mem_name" property="memNo"/>
+		<result column="R_CONTENT" property="revContent"/>
+		<result column="R_date" property="revDate"/>
+		<result column="RATE" property="rate"/>
+		<result column="h_code" property="hosCode"/>
 	</resultMap>
 
 	<select id="selectHospitalInfo" resultMap="hospitalResult">
@@ -51,8 +61,47 @@
 			  , H_ST_SAT
 			  , H_ST_SUN
 			  , H_ST_HOL
+			  , HOS_LONGITUDE
+			  , HOS_LATITUDE
 		  from hospital
 		 where h_code = #{ hpid }
 	</select>
 
+	<insert id="insertReview">
+		insert
+		  into review
+		  	   (
+		  	   R_NO
+		  	 , MEM_NO
+		  	 , R_CONTENT
+		  	 , RATE
+		  	 , RV_STATUS
+		  	 , H_CODE
+		  	   )
+		values 
+			   (
+			   SEQ_RNO.nextval
+			 ,  #{ memNo }
+			 ,  #{ revContent }
+			 , #{ rate }
+			 , 'Y'
+			 , #{ hosCode }
+			   )
+			   
+	</insert>
+	
+	<select id="selectReviewList" resultMap="reviewResult">
+		select
+			   MEM_NAME
+			 , R_CONTENT
+			 , R_DATE
+			 , RATE
+			 , H_CODE
+		  from REVIEW
+		  join MEMBER using(mem_no)
+		 where h_code = #{ hosCode }
+		 order
+		    by r_date desc
+	</select>
+	
 </mapper>
