@@ -115,7 +115,7 @@ CREATE TABLE HOSPITAL(
     H_ST_SUN VARCHAR2(10),
     H_ST_HOL VARCHAR2(10),
     hos_longitude VARCHAR2(40) NOT NULL,
-    hos_latitude VARCHAR2(40) NOT NULL												
+    hos_latitude VARCHAR2(40) NOT NULL																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						
 );
 COMMENT ON COLUMN HOSPITAL.H_CODE IS '병원기관코드';
 COMMENT ON COLUMN HOSPITAL.H_ADDRESS IS '병원주소';
