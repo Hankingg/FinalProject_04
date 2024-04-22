@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.kh.medicare.hospital.model.service.HospitalService;
+import com.kh.medicare.hospital.model.service.HospitalServiceImpl;
 import com.kh.medicare.hospital.model.vo.Hospital;
 import com.kh.medicare.hospital.model.vo.Review;
 
@@ -20,7 +21,7 @@ import com.kh.medicare.hospital.model.vo.Review;
 public class hospitalController {
 	
 	@Autowired
-	private HospitalService hService;
+	private HospitalServiceImpl hService;
 	
 	@RequestMapping("hosDetail.go")
 	public String goHospital(String hpid,int distance, String dot,HttpSession session) {
@@ -62,5 +63,11 @@ public class hospitalController {
 		return "hospital/order";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="myReview.rv", produces = "application/json; charset=utf-8")
+	public String myReviewList(int memNo) {
+		ArrayList<Review> list = hService.selectMyReviewList(memNo);
+		return new Gson().toJson(list);
+	}
 	
 }

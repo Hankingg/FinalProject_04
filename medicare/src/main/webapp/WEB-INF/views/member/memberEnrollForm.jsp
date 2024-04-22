@@ -67,8 +67,17 @@
                  <div class="form-group">
                   <input type="text" class="form-control form-control-lg" id="nickName" name="nickName" placeholder="별명">
                 </div>
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-lg" id="postcode" name="postcode" placeholder="우편번호">
+                </div>
                  <div class="form-group">
                   <input type="text" class="form-control form-control-lg" id="address" name="address" placeholder="주소">
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-lg" id="detailAddr" name="detailAddr" placeholder="상세주소">
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-lg" id="extraAddr" name="extraAddr" placeholder="참고항목">
                 </div>
                  <div class="form-group">
                   <input type="text" class="form-control form-control-lg" id="phone" name="phone" placeholder="전화번호">

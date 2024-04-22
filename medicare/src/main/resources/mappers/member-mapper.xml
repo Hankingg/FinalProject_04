@@ -10,8 +10,10 @@
 		<result column="MEM_NAME" property="memName"/>
 		<result column="NICKNAME" property="nickName"/>
 		<result column="EMAIL" property="email"/>
+		<result column="POSTCODE" property="postcode"/>
 		<result column="ADDRESS" property="address"/>
 		<result column="DETAIL_ADDR" property="detailAddr"/>
+		<result column="EXTRA_ADDR" property="extraAddr"/>
 		<result column="PHONE" property="phone"/>
 		<result column="MEMBERSHIP" property="membership"/>
 		<result column="STATUS" property="status"/>
@@ -21,6 +23,7 @@
 		<result column="MS_YEAR" property="msYear" />
 		<result column="BUY_DATE" property="buyDate" />
 		<result column="END_DATE" property="endDate" />
+		<result column="ENROLL_TYPE" property="enrollType" />
 	</resultMap>
 	
 	<select id="loginMember" resultMap="memberResultSet">
@@ -32,8 +35,10 @@
 		   , MEM_NAME
 		   , NICKNAME
 		   , EMAIL
+		   , POSTCODE
 		   , ADDRESS
 		   , DETAIL_ADDR
+		   , EXTRA_ADDR
 		   , PHONE
 		   , MEMBERSHIP
 		   , STATUS
@@ -43,6 +48,7 @@
 		   , MS_YEAR
 		   , BUY_DATE
 		   , END_DATE
+		   , ENROLL_TYPE
 	     from member
 	   where status = 'Y'
 	    and MEM_ID = #{ memId }  
@@ -58,6 +64,11 @@
 		    , MS_YEAR
 		    , BUY_DATE
 		    , END_DATE
+		    , POSTCODE
+		    , ADDRESS
+		    , DETAIL_ADDR
+		    , EXTRA_ADDR
+		    , ENROLL_TYPE
 	     from member
 	    where mem_id = #{ memId }   
       	  and status = 'Y' 	
@@ -74,6 +85,11 @@
 		    , MS_YEAR
 		    , BUY_DATE
 		    , END_DATE
+		    , POSTCODE
+		    , ADDRESS
+		    , DETAIL_ADDR
+		    , EXTRA_ADDR
+		    , ENROLL_TYPE
 	     from member
 	    where mem_id = #{ memId }   
       	  and status = 'Y' 	
@@ -90,9 +106,13 @@
 		  , mem_name
 		  , nickname
 		  , email
+		  , postcode
 		  , address
+		  , detail_addr
+		  , extra_addr
 		  , phone	
 		  , buy_date
+		  , enroll_type
 		  )	
 		  values
 		  (
@@ -103,9 +123,13 @@
 		  , #{ memName }
 		  , #{ nickName }
 		  , #{ email }
+		  , #{ postcode }
 		  , #{ address }
+		  , #{ detailAddr}
+		  , #{ extraAddr }
 		  , #{ phone }
 		  , default
+		  , #{ enrollType }
 		  )
 	</insert>
 	
@@ -115,8 +139,10 @@
    		   	   nickname = #{nickName}
 		     , email = #{email}
 		     , phone = #{phone}
+		     , postcode = #{postcode}
 		     , address = #{address}
 		     , detail_addr = #{detailAddr}
+		     , extra_addr = #{extraAddr}
 		     , modify_date = sysdate
 		 where mem_id = #{memId}
 
