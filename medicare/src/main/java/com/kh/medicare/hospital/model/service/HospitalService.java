@@ -12,5 +12,7 @@ public interface HospitalService {
 	int insertReview(Review r);
 	
 	ArrayList<Review> selectReviewList(Review r);
+
+	ArrayList<Review> selectMyReviewList(int memNo);
 	
 }

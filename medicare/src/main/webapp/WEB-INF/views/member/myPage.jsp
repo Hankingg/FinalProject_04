@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,7 +77,7 @@
 		margin-top: 50px;
 		margin-bottom: 30px;
 		color: gray;
-		font-size: 18px;
+		font-size: 17px;
 	}
 
 	#myInfo table td {
@@ -104,27 +105,25 @@
 		padding-left: 10px;
 	}
 
-	#myInfo input:disabled {
-		background-color: lightgray;
+	#myInfo input[name=address]{
+		width: 210px;
+		height: 45px;
 	}
 
 	/* 배송지 등록 버튼 */
 	#addressBtn {
 		color: white;
-		margin: 0px 20px;
 		float: right;
 		font-size: 16px;
-		width: 150px;
-		height: 50px;
+		width: 90px;
+		height: 40px;
 		background-color: #F96C85;
 		border-radius: 15px;
 		margin: auto;
-		line-height: 50px;
+		line-height: 40px;
 		cursor: pointer;
 		text-decoration: none;
 		border: none;
-		margin-top: 20px;
-		margin-right: 10px;
 	}
 
 	/* 비밀번호 변경, 회원정보 수정 버튼 */
@@ -171,8 +170,12 @@
 		font-weight: bold;
 	}
 
+	.myReview{
+		height:auto;
+	}
+
 	/* 리뷰리스트 span */
-	#review-div span {
+	.review-div span {
 	display: block;
 	margin-top: 50px;
 	margin-right: 30px;
@@ -183,43 +186,43 @@
 	}
 
 	/* 리뷰리스트 */
-	#reviewList{
+	.reviewList{
 		width: 1000px;
 		margin: auto;
 		display: flex;
 		justify-content: center;
-		height: 1300px;
+		height: auto;
 	}
 
-	#review-div{
+	.review-div{
 		width: 800px;
-		height: 500px;
+		height: auto;
 	}
 
-	#myreview{
+	.myreview{
 		width: 600px;
-		height: 250px;
+		height: auto;
 		border: 2px solid #F96C85;
 		border-radius: 10px;
 		margin: 50px 100px;
 	}
 
-	#myreview1{
+	.myreview1{
 		width: 600px;
 		height: 50px;
 	}
 
-	#myreview1>div{
+	.myreview1>div{
 		float: left;
 		height: 50px;
 	}
 
 	/* 병원이름 */
-	#hpName{
+	.hpName{
 		width: 180px;
 	}
 
-	#hpName p{
+	.hpName p{
 		margin-top: 25px;
 		margin-left: 15px;
 		font-size: 20px;
@@ -229,17 +232,17 @@
 	}
 
 	/* 별 이미지 */
-	#hpStar{
+	.hpStar{
 		width: 35px;
 		padding-top: 17px;
 	}
 
 	/* 별점 */
-	#hpRate{
+	.hpRate{
 		width: 300px;
 	}
 
-	#hpRate p{
+	.hpRate p{
 		margin-top: 25px;
 		font-size: 19px;
 		font-weight: bold;
@@ -247,66 +250,66 @@
 	}
 
 	/* 하트 */
-	#hpHeart{
+	.hpHeart{
 		width: 50px;
 		float: right;
 		padding-top: 17px;
 	}
 
-	#starImg, #heartImg{
+	.starImg, .heartImg{
 		width: 25px;
 		height: 25px;
 		margin-top: 3px;
 	}
 
 	/* 리뷰 큰 div */
-	#myreview2{
+	.myreview2{
 		width: 600px;
 		height: 200px;
 		
 	}
 
-	#myreview2>div{
+	.myreview2>div{
 		float: left;
 		
 	}
 
 	/* 리뷰 닉네임, 프로필사진 감싼 div */
-	#rvProfile{
+	.rvProfile{
 		width: 100px;
 	}
 
-	#rvProfile>div{
+	.rvProfile>div{
 		width: 100%;
 	}
 
-	#nickName{
+	.nickName{
 		height: 50px;
 		margin-left: 20px;
 		margin-top: 15px;
 		color: gray;
 	}
 
-	#nickName>p{
+	.nickName>p{
 		text-align: center;
 		padding-top: 15px;
 		font-size: 20px;
 		font-weight: bold;
 	}
 	/* 리뷰 프로필 이미지 담긴 div */
-	#profile{
+	.profile{
 		height: 100px;
 		margin-left: 20px;
 		padding-left: 2px;
 	}
 
 	/* 리뷰프로필 이미지 */
-	#profileImg{
+	.profileImg{
 		width: 90px;
 		height: 90px;
 	}
 
-	#rvCont{
+	.rvCont{
 		width: 400px;
 		height: 150px;
 		border-radius: 10px;
@@ -356,6 +359,14 @@
 		margin-left: 10px;
 	}
 	
+	.myPage-info {
+		height: auto;
+	}
+	
+	#myInfoTb input[name=memId], #myInfoTb input[name=memName]{
+		background-color: lightgray;
+	}
+	
 </style>
 </head>
 <body>
@@ -369,7 +380,7 @@
 					<ul>
 						<li id="info"><a href="myInfo.me" class="tab active">내정보</a></li>
 						<li id="heart"><a class="tab">좋아요 리스트</a></li>
-						<li id="review"><a onclick="reviewList(${ memNo });" class="tab">내가 쓴 리뷰</a></li>
+						<li id="review"><a onclick="myReviewList();" class="tab">내가 쓴 리뷰</a></li>
 						<li id="delivery"><a class="tab">택배 목록</a></li>
 						<li id="documents"><a class="tab">문서함</a></li>
 					</ul>
@@ -378,60 +389,136 @@
 					<!-- 내 정보 -->
 					<div id="myInfo" class="info active">
 						<form action="update.me" method="post">
-							<table>
+							<table id="myInfoTb">
 								<tr>
 									<td width="100">아이디</td>
-									<td>
-										<input type="text" name="memId" value="${ loginUser.memId }" readonly>
-									</td>
+									<c:choose>
+										<c:when test="${ loginUser.enrollType eq 'K' }">
+											<td colspan="2">
+												<input type="text" name="memId" value="카카오계정입니다." readonly>
+											</td>
+										</c:when>
+										<c:when test="${ loginUser.enrollType eq 'N' }">
+											<td colspan="2">
+												<input type="text" name="memId" value="네이버계정입니다." readonly>
+											</td>
+										</c:when>
+										<c:otherwise>
+											<td colspan="2">
+												<input type="text" name="memId" value="${ loginUser.memId }" readonly>
+											</td>
+										</c:otherwise>
+									</c:choose>
 								</tr>
 								<tr>
 									<td>이&nbsp;&nbsp;&nbsp;름</td>
-									<td>
+									<td colspan="2">
 										<input type="text" name="memName" value="${ loginUser.memName }" readonly> 
 										<span id="nameMsg" class="message" style="display: none"></span>
 									</td>
 								</tr>
 								<tr>
 									<td>닉네임</td>
-									<td>
+									<td colspan="2">
 										<input type="text" name="nickName" value="${ loginUser.nickName }">
 										<span id="nicknameMsg" class="message" style="display: none"></span>
 									</td>
 								</tr>
 								<tr>
 									<td>번&nbsp;&nbsp;&nbsp;호</td>
-									<td>
+									<td colspan="2">
 										<input type="text" name="phone" value="${ loginUser.phone }">
 									</td>
 								</tr>
 								<tr>
 									<td>이메일</td>
-									<td><input type="text" name="email" value="${ loginUser.email }"></td>
+									<td colspan="2"><input type="text" name="email" value="${ loginUser.email }"></td>
+								</tr>
+								<tr>
+									<td>우편번호</td>
+									<td colspan="2">
+										<input id="myPostcode" type="text" name="postcode" placeholder="우편번호" value="${ loginUser.postcode }" readonly>
+									</td>
 								</tr>
 								<tr>
 									<td>주소</td>
 									<td>
-										<input type="text" name="address" value="${ loginUser.address }" style="font-size: 15px;">
+										<input id="myAddress" type="text" name="address" value="${ loginUser.address }" style="font-size: 15px;" placeholder="주소를 검색해주세요." readonly>
+									</td>
+									<td>
+										<a onclick="myExecDaumPostcode()" id="addressBtn">주소 검색</a>
 									</td>
 								</tr>
 								<tr>
 									<td>상세주소</td>
-									<td>
-										<input type="text" name="detailAddr" value="${ loginUser.detailAddr }" style="font-size: 15px;">
+									<td colspan="2">
+										<input id="myDetailAddress" type="text" name="detailAddr" value="${ loginUser.detailAddr }" style="font-size: 15px;">
 									</td>
 								</tr>
 								<tr>
-									<td colspan="2"><a href="enrollForm.dv" id="addressBtn">주소 수정</a></td>
+									<td>참고항목</td>
+									<td colspan="2">
+										<input id="myExtraAddress" type="text" name="extraAddr" placeholder="참고항목" value="${ loginUser.extraAddr } " readonly>
+									</td>
 								</tr>
 							</table>
-							<button type="button" class="btn" id="changePwdBtn"
-								data-toggle="modal" data-target="#changePwd">비밀번호 변경</button>
 							<button type="submit" class="btn">회원정보 수정</button>
 						</form>
 						<a id="leaveBtn" data-toggle="modal" data-target="#deleteForm"
 							style="color: rgb(177, 177, 177); cursor: pointer;"> 회원 탈퇴 ></a>
 					</div>
+
+					<!-- 주소 검색 -->
+					<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+					<script>
+						function myExecDaumPostcode() {
+							new daum.Postcode({
+								oncomplete: function(data) {
+									// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+					
+									// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+									// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+									var addr = ''; // 주소 변수
+									var extraAddr = ''; // 참고항목 변수
+					
+									//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+									if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+										addr = data.roadAddress;
+									} else { // 사용자가 지번 주소를 선택했을 경우(J)
+										addr = data.jibunAddress;
+									}
+					
+									// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+									if(data.userSelectedType === 'R'){
+										// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+										// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+										if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+											extraAddr += data.bname;
+										}
+										// 건물명이 있고, 공동주택일 경우 추가한다.
+										if(data.buildingName !== '' && data.apartment === 'Y'){
+											extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+										}
+										// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+										if(extraAddr !== ''){
+											extraAddr = ' (' + extraAddr + ')';
+										}
+										// 조합된 참고항목을 해당 필드에 넣는다.
+										document.getElementById("myExtraAddress").value = extraAddr;
+									
+									} else {
+										document.getElementById("myExtraAddress").value = '';
+									}
+					
+									// 우편번호와 주소 정보를 해당 필드에 넣는다.
+									document.getElementById('myPostcode').value = data.zonecode;
+									document.getElementById("myAddress").value = addr;
+									// 커서를 상세주소 필드로 이동한다.
+									document.getElementById("myDetailAddress").focus();
+								}
+							}).open();
+						}
+					</script>
 
 					<script>
 						$(function() {
@@ -446,25 +533,8 @@
 								infoList.eq(tabList.index(this)).addClass("active");
 							});
 							
-							
 						
-							
-							/* $("#info").click(function(){
-								
-								$.ajax({
-									url:"myInfo.me",
-									success:function(data){
-										
-									}, error:function(){
-										console.log("내정보 목록조회 ajax 통신 실패");
-									}
-								})
-								
-								$(".myPage-info").html($("#myInfo").html());
-								$("#myInfo").css("display", "block");
-							}); */
-							
-							$("#heart").click(function(){
+							/* $("#heart").click(function(){
 								
 								$.ajax({
 									url:"",
@@ -480,20 +550,7 @@
 								$("#myInfo").css("display", "block");
 							});
 							
-						    $("#review").click(function(){
-						    	
-						    	$.ajax({
-									url:"rvList.me",
-									success:function(result){
-										
-									}, error:function(){
-										console.log("리뷰 목록조회 ajax 통신 실패");
-									}
-								})
-						    	
-						    	$(".myPage-info").html($("#myReview").html());
-								$("#myInfo").css("display", "block");
-						    });
+
 						    
 						    $("#delivery").click(function(){
 						    	
@@ -523,10 +580,57 @@
 								
 						    	$(".myPage-info").html($("#myDocument").html());
 								$("#myInfo").css("display", "block");
-						    });
+						    }); */
 						    
 							
 						});
+						
+						function myReviewList(){
+							
+							$.ajax({
+								url:"myReview.rv",
+								data:{memNo:${loginUser.memNo}},
+								success:function(data){
+
+									let value = "";
+									let span = "";
+									value += '<div class="myReview" class="info">'
+									   	   + '<div class="reviewList">'
+									   	   + '<div class="review-div">'
+									   	   + '<span>리뷰 총 (' + data.length + '개)</span>';
+									   	  
+									for(let i in data){
+										value += '<div class="myreview">'
+											   + '<div class="myreview1">'
+											   + '<div class="hpName"><p>' + data[i].hosName + '</p></div>'
+											   + '<div class="hpStar"><img src="resources/reviewImg/starHeart/star2.png" class="starImg"></div>'
+											   + '<div class="hpRate"><p>' + data[i].rate + '</p></div>'
+											   + '<div class="hpHeart"><img src="resources/reviewImg/starHeart/heart-black2.png" class="heartImg"></div>'
+											   + '</div>'
+											   + '<div class="myreview2">'
+											   + '<div class="rvProfile">'
+											   + '<div class="nickName"><p>' + data[i].nickName + '</p></div>'
+											   + '<div class="profile"><img src="resources/reviewImg/profile/profile1.png" class="profileImg"></div>'
+											   + '</div>'
+											   + '<div class="rvCont">'
+											   + '<p>' + data[i].revContent  + '</p>'
+											   + '</div>'
+											   + '</div>'
+											   + '</div>';
+									}
+									
+										value += '</div>'
+											   + '</div>'
+											   + '</div>';
+										
+										$(".myPage-info").html(value);
+									
+									
+								}, error:function(){
+									console.log("내리뷰 목록조회 ajax 통신 실패");
+								}
+							})
+						}
 						
 						
 						// 이름 실시간 체크
@@ -674,60 +778,6 @@
 						
 						
 					</script>
-
-					<!-- 비밀번호 변경 Modal -->
-					<!-- The Modal -->
-					<div class="modal" id="changePwd">
-						<div class="modal-dialog">
-							<div class="modal-content">
-
-								<!-- Modal Header -->
-								<div class="modal-header">
-									<h4 class="modal-title">비밀번호 변경하기</h4>
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-								</div>
-
-								<!-- Modal body -->
-								<div class="modal-body">
-									<form action="" method="post">
-										<input type="hidden" name="memNo" value="">
-										<table id="changePwdTB">
-											<tr>
-												<td width="160">현재 비밀번호</td>
-												<td width="210">
-													<input type="password" name="currentPwd">
-													
-													<span id="currentPwdMsg" class="message" style="display: none"></span>
-												</td>
-											</tr>
-											<tr>
-												<br><br>
-												<td>변경할 비밀번호</td>
-												<td>
-													<input type="password" name="newPwd">
-													<span id="newPwdMsg" class="message" style="display: none"></span>
-												</td>
-											</tr>
-											<tr>
-												<td>변경할 비밀번호 확인</td>
-												<td><input type="password" id="newPwdCheck"> 
-													<span id="newPwdCheckMsg" class="message" style="display: none"></span>
-												</td>
-											</tr>
-										</table>
-										<button class="btn btn-warning" type="submit" onclick="return modalValidate();" style="margin-top: 20px;">변경</button>
-									</form>
-								</div>
-
-								<!-- Modal footer -->
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary"
-										data-dismiss="modal">Close</button>
-								</div>
-
-							</div>
-						</div>
-					</div>
 					
 					<!-- 회원 탈퇴시 보여질 Modal -->
 					<!-- The Modal -->
@@ -776,34 +826,14 @@
 						<table id="rest-table" align="center"></table>
 					</div>
 
-					<!-- 내가 쓴 리뷰 -->
-					<div id="myReview" class="info" style="display: none;">
-						<div id="reviewList">
-							<div id="review-div">
-								<span>리뷰(총 23개)</span>
-								<div id="myreview">
-									<div id="myreview1">
-										<div id="hpName"><p>하늘피부과</p></div>
-										<div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
-										<div id="hpRate"><p>3.5</p></div>
-										<div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-black2.png" id="heartImg"></div>
-									</div>
-									<div id="myreview2">
-										<div id="rvProfile">
-											<div id="nickName"><p>정밍</p></div>
-											<div id="profile"><img src="resources/reviewImg/profile/profile1.png" id="profileImg"></div>
-										</div>
-										<div id="rvCont">
-											<p> 이 피부과 진짜 추천이에여!! <br>
-												완전 물광피부 됐어요 친구도 추천해줄라구요~
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
+					<!-- <div id="myReview" class="info">
+					   <div id="reviewList">
+					   	  <div id="review-div">
+					   	  	  <span></span>
+					   	  </div>
+					   </div>
+					</div> -->
+					
 					<!-- 택배 목록 -->
 					<div id="myDelivery" class="info" style="display: none;">
 						<!-- 게시판 목록-->
