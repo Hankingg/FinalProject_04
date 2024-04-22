@@ -48,8 +48,10 @@ CREATE TABLE MEMBER
     , NICKNAME VARCHAR2(30) UNIQUE
     , EMAIL VARCHAR2(100) UNIQUE
     , EMAIL_AUTH NUMBER DEFAULT 0 NOT NULL CHECK(EMAIL_AUTH IN (0,1))
+    , POSTCODE NUMBER
     , ADDRESS VARCHAR2(100)
     , DETAIL_ADDR VARCHAR2(50)
+    , EXTRA_ADDR VARCHAR2(50)
     , PHONE VARCHAR2(13)
     , MEMBERSHIP CHAR(1) DEFAULT 'N' CONSTRAINT MEMBERSHIP_CK CHECK(MEMBERSHIP IN('Y', 'N'))
     , STATUS CHAR(1) DEFAULT 'Y' CONSTRAINT STATUS_CK CHECK(STATUS IN('Y', 'N'))
@@ -58,7 +60,8 @@ CREATE TABLE MEMBER
     , MS_MONTH CHAR(1) DEFAULT 'N' CONSTRAINT MS_MONTH_CK CHECK(MS_MONTH IN('Y', 'N'))
     , MS_YEAR CHAR(1) DEFAULT 'N' CONSTRAINT MS_YEAR_CK CHECK(MS_YEAR IN('Y', 'N'))
     , BUY_DATE DATE DEFAULT SYSDATE
-    , END_DATE DATE 
+    , END_DATE DATE
+    , ENROLL_TYPE CHAR(1) DEFAULT 'B' CHECK(ENROLL_TYPE IN ('K', 'N', 'B'))
       );
 COMMENT ON COLUMN MEMBER.MEM_NO IS '회원번호';
 COMMENT ON COLUMN MEMBER.MT_ID IS '회원유형ID';
@@ -68,8 +71,10 @@ COMMENT ON COLUMN MEMBER.MEM_NAME IS '회원이름';
 COMMENT ON COLUMN MEMBER.NICKNAME IS '닉네임';
 COMMENT ON COLUMN MEMBER.EMAIL IS '이메일';
 COMMENT ON COLUMN MEMBER.EMAIL_AUTH IS '이메일인증여부(미인증:0, 인증:1)';
+COMMENT ON COLUMN MEMBER.POSTCODE IS '우편번호';
 COMMENT ON COLUMN MEMBER.ADDRESS IS '주소';
 COMMENT ON COLUMN MEMBER.DETAIL_ADDR IS '상세주소';
+COMMENT ON COLUMN MEMBER.EXTRA_ADDR IS '참고항목';
 COMMENT ON COLUMN MEMBER.PHONE IS '전화번호';
 COMMENT ON COLUMN MEMBER.MEMBERSHIP IS '멤버쉽구매여부';
 COMMENT ON COLUMN MEMBER.STATUS IS '상태';
@@ -79,6 +84,7 @@ COMMENT ON COLUMN MEMBER.MS_MONTH IS '월간이용권';
 COMMENT ON COLUMN MEMBER.MS_YEAR IS '연간이용권';
 COMMENT ON COLUMN MEMBER.BUY_DATE IS '구매일';
 COMMENT ON COLUMN MEMBER.END_DATE IS '종료일';
+COMMENT ON COLUMN MEMBER.ENROLL_TYPE IS '계정유형(K:카카오, N:네이버, B:일반)';
 
 -------------------------------- 병원 카테고리 TABLE -----------------------------
 CREATE TABLE H_CATEGORY(
@@ -115,7 +121,7 @@ CREATE TABLE HOSPITAL(
     H_ST_SUN VARCHAR2(10),
     H_ST_HOL VARCHAR2(10),
     hos_longitude VARCHAR2(40) NOT NULL,
-    hos_latitude VARCHAR2(40) NOT NULL																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						
+    hos_latitude VARCHAR2(40) NOT NULL
 );
 COMMENT ON COLUMN HOSPITAL.H_CODE IS '병원기관코드';
 COMMENT ON COLUMN HOSPITAL.H_ADDRESS IS '병원주소';
@@ -327,6 +333,34 @@ COMMENT ON COLUMN DELIVERY.BILLING_NO IS '운송장번호';
 COMMENT ON COLUMN DELIVERY.D_SENDER IS '발신자';
 COMMENT ON COLUMN DELIVERY.D_RECEIVER IS '수신자';
 
+-------------------------------- 문서함 TABLE ------------------------------------
+CREATE TABLE DOCUMENT
+      (
+      DC_NO VARCHAR2(20) CONSTRAINT DC_NO_PK PRIMARY KEY
+    , DC_SENDER_MNO VARCHAR2(20) NOT NULL CONSTRAINT DC_SENDER_FK REFERENCES MEMBER(MEM_NO)
+    , DC_RECEIVER_MNO VARCHAR2(20) NOT NULL CONSTRAINT DC_RECEIVER_FK REFERENCES MEMBER(MEM_NO)
+    , DC_ORIGIN_NAME VARCHAR2(255)
+    , DC_CHANGE_NAME VARCHAR2(255) NOT NULL
+    , DC_FILE_PATH VARCHAR2(1000) NOT NULL
+    , DC_UPLOAD_DATE DATE DEFAULT SYSDATE NOT NULL 
+    , DC_READ_STATUS CHAR(1) DEFAULT 'N' NOT NULL CHECK (DC_READ_STATUS IN ('Y','N'))
+    , DC_PAYMENT_STATUS CHAR(1) DEFAULT 'N' NOT NULL CHECK (DC_PAYMENT_STATUS IN ('Y','N'))
+    , DC_DELIVERY_STATUS CHAR(1) DEFAULT 'N' NOT NULL CHECK (DC_DELIVERY_STATUS IN ('Y','N'))
+    , DC_STATUS CHAR(1) DEFAULT 'Y' NOT NULL CHECK (DC_STATUS IN ('Y','N')) 
+      );
+      
+COMMENT ON COLUMN DOCUMENT.DC_NO IS '문서번호';
+COMMENT ON COLUMN DOCUMENT.DC_SENDER_MNO IS '보낸회원번호';
+COMMENT ON COLUMN DOCUMENT.DC_RECEIVER_MNO IS '받는회원번호';
+COMMENT ON COLUMN DOCUMENT.DC_ORIGIN_NAME IS '문서원본명';
+COMMENT ON COLUMN DOCUMENT.DC_CHANGE_NAME IS '문서수정명';
+COMMENT ON COLUMN DOCUMENT.DC_FILE_PATH IS '문서경로';
+COMMENT ON COLUMN DOCUMENT.DC_UPLOAD_DATE IS '문서등록일';
+COMMENT ON COLUMN DOCUMENT.DC_READ_STATUS IS '문서상태(읽음표시)';
+COMMENT ON COLUMN DOCUMENT.DC_PAYMENT_STATUS IS '결제상태';
+COMMENT ON COLUMN DOCUMENT.DC_DELIVERY_STATUS IS '배송상태';
+COMMENT ON COLUMN DOCUMENT.DC_DELIVERY_STATUS IS '문서상태';
+
 ------------------------------------ 시퀀스 -------------------------------------
 CREATE SEQUENCE SEQ_MNO NOCACHE;
 CREATE SEQUENCE SEQ_HCODE NOCACHE;
@@ -339,5 +373,5 @@ CREATE SEQUENCE SEQ_KNO NOCACHE;
 CREATE SEQUENCE SEQ_PNO NOCACHE;
 CREATE SEQUENCE SEQ_DNO NOCACHE;
 CREATE SEQUENCE SEQ_MDNO NOCACHE;
-
+CREATE SEQUENCE SEQ_DCNO NOCACHE;
 COMMIT;
