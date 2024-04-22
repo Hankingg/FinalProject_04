@@ -537,7 +537,7 @@
 			}
 
 
-
+			// 검색결과
 			$("#btn").click(function(){
 				$.ajax({
 					url:"pharmacyListAPI.do",
@@ -546,7 +546,8 @@
 					success:function(data){
 						 
 						let value = "";
-
+						let first = true;
+						
 						// 현재시간!!
 						var now = new Date();
 						var currentHour = now.getHours();
@@ -556,7 +557,68 @@
 						let ViewName = "약국목록 검색결과";
 							
 					if(data != null){
+						// 지도 초기화 및 첫번째 마커 생성
+						if(first){
+							var initialLocation = new naver.maps.LatLng($(data).find("item:first").find("wgs84Lat").text(), $(data).find("item:first").find("wgs84Lon").text());
+							// 지도 생성
+							map = new naver.maps.Map('map', {
+								center: initialLocation,
+								zoom: 14
+							});
+							first = false;  // 첫 번째 항목을 처리한 후 false로 설정
+							
+						}
+						
 						$(data).find("item").each(function(i, item){
+							
+							// 한의원 위치에 대한 마커 추가
+							var hosLocation = new naver.maps.LatLng($(item).find("wgs84Lat").text(), $(item).find("wgs84Lon").text());
+				            
+							var marker = new naver.maps.Marker({
+								position: hosLocation,
+								map: map, // map 변수는 전역으로 선언되어야 함
+								icon: {
+									url: 'resources/map/phar1.png',
+									scaledSize: new naver.maps.Size(40, 40)
+								}
+							});
+				                 	
+							/* 마커 호버시 정보창 내용 */
+							var content = '<div class="infoWindow">'
+								+ '<div class="hosImgDiv">'
+								+ '<img class="hosImg" src="resources/map/hos3.png">'
+								+ '</div>'
+								+ '<div class="hosName">'
+								+ '<h4>' + $(item).find("dutyName").text() + '</h4>'
+								+ '</div>'
+								+ '</div>';
+							
+							/* 마커 호버시 정보창 */
+							var infoWindow = new naver.maps.InfoWindow({
+								content: content,
+								maxWidth: 'auto',
+								maxHeight: 40,						                        
+								borderWidth: 0,
+								borderRadius: '10',
+								backgroundColor: 'transparent',
+								disableAnchor: true,
+							});
+
+							// 마커에 마우스 진입 이벤트
+							marker.addListener('mouseover', function() {
+								infoWindow.open(map, marker);
+							});
+
+							// 마커에서 마우스가 벗어난 경우 정보창 닫기
+							marker.addListener('mouseout', function() {
+								infoWindow.close();
+							});
+
+							$(marker.getElement()).on('click', function(){
+								var hpid = $(item).find("hpid").text();
+								location.href = 'selectDetail.ph?hpid=' + hpid;
+							});
+							
 							let onOff = "";
 
 							value += "<div class='hos_wrap' onclick='location.href=\"selectDetail.ph?hpid=" + $(item).find("hpid").text() + "\"'>"

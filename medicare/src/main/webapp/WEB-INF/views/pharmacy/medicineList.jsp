@@ -19,6 +19,39 @@
 		margin-left: 100px;
 }
 
+#document-outer>div{
+		float: left;
+	}
+
+#document-outer{
+		margin-left: 30px;
+}
+
+.prescription{
+		width: 350px;
+		height: 480px;
+		border: 1px solid gray;
+		border-radius: 10px;
+		padding: 15px;
+		margin-right: 30px;
+		margin-bottom: 30px;
+
+	}
+
+	#hosName{
+		font-size: 20px;
+		text-align: center;
+		margin-top: 10px;
+	}
+	#psDate{
+		text-align: right;
+	}
+	.psImg{
+		width: 300px;
+		height: 400px;
+		margin-left: 10px;
+	}
+
 
 </style>
 <!-- 아임포트 라이브러리 -->
@@ -32,8 +65,89 @@
         	<h2>일반의약품 구매하기</h2>
         	<div class="outer">
         		
-				
-        		
+			
+			<button data-toggle="modal" data-target="#selectDelivery">배송정보조회하기</button>
+			<button onclick="selectList();">처방전 조회</button>	
+
+
+			<div id="myDocument" class="info">
+				<h3 style="margin-left: 30px;">처방전 목록</h3>
+				<br><br>
+				<div id="document-outer">
+					<div class="prescription">
+						<div id="hosName">
+							하늘치과
+						</div>
+						<div id="psDate">
+							2024-04-20
+						</div>
+						<div id="psImgDiv">
+							<img class="psImg" src="resources/images/prescription1.jpg">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<script>
+				function selectList(){
+					$.ajax({
+						url:"selectList.dc",
+						data:{memNo : "${ loginUser.memNo }"},
+						success:function(list){
+							console.log(list);
+						},
+						error:function(){
+							console.log("문서함조회 ajax호출 실패!");
+						}
+					})
+				}
+
+
+			</script>
+
+
+        	
+			<!-- The Modal -->
+			<div class="modal" id="selectDelivery">
+				<div class="modal-dialog">
+				   <div class="modal-content">
+
+					  <!-- Modal Header -->
+					  <div class="modal-header">
+						 <h4 class="modal-title">운송장번호로 조회하기</h4>
+						 <button type="button" class="close" data-dismiss="modal">&times;</button>
+					  </div>
+
+					  <!-- Modal body -->
+					  <div class="modal-body">
+						<form action="http://info.sweettracker.co.kr/tracking/5" method="post" target="_blank">
+							<div class="form-group">
+							  <label for="t_key">API key</label>
+							  <input type="text" class="form-control" id="t_key" name="t_key" placeholder="제공받은 APIKEY">
+							</div>
+							<div class="form-group">
+							  <label for="t_code">택배사 코드</label>
+							  <input type="text" class="form-control" name="t_code" id="t_code" placeholder="택배사 코드">
+							</div>
+							<div class="form-group">
+							  <label for="t_invoice">운송장 번호</label>
+							  <input type="text" class="form-control" name="t_invoice" id="t_invoice" placeholder="운송장 번호">
+							</div>
+							<button type="submit" class="btn btn-default">조회하기</button>
+						</form>
+					  </div>
+
+					  <!-- Modal footer -->
+					  <div class="modal-footer">
+						 <button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+					  </div>
+
+				   </div>
+				</div>
+			 </div>
+
+
 				
 				
 				
