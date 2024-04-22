@@ -34,4 +34,7 @@ public class Hospital {
 	private String hosStSat;
 	private String hosStSun;
 	private String hosStHol;
+	private double hosLongitude;
+	private double hosLatitude;
+	private int distance;
 }

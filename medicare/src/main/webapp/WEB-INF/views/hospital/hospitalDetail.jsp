@@ -182,8 +182,8 @@
 
   /* 최근 본 병원 */
   #recentView{
-    width: 300px;
-    height: 2000px;
+    width: 200px;
+    height: 500px;
     border: 2px solid gray;
     margin-left: 50px;
     border-radius: 10px;
@@ -322,7 +322,6 @@
 
 	#hspReview2>div{
 		float: left;
-		
 	}
 
 	/* 리뷰 닉네임, 프로필사진 감싼 div */
@@ -367,9 +366,6 @@
 		border-radius: 10px;
 		margin-left: 50px;
 		margin-top: 15px;
-		padding-top: 40px;
-		padding-left: 15px;
-		background-color: rgb(242, 242, 242);
 	}
 
   /* 주소 복사 버튼 */
@@ -429,7 +425,10 @@
     margin: auto;
     margin-bottom: 50px;
   }
-
+	
+#rvCont>div{
+	float:left;
+}
 
 </style>
 </head>
@@ -441,7 +440,7 @@
             <br><br><br>
             <div class="outer">
                 <div class="mName">   
-                	${ hospital.hosName }
+                	${ h.hosName }
                 </div>
                 <br>
                 <div class="diagnosis">
@@ -450,7 +449,7 @@
                 </div>
                 <br>
                 <div class="distance">
-                  <p>885m | 이비인후과 </p>
+                  <p>현 위치와의 거리 : ${ distance }m | ${ dot } </p>
                 </div>   
                 <div id="map">
                   
@@ -461,7 +460,6 @@
                   naver.maps.Service.geocode({
                       query: "경기도 수원시 장안구 정자동 945"
                   }, function(status, response) {
-                	  console.log("${ h.hName }")
                       if (status !== naver.maps.Service.Status.OK) {
                           return alert('주소를 지리적 좌표로 변환하는 중 오류가 발생했습니다.');
                       }
@@ -507,15 +505,66 @@
                 <div class="infoStatus">
                   <strong>진료시간</strong>
                   <div class="infoDetail">
-                      
                   </div>
                 </div>
                 
                 <br>
+                <script>
+                $(document).ready(function(){
+                    var elementIds = ["${ h.hosStMon }", "${ h.hosCtMon }", "${ h.hosStTue }", "${ h.hosCtTue }", "${ h.hosStWen }", "${ h.hosCtWen }", "${ h.hosStThu }", "${ h.hosCtThu }", "${ h.hosStFri }", "${ h.hosCtFri }", "${ h.hosStSat }", "${ h.hosCtSat }", "${ h.hosStSun }", "${ h.hosCtSun }", "${ h.hosStHol }" , "${ h.hosCtHol }"];
+                    var elementIdss = [];
+					var value = "";
+                    // Define the convertToTime function
+                    function convertToTime(value) {
+                        if (value.length === 3) {
+                            return value.substring(0, 1) + ":" + value.substring(1);
+                        } else if (value.length === 4) {
+                            return value.substring(0, 2) + ":" + value.substring(2);
+                        } else {
+                            return "Invalid time format";
+                        }
+                    }
+
+                    // Loop through the array and update the value of each element
+                    for (var i = 0; i < elementIds.length; i++) {
+                        // Check if the element exists before updating its value
+                        var convertedTime = convertToTime(elementIds[i]);
+                        elementIdss.push(convertedTime); // Push the converted time into the elementIdss array
+                        console.log(elementIdss[i]); // Log the array after the loop
+                    }
+
+                
+                    
+                    var value = "<div>" +
+                    "월:" + elementIdss[0] + "~" + elementIdss[1] + "<br>" +
+                    "화:" + elementIdss[2] + "~" + elementIdss[3] + "<br>" +
+                    "수:" + elementIdss[4] + "~" + elementIdss[5] + "<br>" +
+                    "목:" + elementIdss[6] + "~" + elementIdss[7] + "<br>" +
+                    "금:" + elementIdss[8] + "~" + elementIdss[9] + "<br>" +
+                    "토:" + elementIdss[10] + "~" + elementIdss[11] + "<br>" +
+                    "일:" + (elementIdss.length > 12 ? elementIdss[12] + "~" + elementIdss[13] + "<br>" : "No data") + // Check if enough elements are present
+                    "공휴일: ";
+
+                // Check if the value of h.hosStMon is empty
+                if (!${h.hosStMon}) {
+                    value += "휴진";
+                } else {
+                    // Add the opening and closing hours
+                    value += (elementIdss.length > 14 ? elementIdss[14] + "~" + elementIdss[15] : "No data");
+                }
+
+                value += "</div>";
+
+                $(".infoDetail").html(value);
+                    
+                });
+                </script>
+                
                 <div class="infoMap">
                   <strong>위치</strong>
                   <div class="mapDetail">
                     <span></span>
+                    ${ h.hosAddress }
                     <button id="addressCopy">주소복사</button>
                   </div>
                 </div>
@@ -524,105 +573,179 @@
                     <strong>전화번호</strong>
                     <div class="phoneDetail">
                       <span></span>
+                      ${ h.hosTel }
                       <button id="phoneCopy">전화번호 복사</button>
                     </div>
                   </div>
                   <!-- 리뷰 -->
                   <div id="hsp-review" class="info">
-                    <div id="reviewList">
+                    <div id="reviewList" >
                       <div id="review-div">
                         <span>리뷰 ( 총 23개 )</span>
+                        
                         <div id="graph">
                             <img id="graphImg" src="resources/reviewImg/4.png">
                         </div>
-                        <div id="hspReview">
-                          <div id="hspReview1">
-                            <div id="hpName"><p>하늘피부과</p></div>
-                            <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
-                            <div id="hpRate"><p>3.5</p></div>
-                            <div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-black2.png" id="heartImg"></div>
-                          </div>
-                          <div id="hspReview2">
-                            <div id="rvProfile">
-                              <div id="nickName"><p>정밍</p></div>
-                              <div id="profile"><img src="resources/reviewImg/profile/profile1.png" id="profileImg"></div>
-                            </div>
-                            <div id="rvCont">
-                              <p> 이 피부과 진짜 추천이에여!! <br>
-                                완전 물광피부 됐어요 친구도 추천해줄라구요~
-                              </p>
-                            </div>
-                          </div>
+                        
+                        <div> <!-- 글작성 -->
+                        	<div id="hspReview">
+	                          <div id="hspReview1">
+	                            <div id="hpName"><p>${ h.hosName }</p></div>
+	                            <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
+	                            <div id="hpRate"><p id="hPtag">3.5</p></div>
+	                            <div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-black2.png" id="heartImg"></div>
+	                          </div>
+	                          <div id="hspReview2">
+	                            <div id="rvProfile">
+	                              <div id="nickName"><p>
+	                              <c:if test="${ not empty loginUser }">
+	                              	${ loginUser.memName }
+	                              </c:if>
+	                              <c:if test="${ empty loginUser }">
+	                              	로그인 후 <br> 사용가능
+	                              </c:if>
+	                              
+	                              </p></div>
+	                              <div id="profile"><img src="resources/reviewImg/profile/profile1.png" id="profileImg"></div>
+	                            </div>
+	                            <div id="rvCont">
+	                              <div id="rvCont_1"><textarea id="rvCont_area" rows="5" cols="50" style="border-radius:15px;"></textarea></div>
+	                            </div>
+	                              <div id="rvCont_2" style="margin-top:40px; "><button id="reviewBtn" style="border:0px; border-radius: 15px; height:80px; width:50px; background-color: #f2c9d2; color:white;">등록</button></div>
+	                          </div>
+	                        </div>
                         </div>
-                        <div id="hspReview">
-                          <div id="hspReview1">
-                            <div id="hpName"><p>하얀이비인후과</p></div>
-                            <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
-                            <div id="hpRate"><p>4</p></div>
-                            <div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-full.png" id="heartImg"></div>
-                          </div>
-                          <div id="hspReview2">
-                            <div id="rvProfile">
-                              <div id="nickName"><p>정밍</p></div>
-                              <div id="profile"><img src="resources/reviewImg/profile/profile1.png" id="profileImg"></div>
-                            </div>
-                            <div id="rvCont">
-                              <p> 비염 때문에 이비인후과 자주가는데
-                                약도 잘들고 의사쌤 완전 친절하세요!!!!
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        <div id="hspReview">
-                          <div id="hspReview1">
-                            <div id="hpName"><p>하늘피부과</p></div>
-                            <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
-                            <div id="hpRate"><p>3.5</p></div>
-                            <div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-black2.png" id="heartImg"></div>
-                          </div>
-                          <div id="hspReview2">
-                            <div id="rvProfile">
-                              <div id="nickName"><p>정밍</p></div>
-                              <div id="profile"><img src="resources/reviewImg/profile/profile1.png" id="profileImg"></div>
-                            </div>
-                            <div id="rvCont">
-                              <p> 이 피부과 진짜 추천이에여!! <br>
-                                완전 물광피부 됐어요 친구도 추천해줄라구요~
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        <div id="hspReview">
-                          <div id="hspReview1">
-                            <div id="hpName"><p>하얀이비인후과</p></div>
-                            <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
-                            <div id="hpRate"><p>4</p></div>
-                            <div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-full.png" id="heartImg"></div>
-                          </div>
-                          <div id="hspReview2">
-                            <div id="rvProfile">
-                              <div id="nickName"><p>정밍</p></div>
-                              <div id="profile"><img src="resources/reviewImg/profile/profile1.png" id="profileImg"></div>
-                            </div>
-                            <div id="rvCont">
-                              <p> 비염 때문에 이비인후과 자주가는데
-                                약도 잘들고 의사쌤 완전 친절하세요!!!!
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        <div id="moreReview">
-                          <!-- <button id="moreReviewBtn"><img id="moreBtnImg" src="resources/mainIcon/menu1.png">리뷰 더보기</button> -->
-                          <button id="moreReviewBtn"><img id="moreBtnImg" src="resources/mainIcon/menu2.png">리뷰 더보기</button>
-                          <!-- <button id="moreReviewBtn"><img id="moreBtnImg" src="resources/mainIcon/menu3.png">리뷰 더보기</button> -->
-                          
+                        
+                        <script>
+                        	$(document).ready(function(){
+                        		$.ajax({
+                        			url:"review.get",
+                        			data:{
+                        				 hosCode:"${ h.hosCode }"
+                        				 },
+                        			success:function(data){
+                        					console.log(data)
+                        					
+                        					let value = "";
+                        					for(let i in data){
+                        						
+                        					
+	                           					value += "<div id='hspReview'>"
+	                           						   +  "<div id='hspReview1'>"
+			                	                       +   "<div id='hpName'><p>${ h.hosName }</p></div>"
+			                	                       +   "<div id='hpStar'><img src='resources/reviewImg/starHeart/star2.png' id='starImg'></div>"
+			                	                       +   "<div id='hpRate'><p>"+ data[i].rate + "</p></div>"
+			                	                       +   "<div id='hpHeart'><img src='resources/reviewImg/starHeart/heart-black2.png' id='heartImg'></div>"
+			                	                       +  "</div>"
+			                	                       +  "<div id='hspReview2'>"
+			                	                       +  "<div id='rvProfile'>"
+			                	                       +     "<div id='nickName'><p>"+data[i].memNo+"</p></div>"
+			                	                       +     "<div id='profile'><img src='resources/reviewImg/profile/profile1.png' id='profileImg'></div>"
+			                	                       +    "</div>"
+			                	                       +    "<div id='rvCont'>"
+			                	                       +     "<p>"+ data[i].revContent
+			                	                       +     "</p>"
+			                	                       +   "</div>"
+			                	                       +  "</div>"
+			                	                       + "</div>"
+                        					
+                        					}
+		                	                  $("#review_wrap").html(value);     
+                        			}, error:function(){
+                        				console.log("ajax 통신실패");
+                        			}
+                        			
+                        		})
+                        	});
+                        	</script>
+                        	<script>
+                        
+                        	$(function(){
+                        		$("#reviewBtn").click(function(){
+                        			$.ajax({
+                            			url:"review.in",
+                            			data:{
+                            				memNo:${ loginUser.memNo },
+                            				revContent:$("#rvCont_area").val(),
+                            				 hosCode:"${ h.hosCode }",
+                            				 rate:$("#hPtag").text()
+                            				 },
+                            			success:function(data){
+                            					console.log(data)
+                            					
+                            					let value = "";
+                            					for(let i in data){
+                            						
+                            					
+		                           					value += "<div id='hspReview'>"
+		                           						   +  "<div id='hspReview1'>"
+				                	                       +   "<div id='hpName'><p>${ h.hosName }</p></div>"
+				                	                       +   "<div id='hpStar'><img src='resources/reviewImg/starHeart/star2.png' id='starImg'></div>"
+				                	                       +   "<div id='hpRate'><p>"+ data[i].rate + "</p></div>"
+				                	                       +   "<div id='hpHeart'><img src='resources/reviewImg/starHeart/heart-black2.png' id='heartImg'></div>"
+				                	                       +  "</div>"
+				                	                       +  "<div id='hspReview2'>"
+				                	                       +  "<div id='rvProfile'>"
+				                	                       +     "<div id='nickName'><p>${ loginUser.memName }</p></div>"
+				                	                       +     "<div id='profile'><img src='resources/reviewImg/profile/profile1.png' id='profileImg'></div>"
+				                	                       +    "</div>"
+				                	                       +    "<div id='rvCont'>"
+				                	                       +     "<p>"+ data[i].revContent
+				                	                       +     "</p>"
+				                	                       +   "</div>"
+				                	                       +  "</div>"
+				                	                       + "</div>"
+                            					
+                            					}
+			                	                  $("#review_wrap").html(value);     
+                            			}, error:function(){
+                            				console.log("ajax 통신실패");
+                            			}
+                            			
+                            		})
+                        		})
+                        		
+                        	});
+                        </script>
+                        
+                        <div id="review_wrap" style="z-index:30;overflow: scroll; height:700px; ">
+	                        <div id="hspReview">
+	                          <div id="hspReview1">
+	                            <div id="hpName"><p>하늘피부과</p></div>
+	                            <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
+	                            <div id="hpRate"><p>3.5</p></div>
+	                            <div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-black2.png" id="heartImg"></div>
+	                          </div>
+	                          <div id="hspReview2">
+	                            <div id="rvProfile">
+	                              <div id="nickName"><p>정밍</p></div>
+	                              <div id="profile"><img src="resources/reviewImg/profile/profile1.png" id="profileImg"></div>
+	                            </div>
+	                            <div id="rvCont">
+	                              <p> 이 피부과 진짜 추천이에여!! <br>
+	                                완전 물광피부 됐어요 친구도 추천해줄라구요~
+	                              </p>
+	                            </div>
+	                          </div>
+	                        </div>
+	                        
+	                        <div id="moreReview">
+	                          <!-- <button id="moreReviewBtn"><img id="moreBtnImg" src="resources/mainIcon/menu1.png">리뷰 더보기</button> -->
+	                          <button id="moreReviewBtn"><img id="moreBtnImg" src="resources/mainIcon/menu2.png">리뷰 더보기</button>
+	                          <!-- <button id="moreReviewBtn"><img id="moreBtnImg" src="resources/mainIcon/menu3.png">리뷰 더보기</button> -->
+	                          
+	                        </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div id="hspReceive">
                     접수하기 화면
-                  </div>
+                    <a href="order.go">접수하기</a>
+                    
+						
+                  
+					</div>
                   <div id="hspReserv">
                     예약하기 화면
                   </div>
@@ -694,7 +817,7 @@
                     targetDiv.scrollIntoView({ behavior: 'smooth' });
                   });
 
-                })
+                
 
                 
             </script>
@@ -702,7 +825,7 @@
               <p>최근 본 의료기관</p>
             </div>
         </div>
-    
+    	
         <jsp:include page="../common/footer.jsp"/>
 
 

@@ -103,7 +103,9 @@ CREATE TABLE HOSPITAL(
     H_ST_FRI VARCHAR2(10),
     H_ST_SAT VARCHAR2(10),
     H_ST_SUN VARCHAR2(10),
-    H_ST_HOL VARCHAR2(10)																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								
+    H_ST_HOL VARCHAR2(10),
+    hos_longitude VARCHAR2(40) NOT NULL,
+    hos_latitude VARCHAR2(40) NOT NULL																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						
 );
 COMMENT ON COLUMN HOSPITAL.H_CODE IS '병원기관코드';
 COMMENT ON COLUMN HOSPITAL.H_ADDRESS IS '병원주소';
@@ -127,6 +129,8 @@ COMMENT ON COLUMN HOSPITAL.H_ST_FRI IS '진료시작(금)';
 COMMENT ON COLUMN HOSPITAL.H_ST_SAT IS '진료시작(토)';
 COMMENT ON COLUMN HOSPITAL.H_ST_SUN IS '진료시작(일)';
 COMMENT ON COLUMN HOSPITAL.H_ST_HOL IS '진료시작(공휴일)';
+COMMENT ON COLUMN HOSPITAL.hos_longitude IS '병원경도';
+COMMENT ON COLUMN HOSPITAL.hos_latitude IS '병원위도';
 
 -------------------------------- 첨부파일 TABLE -----------------------------
 CREATE TABLE IMG_FILE(
@@ -156,7 +160,7 @@ CREATE TABLE REVIEW(
    RATE NUMBER NOT NULL,
    RV_STATUS CHAR(1) NOT NULL CHECK (RV_STATUS IN ('Y','N')),
    H_CODE VARCHAR2(20) NOT NULL REFERENCES HOSPITAL,
-   IMG_FILE_NO NUMBER NOT NULL REFERENCES IMG_FILE
+   IMG_FILE_NO NUMBER REFERENCES IMG_FILE
 );
 
 COMMENT ON COLUMN REVIEW.R_NO IS '리뷰번호';
