@@ -20,7 +20,7 @@ public class DocumentController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value="selectList.dc")
+	@RequestMapping(value="selectList.dc", produces= "application/json; charset=UTF-8")
 	public String selectDocumentList(int memNo) {
 		
 		ArrayList<Document> list = dcService.selectDocumentList(memNo);

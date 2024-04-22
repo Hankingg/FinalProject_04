@@ -19,11 +19,11 @@
 		margin-left: 100px;
 }
 
-#document-outer>div{
+.document-outer>div{
 		float: left;
 	}
 
-#document-outer{
+.document-outer{
 		margin-left: 30px;
 }
 
@@ -38,12 +38,12 @@
 
 	}
 
-	#hosName{
+	.hosName{
 		font-size: 20px;
 		text-align: center;
 		margin-top: 10px;
 	}
-	#psDate{
+	.psDate{
 		text-align: right;
 	}
 	.psImg{
@@ -71,23 +71,9 @@
 
 
 			<div id="myDocument" class="info">
-				<h3 style="margin-left: 30px;">처방전 목록</h3>
-				<br><br>
-				<div id="document-outer">
-					<div class="prescription">
-						<div id="hosName">
-							하늘치과
-						</div>
-						<div id="psDate">
-							2024-04-20
-						</div>
-						<div id="psImgDiv">
-							<img class="psImg" src="resources/images/prescription1.jpg">
-						</div>
-					</div>
-				</div>
+				
 			</div>
-
+			
 			<script>
 				function selectList(){
 					$.ajax({
@@ -95,6 +81,34 @@
 						data:{memNo : "${ loginUser.memNo }"},
 						success:function(list){
 							console.log(list);
+
+							let value ="";
+							for(let i in list){
+								value += "<h3 style'margin-left: 30px;'>처방전 목록</h3>"
+									+ "<br><br>"
+									+ '<div class="document-outer">'
+
+									+	'<div class="prescription">'
+										
+									+ '<div class="hosName">'
+									+			list[i].memName
+									+ "</div>"
+
+									+ '<div class="psDate">'
+									+  list[i].dcUploadDate
+									+ "</div>"
+
+									+ '<div class="psImgDiv">'
+									+ '<img class="psImg" src="resources/images/prescription1.jpg">'
+									+ "</div>"
+
+									+ "</div>"	
+
+									+ "</div>"
+							}
+							$("#myDocument").html(value);
+
+
 						},
 						error:function(){
 							console.log("문서함조회 ajax호출 실패!");

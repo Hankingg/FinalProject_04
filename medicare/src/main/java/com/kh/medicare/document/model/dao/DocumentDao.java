@@ -15,7 +15,7 @@ public class DocumentDao {
 	public ArrayList<Document> selectDocumentList(SqlSessionTemplate sqlSession, int memNo){
 		
 		
-		return (ArrayList)sqlSession.selectList("DocumentMapper.selectDocumentList", memNo);
+		return (ArrayList)sqlSession.selectList("documentMapper.selectDocumentList", memNo);
 	}
 	
 	

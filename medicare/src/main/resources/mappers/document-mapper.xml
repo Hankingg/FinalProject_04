@@ -1,2 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="documentMapper">
+	
+	<resultMap type="Document" id="documentResult">
+		<result column="DC_NO" property="dcNo"/>
+		<result column="DC_SENDER_MNO" property="dcSenderMno"/>
+		<result column="DC_RECEIVER_MNO" property="dcReceiverMno"/>
+		<result column="DC_ORIGIN_NAME" property="dcOriginName"/>
+		<result column="DC_CHANGE_NAME" property="dcChangeName"/>
+		<result column="DC_FILE_PATH" property="dcFilePath"/>
+		<result column="DC_UPLOAD_DATE" property="dcUploadDate"/>
+		<result column="DC_READ_STATUS" property="dcReadStatus"/>
+		<result column="DC_PAYMENT_STATUS" property="dcPaymentStatus"/>
+		<result column="DC_DELIVERY_STATUS" property="dcDeliveryStatus"/>
+		<result column="MEM_NAME" property="memName"/>
+	</resultMap>
+
+		<select id="selectDocumentList" resultMap="documentResult">
+			select
+				     DC_NO
+				   , DC_SENDER_MNO
+				   , MEM_NAME
+				   , DC_RECEIVER_MNO
+				   , DC_ORIGIN_NAME
+				   , DC_UPLOAD_DATE
+				   , DC_READ_STATUS
+				   , DC_PAYMENT_STATUS
+				   , DC_DELIVERY_STATUS
+				   , to_char(DC_UPLOAD_DATE,'YYYY-MM-DD') as "DC_UPLOAD_DATE"
+			 from document
+			 JOIN MEMBER ON (DC_SENDER_MNO = MEM_NO)
+			where DC_RECEIVER_MNO = #{memNo}
+			order
+			   by DC_NO desc
+	</select>
+
+
+
+
+
+
+</mapper>
+
+
+
+
+
+
