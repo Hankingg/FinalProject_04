@@ -322,11 +322,11 @@
 
 	}
 
-	#document-outer>div{
+	.document-outer>div{
 		float: left;
 	}
 
-	#document-outer{
+	.document-outer{
 		margin-left: 30px;
 	}
 
@@ -342,13 +342,13 @@
 
 	}
 
-	#hosName{
+	.hosName{
 		font-size: 20px;
 		text-align: center;
 		margin-top: 10px;
 	}
 
-	#psDate{
+	.psDate{
 		text-align: right;
 	}
 
@@ -382,7 +382,7 @@
 						<li id="heart"><a class="tab">좋아요 리스트</a></li>
 						<li id="review"><a onclick="myReviewList();" class="tab">내가 쓴 리뷰</a></li>
 						<li id="delivery"><a class="tab">택배 목록</a></li>
-						<li id="documents"><a class="tab">문서함</a></li>
+						<li id="documents"><a onclick="myDocumentList();" class="tab">문서함</a></li>
 					</ul>
 				</div>
 				<div class="myPage-info">
@@ -532,64 +532,13 @@
 								$(this).addClass("active");
 								infoList.eq(tabList.index(this)).addClass("active");
 							});
-							
-						
-							/* $("#heart").click(function(){
-								
-								$.ajax({
-									url:"",
-									success:function(){
-										
-									}, error:function(){
-										console.log("좋아요 목록조회 ajax 통신 실패");
-									}
-								})
-								
-								$(".myPage-info").html($("#myMark").html());
-								console.log($(".myPage-info").html());
-								$("#myInfo").css("display", "block");
-							});
-							
 
-						    
-						    $("#delivery").click(function(){
-						    	
-						    	$.ajax({
-									url:"",
-									success:function(){
-										
-									}, error:function(){
-										console.log("택배 목록조회 ajax 통신 실패");
-									}
-								})
-								
-						    	$(".myPage-info").html($("#myDelivery").html());
-								$("#myInfo").css("display", "block");
-						    });
-
-							$("#documents").click(function(){
-								
-								$.ajax({
-									url:"",
-									success:function(){
-										
-									}, error:function(){
-										console.log("문서함 목록조회 ajax 통신 실패");
-									}
-								})
-								
-						    	$(".myPage-info").html($("#myDocument").html());
-								$("#myInfo").css("display", "block");
-						    }); */
-						    
-							
 						});
 						
-						function myReviewList(){
-							
+						function myReviewList(){		
 							$.ajax({
 								url:"myReview.rv",
-								data:{memNo:${loginUser.memNo}},
+								data:{memNo: "${loginUser.memNo}"},
 								success:function(data){
 
 									let value = "";
@@ -624,10 +573,48 @@
 											   + '</div>';
 										
 										$(".myPage-info").html(value);
-									
-									
+
 								}, error:function(){
 									console.log("내리뷰 목록조회 ajax 통신 실패");
+								}
+							})
+						}
+
+						function myDocumentList(){
+							$.ajax({
+								url:"selectList.dc",
+								data:{memNo : "${ loginUser.memNo }"},
+								success:function(list){
+									console.log(list);
+									let value ="";
+									    value += "<h3 style'margin-left: 30px;'>처방전 목록</h3><br><br>"
+											   + '<div class="document-outer">';
+									for(let i in list){
+
+									value += '<div class="prescription">'
+												
+											+ '<div class="hosName">'
+											+  list[i].memName
+											+ "</div>"
+
+											+ '<div class="psDate">'
+											+  list[i].dcUploadDate
+											+ "</div>"
+
+											+ '<div class="psImgDiv">'
+											+ '<img class="psImg" src="resources/images/prescription1.jpg">'
+											+ "</div>"
+
+											+ "</div>";	
+									}
+									value += "</div>";
+
+									$(".myPage-info").html(value);
+
+
+								},
+								error:function(){
+									console.log("문서함조회 ajax호출 실패!");
 								}
 							})
 						}
@@ -853,58 +840,6 @@
 						</table>
 					</div>
 
-					<div id="myDocument" class="info" style="display: none;">
-						<h3 style="margin-left: 30px;">처방전 목록</h3>
-						<br><br>
-						<div id="document-outer">
-							<div class="prescription">
-								<div id="hosName">
-									하늘치과
-								</div>
-								<div id="psDate">
-									2024-04-20
-								</div>
-								<div id="psImgDiv">
-									<img class="psImg" src="resources/images/prescription1.jpg">
-								</div>
-							</div>
-							<div class="prescription">
-								<div id="hosName">
-									하늘치과
-								</div>
-								<div id="psDate">
-									2024-04-20
-								</div>
-								<div id="psImgDiv">
-									<img class="psImg" src="resources/images/prescription1.jpg">
-								</div>
-							</div>
-							<div class="prescription">
-								<div id="hosName">
-									하늘치과
-								</div>
-								<div id="psDate">
-									2024-04-20
-								</div>
-								<div id="psImgDiv">
-									<img class="psImg" src="resources/images/prescription1.jpg">
-								</div>
-							</div>
-							<div class="prescription">
-								<div id="hosName">
-									하늘치과
-								</div>
-								<div id="psDate">
-									2024-04-20
-								</div>
-								<div id="psImgDiv">
-									<img class="psImg" src="resources/images/prescription1.jpg">
-								</div>
-							</div>
-						</div>
-						
-
-					</div>
 				</div>
 			</div>
 		</div>
