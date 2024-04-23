@@ -44,7 +44,7 @@ private static final String serviceKey = "YpWfxXHIJ%2Br47HRPOcTmmYXIn8QipimYeIn4
 		br.close();
 		urlConnection.disconnect();
 		
-		System.out.println(responseText);
+		
 		return responseText;
 	
 	} // Emergency	
@@ -53,5 +53,11 @@ private static final String serviceKey = "YpWfxXHIJ%2Br47HRPOcTmmYXIn8QipimYeIn4
 	public String emergencyList() {
 		
 		return "emergency/emergencyList";
-	}
+	
+	} // emergencyList
+	
+	
+	
+	
+	
 } // Class
