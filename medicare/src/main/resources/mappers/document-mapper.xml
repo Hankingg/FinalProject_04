@@ -35,7 +35,27 @@
 			   by DC_NO desc
 	</select>
 
-
+	<insert id="insertDocument">
+		insert
+		  into document
+		  	   (
+		  	   DC_NO
+			 , DC_SENDER_MNO
+			 , DC_RECEIVER_MNO
+			 , DC_ORIGIN_NAME
+			 , DC_CHANGE_NAME
+			 , DC_FILE_PATH
+		  	   )	
+ 		values
+ 			   (
+ 			   seq_dcno.nextval
+ 			 , #{dcSenderMno}
+ 			 , #{dcReceiverMno}
+ 			 , #{dcOriginName}
+ 			 , #{dcChangeName}
+ 			 , '1'
+ 			   )
+	</insert>
 
 
 

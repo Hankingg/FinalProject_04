@@ -63,11 +63,17 @@ public class hospitalController {
 		return "hospital/order";
 	}
 	
+<<<<<<< HEAD
 	@ResponseBody
 	@RequestMapping(value="myReview.rv", produces = "application/json; charset=utf-8")
 	public String myReviewList(int memNo) {
 		ArrayList<Review> list = hService.selectMyReviewList(memNo);
 		return new Gson().toJson(list);
+=======
+	@RequestMapping("documentPage.in")
+	public String documentPage() {
+		return "hospital/documentPage";
+>>>>>>> jm
 	}
 	
 }

@@ -23,6 +23,7 @@ public class Document {
 	private String dcReadStatus;
 	private String dcPaymentStatus;
 	private String dcDeliveryStatus;
+	private String dcStatus;
 	private String memName;
 	
 }
