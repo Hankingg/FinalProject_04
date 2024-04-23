@@ -290,6 +290,36 @@
 		margin-right: 10px;
 		
 	}
+	
+	/* 지도 호버시 정보창 */
+	.infoWindow{
+		width: auto;
+		height: 40px;
+		text-align:center;
+		border-radius: 10px;
+		border: 2px solid #f96c85;
+		font-size: 15px;
+		padding-top: 7px;
+		padding-right: 15px;
+		background-color: white;
+		
+	} 
+	 
+	.infoWindow>div{
+		float: left;
+	}
+	
+	.hosName{
+		margin-top: 5px;
+		margin-bottom: 10px;
+	}
+
+	.hosImg{
+		width: 25px;
+		height: 25px;
+		margin-left: 10px;
+		margin-right: 8px;
+	}
 </style>
 </head>
 <body>
@@ -363,6 +393,59 @@
             <script>
 			
             $(function(){
+            	
+            	if(navigator.geolocation){
+					
+					navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
+				}else {
+					var center = map.getCenter();
+					infowindow.setContent('<div style="padding:20px;"><h5 style="margin-bottom:5px; color:#f00;">Geolocation not supported</h5></div>');
+					infowindow.open(map, center);
+				}
+            	
+      		});
+            
+            var map; // 전역변수로 선언
+			
+			var infowindow = new naver.maps.InfoWindow();
+			
+        		// 현위치 찍기
+				function onSuccessGeolocation(position){ // 실행할 함수
+					var location = new naver.maps.LatLng(position.coords.latitude,
+														 position.coords.longitude);
+					
+						// 지도 생성
+						map = new naver.maps.Map('map', {
+							center: location,
+							zoom: 14
+						});
+					
+					// 마커 위치
+					var marker = new naver.maps.Marker({
+						position: location,
+						map: map,
+						icon: {
+							url: 'resources/map/person2.png',
+							scaledSize: new naver.maps.Size(40, 40), // 아이콘 사이즈 조정
+							origin: new naver.maps.Point(0, 0),
+							anchor: new naver.maps.Point(11, 35)
+						}
+					});
+				
+				}
+				
+				function onErrorGeolocation(){ // 오류 시 발생될 예외처리용 함수
+					alert("현위치 조회실패");
+					var center = new naver.maps.LatLng(37.3595704, 127.105399);
+					
+					map = new naver.maps.Map('map', {
+						center: center,
+						zoom: 15
+						
+					});
+				
+				}
+            	
     			$("#btn3").click(function(){
     				
 
@@ -383,8 +466,73 @@
 		    				var selectedOptionText = selectedOption.text();
     						
     						let value = "";
+    						let first = "";
+    						
+    						// 지도 초기화 및 첫번째 마커 생성
+							if(first){
+								var initialLocation = new naver.maps.LatLng(data[0].hosLatitude, data[0].hosLongitude);
+								// 지도 생성
+								map = new naver.maps.Map('map', {
+									center: initialLocation,
+									zoom: 14
+								});
+								first = false;  // 첫 번째 항목을 처리한 후 false로 설정
+								
+							}
     						
     						$(data).find("item").each(function(i, item){
+    							
+    							// 한의원 위치에 대한 마커 추가
+								var hosLocation = new naver.maps.LatLng(data[i].hosLatitude, data[i].hosLongitude);
+					            console.log(hosLocation);
+					            
+								var marker = new naver.maps.Marker({
+									position: hosLocation,
+									map: map, // map 변수는 전역으로 선언되어야 함
+									icon: {
+										url: 'resources/map/pin10.png',
+										scaledSize: new naver.maps.Size(40, 40)
+									}
+								});
+					            console.log(marker);     	
+								
+								/* 마커 호버시 정보창 내용 */
+								var content = '<div class="infoWindow">'
+									+ '<div class="hosImgDiv">'
+									+ '<img class="hosImg" src="resources/map/hos3.png">'
+									+ '</div>'
+									+ '<div class="hosName">'
+									+ '<h4>' + data[i].hosName + '</h4>'
+									+ '</div>'
+									+ '</div>';
+								console.log(data[i].hosName);
+								
+								/* 마커 호버시 정보창 */
+								var infoWindow = new naver.maps.InfoWindow({
+									content: content,
+									maxWidth: 'auto',
+									maxHeight: 40,						                        
+									borderWidth: 0,
+									borderRadius: '10',
+									backgroundColor: 'transparent',
+									disableAnchor: true,
+								});
+
+								// 마커에 마우스 진입 이벤트
+								marker.addListener('mouseover', function() {
+									infoWindow.open(map, marker);
+								});
+
+								// 마커에서 마우스가 벗어난 경우 정보창 닫기
+								marker.addListener('mouseout', function() {
+									infoWindow.close();
+								});
+
+								$(marker.getElement()).on('click', function(){
+									
+									location.href = 'hosDetail.go?hpid=' + data[i].hosCode;
+								});
+    							
     							value += "<div id='hos_wrap' style='width: 600px; height: 150px; margin-left:200px;' onclick='location.href=\"hosDetail.go?hpid=" + $(item).find("hpid").text()+  "\"'>"
     							     + "<div id='hos1'>"
     							     + "<div id='hos1_1'>"
@@ -417,6 +565,7 @@
     					
     				})
     			})
+    			
     			$("#near").click(function(){
     				$.ajax({
     					url:"nearhos.in",
@@ -426,6 +575,8 @@
     					success:function(data){
     						 console.log(data)
     						let value = "";
+    						let first = true;
+    						
     						 var selectedValue = $('#dgidIdName').val();
 
     		    				// Find the option element with the corresponding value
@@ -433,8 +584,73 @@
 
     		    				// Get the text content of the selected option
     		    				var selectedOptionText = selectedOption.text();
-    						
-    						for(let i in data){
+    		    				
+    							// 지도 초기화 및 첫번째 마커 생성
+								if(first){
+									var initialLocation = new naver.maps.LatLng(data[0].hosLatitude, data[0].hosLongitude);
+									// 지도 생성
+									map = new naver.maps.Map('map', {
+										center: initialLocation,
+										zoom: 14
+									});
+									first = false;  // 첫 번째 항목을 처리한 후 false로 설정
+									
+								}
+
+    		    				
+							$.each(data, function(i, item) {
+    							
+    							// 한의원 위치에 대한 마커 추가
+								var hosLocation = new naver.maps.LatLng(data[i].hosLatitude, data[i].hosLongitude);
+					            console.log(hosLocation);
+					            
+								var marker = new naver.maps.Marker({
+									position: hosLocation,
+									map: map, // map 변수는 전역으로 선언되어야 함
+									icon: {
+										url: 'resources/map/pin10.png',
+										scaledSize: new naver.maps.Size(40, 40)
+									}
+								});
+					            console.log(marker);     	
+								
+								/* 마커 호버시 정보창 내용 */
+								var content = '<div class="infoWindow">'
+									+ '<div class="hosImgDiv">'
+									+ '<img class="hosImg" src="resources/map/hos3.png">'
+									+ '</div>'
+									+ '<div class="hosName">'
+									+ '<h4>' + data[i].hosName + '</h4>'
+									+ '</div>'
+									+ '</div>';
+								console.log(data[i].hosName);
+								
+								/* 마커 호버시 정보창 */
+								var infoWindow = new naver.maps.InfoWindow({
+									content: content,
+									maxWidth: 'auto',
+									maxHeight: 40,						                        
+									borderWidth: 0,
+									borderRadius: '10',
+									backgroundColor: 'transparent',
+									disableAnchor: true,
+								});
+
+								// 마커에 마우스 진입 이벤트
+								marker.addListener('mouseover', function() {
+									infoWindow.open(map, marker);
+								});
+
+								// 마커에서 마우스가 벗어난 경우 정보창 닫기
+								marker.addListener('mouseout', function() {
+									infoWindow.close();
+								});
+
+								$(marker.getElement()).on('click', function(){
+									
+									location.href = 'hosDetail.go?hpid=' + data[i].hosCode;
+								});
+    							
     							value += "<div id='hos_wrap' style='width: 600px; height: 150px' onclick='location.href=\"hosDetail.go?hpid=" + data[i].hosCode + "&distance=" + data[i].distance + "&dot=" + selectedOptionText + "\"'>"
     							     + "<div id='hos1'>"
     							     + "<div id='hos1_1'>"
@@ -456,7 +672,7 @@
     							     +  "<div id='hos2_2'><div id='hos2_2_1'> 대기없음 </div></div>"
     							     +"</div>"
     							    +"</div>"
-    						}
+    						})
     						
     						$("#result").html(value);
     						
@@ -481,47 +697,14 @@
     			}
 
     			
-    		})
+  
+    		
+    		
+    				
    			</script>
             
 
-			<script>
-
-				naver.maps.Service.geocode({
-					query: "경기도 수원시 장안구 정자동 945"
-				}, function(status, response) {
-					if (status !== naver.maps.Service.Status.OK) {
-						return alert('주소를 지리적 좌표로 변환하는 중 오류가 발생했습니다.');
-					}
-
-					var result = response.v2, // 검색 결과의 컨테이너
-						items = result.addresses; // 검색 결과의 배열
-
-					var position = new naver.maps.LatLng(parseFloat(items[0].y), parseFloat(items[0].x));
-
-					// 지도 생성
-					var map = new naver.maps.Map('map', {
-						center: position,
-						zoom: 18
-					});
-
-					// 마커 위치
-					var markerOptions = {
-						position: position,
-						map: map,
-						icon: {
-							url: 'resources/logo/logo-mini.png',
-							scaledSize: new naver.maps.Size(45, 45), // 아이콘 사이즈 조정
-							origin: new naver.maps.Point(0, 0),
-							anchor: new naver.maps.Point(11, 35)
-						}
-					};
-
-					var marker = new naver.maps.Marker(markerOptions);
-				});
-
-			  </script>
-              
+			
               <button onclick="location.href='detail.kh'">상세페이지 버튼</button>
            </div>
            

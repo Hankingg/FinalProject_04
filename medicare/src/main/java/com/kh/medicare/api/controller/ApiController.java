@@ -119,11 +119,11 @@ public class ApiController {
 			            String hpid = itemElement.getElementsByTagName("hpid").item(0).getTextContent();
 			            
 			             h = hService.selectHospitalInfo(hpid);
+			             
+			             
 			            
 			            double deltaLat = Math.toRadians(h.getHosLatitude() - wgs84Lat);
 			            double deltaLon = Math.toRadians(h.getHosLongitude() - wgs84Lon);
-			            
-			            
 
 			            double a = Math.pow(Math.sin(deltaLat / 2), 2) +
 			                    Math.cos(Math.toRadians(wgs84Lat)) * Math.cos(Math.toRadians(h.getHosLatitude())) *
