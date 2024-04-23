@@ -339,7 +339,6 @@
 		padding: 15px;
 		margin-right: 30px;
 		margin-bottom: 30px;
-
 	}
 
 	.hosName{
@@ -358,6 +357,11 @@
 		height: 400px;
 		margin-left: 10px;
 	}
+	/* 모달시 처방전 사진 */
+	.modalPsImg{
+		width: 600px;
+		height: 600px;
+	}
 	
 	.myPage-info {
 		height: auto;
@@ -366,6 +370,39 @@
 	#myInfoTb input[name=memId], #myInfoTb input[name=memName]{
 		background-color: lightgray;
 	}
+
+	/* 처방전 모달 */
+
+	.modal2 {
+		display: none; 
+		position: fixed; 
+		z-index: 1; 
+		left: 0;
+		top: 0;
+		width: 100%; 
+		height: 100%; 
+		background-color: rgba(0,0,0,0.4);
+	}
+
+	.modal-content2 {
+		background-color: #fefefe;
+		padding: 20px;
+		border: 1px solid #888;
+		border-radius: 5px;
+		width: 700px; 
+		height: 800px;
+		position: fixed; 
+		top: 54%; 
+		left: 55%;
+		transform: translate(-50%, -50%); 
+		margin: 0; 
+	}
+
+	.close2:hover{
+		cursor: pointer;
+	}
+
+
 	
 </style>
 </head>
@@ -602,14 +639,53 @@
 											+ "</div>"
 
 											+ '<div class="psImgDiv">'
-											+ '<img class="psImg" src="resources/images/prescription1.jpg">'
+											+ '<img class="psImg" src="'+ list[i].dcChangeName +'">'
 											+ "</div>"
+
+											// 모달 추가하는 부분
+											+ '<div class="modal2" id="myModal'+ i +'">'
+											+   '<div class="modal-content2">'
+
+											+ '<div class="modal-header">'
+									        +    '<h3 class="modal-title" style="padding-left:290px">처방전</h3>'
+									        +    '<button type="button" class="close" data-dismiss="modal">&times;</button>'
+								            + '</div>'
+
+											+ '<div class="modal-body" align="center">'
+											+    '<img class="modalPsImg" src="'+ list[i].dcChangeName +'">'	
+											+ '</div>'
+																											
+											+ '<div class="modal-footer">'
+											+    "<button onclick=\"location.href='selectList.ph?dcReceiverMno=" + list[i].dcReceiverMno +"'\" type='button' class='btn btn-success dcBtn'>"
+											+    '처방전 전송'
+											+    '</button>'
+
+									        +    '<button type="button" class="btn btn-danger dcBtn">'
+											+    '삭제'
+											+    '</button>'
+								            + '</div>'
+
+
+											+   '</div>'
+											+ '</div>'	
+											// 여기까지 모달부분! 
+
 
 											+ "</div>";	
 									}
 									value += "</div>";
 
 									$(".myPage-info").html(value);
+
+									$('.prescription').on('click', function(){
+										var modalId = 'myModal' + $(this).index();
+										$('#' + modalId).show();
+									});
+
+									// 모달 x 버튼 -> 모달 닫기
+									$(document).on('click', '.close', function() {
+										$(this).closest('.modal2').hide();
+									});
 
 
 								},
@@ -806,6 +882,8 @@
 							</div>
 						</div>
 					</div>
+
+					
 
 					<!-- 좋아요 리스트 -->
 					<div id="myMark" class="info" style="display: none;">

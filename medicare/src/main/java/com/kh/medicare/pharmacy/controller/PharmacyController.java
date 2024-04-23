@@ -13,6 +13,7 @@ import java.net.URLEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -23,7 +24,13 @@ public class PharmacyController {
 
 	// 약국 통합페이지 진입
 	@RequestMapping(value="selectList.ph")
-	public String selectPharmacyList() {
+	public String selectPharmacyList(@RequestParam(value = "dcReceiverMno", required = false)String dcReceiverMno, Model model) {
+		
+		if(dcReceiverMno != null) {
+			System.out.println(dcReceiverMno);
+			model.addAttribute("dcSenderMno", dcReceiverMno);
+		}
+		
 		
 		return "pharmacy/pharmacyList";
 	} 

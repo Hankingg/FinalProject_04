@@ -18,9 +18,9 @@
 		margin-left: 100px;
 	}
 	
-	/* .outer div{ */
-		/* border: 1px solid red; */
-	/* } */
+	/* .outer div{
+		border: 1px solid red;
+	} */
 	
 	#result{
 		z-index: 30; 
@@ -118,13 +118,28 @@
 	}
 
 	 /* 여기부터 검색 결과창 관련 css */
+	/* .hos_wrap2{
+		border-radius: 10px;
+		box-sizing: border-box;
+		border: 1px solid gray;
+		width: 90px;
+		margin-left: 800px;
+		text-align: center;
+	} */
+
+	.hosOuter>div{
+		height: 100%;
+		float: left;
+	}
+
+
 	.hos_wrap {
 		margin-top: 10px;
 		display: flex;
 		border-radius: 10px;
 		box-sizing: border-box;
 		border: 1px solid gray;
-		width: 800px;
+		width: 1000px;
 		height: 200px;
 	}
 	.hos_wrap:hover{
@@ -314,6 +329,16 @@
 		margin-left: 10px;
 		margin-right: 8px;
 	}
+
+	.submitBtn{
+		width: 100px;
+		height: 40px;
+		border: none;
+		border-radius: 10px;
+		float: right;
+		margin-right: 30px;
+		margin-top: 40px;
+	}
 </style>
 </head>
 <body>
@@ -462,10 +487,11 @@
                       itemArr.each(function(i, item){
                         console.log($(item).find("hpid").text())
 
-                         value += "<div class='hos_wrap' onclick='location.href=\"selectDetail.ph?hpid=" + $(item).find("hpid").text() + "\"'>"
-                                 +     "<div class='hos1'>"
-                                 +       "<div class='hos1_1'>"           
+						value += "<div class='hos_wrap' onclick='location.href=\"selectDetail.ph?hpid=" + $(item).find("hpid").text() + "\"'>"
+                                 +   "<div class='hos1'>"
+                                 +     "<div class='hos1_1'>"           
                                  +       "<span>현 위치와의 거리 : " + $(item).find("distance").text() + "(km)</span>"
+								 +		"<button type='button' class='submitBtn'>처방전 전송</button>"
                                  +     "</div>"
                                  +     "<div class='hos1_2'>"
                                  +       "<div>" + $(item).find("dutyName").text() + " <span>💊</span></div>"
@@ -476,6 +502,9 @@
                                  +     "</div>"
                                  +   "</div>"
                                  + "</div>";
+
+							  
+								
 
 								// 한의원 위치에 대한 마커 추가
 								var hosLocation = new naver.maps.LatLng($(item).find("latitude").text(), $(item).find("longitude").text());

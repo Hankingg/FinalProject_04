@@ -23,7 +23,7 @@
 				   , MEM_NAME
 				   , DC_RECEIVER_MNO
 				   , DC_ORIGIN_NAME
-				   , DC_UPLOAD_DATE
+				   , DC_CHANGE_NAME
 				   , DC_READ_STATUS
 				   , DC_PAYMENT_STATUS
 				   , DC_DELIVERY_STATUS
@@ -31,6 +31,7 @@
 			 from document
 			 JOIN MEMBER ON (DC_SENDER_MNO = MEM_NO)
 			where DC_RECEIVER_MNO = #{memNo}
+			  and dc_status='Y'
 			order
 			   by DC_NO desc
 	</select>
