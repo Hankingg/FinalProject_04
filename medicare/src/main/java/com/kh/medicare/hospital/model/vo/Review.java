@@ -22,4 +22,7 @@ public class Review {
 	private String rvStatus;
 	private String hosCode;
 	private String imgFileNo;
+	private String hosName;
+	private int reviewCount;
+	private String nickName;
 }

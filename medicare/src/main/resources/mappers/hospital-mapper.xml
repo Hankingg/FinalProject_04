@@ -30,11 +30,15 @@
 	</resultMap>
 
 	<resultMap type="Review" id="reviewResult">
+		<result column="r_no" property="revNo"/>
 		<result column="mem_name" property="memNo"/>
 		<result column="R_CONTENT" property="revContent"/>
 		<result column="R_date" property="revDate"/>
 		<result column="RATE" property="rate"/>
+		<result column="review_count" property="reviewCount"/>
 		<result column="h_code" property="hosCode"/>
+		<result column="h_name" property="hosName"/>
+		<result column="nickname" property="nickName"/>
 	</resultMap>
 
 	<select id="selectHospitalInfo" resultMap="hospitalResult">
@@ -102,6 +106,24 @@
 		 where h_code = #{ hosCode }
 		 order
 		    by r_date desc
+	</select>
+	
+	<select id="selectMyReviewList" resultMap="reviewResult">
+		  select
+			     r_no
+			   , mem_name
+			   , nickname
+			   , r_content
+			   , r_date
+			   , rate
+			   , h_code
+			   , h_name
+			   , count(*) over() as review_count
+			from review
+			join member using (mem_no)
+			join hospital using (h_code)
+			where mem_no = #{ memNo }
+			order by r_date desc
 	</select>
 	
 </mapper>

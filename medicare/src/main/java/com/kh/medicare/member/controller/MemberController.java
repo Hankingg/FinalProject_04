@@ -91,6 +91,7 @@ public class MemberController {
 	
 	@RequestMapping("myPage.me")
 	public String myPage() {
+
 		return "member/myPage";
 	} // myPage
 	
@@ -133,7 +134,8 @@ public class MemberController {
 	
 	@RequestMapping("kakaoLogin.me")
 	public void kakaoLogin(Member m, HttpSession session, Model model, HttpServletResponse response) throws IOException {
-	   
+    	
+		m.setEnrollType("K");
 	    Member loginUser = mService.kakaoLogin(m);
 	    
 	    if (loginUser != null) {
@@ -144,6 +146,7 @@ public class MemberController {
 	    } else {
 	    
 	    	m.setMtId("M");
+
 	        int result = mService.insertMember(m);
 	        if (result > 0) {
 	      
@@ -205,6 +208,7 @@ public class MemberController {
 		        m.setMembership("N");
 		        m.setMsMonth("N");
 		        m.setMsYear("N");
+		        m.setEnrollType("N");
 		        
 		        Member loginUser = mService.naverLogin(m);
 		       System.out.println(m);
@@ -282,6 +286,12 @@ public class MemberController {
 			return "redirect:myPage.me";
 		}
 		
+	}
+	
+	@RequestMapping("myInfo.me")
+	public String myInfo() {
+		
+		return "redirect:myPage.me";
 	}
 	
 } //Class

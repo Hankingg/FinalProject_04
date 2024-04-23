@@ -32,6 +32,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.kh.medicare.hospital.model.service.HospitalService;
+import com.kh.medicare.hospital.model.service.HospitalServiceImpl;
 import com.kh.medicare.hospital.model.vo.Hospital;
 
 
@@ -41,7 +42,7 @@ public class ApiController {
 		private static final double RADIUS = 6371;
 	
 		@Autowired
-		private HospitalService hService;
+		private HospitalServiceImpl hService;
 	
 		private static final String serviceKey = "34wsc6y766r8ksUWol03G06POGG5hfycBII2oLzjGnQ1I5%2BEugxDjmCgVqWv3l0QPP1XvzaaNNBdfWdwSuv8EA%3D%3D";
 	
@@ -141,7 +142,7 @@ public class ApiController {
 			        }
 			    }
 			    
-			    Collections.sort(list, Comparator.comparingInt(Hospital::getDistance));
+			    // Collections.sort(list, Comparator.comparingInt(Hospital::getDistance));
 			    
 			} catch (Exception e) {
 			    e.printStackTrace();

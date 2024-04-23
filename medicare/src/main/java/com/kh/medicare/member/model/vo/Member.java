@@ -21,8 +21,10 @@ public class Member {
 	private String memName;
 	private String nickName;
 	private String email;
+	private int postcode;
 	private String address;
 	private String detailAddr;
+	private String extraAddr;
 	private String phone;
 	private String membership;
 	private String status;
@@ -32,6 +34,6 @@ public class Member {
 	private String msYear;
 	private Date buyDate;
 	private Date endDate;
-	
+	private String enrollType;
 	
 }

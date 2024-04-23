@@ -765,6 +765,7 @@
 							let first = true;
 
 							if(data != null && $(data).find("item").length > 0){
+								
 								// 지도 초기화 및 첫번째 마커 생성
 								if(first){
 									var initialLocation = new naver.maps.LatLng($(data).find("item:first").find("wgs84Lat").text(), $(data).find("item:first").find("wgs84Lon").text());
@@ -778,6 +779,7 @@
 								}
 
 								$(data).find("item").each(function(i, item){
+									if($(item).find("dutyDiv").text() == "G"){
 
 									// 한의원 위치에 대한 마커 추가
 									var hosLocation = new naver.maps.LatLng($(item).find("wgs84Lat").text(), $(item).find("wgs84Lon").text());
@@ -828,6 +830,20 @@
 									});
 
 									let onOff = "";
+									let span = "";
+									
+									
+									if($("#QN").val() != ""){
+										span += '"' + $("#QN").val() + '"' + " 에 대한 검색결과 <br>";
+									}
+									
+									if($("#selectOption").text() == "지역 선택" || $("#selectOption").text() == "전체"){
+										span += "한의원 목록";
+									}else {
+										span += $("#selectOption").text() + " 한의원 목록";
+									}
+									
+									$("#kHosTitle span").html(span);
 									
 									value += "<div class='hos_wrap' onclick='location.href=\"detail.kh?hpid=" + $(item).find("hpid").text() + "\"'>"
 											+ "<div class='hos1'>"
@@ -916,7 +932,7 @@
 											+ "</div>"
 											+ "</div>"
 											+ "</div>";
-
+									}
 								})
 								
 							} else{

@@ -22,4 +22,8 @@ public class HospitalDao {
 	public ArrayList<Review> selectReviewList(SqlSessionTemplate sqlSession,Review r){
 		return (ArrayList)sqlSession.selectList("hospitalMapper.selectReviewList", r);
 	}
+
+	public ArrayList<Review> selectMyReviewList(SqlSessionTemplate sqlSession, int memNo) {
+		return (ArrayList)sqlSession.selectList("hospitalMapper.selectMyReviewList", memNo);
+	}
 }

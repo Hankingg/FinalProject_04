@@ -33,5 +33,10 @@ public class HospitalServiceImpl implements HospitalService {
 	public ArrayList<Review> selectReviewList(Review r) {
 		return hDao.selectReviewList(sqlSession, r);
 	}
+
+	@Override
+	public ArrayList<Review> selectMyReviewList(int memNo) {
+		return hDao.selectMyReviewList(sqlSession, memNo);
+	}
 	
 }

@@ -99,6 +99,11 @@ public class KhospitalController {
 	@RequestMapping(value="search.kh", produces = "text/xml; charset=utf-8")
 	public String searchKhospital(String Q1, String QN) throws IOException {
 		
+		
+		if(Q1.equals("전체") | Q1.equals("지역 선택")) {
+			Q1 = "";
+		}
+		
 		String url = "https://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire";
 		url += "?serviceKey=" + serviceKey;
 		url += "&Q0=" + URLEncoder.encode("서울특별시", "UTF-8");

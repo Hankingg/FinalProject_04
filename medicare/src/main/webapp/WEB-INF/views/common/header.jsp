@@ -29,6 +29,10 @@
     	text-decoration-line: none;
     }
 
+	#myPage{
+		cursor:pointer;
+	}
+
     #loginBtn:hover {
     	color:gray;
     }
@@ -485,19 +489,24 @@
               </ul>
             </div>
           </li>
+			
+		  <c:if test="${ not empty loginUser }">
+	          <li class="nav-item">
+	            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+	              <i class="fa-solid fa-user"></i> &nbsp;&nbsp;&nbsp;&nbsp;
+	              <span class="menu-title">마이페이지</span>
+	              <i class="menu-arrow"></i>
+	            </a>
+	            <div class="collapse" id="icons">
+	              <ul class="nav flex-column sub-menu">
+	                <li class="nav-item">
+		               <a class="nav-link" href="myPage.me">마이페이지</a>
+	                </li>
+	              </ul>
+	            </div>
+	          </li>
+	      </c:if>
 
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-              <i class="fa-solid fa-user"></i> &nbsp;&nbsp;&nbsp;&nbsp;
-              <span class="menu-title">마이페이지</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="icons">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="myPage.me">마이페이지</a></li>
-              </ul>
-            </div>
-          </li>
           <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
               <i class="icon-ban menu-icon"></i>

@@ -521,7 +521,7 @@
                         } else if (value.length === 4) {
                             return value.substring(0, 2) + ":" + value.substring(2);
                         } else {
-                            return "Invalid time format";
+                            return "1";
                         }
                     }
 
@@ -535,25 +535,48 @@
 
                 
                     
-                    var value = "<div>" +
-                    "월:" + elementIdss[0] + "~" + elementIdss[1] + "<br>" +
-                    "화:" + elementIdss[2] + "~" + elementIdss[3] + "<br>" +
-                    "수:" + elementIdss[4] + "~" + elementIdss[5] + "<br>" +
-                    "목:" + elementIdss[6] + "~" + elementIdss[7] + "<br>" +
-                    "금:" + elementIdss[8] + "~" + elementIdss[9] + "<br>" +
-                    "토:" + elementIdss[10] + "~" + elementIdss[11] + "<br>" +
-                    "일:" + (elementIdss.length > 12 ? elementIdss[12] + "~" + elementIdss[13] + "<br>" : "No data") + // Check if enough elements are present
-                    "공휴일: ";
-
-                // Check if the value of h.hosStMon is empty
-                if (!${h.hosStMon}) {
-                    value += "휴진";
-                } else {
-                    // Add the opening and closing hours
-                    value += (elementIdss.length > 14 ? elementIdss[14] + "~" + elementIdss[15] : "No data");
-                }
-
-                value += "</div>";
+                    value += "<div>" 
+                    if(elementIdss[0] != 0 && elementIdss[0] != "1" && elementIdss[1] != 0 && elementIdss[1] != "1"){
+                    value += "월:" + elementIdss[0] + "~" + elementIdss[1] + "<br>" 
+                    }else{
+                    	value+= "월 : 휴진" + "<br>"
+                    }
+                    if(elementIdss[2] != 0 && elementIdss[2] != "1" && elementIdss[3] != 0 && elementIdss[3] != "1"){
+                    value += "화:" + elementIdss[2] + "~" + elementIdss[3] + "<br>" 
+                    }else{
+                    	value+= "화 : 휴진" + "<br>"
+                    }
+                    if(elementIdss[4] != 0 && elementIdss[4] != "1" && elementIdss[5] != 0 && elementIdss[5] != "1"){
+                    value += "수:" + elementIdss[4] + "~" + elementIdss[5] + "<br>" 
+                    }else{
+                    	value+= "수 : 휴진" + "<br>"
+                    }
+                    if(elementIdss[6] != 0 && elementIdss[6] != "1" && elementIdss[7] != 0 && elementIdss[7] != "1"){
+                    value += "목:" + elementIdss[6] + "~" + elementIdss[7] + "<br>" 
+                    }else{
+                    	value+= "목 : 휴진" + "<br>"
+                    }
+                    if(elementIdss[8] != 0 && elementIdss[8] != "1" && elementIdss[9] != 0 && elementIdss[9] != "1"){
+                    value += "금:" + elementIdss[8] + "~" + elementIdss[9] + "<br>"
+                    }else{
+                    	value+= "금 : 휴진" + "<br>"
+                    }
+                    if(elementIdss[10] != 0 && elementIdss[10] != "1" && elementIdss[11] != 0 && elementIdss[11] != "1"){
+                    value += "토:" + elementIdss[10] + "~" + elementIdss[11] + "<br>"
+                    }else{
+                    	value+= "토 : 휴진" + "<br>"
+                    }
+                    if(elementIdss[12] != 0 && elementIdss[12] != "1" && elementIdss[13] != 0 && elementIdss[13] != "1"){
+                    value += "일:" + elementIdss[12] + "~" + elementIdss[13] + "<br>"
+                    }else{
+                    	value+= "일 : 휴진" + "<br>"
+                    }
+                    if(elementIdss[14] != 0 && elementIdss[14] != "1" && elementIdss[15] != 0 && elementIdss[15] != "1"){
+                    value += "공휴일:"+ elementIdss[13] + "~" + elementIdss[14] + "<br>";
+                    }else{
+                    	value+= "공유일 : 휴진"
+                    }
+                    value+= "</div>"
 
                 $(".infoDetail").html(value);
                     
