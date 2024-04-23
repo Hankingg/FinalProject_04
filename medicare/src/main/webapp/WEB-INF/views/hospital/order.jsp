@@ -65,7 +65,7 @@
     <div class="main-panel" >
         <div class="content-wrapper">
         	<div style="height:1100px; width:900px; margin:auto; border:4px solid #F96C85; border-radius:15px;">
-        	<form action="">
+        	<form action="order.in">
         	<div style="padding-left:50px; padding-top:20px; padding-bottom:20px; border-bottom:1px solid #F96C85;">
         	😄 ${ loginUser.memName }님
         	<input type="hidden" name="memNo" value="${ loginUser.memNo }">
@@ -84,7 +84,7 @@
 				</div>
 			</div>
 			<div>
-				<textarea rows="5" cols="50" style="margin-left:50px; margin-top:50px;" placeholder="추가증상을 입력하세요(선택)"></textarea> 
+				<textarea rows="5" cols="50" name="addSymtom" style="margin-left:50px; margin-top:50px;" placeholder="추가증상을 입력하세요(선택)"></textarea> 
 			</div>
 			<hr style="background-color:#F96C85;">
 			<div style="text-align:right; padding-right:10px;">
