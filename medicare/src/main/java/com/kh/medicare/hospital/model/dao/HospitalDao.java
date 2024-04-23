@@ -1,11 +1,13 @@
 package com.kh.medicare.hospital.model.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.medicare.hospital.model.vo.Hospital;
+import com.kh.medicare.hospital.model.vo.Order;
 import com.kh.medicare.hospital.model.vo.Review;
 
 @Repository
@@ -25,5 +27,9 @@ public class HospitalDao {
 
 	public ArrayList<Review> selectMyReviewList(SqlSessionTemplate sqlSession, int memNo) {
 		return (ArrayList)sqlSession.selectList("hospitalMapper.selectMyReviewList", memNo);
+	}
+	
+	public int insertOrder(SqlSessionTemplate sqlSession, Order order) {
+		return sqlSession.insert("hospitalMapper.insertOrder", order);
 	}
 }
