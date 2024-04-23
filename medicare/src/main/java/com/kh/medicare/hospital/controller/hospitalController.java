@@ -62,5 +62,9 @@ public class hospitalController {
 		return "hospital/order";
 	}
 	
+	@RequestMapping("documentPage.in")
+	public String documentPage() {
+		return "hospital/documentPage";
+	}
 	
 }
