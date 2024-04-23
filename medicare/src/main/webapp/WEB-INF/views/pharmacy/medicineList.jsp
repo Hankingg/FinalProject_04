@@ -81,7 +81,6 @@
 						data:{memNo : "${ loginUser.memNo }"},
 						success:function(list){
 							console.log(list);
-
 							let value ="";
 							for(let i in list){
 								value += "<h3 style'margin-left: 30px;'>처방전 목록</h3>"
