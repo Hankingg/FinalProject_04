@@ -126,4 +126,18 @@
 			order by r_date desc
 	</select>
 	
+	<insert id="insertOrder">
+		insert
+		  into h_order
+		values (
+		       SEQ_ODRNO.nextval
+		     , #{memNo}
+		     , #{diagnosisType}
+		     , #{addSymtom}
+		     , #{time}
+		     , DEFAULT
+		     , DEFAULT
+			   )
+	</insert>
+	
 </mapper>

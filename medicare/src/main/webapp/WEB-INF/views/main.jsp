@@ -441,22 +441,24 @@
           
          
           <c:choose>
-           <c:when test="${ not empty loginUser and loginUser.membership eq Y }">
-           <div class="inner3 membership">         	
-            <div class="inner3s">             
-              <div class="membership_2"><button class="membership_btn" style="margin-top:30px; height:60px;">멤버십 만료일 : ${ loginUser.endDate } </button></div>      
-            </div>
-           </c:when>
-           <c:otherwise>
-          <div class="inner3 membership">
-          	<a href="membership.me" id="membership">
-            <div class="inner3s">
-              <div class="membership_1"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;구독 후 접수, 예약이 가능해요!</p></div>
-              <div class="membership_2"><button class="membership_btn">멤버십 구독하기</button></div>
-            </a>
-            </div>
-            </c:otherwise>
+	           <c:when test="${ empty loginUser or loginUser.membership eq 'N' }">
+		            <div class="inner3 membership">
+		          	<a href="membership.me" id="membership">
+		            <div class="inner3s">
+		              <div class="membership_1"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;구독 후 접수, 예약이 가능해요!</p></div>
+		              <div class="membership_2"><button class="membership_btn">멤버십 구독하기</button></div>
+		            </a>
+		            </div>
+	           </c:when>
+	           <c:otherwise>
+		         	<div class="inner3 membership">         	
+		            <div class="inner3s">             
+		              <div class="membership_2"><button class="membership_btn" style="margin-top:30px; height:60px;">멤버십 만료일 : ${ loginUser.endDate } </button></div>      
+		            </div>
+	            </c:otherwise>
            </c:choose>
+            
+           
             
             <div class="inner3s weight">
                 <div class="weight_1">

@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -100,8 +101,8 @@ public class MemberController {
 	public String loginPage(HttpSession session ,HttpServletResponse response, HttpServletRequest request) {
 		
 		
-		
 		return "member/login";
+		
 	} // loginPage
 	
 	
@@ -189,6 +190,7 @@ public class MemberController {
 	        oauthToken = naverLoginBO.getAccessToken(session, code, state);	      
 	        apiResult = naverLoginBO.getUserProfile(oauthToken);	        
 	        model.addAttribute("result", apiResult);
+	        LocalDate now = LocalDate.now();
 	       
 	        JsonObject jObj = JsonParser.parseString(apiResult).getAsJsonObject();
 	        
@@ -210,14 +212,15 @@ public class MemberController {
 		        m.setMsYear("N");
 		        m.setEnrollType("N");
 		        
+		        
 		        Member loginUser = mService.naverLogin(m);
-		       System.out.println(m);
+		        System.out.println("결제 회원정보 테스트 : " + loginUser);
 	      if(loginUser == null) {	    	 
 	    	   	    
 	        int result = mService.insertMember(m);
 	        
 	        if(result > 0) {           
-	            session.setAttribute("loginUser", m);         
+	            session.setAttribute("loginUser", loginUser);         
 	            return "redirect:/";
 	        } else {	            
 	            model.addAttribute("errorMsg", "회원가입 실패");
@@ -225,7 +228,7 @@ public class MemberController {
 	        }
 	        
 	      } else {	    	 
-	    	  session.setAttribute("loginUser", m);
+	    	  session.setAttribute("loginUser", loginUser);
 	    	  return "redirect:/";
 	      }
 	       
