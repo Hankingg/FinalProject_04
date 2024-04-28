@@ -31,7 +31,8 @@
 
 	<resultMap type="Review" id="reviewResult">
 		<result column="r_no" property="revNo"/>
-		<result column="mem_name" property="memNo"/>
+		<result column="mem_no" property="memNo"/>
+		<result column="mem_id" property="memId"/>
 		<result column="R_CONTENT" property="revContent"/>
 		<result column="R_date" property="revDate"/>
 		<result column="RATE" property="rate"/>
@@ -123,7 +124,7 @@
 	<select id="selectMyReviewList" resultMap="reviewResult">
 		  select
 			     r_no
-			   , mem_name
+			   , mem_no
 			   , nickname
 			   , r_content
 			   , r_date
@@ -134,7 +135,10 @@
 			from review
 			join member using (mem_no)
 			join hospital using (h_code)
-			where mem_no = #{ memNo }
+		   where rv_status = 'Y'
+		   <if test="memId != 'admin'">
+             and mem_no = #{memNo}
+ 		   </if>
 			order by r_date desc
 	</select>
 	

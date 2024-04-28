@@ -23,6 +23,21 @@
     font-weight: 600;
   }
 
+  .listBack{
+  	margin-left: 850px;
+    margin-top: 5px;
+  }
+  
+  .listBtn{
+  	border: none;
+  	border-radius: 10px;
+  	width: 90px;
+  	height: 40px;
+  	background-color: #F96C85;
+  	color: white;
+  	font-weight: 100;
+  }
+
   /* 진료 정보 */
   .diagnosis {
     font-size: 25px;
@@ -266,7 +281,9 @@
 
   /* 병원이름 */
 	#hpName{
-		width: 180px;
+		width: auto;
+		margin-right: 30px;
+		margin-left: 30px;
 	}
 
 	#hpName p{
@@ -287,7 +304,7 @@
 
 	/* 별점 */
 	#hpRate{
-		width: 600px;
+		width: 30px;
 	}
 
 	#hpRate p{
@@ -360,14 +377,40 @@
 	}
 
 	#rvCont{
-		width: 600px;
-		height: 150px;
+		width: 560px;
+		height: 160px;
 		border-radius: 10px;
 		margin-left: 50px;
 		margin-top: 15px;
-		padding-top: 40px;
+		padding-top: 20px;
 		padding-left: 15px;
 		background-color: rgb(242, 242, 242);
+	}
+	
+	#rvCont>div{
+		float: left;
+	}
+	
+	#rvInsertBtn{
+		width: 100px;
+	    height: 50px;
+	    border-radius: 10px;
+	    margin-top: 70px;
+	    margin-left: 30px;
+	    border: none;
+	    background-color: #f96c85;
+	    color: white;
+	}
+	
+	#rvText{
+		padding-top: 10px;
+		padding-left: 10px;
+		border-radius:10px;
+		
+	}
+	
+	#rvRate{
+		padding-top: 24px;
 	}
 
   /* 주소 복사 버튼 */
@@ -488,6 +531,9 @@
 	                <div class="mName">          
 	                  
 	                </div>
+	                <div class="listBack">
+	                	<button class="listBtn" onclick="location.href='list.kh'">목록으로</button>
+	                </div>
                 </div>
                 <br>
                 <div class="diagnosis">
@@ -542,12 +588,66 @@
                         <div id="graph">
                             <img id="graphImg" src="resources/reviewImg/4.png">
                         </div>
+                        <!-- 리뷰 작성 -->
+                        <div id="hspReview">
+                          <div id="hspReview1">
+                            <div id="hpName"></div>
+                            <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
+                            <div id="rvRate">
+                            	<select>
+                            		<option>5.0</option>
+                            		<option>4.5</option>
+                            		<option>4.0</option>
+                            		<option>3.5</option>
+                            		<option>3.0</option>
+                            		<option>2.5</option>
+                            		<option>2.0</option>
+                            		<option>1.5</option>
+                            		<option>1.0</option>
+                            	</select>
+                            </div>
+                          </div>
+                          <div id="hspReview2">
+                            <div id="rvProfile">
+                              <div id="nickName">
+                              	<c:if test="${ not empty loginUser }">
+	                              	<p>${ loginUser.nickName }</p>
+                              	</c:if>
+                              </div>
+                              <div id="profile"><img src="resources/reviewImg/profile/profile1.png" id="profileImg"></div>
+                            </div>
+                            <div id="rvCont">
+                              <div id="rvContent">
+                              	<c:choose>
+                              		<c:when test="${ empty loginUser }">
+                              			<textarea id="rvText" rows="5" cols="55" placeholder="리뷰 작성은 로그인 후 이용가능한 서비스입니다!" readonly></textarea>
+                              		</c:when>
+                              		<c:otherwise>
+		                              	<textarea id="rvText" rows="5" cols="55" placeholder="리뷰를 작성해주세요 😄"></textarea>
+                              		</c:otherwise>
+                              	</c:choose>
+                              </div>
+                              
+                            </div>
+                            <div>
+                            	<c:choose>
+                            		<c:when test="${ empty loginUser }">
+                            			<button id="rvInsertBtn" disabled>등록</button>
+                            		</c:when>
+                            		<c:otherwise>
+		                              	<button id="rvInsertBtn">등록</button>
+                            		</c:otherwise>
+                            	</c:choose>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <!-- 리뷰 목록 -->
                         <div id="hspReview">
                           <div id="hspReview1">
                             <div id="hpName"><p>하늘피부과</p></div>
                             <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
                             <div id="hpRate"><p>3.5</p></div>
-                            <div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-black2.png" id="heartImg"></div>
                           </div>
                           <div id="hspReview2">
                             <div id="rvProfile">
@@ -561,63 +661,7 @@
                             </div>
                           </div>
                         </div>
-                        <div id="hspReview">
-                          <div id="hspReview1">
-                            <div id="hpName"><p>하얀이비인후과</p></div>
-                            <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
-                            <div id="hpRate"><p>4</p></div>
-                            <div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-full.png" id="heartImg"></div>
-                          </div>
-                          <div id="hspReview2">
-                            <div id="rvProfile">
-                              <div id="nickName"><p>정밍</p></div>
-                              <div id="profile"><img src="resources/reviewImg/profile/profile1.png" id="profileImg"></div>
-                            </div>
-                            <div id="rvCont">
-                              <p> 비염 때문에 이비인후과 자주가는데
-                                약도 잘들고 의사쌤 완전 친절하세요!!!!
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        <div id="hspReview">
-                          <div id="hspReview1">
-                            <div id="hpName"><p>하늘피부과</p></div>
-                            <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
-                            <div id="hpRate"><p>3.5</p></div>
-                            <div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-black2.png" id="heartImg"></div>
-                          </div>
-                          <div id="hspReview2">
-                            <div id="rvProfile">
-                              <div id="nickName"><p>정밍</p></div>
-                              <div id="profile"><img src="resources/reviewImg/profile/profile1.png" id="profileImg"></div>
-                            </div>
-                            <div id="rvCont">
-                              <p> 이 피부과 진짜 추천이에여!! <br>
-                                완전 물광피부 됐어요 친구도 추천해줄라구요~
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        <div id="hspReview">
-                          <div id="hspReview1">
-                            <div id="hpName"><p>하얀이비인후과</p></div>
-                            <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
-                            <div id="hpRate"><p>4</p></div>
-                            <div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-full.png" id="heartImg"></div>
-                          </div>
-                          <div id="hspReview2">
-                            <div id="rvProfile">
-                              <div id="nickName"><p>정밍</p></div>
-                              <div id="profile"><img src="resources/reviewImg/profile/profile1.png" id="profileImg"></div>
-                            </div>
-                            <div id="rvCont">
-                              <p> 비염 때문에 이비인후과 자주가는데
-                                약도 잘들고 의사쌤 완전 친절하세요!!!!
-                              </p>
-                            </div>
-                          </div>
-                        </div>
+                        
                         <div id="moreReview">
                           <!-- <button id="moreReviewBtn"><img id="moreBtnImg" src="resources/mainIcon/menu1.png">리뷰 더보기</button> -->
                           <button id="moreReviewBtn"><img id="moreBtnImg" src="resources/mainIcon/menu2.png">리뷰 더보기</button>
@@ -870,12 +914,13 @@
 	                              
                       })
                                
-                        $(".mName").text(name);
-                        $(".phoneDetail span").text(phone);
-                        $(".mapDetail span").text(address);
+                        $(".mName").html(name);
+                      	$("#hpName").html('<p>' + name + '</p>');
+                        $(".phoneDetail span").html(phone);
+                        $(".mapDetail span").html(address);
                         $(".infoDetail").html(time);
                         $(".diagnosisTime").html(todayTime);
-                        $(".diagnosisStatus").text(onOff);
+                        $(".diagnosisStatus").html(onOff);
                                
                 		}, error:function(){
                 			console.log("상세정보 조회 ajax 통신 실패");

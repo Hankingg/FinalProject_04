@@ -77,8 +77,12 @@ public class hospitalController {
 	
 	@ResponseBody
 	@RequestMapping(value="myReview.rv", produces = "application/json; charset=utf-8")
-	public String myReviewList(int memNo) {
-		ArrayList<Review> list = hService.selectMyReviewList(memNo);
+	public String myReviewList(int memNo, String memId) {
+		
+		Map<String, Object> memInfo = new HashMap();
+	    memInfo.put("memNo", memNo);
+	    memInfo.put("memId", memId);
+		ArrayList<Review> list = hService.selectMyReviewList(memInfo);
 		return new Gson().toJson(list);
 	}
 	
