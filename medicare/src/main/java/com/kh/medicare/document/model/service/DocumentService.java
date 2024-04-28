@@ -12,5 +12,7 @@ public interface DocumentService {
 	
 	int insertDocument(Document d);
 	
+	Document selectDocument(int dcNo);
 	
+	int deleteDocument(int dcNo); 
 }

@@ -32,6 +32,20 @@ public class DocumentServiceImpl implements DocumentService {
 		return dcDao.insertDocument(sqlSession,d);
 	}
 
+
+	@Override
+	public Document selectDocument(int dcNo) {
+		
+		return dcDao.selectDocument(sqlSession, dcNo);
+	}
+
+
+	@Override
+	public int deleteDocument(int dcNo) {
+		
+		return dcDao.deleteDocument(sqlSession, dcNo);
+	}
+
 	
 	
 	

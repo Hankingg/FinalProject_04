@@ -410,7 +410,7 @@
     border: 1px solid red;
     border-bottom: 3px solid gray;
     width: 1000px;
-    height: 600px;
+    height: 100px;
     margin: auto;
     margin-bottom: 50px;
 
@@ -788,9 +788,7 @@
 						
                   
 					</div>
-                  <div id="hspReserv">
-                    예약하기 화면
-                  </div>
+                  
                   
             </div>    
             <script>

@@ -45,5 +45,5 @@ public class HospitalServiceImpl implements HospitalService {
 	public int insertOrder(Order order) {
 		return hDao.insertOrder(sqlSession,order);
 	}
-	
+
 }

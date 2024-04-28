@@ -26756,7 +26756,8 @@ table.dataTable tbody td.select-checkbox:after {
 }
 
 .fc .fc-button-group .fc-button {
-  background-color: #ffffff;
+  background-color: #8080c0;
+  border:0px;
   margin: 0;
 }
 
@@ -26825,7 +26826,8 @@ table.dataTable tbody td.select-checkbox:after {
 .fc .fc-event {
   border: 0;
   color: #ffffff;
-  padding: .5rem;
+  padding: .2rem;
+  background:#3788d8;
 }
 
 .fc .fc-event.fc-start {

@@ -14,13 +14,19 @@ public class DocumentDao {
 	
 	
 	public ArrayList<Document> selectDocumentList(SqlSessionTemplate sqlSession, int memNo){
-		
-		
 		return (ArrayList)sqlSession.selectList("documentMapper.selectDocumentList", memNo);
 	}
 	
 	public int insertDocument(SqlSessionTemplate sqlSession, Document d) {
 		return sqlSession.insert("documentMapper.insertDocument", d);
+	}
+	
+	public Document selectDocument(SqlSessionTemplate sqlSession, int dcNo) {
+		return sqlSession.selectOne("documentMapper.selectDocument", dcNo);
+	}
+	
+	public int deleteDocument(SqlSessionTemplate sqlSession, int dcNo) {
+		return sqlSession.update("documentMapper.deleteDocument", dcNo);
 	}
 	
 	

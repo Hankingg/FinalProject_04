@@ -194,6 +194,12 @@
 					if (rsp.success) {
 						// 결제 성공 시 로직,
 						console.log("아오성공");
+
+
+
+
+
+						
 					} else {
 						// 결제 실패 시 로직,
 						console.log("아오실패");
