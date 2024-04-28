@@ -18,4 +18,5 @@ public interface HospitalService {
 	ArrayList<Review> selectMyReviewList(int memNo);
 	
 	int insertOrder(Order order);
+	
 }

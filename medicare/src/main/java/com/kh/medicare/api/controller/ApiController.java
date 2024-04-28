@@ -48,10 +48,10 @@ public class ApiController {
 	
 		@ResponseBody
 		@RequestMapping(value="hospital.in", produces = "text/xml; charset=UTF-8")
-		public String hospitalInfo(String Q0,String QD,String QN) throws IOException {
+		public String hospitalInfo(String Q1,String QD,String QN) throws IOException {
 			String url = "https://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire";
 			url += "?serviceKey=" + serviceKey;
-			url += "&Q0=" + URLEncoder.encode(Q0, "UTF-8");
+			url += "&Q1=" + URLEncoder.encode(Q1, "UTF-8");
 			url += "&QD=" + QD;
 			url += "&QN=" + URLEncoder.encode(QN, "UTF-8");
 			url += "&ORD=NAME";
@@ -77,16 +77,17 @@ public class ApiController {
 		
 		@ResponseBody
 		@RequestMapping(value="nearhos.in", produces = "application/json; charset=UTF-8")
-		public String nearHosInfo(String Q0,String QD,String QN) throws IOException {
+		public String nearHosInfo(String Q1,String QD,String QN, Model model) throws IOException {
 			String url = "https://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire";
 			url += "?serviceKey=" + serviceKey;
-			url += "&Q0=" + URLEncoder.encode(Q0, "UTF-8");
+			url += "&Q0=" + URLEncoder.encode("서울특별시", "UTF-8");
+			url += "&Q1=" + URLEncoder.encode(Q1, "UTF-8");
 			url += "&QD=" + QD;
 			url += "&QN=" + URLEncoder.encode(QN, "UTF-8");
 			url += "&ORD=NAME";
 			url += "&pageNo=1";
 			url += "&numOfRows=10";
-			
+			System.out.println(url);
 			URL requestUrl = new URL(url);
 			HttpURLConnection urlConnection = (HttpURLConnection)requestUrl.openConnection();
 			urlConnection.setRequestMethod("GET");
@@ -100,12 +101,13 @@ public class ApiController {
 			while((line = br.readLine()) != null) {
 				responseText += line;
 			}
+			System.out.println(responseText);
 			
 			br.close();
 			urlConnection.disconnect();
 			
 			ArrayList<Hospital> list = new ArrayList<Hospital>();
-			Hospital h = null;
+			
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			try {
 			    DocumentBuilder builder = factory.newDocumentBuilder();
@@ -114,25 +116,33 @@ public class ApiController {
 			    NodeList itemList = doc.getElementsByTagName("item");
 			    for (int i = 0; i < itemList.getLength(); i++) {
 			        Node itemNode = itemList.item(i);
+			        Hospital h = new Hospital();
 			        if (itemNode.getNodeType() == Node.ELEMENT_NODE) {
 			            Element itemElement = (Element) itemNode;
 			            String hpid = itemElement.getElementsByTagName("hpid").item(0).getTextContent();
+			            String dutyName = itemElement.getElementsByTagName("dutyName").item(0).getTextContent();
+			            String dutyAddr = itemElement.getElementsByTagName("dutyAddr").item(0).getTextContent(); 
+			            double Dwgs84Lat = Double.parseDouble(itemElement.getElementsByTagName("wgs84Lat").item(0).getTextContent());
+			            double Dwgs84Lon = Double.parseDouble(itemElement.getElementsByTagName("wgs84Lon").item(0).getTextContent()); 
+			            System.out.println(Dwgs84Lat);
+			            System.out.println(Dwgs84Lon);
 			            
-			             h = hService.selectHospitalInfo(hpid);
-			            
-			            double deltaLat = Math.toRadians(h.getHosLatitude() - wgs84Lat);
-			            double deltaLon = Math.toRadians(h.getHosLongitude() - wgs84Lon);
+			            double deltaLat = Math.toRadians(Dwgs84Lat - wgs84Lat);
+			            double deltaLon = Math.toRadians(Dwgs84Lon - wgs84Lon);
 			            
 			            
 
 			            double a = Math.pow(Math.sin(deltaLat / 2), 2) +
-			                    Math.cos(Math.toRadians(wgs84Lat)) * Math.cos(Math.toRadians(h.getHosLatitude())) *
+			                    Math.cos(Math.toRadians(wgs84Lat)) * Math.cos(Math.toRadians(Dwgs84Lat)) *
 			                    Math.pow(Math.sin(deltaLon / 2), 2);
 			            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 			            
 			            double distanceKm = RADIUS * c;
 			            int distanceMeters = (int)(distanceKm * 1000);
-			            
+			            System.out.println(distanceMeters);
+			            h.setHosCode(hpid);
+			            h.setHosName(dutyName);
+			            h.setHosAddress(dutyAddr);
 			            h.setDistance(distanceMeters);
 			            
 			            list.add(h);

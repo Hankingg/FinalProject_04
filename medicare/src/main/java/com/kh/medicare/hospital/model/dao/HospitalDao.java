@@ -32,4 +32,6 @@ public class HospitalDao {
 	public int insertOrder(SqlSessionTemplate sqlSession, Order order) {
 		return sqlSession.insert("hospitalMapper.insertOrder", order);
 	}
+	
+	
 }

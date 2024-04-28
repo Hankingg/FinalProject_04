@@ -69,6 +69,7 @@
         	<div style="padding-left:50px; padding-top:20px; padding-bottom:20px; border-bottom:1px solid #F96C85;">
         	😄 ${ loginUser.memName }님
         	<input type="hidden" name="memNo" value="${ loginUser.memNo }">
+        	<input type="hidden" name="orderDate" id="orderDate">
         	</div>
         	<div style="padding-left:50px; padding-top:10px; padding-bottom:50px; border-bottom:1px solid #F96C85;">
         	&nbsp;✔ 진료항목 <br><br>
@@ -216,7 +217,8 @@
                 }else{
                 	$("#orderTime").html(timeRadioButtons);
                 }
-               
+
+            	$("#orderDate").val(selectedDate);
             });
 
             // Set hover effect only for past dates
@@ -252,15 +254,15 @@
     var currentDayName = daysOfWeek[currentDayOfWeek];
 
     // Define the convertToTime function
-    function convertToTime(value) {
-        if (value.length === 3) {
-            return value.substring(0, 1) + ":" + value.substring(1);
-        } else if (value.length === 4) {
-            return value.substring(0, 2) + ":" + value.substring(2);
-        } else {
-            return "Invalid time format";
-        }
-    }
+	    function convertToTime(value) {
+	    if (value.length === 3) {
+	        return "0" + value.substring(0, 1) + ":" + value.substring(1);
+	    } else if (value.length === 4) {
+	        return value.substring(0, 2) + ":" + value.substring(2);
+	    } else {
+	        return "Invalid time format";
+	    }
+	}
 
     // Loop through the array and update the value of each element
     for (var i = 0; i < elementIds.length; i++) {
