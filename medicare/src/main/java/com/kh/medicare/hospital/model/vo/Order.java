@@ -16,4 +16,5 @@ public class Order {
 	private int diagnosisType;
 	private String addSymtom;
 	private String time;
+	private String orderDate;
 }
