@@ -65,10 +65,11 @@
     <div class="main-panel" >
         <div class="content-wrapper">
         	<div style="height:1100px; width:900px; margin:auto; border:4px solid #F96C85; border-radius:15px;">
-        	<form action="">
+        	<form action="order.in">
         	<div style="padding-left:50px; padding-top:20px; padding-bottom:20px; border-bottom:1px solid #F96C85;">
         	😄 ${ loginUser.memName }님
         	<input type="hidden" name="memNo" value="${ loginUser.memNo }">
+        	<input type="hidden" name="orderDate" id="orderDate">
         	</div>
         	<div style="padding-left:50px; padding-top:10px; padding-bottom:50px; border-bottom:1px solid #F96C85;">
         	&nbsp;✔ 진료항목 <br><br>
@@ -84,7 +85,7 @@
 				</div>
 			</div>
 			<div>
-				<textarea rows="5" cols="50" style="margin-left:50px; margin-top:50px;" placeholder="추가증상을 입력하세요(선택)"></textarea> 
+				<textarea rows="5" cols="50" name="addSymtom" style="margin-left:50px; margin-top:50px;" placeholder="추가증상을 입력하세요(선택)"></textarea> 
 			</div>
 			<hr style="background-color:#F96C85;">
 			<div style="text-align:right; padding-right:10px;">
@@ -216,7 +217,8 @@
                 }else{
                 	$("#orderTime").html(timeRadioButtons);
                 }
-               
+
+            	$("#orderDate").val(selectedDate);
             });
 
             // Set hover effect only for past dates
@@ -252,15 +254,15 @@
     var currentDayName = daysOfWeek[currentDayOfWeek];
 
     // Define the convertToTime function
-    function convertToTime(value) {
-        if (value.length === 3) {
-            return value.substring(0, 1) + ":" + value.substring(1);
-        } else if (value.length === 4) {
-            return value.substring(0, 2) + ":" + value.substring(2);
-        } else {
-            return "Invalid time format";
-        }
-    }
+	    function convertToTime(value) {
+	    if (value.length === 3) {
+	        return "0" + value.substring(0, 1) + ":" + value.substring(1);
+	    } else if (value.length === 4) {
+	        return value.substring(0, 2) + ":" + value.substring(2);
+	    } else {
+	        return "Invalid time format";
+	    }
+	}
 
     // Loop through the array and update the value of each element
     for (var i = 0; i < elementIds.length; i++) {

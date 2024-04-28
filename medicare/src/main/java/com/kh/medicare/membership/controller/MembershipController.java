@@ -32,11 +32,14 @@ public class MembershipController {
 	public String updateMembershipMonth(Member m, Model model, HttpSession session) {
 		System.out.println(m);
 		int result = mService.updateMembershipMonth(m);
+		Member loginUser = mService.loginMember(m); 
+		
 		
 		System.out.println(result);
 		if(result > 0) {
+			session.setAttribute("loginUser", loginUser);
 			session.setAttribute("alertMsg", "월간 구독권 구매가 완료 되었습니다!");
-			return "main";
+			return "redirect:/";
 		} else {
 			model.addAttribute("errorMsg", "구입 실패");
 			return "common/errorPage";
