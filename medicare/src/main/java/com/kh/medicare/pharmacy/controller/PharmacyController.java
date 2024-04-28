@@ -10,11 +10,15 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.kh.medicare.document.model.service.DocumentServiceImpl;
+import com.kh.medicare.document.model.vo.Document;
 
 
 @Controller
@@ -22,15 +26,19 @@ public class PharmacyController {
 	
 	private static final String serviceKey = "pNCWmkUMAcA3lgnlH2TQLZJiIjuL7U%2BRBtCVzEEDzSUUNNJj0ret29u%2BISuTUyOsb67C7sUwm95m%2FWL34lyXAQ%3D%3D";
 
+	@Autowired
+	private DocumentServiceImpl dcService;
+	
 	// 약국 통합페이지 진입
 	@RequestMapping(value="selectList.ph")
-	public String selectPharmacyList(@RequestParam(value = "dcReceiverMno", required = false)String dcReceiverMno, Model model) {
+	public String selectPharmacyList(@RequestParam(value = "dcNo", required = false) Integer dcNo, Model model) {
 		
-		if(dcReceiverMno != null) {
-			System.out.println(dcReceiverMno);
-			model.addAttribute("dcSenderMno", dcReceiverMno);
+		if(dcNo != null) {
+			System.out.println(dcNo);
+			Document thisDocument = dcService.selectDocument(dcNo);
+			System.out.println(thisDocument);
+			model.addAttribute("thisDocument", thisDocument);
 		}
-		
 		
 		return "pharmacy/pharmacyList";
 	} 

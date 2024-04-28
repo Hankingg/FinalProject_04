@@ -656,11 +656,11 @@
 											+ '</div>'
 																											
 											+ '<div class="modal-footer">'
-											+    "<button onclick=\"location.href='selectList.ph?dcReceiverMno=" + list[i].dcReceiverMno +"'\" type='button' class='btn btn-success dcBtn'>"
+											+    "<button onclick=\"location.href='selectList.ph?dcNo=" + list[i].dcNo +"'\" type='button' class='btn btn-success dcBtn'>"
 											+    '처방전 전송'
 											+    '</button>'
 
-									        +    '<button type="button" class="btn btn-danger dcBtn">'
+									        +    "<button data-dcno='"+ list[i].dcNo +"' type='button' class='btn btn-danger dcBtn deleteBtn'>"
 											+    '삭제'
 											+    '</button>'
 								            + '</div>'
@@ -694,6 +694,29 @@
 								}
 							})
 						}
+
+						$('.myPage-info').on('click', '.deleteBtn', function(e){
+							e.preventDefault(); // 기본 동작 방지.
+							var dcNo = $(this).data('dcno'); // dcNo를 data 속성에서 가져옵니다.
+
+							// alertify.confirm 사용
+							alertify.confirm('정말 삭제하시겠습니까?', '삭제시, 처방전을 복구 할 수 없습니다.', function(){
+								// 사용자가 '확인'을 클릭했을 때 실행될 로직
+								location.href = 'delete.dc?dcNo=' + dcNo; // 삭제 요청을 보냅니다.
+							}, function(){
+								// 사용자가 '취소'를 클릭했을 때 실행될 로직
+								// 필요한 경우 여기에 코드를 추가할 수 있습니다. 예를 들어, 어떤 피드백을 주거나 로깅을 할 수 있습니다.
+							}).set('labels', {ok:'확인', cancel:'취소'}); // 버튼 텍스트를 원하는 대로 설정할 수 있습니다.
+						});
+
+				
+						
+							
+					 
+
+
+
+
 						
 						
 						// 이름 실시간 체크

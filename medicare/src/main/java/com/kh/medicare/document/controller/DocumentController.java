@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,11 +38,11 @@ public class DocumentController {
 	}
 	
 	@RequestMapping("insertDocument.dc")
-	public String insertDocument(Document d ,MultipartFile upfile, HttpSession session, Model model) {
+	public String insertDocument(Document d , @RequestParam(value = "upfile", required = false) MultipartFile upfile, HttpSession session, Model model) {
 		System.out.println(d);
 		System.out.println(upfile);
 		
-		if(!upfile.getOriginalFilename().equals("")) {
+		if(upfile != null && !upfile.getOriginalFilename().equals("")) {
 			String changeName = saveFile(upfile, session);
 			d.setDcOriginName(upfile.getOriginalFilename());
 			d.setDcChangeName("resources/uploadFiles/" + changeName);
@@ -50,10 +51,10 @@ public class DocumentController {
 		int result = dcService.insertDocument(d);
 		
 		if(result > 0) { // 성공 => 게시글 리스트 페이지 (list.bo url재요청)
-			session.setAttribute("alertMsg", "성공적으로 게시글 등록되었습니다.");
+			session.setAttribute("alertMsg", "처방전 전송이 완료되었습니다.");
 			return "redirect:/";
 		}else { // 실패 => 에러페이지 포워딩
-			model.addAttribute("errorMsg", "게시글 등록 실패");
+			model.addAttribute("errorMsg", "처방전 전송을 실패했습니다.");
 			return "common/errorPage";
 		}
 	}
@@ -79,6 +80,27 @@ public class DocumentController {
 		
 		return changeName;
 	}
+	
+	@RequestMapping(value="delete.dc")
+	public String deleteDocument(int dcNo, HttpSession session, Model model) {
+		
+		int result = dcService.deleteDocument(dcNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "처방전 삭제가 완료되었습니다.");
+			return "redirect:myPage.me";
+		} else {
+			model.addAttribute("errorMsg", "처방전 삭제를 실패했습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
