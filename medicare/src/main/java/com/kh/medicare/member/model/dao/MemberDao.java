@@ -48,5 +48,18 @@ public class MemberDao {
 		
 		return sqlSession.update("memberMapper.deleteMember", memId);
 	}
+		
+	public int updateMembershipYear(SqlSession sqlSession, Member m) {
+		
+		return sqlSession.update("memberMapper.updateMembershipYear", m);
+		
+	} // updateMembership
+	
+	public int changePwd(SqlSession sqlSession, Member m) {
+		
+		return sqlSession.update("memberMapper.changePwd", m);
+		
+	} // changPwd
+	
 	
 } // Class

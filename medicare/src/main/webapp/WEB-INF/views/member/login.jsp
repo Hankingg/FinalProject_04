@@ -10,6 +10,23 @@
 	.form-group{
 		
 	}
+	
+	input[type="checkbox"]:checked {
+  		background:rgb(240, 130, 120);
+	}
+
+	.form-check-input {
+		border:rgb(240, 130, 120);
+	}
+	
+	.form-check-label text-muted {
+		border-color:rgb(240, 130, 120);
+	}
+	
+	.input-helper:before {
+		border-color:solid rgb(240, 130, 120);
+	}
+	
 </style>
 </head>
 <body>
@@ -34,10 +51,26 @@
   <link rel="shortcut icon" href="${ pageContext.request.contextPath }/resources/images/favicon.png" />
   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
   <script src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="UTF-8"></script>
-  <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="UTF-8"></script> 
+  <!-- JavaScript -->
+	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+  <!-- CSS -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+	<!-- Default theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+	<!-- Semantic UI theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
 </head>
 
 <body>
+
+	<c:if test="${ not empty alertMsg }">
+		<script>
+			alertify.alert("알림", "${ alertMsg }");
+		</script>
+		<c:remove var="alertMsg" scope="session"/> <!-- scope를 써줘야 거기서 실행시켜줌!! -->
+	</c:if>
+
   <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
       <div class="content-wrapper d-flex align-items-center auth px-0">
@@ -45,9 +78,11 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <div class="brand-logo">
-                <img src="${ pageContext.request.contextPath }/resources/images/logo.svg" alt="logo">
+              
+               <!-- 로고 들어갈 자리 -->
+                
               </div>
-              <h4>메디케어를 방문해주셔서 감사합니다.</h4>
+              <h4><strong>메디케어를 방문해주셔서 감사합니다.</strong></h4>
              <!-- <h6 class="font-weight-light">Sign in to continue.</h6>  -->
               
               
@@ -61,16 +96,16 @@
                 </div>
                 
                 <div class="mt-3">
-                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="${ pageContext.request.contextPath }/resources/index.html">로그인</button>
+                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" style="background-color:rgb(240, 130, 120); border-color:rgb(240, 130, 120);" href="${ pageContext.request.contextPath }/resources/index.html">로그인</button>
                 </div>
                 <div class="my-2 d-flex justify-content-between align-items-center">
                   <div class="form-check">
-                    <label class="form-check-label text-muted">
-                      <input type="checkbox" class="form-check-input">
+                    <label class="form-check-label text-muted" style="accent-color:rgb(240, 130, 120);">
+                      <input type="checkbox" class="form-check-input" id="login-keep">
                       로그인 유지하기
                     </label>
                   </div>
-                  <a href="#" class="auth-link text-black">비밀번호 찾기</a>
+                  <a href="moveChangePwd.me" class="auth-link text-black">비밀번호 찾기</a>
                 </div>             
                 <div class="text-center mt-4 font-weight-light">
                  계정이 없으신가요? <a href="enrollForm.me" class="text-primary">회원가입</a>
@@ -161,6 +196,53 @@
             }
         });
     });
+    
+    
+    
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    // 페이지 로드 시 쿠키에서 아이디 가져와서 입력란에 채우기 및 체크박스 상태 설정
+    window.onload = function() {
+        var savedId = getCookie("savedId");
+        if (savedId !== "") {
+            document.getElementById("exampleInputEmail1").value = savedId;
+            document.getElementById("login-keep").checked = true; // 쿠키에 아이디가 저장되어 있으면 체크박스 체크
+        }
+    };
+
+    // "로그인 유지하기" 체크박스 상태에 따라 쿠키 설정
+    document.getElementById("login-keep").addEventListener("change", function() {
+        var isChecked = this.checked;
+        if (isChecked) {
+            var userId = document.getElementById("exampleInputEmail1").value;
+            setCookie("savedId", userId, 30); // 30일 동안 쿠키 유지
+        } else {
+            setCookie("savedId", "", -1); // 쿠키 삭제
+        }
+    });
+    
+    
 </script>
   
 </body>
