@@ -20,4 +20,6 @@ public interface HospitalService {
 	
 	int insertOrder(Order order);
 	
+	int deleteReview(int revNo);
+	
 }

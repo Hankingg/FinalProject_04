@@ -109,4 +109,18 @@ public class hospitalController {
 		return "hospital/doctorPageSca";
 	}
 	
+	@RequestMapping("delete.rv")
+    public String deleteReview(int revNo, HttpSession session, Model model) {
+    	
+    	int result = hService.deleteReview(revNo);
+    	
+    	if(result > 0) {
+    		session.setAttribute("alertMsg", "성공적으로 리뷰가 삭제되었습니다.");
+			return "redirect:myPage.me";
+    	}else {
+    		model.addAttribute("errorMsg", "리뷰 삭제 실패!");
+			return "common/errorPage";
+    	}
+    }
+	
 }

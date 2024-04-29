@@ -47,4 +47,9 @@ public class HospitalServiceImpl implements HospitalService {
 		return hDao.insertOrder(sqlSession,order);
 	}
 
+	@Override
+	public int deleteReview(int revNo) {
+		return hDao.deleteReview(sqlSession, revNo);
+	}
+
 }

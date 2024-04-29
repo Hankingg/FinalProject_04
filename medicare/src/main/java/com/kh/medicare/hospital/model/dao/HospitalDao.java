@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -33,6 +34,12 @@ public class HospitalDao {
 	public int insertOrder(SqlSessionTemplate sqlSession, Order order) {
 		return sqlSession.insert("hospitalMapper.insertOrder", order);
 	}
+	
+	public int deleteReview(SqlSession sqlSession, int revNo) {
+		
+		return sqlSession.update("hospitalMapper.deleteReview", revNo);
+	}
+
 	
 	
 }

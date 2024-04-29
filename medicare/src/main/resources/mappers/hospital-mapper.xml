@@ -199,4 +199,10 @@
 		 where mem_no = #{memNo}
 	</update>
 	
+	<update id="deleteReview">
+		update
+			   review
+		   set rv_status = 'N'
+		 where r_no = #{revNo}
+	</update>
 </mapper>
