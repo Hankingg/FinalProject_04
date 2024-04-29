@@ -9,15 +9,25 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.kh.medicare.hospital.model.service.HospitalServiceImpl;
+import com.kh.medicare.hospital.model.vo.Review;
+import com.kh.medicare.kHospital.model.service.KhospitalServiceImpl;
+import com.kh.medicare.member.model.service.MemberServiceImpl;
+
 @Controller
 public class KhospitalController {
 
+	@Autowired
+	private KhospitalServiceImpl kService;
+	
 	private static final String serviceKey = "nLhHeLPzVGZH0bvIiEZjRSBa00JzdsLVTEDO%2BTyhwhjKNB94zP5Q8sM5IavINwEogJAPHHE85bhGLlUqBbjiLA%3D%3D";
 	
 	// 한의원 목록페이지로 이동

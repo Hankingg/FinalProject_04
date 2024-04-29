@@ -724,20 +724,6 @@
 							})
 						}
 						
-						/* function rvDelete(){
-							$.ajax({
-								url:"delete.rv",
-								data:{},
-								success:function(){
-									
-								}, error:function(){
-									console.log("리뷰 삭제 ajax 통신 실패");
-								}
-							})
-						} */
-						
-						
-
 						$('.myPage-info').on('click', '.deleteBtn', function(e){
 							e.preventDefault(); // 기본 동작 방지.
 							var dcNo = $(this).data('dcno'); // dcNo를 data 속성에서 가져옵니다.

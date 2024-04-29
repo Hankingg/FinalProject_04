@@ -109,13 +109,15 @@
 	
 	<select id="selectReviewList" resultMap="reviewResult">
 		select
-			   MEM_NAME
+			   NICKNAME
 			 , R_CONTENT
 			 , R_DATE
 			 , RATE
 			 , H_CODE
+			 , H_NAME
 		  from REVIEW
 		  join MEMBER using(mem_no)
+		  join hospital using(h_code)
 		 where h_code = #{ hosCode }
 		 order
 		    by r_date desc

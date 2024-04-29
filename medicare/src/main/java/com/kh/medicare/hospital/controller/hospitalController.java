@@ -52,7 +52,9 @@ public class hospitalController {
 	@ResponseBody
 	@RequestMapping(value="review.in", produces = "application/json; charset=utf-8")
 	public String insertReview(Review r,HttpSession session, HttpServletResponse response) throws IOException {
+		System.out.println(r);
 		int result = hService.insertReview(r);
+		System.out.println(result);
 		if(result > 0) {
 			ArrayList<Review> list = hService.selectReviewList(r);
 			return new Gson().toJson(list); 
@@ -109,9 +111,11 @@ public class hospitalController {
 		return "hospital/doctorPageSca";
 	}
 	
+	// 마이페이지 리뷰 삭제
 	@RequestMapping("delete.rv")
     public String deleteReview(int revNo, HttpSession session, Model model) {
     	
+		System.out.println(revNo);
     	int result = hService.deleteReview(revNo);
     	
     	if(result > 0) {
@@ -122,5 +126,6 @@ public class hospitalController {
 			return "common/errorPage";
     	}
     }
+	
 	
 }
