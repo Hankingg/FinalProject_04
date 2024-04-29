@@ -18,7 +18,7 @@ public class EmergencyUserHospitalController {
 	@ResponseBody
 	@RequestMapping(value="hospitalInfo.em", produces = "text/xml; charset=UTF-8")
 	public String nearHosInfo(String hpid) throws IOException {
-		System.out.println("응급실 병원 끌고오기1");
+		
 		  String url = "https://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlBassInfoInqire";
 	      url += "?serviceKey=" + serviceKey;
 	      url += "&HPID=" + hpid;
@@ -36,7 +36,7 @@ public class EmergencyUserHospitalController {
 			while((line = br.readLine()) != null) {
 				responseText += line;
 			}
-			System.out.println(responseText);
+			
 			
 			br.close();
 			urlConnection.disconnect();

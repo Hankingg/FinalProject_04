@@ -80,7 +80,7 @@ public class MemberController {
 		
 		if(result > 0) { 			
 			session.setAttribute("alertMsg", "성공적으로 회원가입 되었습니다.");
-			return "main";		
+			return "member/login";		
 		} else { 
 			model.addAttribute("errorMsg", "회원가입 실패");
 			return "common/errorPage";
@@ -88,6 +88,28 @@ public class MemberController {
 		
 		 
 	} // insertMember
+	
+	 @RequestMapping("changePwd.me")
+	    public ModelAndView changePwd(Member m, ModelAndView mv, HttpSession session) {
+	    	
+	    	String encPwd = bcryptPasswordEncoder.encode(m.getMemPwd());
+
+			m.setMemPwd(encPwd);
+			
+			int result = mService.changePwd(m); 
+	    	
+	    	if(result > 0) {						
+				session.setAttribute("alertMsg", "비밀번호 수정 완료!");			
+				mv.setViewName("member/login");
+			
+	    	}else {
+				mv.addObject("errorMsg", "회원정보 수정 실패!!");
+				mv.setViewName("common/errorPage");
+			}
+	    	
+	    	return mv;
+	    
+	    } // changePwd
 	
 	
 	@RequestMapping("myPage.me")
@@ -110,7 +132,6 @@ public class MemberController {
 	public ModelAndView loginMember(Member m, HttpSession session, ModelAndView mv) {
 		
 		Member loginUser = mService.loginMember(m);		
-		
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemPwd(), loginUser.getMemPwd())) {						
 			session.setAttribute("loginUser", loginUser);
 			mv.setViewName("main");				
@@ -296,5 +317,28 @@ public class MemberController {
 		
 		return "redirect:myPage.me";
 	}
+	
+    @RequestMapping("chatForm.ch")
+    public String chatForm(Member memId, HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
+           
+        
+        Member loginUser = mService.loginMember(memId);		
+        
+        System.out.println("채팅테스트 : " + loginUser);
+        
+        
+        session.setAttribute("loginUser", memId);
+        
+        
+        return "member/chattingTest";
+    }
+    
+    @RequestMapping("moveChangePwd.me")
+    public String moveChangePwd() {
+    	
+    	return "member/changePwd";
+    	
+    } // moveChangePwd
+    
 	
 } //Class

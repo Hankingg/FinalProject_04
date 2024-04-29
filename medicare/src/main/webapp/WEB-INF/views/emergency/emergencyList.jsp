@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,8 +80,7 @@
 	}
 	
 	
-	
-	#livemap1 {
+	.livemap1 {
 		background-color:#FF4747;
 		border-radius: 8px;
 		color:white;
@@ -89,15 +89,25 @@
 		margin-left:450px;
 	}
 	
-	#livemap2 {
-		background-color:#FF4747;
+	.livemap2 {
+		display :block;
+		background-color:rgb(240, 130, 120);
 		border-radius: 8px;
 		color:white;
-		border: none;
-		height:30px;
-		margin-left:450px;
+		border: 1px solid ;
+		height:50px;
+		margin-left:380px;
+		margin-bottom:20px;
 	}
 
+	#liveBtn {
+		height:400px;			
+	}
+	
+	#popup1 {
+		height:50px;
+		margin-left:50px;
+	}
 	
 </style>
 </head>
@@ -112,7 +122,7 @@
 		<option>서울특별시</option>		
 	</select>
 	
-	<select id="location2">
+	<select id="location2" onchange="liveButton()">
 		<option value="강남구">강남구</option>
 		<option value="강서구">강서구</option>
 		<option value="강동구">강동구</option>
@@ -120,42 +130,191 @@
 		<option value="노원구">노원구</option>
 		<option value="중구">중구</option>
 		<option value="용산구">용산구</option>
-		<option value="마포구">마포구</option>
 		<option value="성북구">성북구</option>
 		<option value="성동구">성동구</option>
 		<option value="광진구">광진구</option>
+		<option value="관악구">관악구</option>
+		<option value="구로구">구로구</option>
+		<option value="금천구">금천구</option>
+		<option value="도봉구">도봉구</option>
+		<option value="동대문구">동대문구</option>
+		<option value="동작구">동작구</option>
+		<option value="서대문구">서대문구</option>
+		<option value="송파구">송파구</option>
+		<option value="양천구">양천구</option>
+		<option value="영등포구">영등포구</option>
+		<option value="은평구">은평구</option>
+		<option value="종로구">종로구</option>
+		<option value="중랑구">중랑구</option>
 	</select>
 	<input type="button" value="조회" id="btn3">
 	</div>
 	
-	<br><br>
-
+	<br>
+	
+	<button id="popup1" onclick=popup1() class="livemap2">실시간 전체 도로상황 보러가기</button>
+	
 	<div id="result">
 		
 	</div>
 	
-	<button onclick=popup1() id="livemap1">실시간 도로상황 보러가기</button>
-	<button onclick=popup2() id="livemap2">실시간 도로상황 보러가기</button>
+	<br>
+	 	  
+	<div id="liveBtn">	 	
+        <!-- 강남구 -->
+        <button id="popup6" onclick=popup6() class="livemap2">연세대학교 세브란스병원(강남) 근처 실시간 도로상황 보러가기</button>
+        <button id="popup7" onclick=popup7() class="livemap2">삼성서울병원(강남) 근처 실시간 도로상황 보러가기</button>	     
+	</div>
 	
-	<script>
+	
+	 
+	<form action="chatForm.ch">채팅
+		<input type="hidden" value="${ loginUser.memId }" name="memId">
+		<button>채팅</button>
+	</form>
+	 
+	
+	<script>	
+	
+	function liveButton() {
+	    var location = document.getElementById("location2").value;
+	    var liveBtnDiv = document.getElementById("liveBtn");
+	    
+	    
+	    liveBtnDiv.innerHTML = "";
+	    
+	  
+	    switch(location) {
+	        case "강남구":	        	
+	            addButton("연세대학교 세브란스병원(강남) 근처 실시간 도로상황 보러가기", "popup6");
+	            addButton("삼성서울병원(강남) 근처 실시간 도로상황 보러가기", "popup7");
+	            break;
+	        case "강서구":
+	        	addButton("이화여자대학교의과대학부속서울병원 근처 실시간 도로상황 보러가기", "popup12");
+	        	addButton(" 근처 실시간 도로상황 보러가기", "popup13");
+	            break;
+	        case "강동구":       
+	            addButton("강동경희대학병원 근처 실시간 도로상황 보러가기", "popup4");
+	            addButton("성심의료재단 강동성심병원 근처 실시간 도로상황 보러가기", "popup8");
+	            addButton("한국보훈복지의료재단 중앙보훈병원 근처 실시간 도로상황 보러가기", "popup9");
+	            break;
+	        case "광진구":      
+	            addButton("혜민병원병원 근처 실시간 도로상황 보러가기", "popup10");
+	            addButton("건국대학교병원 근처 실시간 도로상황 보러가기", "popup11");
+	            break;
+	     	       
+	        case "종로구":   
+	            addButton("세란병원 근처 실시간 도로상황 보러가기", "popup2");
+	            addButton("강북삼성병원 근처 실시간 도로상황 보러가기", "popup3");
+	            addButton("서울대학병원 근처 실시간 도로상황 보러가기", "popup5");
+	            break;	       
+	        default:	 		        		           		
+	            break;
+	    }
+	}
+
+	
+	function addButton(text, id) {
+	    var button = document.createElement("button");
+	    button.textContent = text;
+	    button.setAttribute("id", id);
+	    button.setAttribute("onclick", id + "()");
+	    button.classList.add("livemap2");
+	    var liveBtnDiv = document.getElementById("liveBtn");
+	    liveBtnDiv.appendChild(button);
+	}
+	
 	
 	function popup1(){
-	
-		let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1100, height=900, top=8000,left=650";
 		
-		window.open("http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010264&cctvname=%25EC%259D%25B4%25ED%2599%2594%25EC%2582%25AC%25EA%25B1%25B0%25EB%25A6%25AC&kind=Seoul&cctvip=null&cctvch=52&id=133&cctvpasswd=null&cctvport=null&minX=126.89776319515302&minY=37.51425838136302&maxX=127.07180331819578&maxY=37.595206045808325", "_blank", options);
+		let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1900, height=1500, top=8000,left=650";
+		
+		window.open("http://www.utic.go.kr/etc/telMap.do?key=NMmkVM1ukPmnoSzZyfEYj5aCLaHFdgiy2znTVHU2f5Ggd05KbqM3ufP25oe77Slbp9i4a4vYM7T33oYDL2Q", "_blank", options);
 	}
 	
 	function popup2(){
 		
-		let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1100, height=900, top=8000,left=650";
+		let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1900, height=1500, top=8000,left=650";
 		
-		window.open("http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010264&cctvname=%25EC%259D%25B4%25ED%2599%2594%25EC%2582%25AC%25EA%25B1%25B0%25EB%25A6%25AC", "_blank", options);
+		window.open("http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010076&cctvname=%25EB%258F%2585%25EB%25A6%25BD%25EB%25AC%25B8&kind=Seoul&cctvip=null&cctvch=51&id=15&cctvpasswd=null&cctvport=null&minX=126.94410006399322&minY=37.56324774352138&maxX=126.97553570901468&maxY=37.58100359683157", "_blank", options);
+	}
+	
+	
+	
+	function popup3(){
+		
+		let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1900, height=1500, top=8000,left=650";
+		
+		window.open("http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010278&cctvname=%25EC%25A0%2595%25EB%258F%2599&kind=Seoul&cctvip=null&cctvch=53&id=300&cctvpasswd=null&cctvport=null&minX=126.95101742867895&minY=37.55624077315048&maxX=126.98553033334291&maxY=37.57523930076997", "_blank", options);
+					
+	}
+	
+	function popup4(){
+			
+			let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1900, height=1500, top=8000,left=650";
+			
+			window.open("http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010094&cctvname=%25EB%25AA%2585%25EC%259D%25BCE%25EB%25A7%2588%25ED%258A%25B8&kind=Seoul&cctvip=null&cctvch=52&id=232&cctvpasswd=null&cctvport=null&minX=127.11790246719123&minY=37.53436282792721&maxX=127.18516165450215&maxY=37.56558893015956", "_blank", options);
+		}
+	
+	function popup5(){
+		
+		let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1900, height=1500, top=8000,left=650";
+		
+		window.open("http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010241&cctvname=%25EC%259B%2590%25EB%2582%25A8R&kind=Seoul&cctvip=null&cctvch=53&id=284&cctvpasswd=null&cctvport=null&minX=126.97797631672101&minY=37.561041038888504&maxX=127.0370176547663&maxY=37.58902177718967", "_blank", options);
+	}
+	
+	function popup6(){
+		
+		let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1900, height=1500, top=8000,left=650";
+		
+		window.open("http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010008&cctvname=%25EA%25B0%2595%25EB%2582%25A8%25EC%2584%25B8%25EB%25B8%258C%25EB%259E%2580%25EC%258A%25A4&kind=Seoul&cctvip=null&cctvch=52&id=186&cctvpasswd=null&cctvport=null&minX=127.03572291787675&minY=37.483382393745046&maxX=127.05652699427756&maxY=37.50166744174406", "_blank", options);
+	}
+	
+	function popup7(){
+		
+		let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1900, height=1500, top=8000,left=650";
+		
+		window.open("http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010265&cctvname=%25EC%259D%25BC%25EC%259B%2590%25ED%2584%25B0%25EB%2584%2590&kind=Seoul&cctvip=null&cctvch=52&id=238&cctvpasswd=null&cctvport=null&minX=127.05547677945165&minY=37.476575825915944&maxX=127.12267417458094&maxY=37.50783250609512", "_blank", options);
+	}
+
+	
+	function popup8(){
+		
+		let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1900, height=1500, top=8000,left=650";
+		
+		window.open("http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010051&cctvname=%25EA%25B8%25B8%25EB%258F%2599%25EC%2582%25AC%25EA%25B1%25B0%25EB%25A6%25AC&kind=Seoul&cctvip=null&cctvch=51&id=130&cctvpasswd=null&cctvport=null&minX=127.11495628320093&minY=37.52460802377302&maxX=127.15930785578796&maxY=37.54754253305119", "_blank", options);
+	}
+	
+	function popup9(){
+		
+		let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1900, height=1500, top=8000,left=650";
+		
+		window.open("http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=E970015&cctvname=%25EC%2583%259D%25ED%2583%259C%25EA%25B3%25B5%25EC%259B%2590&kind=EC&cctvip=null&cctvch=52&id=235&cctvpasswd=null&cctvport=null&minX=127.10380410359154&minY=37.5109956711721&maxX=127.19188120513532&maxY=37.55063094912717", "_blank", options);
+	}
+	
+	function popup10(){
+		
+		let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1900, height=1500, top=8000,left=650";
+		
+		window.open("http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010268&cctvname=%25EC%259E%25A0%25EC%258B%25A4%25EB%258C%2580%25EA%25B5%2590%25EB%25B6%2581%25EB%258B%25A8&kind=Seoul&cctvip=null&cctvch=52&id=202&cctvpasswd=null&cctvport=null&minX=127.0478390302516&minY=37.51609760375363&maxX=127.12652312346707&maxY=37.551995716917325", "_blank", options);
+	}
+	
+	function popup11(){
+		
+		let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1900, height=1500, top=8000,left=650";
+		
+		window.open("http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010198&cctvname=%25EC%2596%25B4%25EB%25A6%25B0%25EC%259D%25B4%25EB%258C%2580%25EA%25B3%25B5%25EC%259B%2590%25EC%2597%25AD&kind=Seoul&cctvip=null&cctvch=51&id=124&cctvpasswd=null&cctvport=null&minX=127.03437926668727&minY=37.51931042759038&maxX=127.13013541894327&maxY=37.560245083469056", "_blank", options);
+	}
+	
+	function popup12(){
+		
+		let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1900, height=1500, top=8000,left=650";
+		
+		window.open("http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010104&cctvname=%25EB%25B0%259C%25EC%2582%25B0%25EC%2597%25AD&kind=Seoul&cctvip=null&cctvch=51&id=102&cctvpasswd=null&cctvport=null&minX=126.81432261957629&minY=37.54418152551521&maxX=126.85863103850137&maxY=37.56720339247953", "_blank", options);
 	}
 	
 	
 	$(function(){			
-	    // 페이지 로드 시 AJAX 요청 보내기
 	    function sendAjaxRequest() {
 	        $.ajax({
 	            url:"emer.do",
@@ -165,7 +324,7 @@
 	                let bodyTr = "";
 	                $(data).find("item").each(function(i, item){
 	                    bodyTr  += "<tr id='emList'>"	                    	
-	                            + "<th width='200' id='ulh'>기관명</th>"
+	                            + "<th width='300' id='ulh'>기관명</th>"
 	                            + "<th width='120'>응급실</th>"
 	                            + "<th width='100'>수술실</th>"						                    
 	                            + "<th width='100'>일반중환자</th>"
@@ -177,7 +336,7 @@
 	                            
 	                            + "<tr id='er'>"
 	                            + "<td id='uld'>" + $(item).find("dutyName").text() + "</td>"	                           
-	                            + "<td>" + ($(item).find("hvec").text() < 0 ? "대기자  : " + $(item).find("hvec").text().substring(1) + "명" + "</td>" : $(item).find("hvec").text() + "</td>") 
+	                            + "<td>" + ($(item).find("hvec").text() < 0 ? "대기자  : " + $(item).find("hvec").text().substring(1) + "명" + "</td>" : "잔여 : " + $(item).find("hvec").text() + "</td>") 
 	                            + "<td>" + $(item).find("hvoc").text() + "</td>"                                                            
 	                            + "<td>" + $(item).find("hvicc").text() + "</td>"
 	                            + "<td>" + $(item).find("hvgc").text() + "</td>"                                                           
@@ -198,8 +357,7 @@
 	                 			
 	                		   
 	                		   $(result).find("item").each(function(i, item){
-	                			   console.log($(item).find("wgs84Lat").text());
-	                			   console.log($(item).find("wgs84Lon").text());
+	                			  
 	                		   })
 	                		   
 	                		   
@@ -208,7 +366,6 @@
 	                		   
 	                	   }
 	                	   
-	                   
 	                 });        
 	                    
 	                  
@@ -225,9 +382,9 @@
 	  
 	    sendAjaxRequest();
 	    
-	    setInterval(sendAjaxRequest, 100000);
+	    setInterval(sendAjaxRequest, 1000);
 	});
-	
+
 	
 	$(document).ready(function(){
         // 저장된 값이 있는지 확인합니다.
@@ -259,7 +416,7 @@
                 let bodyTr = "";
                 $(data).find("item").each(function(i, item) {
                     bodyTr += "<tr id='emList'>"
-                        + "<th width='200' id='ulh'>기관명</th>"
+                        + "<th width='300' id='ulh'>기관명</th>"
                         + "<th width='120'>응급실</th>"
                         + "<th width='100'>수술실</th>"
                         + "<th width='100'>일반중환자</th>"
@@ -290,12 +447,11 @@
 			        });
 			    }
     
-				    // Trigger the AJAX request when the page loads
 				    sendAjaxRequest();
-				    
-				    // Trigger the AJAX request when the button is clicked
+				   
 				    $("#btn3").click(function() {
 				        sendAjaxRequest();
+				        
 				    });
 				});
 
