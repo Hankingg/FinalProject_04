@@ -19,4 +19,6 @@ public interface HospitalService {
 	
 	int insertOrder(Order order);
 	
+	ArrayList<Review> reviewGraph(String hosCode);
+	
 }

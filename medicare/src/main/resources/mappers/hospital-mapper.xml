@@ -195,4 +195,17 @@
 		 where mem_no = #{memNo}
 	</update>
 	
+	<select id="reviewGraph" resultMap="reviewResult">
+		select
+          RATE
+        , count(*) as review_count
+     from review
+    where h_code = #{ hosCode }
+      and rate in (0,1,2,3,4,5)
+    group
+       by rate
+    order
+       by rate desc
+	</select>
+	
 </mapper>

@@ -370,7 +370,6 @@
 						</div>
 					</div>
 					
-					<button id="btn3" style="border:none; background-color:white;">가까운순</button>
 				</div>
 			<br><br>
             <div id="map">
@@ -384,8 +383,6 @@
             <br>
 
             <script>
-			
-            $(function(){
     			$("#btn3").click(function(){
     				$.ajax({
     					url:"hospital.in",
@@ -436,7 +433,7 @@
     					
     					
     				})
-    			})
+    			}) 
     			$("#near").click(function(){
     				$.ajax({
     					url:"nearhos.in",
@@ -501,7 +498,6 @@
     			}
 
     			
-    		})
    			</script>
             
 
