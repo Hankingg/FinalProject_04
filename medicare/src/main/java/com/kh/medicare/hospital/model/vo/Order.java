@@ -17,4 +17,5 @@ public class Order {
 	private String addSymtom;
 	private String time;
 	private String orderDate;
+	private String hosCode;
 }

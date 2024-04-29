@@ -47,7 +47,8 @@
 	        eventClick:function(event) {
 	        	$("#calendarModal").modal("show");
 	        	$("#calendar_memId").val(event.event.id);
-	        	console.log(event.event.borderColor)
+	        	console.log(event)
+	        	console.log(event.event.constraint);
 	        	if(event.event.borderColor == 'null'){
 	        		$("#calendar_symtom").val("작성한 증상이 없습니다");
 	        	}else{
@@ -84,11 +85,11 @@
 				})	
 				
 				$("#sprintSettingModalClose").click(function(){
-					location.href="order.delete?memNo="+event.event.textColor;
+					location.href="order.delete?memId="+event.event.constraint;
 				});
 			
 				$("#zoom").click(function(){
-					location.href="webrtcRoom.go?memNo="+event.event.textColor;
+					location.href="webrtcRoom.go?memId="+event.event.constraint;
 				})
 	        		
 			}
