@@ -52,6 +52,8 @@
     <result column="order_today" property="orderToday"/>
     <result column="order_status" property="groupId"/>
     <result column="backgroundcolor" property="backgroundColor"/>
+    <result column="h_name" property="hosCode"/>
+    <result column="mem_Id" property="constraint"/>
 </resultMap>
 
 	<select id="selectHospitalInfo" resultMap="hospitalResult">
@@ -149,6 +151,7 @@
 		  into h_order
 		values (
 		       SEQ_ODRNO.nextval
+		     , #{hosCode}
 		     , #{memNo}
 		     , #{diagnosisType}
 		     , #{addSymtom}
@@ -180,12 +183,12 @@
 	    	when 'W' then ''
 	    	when 'C' then 'green'
 	    	else 'gray'
-	   	end as backgroundcolor
+	   	end as backgroundcolor,
+	   	mem_Id
 	FROM
 	    h_order
 	JOIN
 	    member USING (mem_no)
-   where order_status != 'N'
 </select>
 
 	<update id="completeOrder">
@@ -201,10 +204,55 @@
 		 where mem_no = #{memNo}
 	</update>
 	
+	<select id="reviewGraph" resultMap="reviewResult">
+		select
+          RATE
+        , count(*) as review_count
+     from review
+    where h_code = #{ hosCode }
+      and rate in (0,1,2,3,4,5)
+    group
+       by rate
+    order
+       by rate desc
+	</select>
+	
 	<update id="deleteReview">
 		update
 			   review
 		   set rv_status = 'N'
 		 where r_no = #{revNo}
 	</update>
+	
+	<select id="myDiagnosisInfo" resultMap="calenderResult">
+		SELECT
+    	mem_no,
+	    mem_name,
+	    CASE diagnosis_type
+	        WHEN '1' THEN '일반진료'
+	        ELSE '비대면진료'
+	    END AS diagnosis_type,
+	    add_symtom AS add_symtom,
+	    order_date || 'T' || order_time as "start",
+	    order_date || 'T' || to_char((to_date(order_time, 'HH24:MI')+ (INTERVAL '30' MINUTE)),'HH24:MI') AS "end",
+	    order_today,
+	    CASE order_status
+	    	when 'W' then '예약대기중'
+	    	when 'C' then '진료대기중'
+	    	else '완료'
+	    end as order_status,
+	    CASE order_status
+	    	when 'W' then ''
+	    	when 'C' then 'green'
+	    	else 'gray'
+	   	end as backgroundcolor,
+	   	h_name
+	FROM
+	    h_order
+	JOIN
+	    member USING (mem_no)
+	join hospital using (h_code) 
+   where mem_no = #{ memNo }
+	</select>
+	
 </mapper>

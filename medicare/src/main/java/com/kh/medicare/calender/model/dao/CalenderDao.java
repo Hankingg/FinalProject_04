@@ -21,4 +21,8 @@ public class CalenderDao {
 	public int deleteOrder(SqlSessionTemplate sqlSession,int memNo) {
 		return sqlSession.update("hospitalMapper.deleteOrder", memNo);
 	}
+	
+	public ArrayList<Calender> myDiagnosisInfo(SqlSessionTemplate sqlSession, int memNo ){
+		return (ArrayList)sqlSession.selectList("hospitalMapper.myDiagnosisInfo", memNo);
+	}
 }

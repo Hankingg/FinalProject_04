@@ -48,6 +48,11 @@ public class HospitalServiceImpl implements HospitalService {
 	}
 
 	@Override
+	public ArrayList<Review> reviewGraph(String hosCode) {
+		return hDao.reviewGraph(sqlSession,hosCode);
+	}
+
+	@Override
 	public int deleteReview(int revNo) {
 		return hDao.deleteReview(sqlSession, revNo);
 	}

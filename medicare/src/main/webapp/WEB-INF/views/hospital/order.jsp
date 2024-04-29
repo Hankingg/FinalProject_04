@@ -66,20 +66,23 @@
         <div class="content-wrapper">
         	<div style="height:1100px; width:900px; margin:auto; border:4px solid #F96C85; border-radius:15px;">
         	<form action="order.in">
+        	${ h.hosName } 접수페이지
         	<div style="padding-left:50px; padding-top:20px; padding-bottom:20px; border-bottom:1px solid #F96C85;">
         	😄 ${ loginUser.memName }님
         	<input type="hidden" name="memNo" value="${ loginUser.memNo }">
+        	input
         	<input type="hidden" name="orderDate" id="orderDate">
+        	<input type="hidden" name="hosCode" value="${ h.hosCode }">
         	</div>
         	<div style="padding-left:50px; padding-top:10px; padding-bottom:50px; border-bottom:1px solid #F96C85;">
         	&nbsp;✔ 진료항목 <br><br>
        		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="diagnosisType" value="1">  일반진료 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<input type="radio" name="diagnosisType" value="2"> 비대면진료 <br>
        		</div>
-       		<div id="calender" style="  padding-top:10px; height:500px;">
+       		<div id="calender" data-toggle="collapse" style="  padding-top:10px; height:500px;">
        		<p style="text-align:left; padding-left:50px;">🕑 예약 날짜 / 예약 시간</p>
 				<div id="calendarForm" style=" padding-top:50px; "></div>
-				<div id="orderTime" style="visibility: hidden; border:4px solid #F96C85; border-radius:15px; margin-top:50px; margin-bottom:20px; margin-left:50px; padding-left:30px; padding-right:30px;">
+				<div id="orderTime" class="collapse" style="display: hidden; border:4px solid #F96C85; border-radius:15px; margin-top:50px; margin-bottom:20px; margin-left:50px; padding-left:30px; padding-right:30px;">
 				ㅁㄴㅁㄴㅇㄴㅁㅇㅁ
 				ㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴ
 				</div>
@@ -204,7 +207,7 @@
                 selectedMonth = selectedMonth >= 10 ? selectedMonth : '0' + selectedMonth;
 
                 var selectedDate = selectedYear + "-" + selectedMonth + "-" + selectedDay;
-                $("#orderTime").css("visibility", "");
+                $("#orderTime").css("display", "block");
 
                 var date = new Date(selectedDate);
                 var daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -225,6 +228,8 @@
             $(".custom_calendar_table").on("mouseenter", "td", function () {
                 var selectedDay = parseInt($(this).text());
                 var currentDay = new Date().getDate();
+                console.log(selectedDay)
+                console.log(currentDay)
                 if (selectedDay < currentDay) {
                     return; // Do not apply hover effect on past dates
                 }

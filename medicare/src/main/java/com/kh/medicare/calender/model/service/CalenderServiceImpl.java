@@ -33,4 +33,9 @@ public class CalenderServiceImpl implements CalenderService {
 		return cDao.deleteOrder(sqlSession,memNo);
 	}
 
+	@Override
+	public ArrayList<Calender> myDiagnosisInfo(int memNo) {
+		return cDao.myDiagnosisInfo(sqlSession,memNo);
+	}
+
 }

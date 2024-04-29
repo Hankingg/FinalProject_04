@@ -73,7 +73,9 @@ public class hospitalController {
 	}
 		
 	@RequestMapping("order.go")
-	public String orderPage() {
+	public String orderPage(String hosCode, Model model) {
+		Hospital h = hService.selectHospitalInfo(hosCode);
+		model.addAttribute("h",h);
 		return "hospital/order";
 	}
 	
@@ -109,6 +111,22 @@ public class hospitalController {
 	@RequestMapping("calenderPage.in")
 	public String goCalenderPage() {
 		return "hospital/doctorPageSca";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="review.graph", produces = "application/json; charset=utf-8")
+	public String reviewGraph(String hosCode){
+		ArrayList<Review> list = hService.reviewGraph(hosCode);
+		System.out.println(list);
+		return new Gson().toJson(list);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="review.graph", produces = "application/json; charset=utf-8")
+	public String reviewGraph(String hosCode){
+		ArrayList<Review> list = hService.reviewGraph(hosCode);
+		System.out.println(list);
+		return new Gson().toJson(list);
 	}
 	
 	// 마이페이지 리뷰 삭제

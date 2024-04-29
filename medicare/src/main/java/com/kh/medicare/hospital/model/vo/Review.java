@@ -19,7 +19,7 @@ public class Review {
 	private String memId;
 	private String revContent;
 	private Date revDate;
-	private double rate;
+	private int rate;
 	private String rvStatus;
 	private String hosCode;
 	private String imgFileNo;
