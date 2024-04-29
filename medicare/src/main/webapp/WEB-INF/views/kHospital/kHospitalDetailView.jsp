@@ -24,8 +24,7 @@
   }
 
   .listBack{
-  	margin-left: 850px;
-    margin-top: 5px;
+  	margin-left: 750px;
   }
   
   .listBtn{
@@ -552,8 +551,8 @@
                   <ul>
                     <li id="info"><a class="tab active " id="scrollInfo">병원정보</a></li>
                     <li id="review"><a class="tab">리뷰</a></li>
-                    <li id="receive"><a class="tab">접수하기</a></li>
-                    <li id="reservation"><a class="tab">예약하기</a></li>
+                    <!-- <li id="receive"><a class="tab">접수하기</a></li>
+                    <li id="reservation"><a class="tab">예약하기</a></li> -->
                   </ul>
                 </div>
                 <br><br>
@@ -596,13 +595,9 @@
                             <div id="rvRate">
                             	<select>
                             		<option>5.0</option>
-                            		<option>4.5</option>
                             		<option>4.0</option>
-                            		<option>3.5</option>
                             		<option>3.0</option>
-                            		<option>2.5</option>
                             		<option>2.0</option>
-                            		<option>1.5</option>
                             		<option>1.0</option>
                             	</select>
                             </div>
@@ -671,12 +666,12 @@
                       </div>
                     </div>
                   </div>
-                  <div id="hspReceive">
+                  <!-- <div id="hspReceive">
                     접수하기 화면
                   </div>
                   <div id="hspReserv">
                     예약하기 화면
-                  </div>
+                  </div> -->
                   
             </div>    
             <script>
@@ -971,7 +966,7 @@
                     targetDiv.scrollIntoView({ behavior: 'smooth' });
                   });
 
-                  $("#receive").on('click', function(){
+                  /* $("#receive").on('click', function(){
                     event.preventDefault(); // 기본 동작 방지
                     // 이동할 대상 div 요소 선택자
                     var targetDiv = document.getElementById("hspReceive");
@@ -987,7 +982,7 @@
 
                     // 대상 div 요소로 스크롤 이동
                     targetDiv.scrollIntoView({ behavior: 'smooth' });
-                  });
+                  }); */
 
                 })
 

@@ -721,50 +721,72 @@
 	                              case "1":
 	                                 $(".skyState").html('<img id="weatherImg" src="resources/weather/rain1.png">');
 	                                 $(".weather-bottom").html('비');
+	                                 $(".weather-form").css({
+		                                  "background-image": "url('resources/weather/rain5.gif')",
+		                                  "background-size": "cover",
+		                                  "color":"white"
+		                           	  });
+		                              $(".right").css({"color":"#F96C85"});
+		                              $(".weather-date").css({"color":"white"});
 	                                 break;
 	                              case "2":
 	                                 $(".skyState").html('<img id="weatherImg" src="resources/weather/rainSnow.png">');
 	                                 $(".weather-bottom").html('비/눈');
-		                                 break;   
+	                                 $(".weather-form").css({
+		                                  "background-image": "url('resources/weather/rain5.gif')",
+		                                  "background-size": "cover",
+		                                  "color":"white"
+		                           	  });
+		                              $(".right").css({"color":"#F96C85"});
+		                              $(".weather-date").css({"color":"white"});
+		                              break;   
 	                              case "3":
 	                                 $(".skyState").html('<img id="weatherImg" src="resources/weather/snow1.png">');
 	                                 $(".weather-bottom").html('눈');
+	                                 $(".weather-form").css({
+		                                  "background-image": "url('resources/weather/snow2.jfif')",
+		                                  "background-size": "cover"
+		                           	  });
 	                                 break;
 	                              case "4":
 	                                 $(".skyState").html('<img id="weatherImg" src="resources/weather/rain2.png">');
 	                                 $(".weather-bottom").html('소나기');
+	                                 $(".weather-form").css({
+		                                  "background-image": "url('resources/weather/rain5.gif')",
+		                                  "background-size": "cover",
+		                                  "color":"white"
+		                           	  });
+		                              $(".right").css({"color":"#F96C85"});
+		                              $(".weather-date").css({"color":"white"});
 	                                 break;
 	                           }
-	                           $(".weather-form").css({
-	                                  "background-image": "url('resources/weather/rain6.jfif')",
-	                                  "background-size": "cover",
-	                                  "color" : "white"
-	                              });
-	                           $(".weather-date").css({
-	                        	   "color" : "white"
-	                           })
-	                           
 	                        }else{
 	                           switch(sky){
 	                           case "1":
 	                              $(".skyState").html('<img id="weatherImg" src="resources/weather/sunny.png">');
 	                              $(".weather-bottom").html('맑음');
+	                              $(".weather-form").css({
+	                                  "background-image": "url('resources/weather/sky1.jpg')",
+	                                  "background-size": "cover",
+	                           	  });
 	                              break;
 	                           case "3":
 	                              $(".skyState").html('<img id="weatherImg" src="resources/weather/cloudy1.png">');
 	                              $(".weather-bottom").html('구름 많음');
+	                              $(".weather-form").css({
+	                                  "background-image": "url('resources/weather/cloudy4.jfif')",
+	                                  "background-size": "cover",
+	                           	  });
 	                              break;
 	                           case "4":
 	                              $(".skyState").html('<img id="weatherImg" src="resources/weather/cloudy2.png">');
 	                              $(".weather-bottom").html('흐림');
+	                              $(".weather-form").css({
+	                                  "background-image": "url('resources/weather/cloudy2.jfif')",
+	                                  "background-size": "cover",
+	                           	  });
 	                              break;
 	                           }
-	                           $(".weather-form").css({
-	                                  "background-image": "url('resources/weather/sky1.jpg')",
-	                                  "background-size": "cover",
-	                                 
-	                              });
-	                          
 	                        }
 	                     }               
 	   

@@ -240,7 +240,7 @@
 
 	/* 별점 */
 	.hpRate{
-		width: 30px;
+		width: 90px;
 	}
 
 	.hpRate p{
@@ -606,10 +606,10 @@
 												   + '<div class="hpStar"><img src="resources/reviewImg/starHeart/star2.png" class="starImg"></div>'
 												   + '<div class="hpRate"><p>' + data[i].rate + '</p></div>';
 												   
-											if(${loginUser.memNo} == data[i].memNo || data[i].memId == "admin"){
+											if(${loginUser.memNo} == data[i].memNo || "${loginUser.memId}" == "admin"){
 											   value += '<div class="hpDel"><button class="delBtn">삭제</button></div>';
 											}
-											console.log(data[i].memNo);	   
+											   
 							   				value += '</div>'
 												   + '<div class="myreview2">'
 												   + '<div class="rvProfile">'

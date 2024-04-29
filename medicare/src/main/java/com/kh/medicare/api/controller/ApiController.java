@@ -144,7 +144,8 @@ public class ApiController {
 			            h.setHosName(dutyName);
 			            h.setHosAddress(dutyAddr);
 			            h.setDistance(distanceMeters);
-			            
+			            h.setHosLatitude(Dwgs84Lat);
+			            h.setHosLongitude(Dwgs84Lon);
 			            list.add(h);
 			            
 			            

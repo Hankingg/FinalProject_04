@@ -430,6 +430,50 @@
 	float:left;
 }
 
+.hosImg{
+			width: 30px;
+			height: 30px;
+			margin-right: 10px;
+  }
+
+	.hosDiv>div{
+		float:left;
+	}
+	
+	.hosDiv{
+		height: 30px;
+	}
+	
+	/* 지도 호버시 정보창 */
+	.infoWindow{
+		width: auto;
+		height: 40px;
+		text-align:center;
+		border-radius: 10px;
+		border: 2px solid #f96c85;
+		font-size: 15px;
+		padding-top: 7px;
+		padding-right: 15px;
+		background-color: white;
+		
+	} 
+	 
+	.infoWindow>div{
+		float: left;
+	}
+	
+	.hosName{
+		margin-top: 5px;
+		margin-bottom: 10px;
+	}
+
+	.hosImg{
+		width: 25px;
+		height: 25px;
+		margin-left: 10px;
+		margin-right: 8px;
+	}
+
 </style>
 </head>
 <body>
@@ -635,7 +679,7 @@
                                   + '<img class="hosImg" src="resources/map/hos3.png">'
                                   + '</div>'
                                   + '<div class="hosName">'
-                                    + '<h4>' + $(item).find("dutyName").text() + '</h4>'
+                                    + '<h4>${h.hosName}</h4>'
                                     + '</div>'
                                     + '</div>';
                               
