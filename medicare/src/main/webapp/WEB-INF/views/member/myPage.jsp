@@ -592,7 +592,7 @@
 
 									let value = "";
 									let span = "";
-									
+									console.log(data);
 									if(data.length != 0){
 										value += '<div class="myReview" class="info">'
 										   	   + '<div class="reviewList">'
@@ -607,7 +607,7 @@
 												   + '<div class="hpRate"><p>' + data[i].rate + '</p></div>';
 												   
 											if(${loginUser.memNo} == data[i].memNo || "${loginUser.memId}" == "admin"){
-											   value += '<div class="hpDel"><button class="delBtn">삭제</button></div>';
+											   value += "<div class='hpDel'><button class='delBtn' onclick=\"location.href='delete.rv?revNo=" + data[i].revNo + "'\">삭제</button></div>";
 											}
 											   
 							   				value += '</div>'
@@ -723,6 +723,20 @@
 								}
 							})
 						}
+						
+						/* function rvDelete(){
+							$.ajax({
+								url:"delete.rv",
+								data:{},
+								success:function(){
+									
+								}, error:function(){
+									console.log("리뷰 삭제 ajax 통신 실패");
+								}
+							})
+						} */
+						
+						
 
 						$('.myPage-info').on('click', '.deleteBtn', function(e){
 							e.preventDefault(); // 기본 동작 방지.
@@ -738,7 +752,7 @@
 							}).set('labels', {ok:'확인', cancel:'취소'}); // 버튼 텍스트를 원하는 대로 설정할 수 있습니다.
 						});
 
-				
+						
 						
 							
 					 
@@ -935,22 +949,6 @@
 						</div>
 					</div>
 
-					
-
-					<!-- 좋아요 리스트 -->
-					<div id="myMark" class="info" style="display: none;">
-						<span>좋아요 리스트입니당</span>
-						<table id="rest-table" align="center"></table>
-					</div>
-
-					<!-- <div id="myReview" class="info">
-					   <div id="reviewList">
-					   	  <div id="review-div">
-					   	  	  <span></span>
-					   	  </div>
-					   </div>
-					</div> -->
-					
 					<!-- 택배 목록 -->
 					<div id="myDelivery" class="info" style="display: none;">
 						<!-- 게시판 목록-->

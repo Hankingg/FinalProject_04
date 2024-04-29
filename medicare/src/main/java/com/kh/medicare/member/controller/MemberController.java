@@ -339,6 +339,5 @@ public class MemberController {
     	return "member/changePwd";
     	
     } // moveChangePwd
-    
 	
 } //Class

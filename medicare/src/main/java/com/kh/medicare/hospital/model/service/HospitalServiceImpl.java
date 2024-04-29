@@ -52,4 +52,9 @@ public class HospitalServiceImpl implements HospitalService {
 		return hDao.reviewGraph(sqlSession,hosCode);
 	}
 
+	@Override
+	public int deleteReview(int revNo) {
+		return hDao.deleteReview(sqlSession, revNo);
+	}
+
 }

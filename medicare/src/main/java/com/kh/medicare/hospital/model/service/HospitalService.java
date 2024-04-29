@@ -22,4 +22,6 @@ public interface HospitalService {
 	
 	ArrayList<Review> reviewGraph(String hosCode);
 	
+	int deleteReview(int revNo);
+	
 }

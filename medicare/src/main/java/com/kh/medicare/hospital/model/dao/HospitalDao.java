@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -37,4 +38,10 @@ public class HospitalDao {
 	public ArrayList<Review> reviewGraph(SqlSessionTemplate sqlSession, String hosCode){
 		return (ArrayList)sqlSession.selectList("hospitalMapper.reviewGraph", hosCode);
 	}
+
+	public int deleteReview(SqlSession sqlSession, int revNo) {
+		
+		return sqlSession.update("hospitalMapper.deleteReview", revNo);
+	}
+
 }
