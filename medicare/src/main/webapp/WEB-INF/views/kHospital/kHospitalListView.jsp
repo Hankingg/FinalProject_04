@@ -783,6 +783,7 @@
 
 									// 한의원 위치에 대한 마커 추가
 									var hosLocation = new naver.maps.LatLng($(item).find("wgs84Lat").text(), $(item).find("wgs84Lon").text());
+						            console.log(hosLocation);
 						            
 									var marker = new naver.maps.Marker({
 										position: hosLocation,
@@ -792,6 +793,7 @@
 											scaledSize: new naver.maps.Size(40, 40)
 										}
 									});
+									console.log(marker);
 						                 	
 									/* 마커 호버시 정보창 내용 */
 									var content = '<div class="infoWindow">'

@@ -2,6 +2,7 @@ package com.kh.medicare.hospital.model.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 import com.kh.medicare.hospital.model.vo.Hospital;
 import com.kh.medicare.hospital.model.vo.Order;
@@ -15,7 +16,8 @@ public interface HospitalService {
 	
 	ArrayList<Review> selectReviewList(Review r);
 
-	ArrayList<Review> selectMyReviewList(int memNo);
+	ArrayList<Review> selectMyReviewList(Map<String, Object> memInfo);
 	
 	int insertOrder(Order order);
+	
 }

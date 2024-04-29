@@ -2,6 +2,7 @@ package com.kh.medicare.hospital.model.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +38,13 @@ public class HospitalServiceImpl implements HospitalService {
 	}
 
 	@Override
-	public ArrayList<Review> selectMyReviewList(int memNo) {
-		return hDao.selectMyReviewList(sqlSession, memNo);
+	public ArrayList<Review> selectMyReviewList(Map<String, Object> memInfo) {
+		return hDao.selectMyReviewList(sqlSession, memInfo);
 	}
 
 	@Override
 	public int insertOrder(Order order) {
 		return hDao.insertOrder(sqlSession,order);
 	}
-	
+
 }

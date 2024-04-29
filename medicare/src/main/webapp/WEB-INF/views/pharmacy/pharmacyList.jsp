@@ -18,9 +18,9 @@
 		margin-left: 100px;
 	}
 	
-	/* .outer div{ */
-		/* border: 1px solid red; */
-	/* } */
+	/* .outer div{
+		border: 1px solid red;
+	} */
 	
 	#result{
 		z-index: 30; 
@@ -118,13 +118,28 @@
 	}
 
 	 /* 여기부터 검색 결과창 관련 css */
+	/* .hos_wrap2{
+		border-radius: 10px;
+		box-sizing: border-box;
+		border: 1px solid gray;
+		width: 90px;
+		margin-left: 800px;
+		text-align: center;
+	} */
+
+	.hosOuter>div{
+		height: 100%;
+		float: left;
+	}
+
+
 	.hos_wrap {
 		margin-top: 10px;
 		display: flex;
 		border-radius: 10px;
 		box-sizing: border-box;
 		border: 1px solid gray;
-		width: 800px;
+		width: 1000px;
 		height: 200px;
 	}
 	.hos_wrap:hover{
@@ -314,7 +329,22 @@
 		margin-left: 10px;
 		margin-right: 8px;
 	}
+
+	.submitBtn{
+		width: 100px;
+		height: 40px;
+		border: none;
+		border-radius: 10px;
+		float: right;
+		margin-right: 30px;
+		margin-top: 40px;
+	}
 </style>
+
+<!-- 아임포트 라이브러리 -->
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
@@ -461,11 +491,12 @@
                       
                       itemArr.each(function(i, item){
                         console.log($(item).find("hpid").text())
-
-                         value += "<div class='hos_wrap' onclick='location.href=\"selectDetail.ph?hpid=" + $(item).find("hpid").text() + "\"'>"
-                                 +     "<div class='hos1'>"
-                                 +       "<div class='hos1_1'>"           
+						
+						value += "<div class='hos_wrap' onclick='location.href=\"selectDetail.ph?hpid=" + $(item).find("hpid").text() + "\"'>"
+                                 +   "<div class='hos1'>"
+                                 +     "<div class='hos1_1'>"           
                                  +       "<span>현 위치와의 거리 : " + $(item).find("distance").text() + "(km)</span>"
+								 +		"<button onclick='requestPay(event);' type='button' class='submitBtn'>처방전 전송</button>"
                                  +     "</div>"
                                  +     "<div class='hos1_2'>"
                                  +       "<div>" + $(item).find("dutyName").text() + " <span>💊</span></div>"
@@ -477,7 +508,10 @@
                                  +   "</div>"
                                  + "</div>";
 
-								// 한의원 위치에 대한 마커 추가
+							  
+								
+
+								// 약국 위치에 대한 마커 추가
 								var hosLocation = new naver.maps.LatLng($(item).find("latitude").text(), $(item).find("longitude").text());
 								var marker = new naver.maps.Marker({
 									position: hosLocation,
@@ -523,7 +557,7 @@
 									var hpid = $(item).find("hpid").text();
 									location.href = 'selectDetail.ph?hpid=' + hpid;
 								});
-					  	
+
 
                       })
 
@@ -537,6 +571,75 @@
 			}
 
 
+
+			// 처방전 전송버튼 클릭시 결제창
+			function requestPay(event) {
+				event.stopPropagation();
+
+				alertify.confirm('결제 후, 처방전이 전송됩니다. <br> 결제를 진행하시겠습니까?',
+					function() { // 첫 번째 confirm의 '확인' 콜백
+						// 주소 확인을 위한 두 번째 confirm 창
+						setTimeout(function() { // setTimeout을 사용하여 비동기 처리
+							alertify.confirm('${loginUser.address} ${loginUser.detailAddr} <br> 이 주소로 진행하시겠습니까?',
+								function() { // 두 번째 confirm의 '확인' 콜백
+									alertify.success('결제를 진행합니다.');
+
+									IMP.init("imp31344878");
+									var randomnum = Math.floor(Math.random() * 10001);
+
+									IMP.request_pay({
+										// 결제 정보 파라미터
+										pg: "html5_inicis",
+										pay_method: "card",
+										merchant_uid: randomnum,
+										name: "일반의약품(타이래놀)",
+										amount: 100,
+										buyer_email: "${loginUser.email}",
+										buyer_name: "${loginUser.memName}",
+										buyer_tel: "${loginUser.phone}",
+										buyer_addr: "${loginUser.address}",
+										buyer_postcode: "01181"
+									}, function(rsp) { // 결제 성공/실패 콜백
+										if (rsp.success) {
+											alertify.alert('처방전 전송', '처방전을 약국에 전송했습니다.');
+											console.log("${thisDocument.dcNo}");
+
+											$.ajax({
+												url:"insertDocument.dc",
+												data:{
+													dcSenderMno : "${thisDocument.dcReceiverMno}",
+													dcReceiverMno : 1,
+													dcOriginName : "${thisDocument.dcOriginName}",  
+													dcChangeName : "${thisDocument.dcChangeName}" 
+												},
+												success:function(data){
+													
+												},
+												error:function(){
+													console.log("처방전 전송에 실패했습니다.");
+												}
+											})
+
+
+										} else {
+											console.log(rsp.error_msg);
+										}
+									});
+								},
+								function() {
+									alertify.alert('마이페이지로 이동합니다. 주소를 변경해주세요!', function() {
+										location.href = "myPage.me"; // 사용자가 '확인'을 클릭한 후에 페이지 이동
+									});
+									alertify.error('결제를 취소합니다.');
+								});
+						}, 100); // setTimeout 끝
+					}, 
+					function() { // 첫 번째 confirm의 '취소' 콜백
+						alertify.error('결제가 취소되었습니다.');
+					});
+			}
+
+
 			// 검색결과
 			$("#btn").click(function(){
 				$.ajax({
@@ -544,7 +647,7 @@
 					data:{Q1:$("#selectOption").text()
 						 ,QN:$("#QN").val()},
 					success:function(data){
-						 
+						
 						let value = "";
 						let first = true;
 						

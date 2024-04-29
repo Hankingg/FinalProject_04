@@ -96,6 +96,8 @@
   <!-- icon CDN -->
   <script src="https://use.fontawesome.com/releases/v6.5.0/js/all.js"></script>
   
+  
+  
 </head>
 <body>
 	<c:if test="${ not empty alertMsg }">
@@ -457,8 +459,10 @@
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="hospital.do">병원 목록</a></li>
                 <li class="nav-item"> <a class="nav-link" href="">비대면 진료</a></li>
-                <li class="nav-item"> <a class="nav-link" href="">예약하기</a></li>
                 <li class="nav-item"> <a class="nav-link" href="">접수하기</a></li>
+                <c:if test="${ loginUser.mtId == 'H' }">
+                	<li class="nav-item"> <a class="nav-link" href="doctorMyPage.in">병원 마이페이지</a></li>
+                </c:if>
               </ul>
             </div>
           </li>

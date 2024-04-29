@@ -145,10 +145,33 @@
 			<div class="outer">
 				<div class="wrap">
 					<div class="wrap_1">
-						<select id="Q0" name="Q0">
-							<option value="서울특별시">서울특별시</option>
-							<option value="부산광역시">부산광역시</option>
-							<option value="대전광역시">대전광역시</option>
+						<select id="Q1" name="Q1">
+					 	  <option class="optionItem" value="">전체</option>
+                          <option class="optionItem" value="강남구">강남구</option>
+                          <option class="optionItem" value="강동구">강동구</option>
+                          <option class="optionItem" value="강북구">강북구</option>
+                          <option class="optionItem" value="강서구">강서구</option>
+                          <option class="optionItem" value="관악구">관악구</option>
+                          <option class="optionItem" value="광진구">광진구</option>
+                          <option class="optionItem" value="구로구">구로구</option>
+                          <option class="optionItem" value="긂천구">금천구</option>
+                          <option class="optionItem" value="노원구">노원구</option>
+                          <option class="optionItem" value="도봉구">도봉구</option>
+                          <option class="optionItem" value="동대문구">동대문구</option>
+                          <option class="optionItem" value="동작구">동작구</option>
+                          <option class="optionItem" value="마포구">마포구</option>
+                          <option class="optionItem" value="서대문구">서대문구</option>
+                          <option class="optionItem" value="서초구">서초구</option>
+                          <option class="optionItem" value="성동구">성동구</option>
+                          <option class="optionItem" value="성북구">성북구</option>
+                          <option class="optionItem" value="송파구">송파구</option>
+                          <option class="optionItem" value="양천구">양천구</option>
+                          <option class="optionItem" value="영등포구">영등포구</option>
+                          <option class="optionItem" value="용산구">용산구</option>
+                          <option class="optionItem" value="은평구">은평구</option>
+                          <option class="optionItem" value="종로구">종로구</option>
+                          <option class="optionItem" value="중구">중구</option>
+                          <option class="optionItem" value="중랑구">중랑구</option>
 						</select>
 					</div>
 					<div class="wrap_2">
@@ -186,12 +209,12 @@
 								<input type="text" name="QN" id="QN">
 							</div>
 							<div>
-								<input type="button" value="실행" id="btn3">
+								<input type="button" value="실행" id="near">
 							</div>
 						</div>
 					</div>
 					
-					<button id="near" style="border:none; background-color:white;">가까운순</button>
+					<button id="btn3" style="border:none; background-color:white;">가까운순</button>
 				</div>
 				<div class="map-jm" >
 					<div id="map-jm_1"><img src="${ pageContext.request.contextPath }/resources/images/mapimg.jpg" style="width: 100%; height: 100%; border-radius:30px;"></div>

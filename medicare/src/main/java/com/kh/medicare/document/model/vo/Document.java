@@ -19,7 +19,7 @@ public class Document {
 	private String dcOriginName;
 	private String dcChangeName;
 	private String dcFilePath;
-	private Date dcUploadDate;
+	private String dcUploadDate;
 	private String dcReadStatus;
 	private String dcPaymentStatus;
 	private String dcDeliveryStatus;

@@ -219,7 +219,8 @@
 
 	/* 병원이름 */
 	.hpName{
-		width: 180px;
+	    width: auto;
+		margin-right: 15px;
 	}
 
 	.hpName p{
@@ -239,7 +240,7 @@
 
 	/* 별점 */
 	.hpRate{
-		width: 300px;
+		width: 30px;
 	}
 
 	.hpRate p{
@@ -249,13 +250,22 @@
 		color: rgb(58, 58, 58);
 	}
 
-	/* 하트 */
-	.hpHeart{
+	/* 삭제 div */
+	.hpDel{
 		width: 50px;
 		float: right;
 		padding-top: 17px;
 	}
-
+	
+	.delBtn{
+		width: 50px;
+		height: 30px;
+		border-radius: 10px;
+		border: none;
+		background-color: #F96C85;
+		color: white;
+	}
+	
 	.starImg, .heartImg{
 		width: 25px;
 		height: 25px;
@@ -339,7 +349,6 @@
 		padding: 15px;
 		margin-right: 30px;
 		margin-bottom: 30px;
-
 	}
 
 	.hosName{
@@ -358,6 +367,11 @@
 		height: 400px;
 		margin-left: 10px;
 	}
+	/* 모달시 처방전 사진 */
+	.modalPsImg{
+		width: 600px;
+		height: 600px;
+	}
 	
 	.myPage-info {
 		height: auto;
@@ -366,6 +380,39 @@
 	#myInfoTb input[name=memId], #myInfoTb input[name=memName]{
 		background-color: lightgray;
 	}
+
+	/* 처방전 모달 */
+
+	.modal2 {
+		display: none; 
+		position: fixed; 
+		z-index: 1; 
+		left: 0;
+		top: 0;
+		width: 100%; 
+		height: 100%; 
+		background-color: rgba(0,0,0,0.4);
+	}
+
+	.modal-content2 {
+		background-color: #fefefe;
+		padding: 20px;
+		border: 1px solid #888;
+		border-radius: 5px;
+		width: 700px; 
+		height: 800px;
+		position: fixed; 
+		top: 54%; 
+		left: 55%;
+		transform: translate(-50%, -50%); 
+		margin: 0; 
+	}
+
+	.close2:hover{
+		cursor: pointer;
+	}
+
+
 	
 </style>
 </head>
@@ -380,8 +427,8 @@
 					<ul>
 						<li id="info"><a href="myInfo.me" class="tab active">내정보</a></li>
 						<li id="heart"><a class="tab">좋아요 리스트</a></li>
-						<li id="review"><a onclick="myReviewList();" class="tab">내가 쓴 리뷰</a></li>
-						<li id="delivery"><a class="tab">택배 목록</a></li>
+						<li id="review"><a onclick="myReviewList();" class="tab">리뷰 리스트</a></li>
+						<li id="delivery"><a class="tab">택배 리스트</a></li>
 						<li id="documents"><a onclick="myDocumentList();" class="tab">문서함</a></li>
 					</ul>
 				</div>
@@ -535,42 +582,61 @@
 
 						});
 						
+						
 						function myReviewList(){		
 							$.ajax({
 								url:"myReview.rv",
-								data:{memNo: "${loginUser.memNo}"},
+								data:{memNo: "${loginUser.memNo}",
+									  memId: "${loginUser.memId}"},
 								success:function(data){
 
 									let value = "";
 									let span = "";
-									value += '<div class="myReview" class="info">'
-									   	   + '<div class="reviewList">'
-									   	   + '<div class="review-div">'
-									   	   + '<span>리뷰 총 (' + data.length + '개)</span>';
-									   	  
-									for(let i in data){
-										value += '<div class="myreview">'
-											   + '<div class="myreview1">'
-											   + '<div class="hpName"><p>' + data[i].hosName + '</p></div>'
-											   + '<div class="hpStar"><img src="resources/reviewImg/starHeart/star2.png" class="starImg"></div>'
-											   + '<div class="hpRate"><p>' + data[i].rate + '</p></div>'
-											   + '<div class="hpHeart"><img src="resources/reviewImg/starHeart/heart-black2.png" class="heartImg"></div>'
+									
+									if(data.length != 0){
+										value += '<div class="myReview" class="info">'
+										   	   + '<div class="reviewList">'
+										   	   + '<div class="review-div">'
+										   	   + '<span>리뷰 총 (' + data.length + '개)</span>';
+										   	   
+										for(let i in data){
+											value += '<div class="myreview">'
+												   + '<div class="myreview1">'
+												   + '<div class="hpName"><p>' + data[i].hosName + '</p></div>'
+												   + '<div class="hpStar"><img src="resources/reviewImg/starHeart/star2.png" class="starImg"></div>'
+												   + '<div class="hpRate"><p>' + data[i].rate + '</p></div>';
+												   
+											if(${loginUser.memNo} == data[i].memNo || data[i].memId == "admin"){
+											   value += '<div class="hpDel"><button class="delBtn">삭제</button></div>';
+											}
+											console.log(data[i].memNo);	   
+							   				value += '</div>'
+												   + '<div class="myreview2">'
+												   + '<div class="rvProfile">'
+												   + '<div class="nickName"><p>' + data[i].nickName + '</p></div>'
+												   + '<div class="profile"><img src="resources/reviewImg/profile/profile1.png" class="profileImg"></div>'
+												   + '</div>'
+												   + '<div class="rvCont">'
+												   + '<p>' + data[i].revContent  + '</p>'
+												   + '</div>'
+												   + '</div>'
+												   + '</div>';
+										}
+										
+											value += '</div>'
+												   + '</div>'
+												   + '</div>';
+									}else{
+										value += '<div class="myReview" class="info">'
+										   	   + '<div class="reviewList">'
+										   	   + '<div class="review-div">'
+											   + '<div class="myreview">'
+											   + '<div class="myreview1" style="height:130px; text-align:center; padding-top:60px;"><p style="font-size:18px;">작성한 리뷰가 없습니다. 리뷰를 작성해주세요 😊</p></div>'
 											   + '</div>'
-											   + '<div class="myreview2">'
-											   + '<div class="rvProfile">'
-											   + '<div class="nickName"><p>' + data[i].nickName + '</p></div>'
-											   + '<div class="profile"><img src="resources/reviewImg/profile/profile1.png" class="profileImg"></div>'
-											   + '</div>'
-											   + '<div class="rvCont">'
-											   + '<p>' + data[i].revContent  + '</p>'
 											   + '</div>'
 											   + '</div>'
 											   + '</div>';
 									}
-									
-										value += '</div>'
-											   + '</div>'
-											   + '</div>';
 										
 										$(".myPage-info").html(value);
 
@@ -602,14 +668,53 @@
 											+ "</div>"
 
 											+ '<div class="psImgDiv">'
-											+ '<img class="psImg" src="resources/images/prescription1.jpg">'
+											+ '<img class="psImg" src="'+ list[i].dcChangeName +'">'
 											+ "</div>"
+
+											// 모달 추가하는 부분
+											+ '<div class="modal2" id="myModal'+ i +'">'
+											+   '<div class="modal-content2">'
+
+											+ '<div class="modal-header">'
+									        +    '<h3 class="modal-title" style="padding-left:290px">처방전</h3>'
+									        +    '<button type="button" class="close" data-dismiss="modal">&times;</button>'
+								            + '</div>'
+
+											+ '<div class="modal-body" align="center">'
+											+    '<img class="modalPsImg" src="'+ list[i].dcChangeName +'">'	
+											+ '</div>'
+																											
+											+ '<div class="modal-footer">'
+											+    "<button onclick=\"location.href='selectList.ph?dcNo=" + list[i].dcNo +"'\" type='button' class='btn btn-success dcBtn'>"
+											+    '처방전 전송'
+											+    '</button>'
+
+									        +    "<button data-dcno='"+ list[i].dcNo +"' type='button' class='btn btn-danger dcBtn deleteBtn'>"
+											+    '삭제'
+											+    '</button>'
+								            + '</div>'
+
+
+											+   '</div>'
+											+ '</div>'	
+											// 여기까지 모달부분! 
+
 
 											+ "</div>";	
 									}
 									value += "</div>";
 
 									$(".myPage-info").html(value);
+
+									$('.prescription').on('click', function(){
+										var modalId = 'myModal' + $(this).index();
+										$('#' + modalId).show();
+									});
+
+									// 모달 x 버튼 -> 모달 닫기
+									$(document).on('click', '.close', function() {
+										$(this).closest('.modal2').hide();
+									});
 
 
 								},
@@ -618,6 +723,29 @@
 								}
 							})
 						}
+
+						$('.myPage-info').on('click', '.deleteBtn', function(e){
+							e.preventDefault(); // 기본 동작 방지.
+							var dcNo = $(this).data('dcno'); // dcNo를 data 속성에서 가져옵니다.
+
+							// alertify.confirm 사용
+							alertify.confirm('정말 삭제하시겠습니까?', '삭제시, 처방전을 복구 할 수 없습니다.', function(){
+								// 사용자가 '확인'을 클릭했을 때 실행될 로직
+								location.href = 'delete.dc?dcNo=' + dcNo; // 삭제 요청을 보냅니다.
+							}, function(){
+								// 사용자가 '취소'를 클릭했을 때 실행될 로직
+								// 필요한 경우 여기에 코드를 추가할 수 있습니다. 예를 들어, 어떤 피드백을 주거나 로깅을 할 수 있습니다.
+							}).set('labels', {ok:'확인', cancel:'취소'}); // 버튼 텍스트를 원하는 대로 설정할 수 있습니다.
+						});
+
+				
+						
+							
+					 
+
+
+
+
 						
 						
 						// 이름 실시간 체크
@@ -806,6 +934,8 @@
 							</div>
 						</div>
 					</div>
+
+					
 
 					<!-- 좋아요 리스트 -->
 					<div id="myMark" class="info" style="display: none;">

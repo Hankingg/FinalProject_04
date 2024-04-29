@@ -15,7 +15,7 @@
 }
 .outer{
   width: 1260px;
-  height: 900px; 
+  height: auto; 
   /* border: 1px solid blue; */
 }
 .outer>div{
@@ -50,11 +50,22 @@
   width: 1170px;
 }
 
-.inner1s{
+.inner_1{
   height: 270px;
   float: left;
-  margin-left: 72px;
+  margin-left: 75px;
   margin-top: 45px;
+  margin-right: 62px;
+  width: 225px;
+  background-color: rgb(233, 231, 231);
+  border-radius: 15px;
+}
+
+.inner_2{
+  height: 270px;
+  float: left;
+  margin-top: 45px;
+  margin-right: 75px;
   width: 225px;
   background-color: rgb(233, 231, 231);
   border-radius: 15px;
@@ -310,16 +321,16 @@
 .inner5s_8{background-color: rgb(239, 255, 222);}
 
 /* -------------- 효과 css ----------------*/
-.inner1s, .inner2s, .weight, .inner5s{overflow: hidden;}
+.inner_1, .inner2s, .weight, .inner5s{overflow: hidden;}
 
-.inner1s:hover{
+.inner_1:hover{
   background-color: lightgrey;
   cursor: pointer;
 }
-.inner1s img{
+.inner_1 img{
   transition: all 0.2s linear;
 }
-.inner1s:hover img{
+.inner_1:hover img{
   transform: scale(1.2);
 }
 
@@ -373,6 +384,113 @@
   color: black;
 }
 
+/* 날씨 관련 */
+.weather{
+  display: flex;
+  justify-content: center;
+}
+
+
+.weather-form{
+  width: 520px;
+  height: 270px;
+  border-radius: 10px;
+  border: none;
+  margin-top: 47px;
+  margin-left: 10px;
+}
+
+.weatherInfo>div{
+  float: left;
+}
+
+/* 날짜 */
+.weather-date{
+  font-size: 16px;
+  margin-left: 50px;
+  margin-top: 30px;
+  color: black;
+  width: 310px;
+
+}
+
+/* 현재 시간에 기온 */
+.curTime{
+    font-size: 45px;
+    margin-left: 90px;
+    
+}
+
+/* 날씨이미지 */
+#weatherImg{
+  width: 65px;
+  height: 65px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 85px;
+}
+
+/* 최저, 최고기온 담긴 div */
+.temp>div{
+  float: left;
+  margin-bottom: 20px;
+}
+
+.maxTemp{
+  margin-left: 50px;
+}
+
+.minTemp{
+  margin-left: 20px;
+}
+
+/* 하늘상태 글씨로 나타냄 */
+.weather-bottom{
+  margin-left: 90px;
+  margin-bottom: 10px;
+}
+
+
+.right{
+  margin-top: 20px;
+}
+
+.kh, .pm, .rain, .wind, .humidity{
+	margin-left: 70px;
+}
+
+.right>div{
+	margin-bottom: 7px;
+}
+
+.pmGrade{
+	font-size: 20px;
+	margin-left: 4px;
+	margin-bottom: 15px;
+}
+
+.weatherPosition{
+    margin-right: 30px;
+    margin-top: 30px;
+}
+
+.weatherPosition>div{
+  float: left;
+}
+
+.weatherTop>div{
+    float: left;
+}
+
+#naviImg{
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  padding-bottom: 4px;
+}
+
+
+
 </style>
 </head>
 <body>
@@ -381,7 +499,7 @@
         <div class="content-wrapper" style="background-color: white;">
         <div class="outer">
           <div class="inner1">
-            <div class="inner1s">
+            <div class="inner_1">
               <a href="emergencyList.em" id="emerList">
               <div class="searchAmbulance_1">
                 <p>응급실</p> 
@@ -392,23 +510,7 @@
               </div>
               </a>
             </div>
-            <div class="inner1s">
-              <div class="receiveHospital_1">
-                <p>접수하기</p>
-              </div>
-              <div class="receiveHospital_2">
-                <img style="height: 110px; width: 110px;" src="resources/mainIcon/hospital.png">
-              </div>
-            </div>
-            <div class="inner1s">
-              <div class="reserveHospital_1">
-                <p>예약하기</p>
-              </div>
-              <div class="reserveHospital_2">
-                <img style="height: 120px; width: 120px;" src="resources/mainIcon/calender.png">
-              </div>
-            </div>
-            <div class="inner1s">
+            <div class="inner_2">
               <div class="telemedicine_1">
                <a href="webrtc.go" style="text-decoration: none; color: black;"><p>비대면</p> 
                 <p>진료</p></a>
@@ -417,6 +519,41 @@
                 <img style="height: 130px; width: 130px;" src="resources/mainIcon/doctor.png">
               </div>
             </div>
+            <!-- 날씨 -->
+          <div class="weather">
+            <div class="weather-form">
+              <div class="weatherTop">
+                <div class="weather-date"></div>
+                <div class="weatherPosition">
+                    <div class="spanDiv">
+                      <span>서울특별시</span>
+                    </div>
+                    <div>
+                      <img id="naviImg" src="resources/weather/navi3.png">
+                    </div>
+                </div>
+              </div>
+              <div class="weatherInfo">
+                <div class="left">
+                  <div class="skyState"></div>
+                  <div class="curTime"></div>
+                  <div class="weather-bottom"></div>
+                  <div class="temp">
+                    <div class="maxTemp"></div>
+                    <div class="minTemp"></div>
+                  </div>
+                </div>
+                <div class="right">
+                  <div class="pmGrade"></div>
+                  <div class="kh"></div>
+                  <div class="pm"></div>
+                  <div class="rain"></div>
+                  <div class="wind"></div>
+                  <div class="humidity"></div>
+                </div>
+              </div>
+            </div>
+          </div>
           </div>
           <div class="inner2">
             <div class="inner2s kHospital" onclick="location.href='list.kh'">
@@ -438,8 +575,7 @@
               </div>
             </div>
           </div>
-          
-         
+
          
 		            <div class="inner3 membership">
 		           	<c:choose>
@@ -459,7 +595,7 @@
 	           		</c:choose>
          
             
-            <div class="inner3s weight">
+          <div class="inner3s weight">
                 <div class="weight_1">
                     <div class="weight_1_1"><p>우리 아이 키 ▪ 몸무게</p></div>
                     <div class="weight_1_2"><p>또래 중 몇 등인지 확인해보세요!</p></div>
@@ -497,6 +633,201 @@
         
         
         </div>
+        
+       
+        <!-- 날씨 스크립트 -->
+        <script>
+	      // 현재 날짜
+	      let date = new Date();
+	      let year = date.getFullYear(); //2024
+	      let month = "0"+(date.getMonth() + 1); // 04 "012"
+	      let month2 = month.substr(-2);
+	      let day = '0'+date.getDate(); //16
+	      let day2 = day.substr(-2);
+	      let initDate = year +month2 + day2;
+	      
+	      let initDate2 = year + "년 " + month2 + "월 " + day2 + "일"
+	      
+	      // 오늘 날짜 년월일
+	      $(".weather-date").html(initDate2);
+	   
+	      // 현재 시각
+	      let curHour = "0" +date.getHours();
+	      let curHour1 = curHour.substr(-2);
+	      let curMin = "00";
+	   
+	      // 예보시각에 쓰일 현재시각 '0000' 이런식으로 시는 '00'~'23', 분은 '00' 고정
+	      let curTime = curHour1 + curMin;
+	   
+	      $.ajax({
+	         url:`https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=nLhHeLPzVGZH0bvIiEZjRSBa00JzdsLVTEDO%2BTyhwhjKNB94zP5Q8sM5IavINwEogJAPHHE85bhGLlUqBbjiLA%3D%3D&pageNo=1&numOfRows=900&dataType=json&base_date=\${initDate}&base_time=0200&nx=61&ny=125`,
+	         success: function(result){
+	            console.log(result)
+	            let item = result.response.body.items.item
+	            let temp = result.response.body.items.item[0].fcstValue
+	            console.log(temp)
+	            let tmx; // 일 최고 온도
+	            let tmn;  // 일 최저 온도
+	            let skyState = ""; // 하늘 상태
+	            let value = "";
+	            let sky = "";
+	              let pop = ""; // 강수확률
+	              let wsd = ""; // 풍속
+	              let reh = ""; // 습도
+	   			
+	            for(let i=0; i<item.length; i++){
+	               if(item[i].category == "SKY" && item[i].fcstDate == initDate && item[i].fcstTime == curTime){
+	                  sky = item[i].fcstValue;
+	               }
+	            }
+	            
+	            console.log(sky)
+	   
+	            for(let i=0; i<item.length; i++){
+	               
+	               // 당일 
+	               if(item[i].fcstDate == initDate){
+	                  // 최고기온
+	                  if(item[i].category == "TMX"){
+	                     tmx = parseInt(item[i].fcstValue) + '℃';
+	                  }
+	                  
+	                  // 최저기온
+	                  if(item[i].category == "TMN"){
+	                     tmn = parseInt(item[i].fcstValue) + '℃';
+	                  }
+	   					
+	                  // 강수확률
+	                  if(item[i].category == "POP"){
+	                	 pop = item[i].fcstValue + '%';
+	                  }
+	                  
+	                  // 바람
+	                  if(item[i].category == "WSD"){
+	                	 wsd = item[i].fcstValue + 'm/s';
+	                  }
+	                  
+	                  // 습도
+	                  if(item[i].category == "REH"){
+	                	 reh = item[i].fcstValue + '%';
+	                  }
+	                  
+	                  
+	                  // 하늘 상태는 현재시각을 기준으로 가져와야 하니까
+	                  // 현재 날짜(initDate)와 시간(curTime) 조건식으로 걸기
+	                  if(item[i].fcstTime == curTime){
+	                     if(item[i].category == "PTY"){
+	                        if(item[i].fcstValue != "0"){
+	                           switch(item[i].fcstValue){
+	                              case "1":
+	                                 $(".skyState").html('<img id="weatherImg" src="resources/weather/rain1.png">');
+	                                 $(".weather-bottom").html('비');
+	                                 break;
+	                              case "2":
+	                                 $(".skyState").html('<img id="weatherImg" src="resources/weather/rainSnow.png">');
+	                                 $(".weather-bottom").html('비/눈');
+		                                 break;   
+	                              case "3":
+	                                 $(".skyState").html('<img id="weatherImg" src="resources/weather/snow1.png">');
+	                                 $(".weather-bottom").html('눈');
+	                                 break;
+	                              case "4":
+	                                 $(".skyState").html('<img id="weatherImg" src="resources/weather/rain2.png">');
+	                                 $(".weather-bottom").html('소나기');
+	                                 break;
+	                           }
+	                           $(".weather-form").css({
+	                                  "background-image": "url('resources/weather/rain6.jfif')",
+	                                  "background-size": "cover",
+	                                  "color" : "white"
+	                              });
+	                           $(".weather-date").css({
+	                        	   "color" : "white"
+	                           })
+	                           
+	                        }else{
+	                           switch(sky){
+	                           case "1":
+	                              $(".skyState").html('<img id="weatherImg" src="resources/weather/sunny.png">');
+	                              $(".weather-bottom").html('맑음');
+	                              break;
+	                           case "3":
+	                              $(".skyState").html('<img id="weatherImg" src="resources/weather/cloudy1.png">');
+	                              $(".weather-bottom").html('구름 많음');
+	                              break;
+	                           case "4":
+	                              $(".skyState").html('<img id="weatherImg" src="resources/weather/cloudy2.png">');
+	                              $(".weather-bottom").html('흐림');
+	                              break;
+	                           }
+	                           $(".weather-form").css({
+	                                  "background-image": "url('resources/weather/sky1.jpg')",
+	                                  "background-size": "cover",
+	                                 
+	                              });
+	                          
+	                        }
+	                     }               
+	   
+	                     if(item[i].category == "TMP"){
+	                        $(".curTime").html(item[i].fcstValue + '°');
+	                     }
+	                  }
+	               }
+
+	            }
+	            //$(".result").html(value);
+	            $(".maxTemp").html(`최고 \${tmx}`);
+	            $(".minTemp").html(`최저 \${tmn}`);
+	            $(".rain").html(`강수 확률 : \${pop}`);
+	            $(".wind").html(`바람 : \${wsd}`);
+	            $(".humidity").html(`습도 : \${reh}`);
+	            
+	         },
+	      })
+	      
+			   /* 미세먼지 api */
+			   $.ajax({
+						url:"air.do",
+						success:function(data){
+		
+							let itemArr = $(data).find("item");
+							let kh = "";
+							let pm = "";
+							
+							itemArr.each(function(i, item){
+								
+								kh = $(item).find("khaiValue").text();
+								pm = $(item).find("pm10Value").text() + '㎍/㎥';
+								
+								switch($(item).find("pm10Grade").text()){
+									case "1":
+                    					$(".pmGrade").html(`오늘의 미세먼지는 <span style="color:blue">좋음😄</span> 입니다`);
+										break;
+									case "2":
+                    					$(".pmGrade").html(`오늘의 미세먼지는 <span style="color:green">보통🙂</span> 입니다`);
+										break;
+									case "3":
+                   						$(".pmGrade").html(`오늘의 미세먼지는 <span style="color:orange">나쁨😷</span> 입니다`);
+                   						// $(".pmGrade").html(`😷오늘의 미세먼지는 <span style="color:orange">나쁨</span> 입니다😷`);
+										break;
+									case "4":
+               							$(".pmGrade").html(`오늘의 미세먼지는 <span style="color:red">매우나쁨😵</span> 입니다`);
+										break;
+								}
+
+							});
+							
+							$(".kh").html(`통합대기환경수치 : \${kh}`);
+							$(".pm").html(`미세먼지농도 : \${pm}`);
+							
+						}, error:function(){
+							console.log("ajax 통신 실패!");
+						}
+					})
+
+	   </script>
+   
         <jsp:include page="common/footer.jsp"/>
         
 </body>

@@ -16,6 +16,7 @@ import lombok.ToString;
 public class Review {
 	private int revNo;
 	private String memNo;
+	private String memId;
 	private String revContent;
 	private Date revDate;
 	private double rate;
