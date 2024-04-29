@@ -20,7 +20,7 @@
 		
 		<script>
 			function enterRoom(){
-				location.href="webrtc.go?memNo=${memNo}&roomNum="+$("#roomNum").val();		
+				location.href="webrtc.go?memId=${memId}&roomNum="+$("#roomNum").val();		
 				return false;
 			}
 		</script>

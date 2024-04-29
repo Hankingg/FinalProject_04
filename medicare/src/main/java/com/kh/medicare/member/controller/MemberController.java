@@ -340,5 +340,16 @@ public class MemberController {
     	
     } // moveChangePwd
     
+    @ResponseBody
+    @RequestMapping("select.memId")
+    public Member selectMemId(Member m,Model model) {
+    	System.out.println(m);
+    	Member loginUser = mService.loginMember(m);
+    	System.out.println(loginUser);
+    	model.addAttribute("m",loginUser);
+    	
+    	return loginUser;
+    }
+    
 	
 } //Class

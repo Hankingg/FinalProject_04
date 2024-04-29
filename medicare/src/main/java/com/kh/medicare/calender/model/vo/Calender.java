@@ -22,4 +22,6 @@ public class Calender {
 	private String orderToday;
 	private String groupId; // orderStatus 대신
 	private String backgroundColor;
+	private String hosCode;
+	private String constraint;
 }

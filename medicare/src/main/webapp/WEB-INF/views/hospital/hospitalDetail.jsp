@@ -567,14 +567,30 @@
 						var closingTime = openingHours[currentDayOfWeek].end;
 
 						var currentTime = currentDate.getHours() + ":" + currentDate.getMinutes();
+							
+						var time1Parts = openingTime.split(":");
+						var time2Parts = closingTime.split(":");
+						var time3Parts = currentTime.split(":");
+						
+						var time1 = new Date();
+						time1.setHours(parseInt(time1Parts[0]), parseInt(time1Parts[1]), 0); // Set time to 14:16
 
-						if (currentTime >= openingTime && currentTime <= closingTime) {
+						var time2 = new Date();
+						time2.setHours(parseInt(time2Parts[0]), parseInt(time2Parts[1]), 0); // Set time to 9:00
+						
+						var time3 = new Date();
+						time3.setHours(parseInt(time3Parts[0]), parseInt(time3Parts[1]), 0);
+						
+						if (time3 >= time1 && time3 <= time2) {
 							 $(".diagnosisStatus").text("🟢 영업중");
                         } else {
                         	$(".diagnosisStatus").text("🔴 영업종료");
 						}
 						
+						console.log(currentTime >= openingTime)
+						console.log(currentTime <= closingTime)
 						console.log(openingTime)
+						console.log(currentTime)
 						$(".diagnosisTime").text("오늘 영업시간 : "+ openingTime + " ~ " + closingTime );
 
                 
@@ -686,7 +702,7 @@
                                         }
                                         
                                     }
-                                    var avgValue = ((5 * value[0]) + (4 * value[1]) + (3 * value[2]) + (2 * value[3]) + (1 * value[4]) + (0 * value[5])) / 6;
+                                    var avgValue = ((5 * value[0]) + (4 * value[1]) + (3 * value[2]) + (2 * value[3]) + (1 * value[4]) + (0 * value[5])) / reviewCount;
                                     avgValue = avgValue.toFixed(1);
                                     $("#rateAvg").html("평균별점: <br>" + avgValue + "/5.0");
                         			new Chart(document.getElementById("bar-chart-horizontal"), {
@@ -936,7 +952,7 @@
                   </div>
                   <div id="hspReceive">
                     접수하기 화면
-                    <a href="order.go">접수하기</a>
+                    <a href="order.go?hosCode=${ h.hosCode }">접수하기</a>
                     
 						
                   

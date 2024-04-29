@@ -71,7 +71,9 @@ public class hospitalController {
 	}
 		
 	@RequestMapping("order.go")
-	public String orderPage() {
+	public String orderPage(String hosCode, Model model) {
+		Hospital h = hService.selectHospitalInfo(hosCode);
+		model.addAttribute("h",h);
 		return "hospital/order";
 	}
 	
