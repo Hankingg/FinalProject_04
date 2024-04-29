@@ -219,7 +219,8 @@
 
 	/* 병원이름 */
 	.hpName{
-		width: 180px;
+	    width: auto;
+		margin-right: 15px;
 	}
 
 	.hpName p{
@@ -239,7 +240,7 @@
 
 	/* 별점 */
 	.hpRate{
-		width: 300px;
+		width: 90px;
 	}
 
 	.hpRate p{
@@ -249,13 +250,22 @@
 		color: rgb(58, 58, 58);
 	}
 
-	/* 하트 */
-	.hpHeart{
+	/* 삭제 div */
+	.hpDel{
 		width: 50px;
 		float: right;
 		padding-top: 17px;
 	}
-
+	
+	.delBtn{
+		width: 50px;
+		height: 30px;
+		border-radius: 10px;
+		border: none;
+		background-color: #F96C85;
+		color: white;
+	}
+	
 	.starImg, .heartImg{
 		width: 25px;
 		height: 25px;
@@ -417,8 +427,8 @@
 					<ul>
 						<li id="info"><a href="myInfo.me" class="tab active">내정보</a></li>
 						<li id="heart"><a class="tab">좋아요 리스트</a></li>
-						<li id="review"><a onclick="myReviewList();" class="tab">내가 쓴 리뷰</a></li>
-						<li id="delivery"><a class="tab">택배 목록</a></li>
+						<li id="review"><a onclick="myReviewList();" class="tab">리뷰 리스트</a></li>
+						<li id="delivery"><a class="tab">택배 리스트</a></li>
 						<li id="documents"><a onclick="myDocumentList();" class="tab">문서함</a></li>
 					</ul>
 				</div>
@@ -572,42 +582,61 @@
 
 						});
 						
+						
 						function myReviewList(){		
 							$.ajax({
 								url:"myReview.rv",
-								data:{memNo: "${loginUser.memNo}"},
+								data:{memNo: "${loginUser.memNo}",
+									  memId: "${loginUser.memId}"},
 								success:function(data){
 
 									let value = "";
 									let span = "";
-									value += '<div class="myReview" class="info">'
-									   	   + '<div class="reviewList">'
-									   	   + '<div class="review-div">'
-									   	   + '<span>리뷰 총 (' + data.length + '개)</span>';
-									   	  
-									for(let i in data){
-										value += '<div class="myreview">'
-											   + '<div class="myreview1">'
-											   + '<div class="hpName"><p>' + data[i].hosName + '</p></div>'
-											   + '<div class="hpStar"><img src="resources/reviewImg/starHeart/star2.png" class="starImg"></div>'
-											   + '<div class="hpRate"><p>' + data[i].rate + '</p></div>'
-											   + '<div class="hpHeart"><img src="resources/reviewImg/starHeart/heart-black2.png" class="heartImg"></div>'
+									console.log(data);
+									if(data.length != 0){
+										value += '<div class="myReview" class="info">'
+										   	   + '<div class="reviewList">'
+										   	   + '<div class="review-div">'
+										   	   + '<span>리뷰 총 (' + data.length + '개)</span>';
+										   	   
+										for(let i in data){
+											value += '<div class="myreview">'
+												   + '<div class="myreview1">'
+												   + '<div class="hpName"><p>' + data[i].hosName + '</p></div>'
+												   + '<div class="hpStar"><img src="resources/reviewImg/starHeart/star2.png" class="starImg"></div>'
+												   + '<div class="hpRate"><p>' + data[i].rate + '</p></div>';
+												   
+											if(${loginUser.memNo} == data[i].memNo || "${loginUser.memId}" == "admin"){
+											   value += "<div class='hpDel'><button class='delBtn' onclick=\"location.href='delete.rv?revNo=" + data[i].revNo + "'\">삭제</button></div>";
+											}
+											   
+							   				value += '</div>'
+												   + '<div class="myreview2">'
+												   + '<div class="rvProfile">'
+												   + '<div class="nickName"><p>' + data[i].nickName + '</p></div>'
+												   + '<div class="profile"><img src="resources/reviewImg/profile/profile1.png" class="profileImg"></div>'
+												   + '</div>'
+												   + '<div class="rvCont">'
+												   + '<p>' + data[i].revContent  + '</p>'
+												   + '</div>'
+												   + '</div>'
+												   + '</div>';
+										}
+										
+											value += '</div>'
+												   + '</div>'
+												   + '</div>';
+									}else{
+										value += '<div class="myReview" class="info">'
+										   	   + '<div class="reviewList">'
+										   	   + '<div class="review-div">'
+											   + '<div class="myreview">'
+											   + '<div class="myreview1" style="height:130px; text-align:center; padding-top:60px;"><p style="font-size:18px;">작성한 리뷰가 없습니다. 리뷰를 작성해주세요 😊</p></div>'
 											   + '</div>'
-											   + '<div class="myreview2">'
-											   + '<div class="rvProfile">'
-											   + '<div class="nickName"><p>' + data[i].nickName + '</p></div>'
-											   + '<div class="profile"><img src="resources/reviewImg/profile/profile1.png" class="profileImg"></div>'
-											   + '</div>'
-											   + '<div class="rvCont">'
-											   + '<p>' + data[i].revContent  + '</p>'
 											   + '</div>'
 											   + '</div>'
 											   + '</div>';
 									}
-									
-										value += '</div>'
-											   + '</div>'
-											   + '</div>';
 										
 										$(".myPage-info").html(value);
 
@@ -694,6 +723,20 @@
 								}
 							})
 						}
+						
+						/* function rvDelete(){
+							$.ajax({
+								url:"delete.rv",
+								data:{},
+								success:function(){
+									
+								}, error:function(){
+									console.log("리뷰 삭제 ajax 통신 실패");
+								}
+							})
+						} */
+						
+						
 
 						$('.myPage-info').on('click', '.deleteBtn', function(e){
 							e.preventDefault(); // 기본 동작 방지.
@@ -709,7 +752,7 @@
 							}).set('labels', {ok:'확인', cancel:'취소'}); // 버튼 텍스트를 원하는 대로 설정할 수 있습니다.
 						});
 
-				
+						
 						
 							
 					 
@@ -906,22 +949,6 @@
 						</div>
 					</div>
 
-					
-
-					<!-- 좋아요 리스트 -->
-					<div id="myMark" class="info" style="display: none;">
-						<span>좋아요 리스트입니당</span>
-						<table id="rest-table" align="center"></table>
-					</div>
-
-					<!-- <div id="myReview" class="info">
-					   <div id="reviewList">
-					   	  <div id="review-div">
-					   	  	  <span></span>
-					   	  </div>
-					   </div>
-					</div> -->
-					
 					<!-- 택배 목록 -->
 					<div id="myDelivery" class="info" style="display: none;">
 						<!-- 게시판 목록-->

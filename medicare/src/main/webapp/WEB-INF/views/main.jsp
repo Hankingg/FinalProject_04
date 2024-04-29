@@ -576,23 +576,24 @@
             </div>
           </div>
 
-          <c:choose>
-	           <c:when test="${ empty loginUser or loginUser.membership eq 'N' }">
+         
 		            <div class="inner3 membership">
-		          	<a href="membership.me" id="membership">
-		            <div class="inner3s">
-		              <div class="membership_1"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;구독 후 접수, 예약이 가능해요!</p></div>
-		              <div class="membership_2"><button class="membership_btn">멤버십 구독하기</button></div>
-		            </a>
-		            </div>
-	           </c:when>
-	           <c:otherwise>
-		         	<div class="inner3 membership">         	
-		            <div class="inner3s">             
-		              <div class="membership_2"><button class="membership_btn" style="margin-top:30px; height:60px;">멤버십 만료일 : ${ loginUser.endDate } </button></div>      
-		            </div>
-	            </c:otherwise>
-           </c:choose>
+		           	<c:choose>
+		           	  <c:when test="${ !empty loginUser and !empty loginUser.endDate }">
+				             <div class="inner3s">             
+				              <div class="membership_2"><button class="membership_btn" style="margin-top:30px; height:60px;">멤버십 만료일 : ${ loginUser.endDate } </button></div>      
+				             </div>
+			            </c:when>
+			           <c:otherwise>			           		            			         	         	
+				           	<div class="inner3s">
+					          	<a href="membership.me" id="membership">	           
+					              <div class="membership_1"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;구독 후 접수, 예약이 가능해요!</p></div>
+					              <div class="membership_2"><button class="membership_btn">멤버십 구독하기</button></div>		           
+					            </a>
+				            </div>     	                	            		           	           	         		  	
+	           		  	</c:otherwise>
+	           		</c:choose>
+         
             
           <div class="inner3s weight">
                 <div class="weight_1">
@@ -721,50 +722,72 @@
 	                              case "1":
 	                                 $(".skyState").html('<img id="weatherImg" src="resources/weather/rain1.png">');
 	                                 $(".weather-bottom").html('비');
+	                                 $(".weather-form").css({
+		                                  "background-image": "url('resources/weather/rain5.gif')",
+		                                  "background-size": "cover",
+		                                  "color":"white"
+		                           	  });
+		                              $(".right").css({"color":"#F96C85"});
+		                              $(".weather-date").css({"color":"white"});
 	                                 break;
 	                              case "2":
 	                                 $(".skyState").html('<img id="weatherImg" src="resources/weather/rainSnow.png">');
 	                                 $(".weather-bottom").html('비/눈');
-		                                 break;   
+	                                 $(".weather-form").css({
+		                                  "background-image": "url('resources/weather/rain5.gif')",
+		                                  "background-size": "cover",
+		                                  "color":"white"
+		                           	  });
+		                              $(".right").css({"color":"#F96C85"});
+		                              $(".weather-date").css({"color":"white"});
+		                              break;   
 	                              case "3":
 	                                 $(".skyState").html('<img id="weatherImg" src="resources/weather/snow1.png">');
 	                                 $(".weather-bottom").html('눈');
+	                                 $(".weather-form").css({
+		                                  "background-image": "url('resources/weather/snow2.jfif')",
+		                                  "background-size": "cover"
+		                           	  });
 	                                 break;
 	                              case "4":
 	                                 $(".skyState").html('<img id="weatherImg" src="resources/weather/rain2.png">');
 	                                 $(".weather-bottom").html('소나기');
+	                                 $(".weather-form").css({
+		                                  "background-image": "url('resources/weather/rain5.gif')",
+		                                  "background-size": "cover",
+		                                  "color":"white"
+		                           	  });
+		                              $(".right").css({"color":"#F96C85"});
+		                              $(".weather-date").css({"color":"white"});
 	                                 break;
 	                           }
-	                           $(".weather-form").css({
-	                                  "background-image": "url('resources/weather/rain6.jfif')",
-	                                  "background-size": "cover",
-	                                  "color" : "white"
-	                              });
-	                           $(".weather-date").css({
-	                        	   "color" : "white"
-	                           })
-	                           
 	                        }else{
 	                           switch(sky){
 	                           case "1":
 	                              $(".skyState").html('<img id="weatherImg" src="resources/weather/sunny.png">');
 	                              $(".weather-bottom").html('맑음');
+	                              $(".weather-form").css({
+	                                  "background-image": "url('resources/weather/sky1.jpg')",
+	                                  "background-size": "cover",
+	                           	  });
 	                              break;
 	                           case "3":
 	                              $(".skyState").html('<img id="weatherImg" src="resources/weather/cloudy1.png">');
 	                              $(".weather-bottom").html('구름 많음');
+	                              $(".weather-form").css({
+	                                  "background-image": "url('resources/weather/cloudy4.jfif')",
+	                                  "background-size": "cover",
+	                           	  });
 	                              break;
 	                           case "4":
 	                              $(".skyState").html('<img id="weatherImg" src="resources/weather/cloudy2.png">');
 	                              $(".weather-bottom").html('흐림');
+	                              $(".weather-form").css({
+	                                  "background-image": "url('resources/weather/cloudy2.jfif')",
+	                                  "background-size": "cover",
+	                           	  });
 	                              break;
 	                           }
-	                           $(".weather-form").css({
-	                                  "background-image": "url('resources/weather/sky1.jpg')",
-	                                  "background-size": "cover",
-	                                 
-	                              });
-	                          
 	                        }
 	                     }               
 	   

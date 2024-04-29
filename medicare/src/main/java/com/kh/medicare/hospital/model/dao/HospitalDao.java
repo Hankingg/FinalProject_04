@@ -2,7 +2,9 @@ package com.kh.medicare.hospital.model.dao;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -25,13 +27,21 @@ public class HospitalDao {
 		return (ArrayList)sqlSession.selectList("hospitalMapper.selectReviewList", r);
 	}
 
-	public ArrayList<Review> selectMyReviewList(SqlSessionTemplate sqlSession, int memNo) {
-		return (ArrayList)sqlSession.selectList("hospitalMapper.selectMyReviewList", memNo);
+	public ArrayList<Review> selectMyReviewList(SqlSessionTemplate sqlSession, Map<String, Object> memInfo) {
+		return (ArrayList)sqlSession.selectList("hospitalMapper.selectMyReviewList", memInfo);
 	}
 	
 	public int insertOrder(SqlSessionTemplate sqlSession, Order order) {
 		return sqlSession.insert("hospitalMapper.insertOrder", order);
 	}
 	
-	
+	public ArrayList<Review> reviewGraph(SqlSessionTemplate sqlSession, String hosCode){
+		return (ArrayList)sqlSession.selectList("hospitalMapper.reviewGraph", hosCode);
+	}
+
+	public int deleteReview(SqlSession sqlSession, int revNo) {
+		
+		return sqlSession.update("hospitalMapper.deleteReview", revNo);
+	}
+
 }

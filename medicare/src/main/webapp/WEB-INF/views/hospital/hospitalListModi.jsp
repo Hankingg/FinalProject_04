@@ -400,7 +400,6 @@
 						</div>
 					</div>
 					
-					<button id="btn3" style="border:none; background-color:white;">가까운순</button>
 				</div>
 			<br><br>
             <div id="map">
@@ -432,159 +431,43 @@
 			
 			var infowindow = new naver.maps.InfoWindow();
 			
-        		// 현위치 찍기
-				function onSuccessGeolocation(position){ // 실행할 함수
-					var location = new naver.maps.LatLng(position.coords.latitude,
-														 position.coords.longitude);
+       		// 현위치 찍기
+			function onSuccessGeolocation(position){ // 실행할 함수
+				var location = new naver.maps.LatLng(position.coords.latitude,
+													 position.coords.longitude);
 					
-						// 지도 생성
-						map = new naver.maps.Map('map', {
-							center: location,
-							zoom: 14
-						});
-					
-					// 마커 위치
-					var marker = new naver.maps.Marker({
-						position: location,
-						map: map,
-						icon: {
-							url: 'resources/map/person2.png',
-							scaledSize: new naver.maps.Size(40, 40), // 아이콘 사이즈 조정
-							origin: new naver.maps.Point(0, 0),
-							anchor: new naver.maps.Point(11, 35)
-						}
-					});
+				// 지도 생성
+				map = new naver.maps.Map('map', {
+					center: location,
+					zoom: 14
+				});
 				
-				}
+				// 마커 위치
+				var marker = new naver.maps.Marker({
+					position: location,
+					map: map,
+					icon: {
+						url: 'resources/map/person2.png',
+						scaledSize: new naver.maps.Size(40, 40), // 아이콘 사이즈 조정
+						origin: new naver.maps.Point(0, 0),
+						anchor: new naver.maps.Point(11, 35)
+					}
+				});
+		
+			}
+		
+		function onErrorGeolocation(){ // 오류 시 발생될 예외처리용 함수
+			alert("현위치 조회실패");
+			var center = new naver.maps.LatLng(37.3595704, 127.105399);
+			
+			map = new naver.maps.Map('map', {
+				center: center,
+				zoom: 15
 				
-				function onErrorGeolocation(){ // 오류 시 발생될 예외처리용 함수
-					alert("현위치 조회실패");
-					var center = new naver.maps.LatLng(37.3595704, 127.105399);
-					
-					map = new naver.maps.Map('map', {
-						center: center,
-						zoom: 15
-						
-					});
-				
-				}
+			});
+		
+		}
             	
-    			$("#btn3").click(function(){
-    				$.ajax({
-    					url:"hospital.in",
-    					data:{Q0:$("#Q0").val()
-    						 ,QD:$("#dgidIdName").val()
-    						 ,QN:$("#QN").val()},
-    					success:function(data){
-    						 
-    						var selectedValue = $('#dgidIdName').val();
-
-		    				// Find the option element with the corresponding value
-		    				var selectedOption = $('#dgidIdName option[value="' + selectedValue + '"]');
-
-		    				// Get the text content of the selected option
-		    				var selectedOptionText = selectedOption.text();
-    						
-    						let value = "";
-    						let first = "";
-    						
-    						// 지도 초기화 및 첫번째 마커 생성
-							if(first){
-								var initialLocation = new naver.maps.LatLng(data[0].hosLatitude, data[0].hosLongitude);
-								// 지도 생성
-								map = new naver.maps.Map('map', {
-									center: initialLocation,
-									zoom: 14
-								});
-								first = false;  // 첫 번째 항목을 처리한 후 false로 설정
-								
-							}
-    						
-    						$(data).find("item").each(function(i, item){
-    							
-    							// 한의원 위치에 대한 마커 추가
-								var hosLocation = new naver.maps.LatLng(data[i].hosLatitude, data[i].hosLongitude);
-					            console.log(hosLocation);
-					            
-								var marker = new naver.maps.Marker({
-									position: hosLocation,
-									map: map, // map 변수는 전역으로 선언되어야 함
-									icon: {
-										url: 'resources/map/pin10.png',
-										scaledSize: new naver.maps.Size(40, 40)
-									}
-								});
-					            console.log(marker);     	
-								
-								/* 마커 호버시 정보창 내용 */
-								var content = '<div class="infoWindow">'
-									+ '<div class="hosImgDiv">'
-									+ '<img class="hosImg" src="resources/map/hos3.png">'
-									+ '</div>'
-									+ '<div class="hosName">'
-									+ '<h4>' + data[i].hosName + '</h4>'
-									+ '</div>'
-									+ '</div>';
-								console.log(data[i].hosName);
-								
-								/* 마커 호버시 정보창 */
-								var infoWindow = new naver.maps.InfoWindow({
-									content: content,
-									maxWidth: 'auto',
-									maxHeight: 40,						                        
-									borderWidth: 0,
-									borderRadius: '10',
-									backgroundColor: 'transparent',
-									disableAnchor: true,
-								});
-
-								// 마커에 마우스 진입 이벤트
-								marker.addListener('mouseover', function() {
-									infoWindow.open(map, marker);
-								});
-
-								// 마커에서 마우스가 벗어난 경우 정보창 닫기
-								marker.addListener('mouseout', function() {
-									infoWindow.close();
-								});
-
-								$(marker.getElement()).on('click', function(){
-									
-									location.href = 'hosDetail.go?hpid=' + data[i].hosCode;
-								});
-    							
-    							value += "<div id='hos_wrap' style='width: 600px; height: 150px; margin-left:200px;' onclick='location.href=\"hosDetail.go?hpid=" + $(item).find("hpid").text()+  "\"'>"
-    							     + "<div id='hos1'>"
-    							     + "<div id='hos1_1'>"
-    							     +    "<div>진료중</div>"
-    							     + "</div>"
-    							     + "<div id='hos1_2'><div>" + $(item).find("dutyName").text() + "</div></div>"
-    							     +   "<div id='hos1_3'>"
-    							     +     "<div id='hos1_3_1'>★5.0</div>"
-    							     + "<br>"
-    							     +    "<div id='hos1_3_2'> 552m | 서울 서초구 효령로 | " + selectedOptionText + "</div>"
-    							     +  "</div>"
-    							     +  "<div id='hos1_4'>"
-    							     +    "<div style='background-color: rgb(174, 214, 214)'> 접수 </div>"
-    							     +    "<div style='background-color: rgb(174, 214, 214)'> 예약 </div>"
-    							     +  "</div>"
-    							     +"</div>"
-    							     +"<div id='hos2'>"
-    							     + "<div id='hos2_1'><p>♡</p></div>"
-    							     +  "<div id='hos2_2'><div id='hos2_2_1'> 대기없음 </div></div>"
-    							     +"</div>"
-    							    +"</div>" 
-    						})
-    						
-    						$("#result").html(value);
-    						
-    					},error:function(){
-    						console.log("ajax 통신 실패");
-    					}
-    					
-    					
-    				})
-    			})
     			
     			$("#near").click(function(){
     				$.ajax({
@@ -618,11 +501,13 @@
 								}
 
     		    				
-							$.each(data, function(i, item) {
+							$.each(data, function(i, data) {
+								console.log("dd" + data);
+								console.log("i" + i);
+					            console.log(hosLocation);
     							
     							// 한의원 위치에 대한 마커 추가
-								var hosLocation = new naver.maps.LatLng(data[i].hosLatitude, data[i].hosLongitude);
-					            console.log(hosLocation);
+								var hosLocation = new naver.maps.LatLng(data.hosLatitude, data.hosLongitude);
 					            
 								var marker = new naver.maps.Marker({
 									position: hosLocation,
@@ -640,10 +525,10 @@
 									+ '<img class="hosImg" src="resources/map/hos3.png">'
 									+ '</div>'
 									+ '<div class="hosName">'
-									+ '<h4>' + data[i].hosName + '</h4>'
+									+ '<h4>' + data.hosName + '</h4>'
 									+ '</div>'
 									+ '</div>';
-								console.log(data[i].hosName);
+								console.log(data.hosName);
 								
 								/* 마커 호버시 정보창 */
 								var infoWindow = new naver.maps.InfoWindow({
@@ -668,19 +553,19 @@
 
 								$(marker.getElement()).on('click', function(){
 									
-									location.href = 'hosDetail.go?hpid=' + data[i].hosCode;
+									location.href = 'hosDetail.go?hpid=' + data.hosCode + "&distance=" + data.distance + "&dot=" + selectedOptionText;
 								});
     							
-    							value += "<div id='hos_wrap' style='width: 600px; height: 150px' onclick='location.href=\"hosDetail.go?hpid=" + data[i].hosCode + "&distance=" + data[i].distance + "&dot=" + selectedOptionText + "\"'>"
+    							value += "<div id='hos_wrap' style='width: 600px; height: 150px' onclick='location.href=\"hosDetail.go?hpid=" + data.hosCode + "&distance=" + data.distance + "&dot=" + selectedOptionText + "\"'>"
     							     + "<div id='hos1'>"
     							     + "<div id='hos1_1'>"
     							     +    "<div>진료중</div>"
     							     + "</div>"
-    							     + "<div id='hos1_2'><div>" + data[i].hosName + "</div></div>"
+    							     + "<div id='hos1_2'><div>" + data.hosName + "</div></div>"
     							     +   "<div id='hos1_3'>"
     							     +     "<div id='hos1_3_1'>★5.0</div>"
     							     + "<br>"
-    							     +    "<div id='hos1_3_2'> " + data[i].distance +"m | "+ extractSubstringUpToThirdSpace(data[i].hosAddress) + " | " + selectedOptionText + "</div>"
+    							     +    "<div id='hos1_3_2'> " + data.distance +"m | "+ extractSubstringUpToThirdSpace(data.hosAddress) + " | " + selectedOptionText + "</div>"
     							     +  "</div>"
     							     +  "<div id='hos1_4'>"
     							     +    "<div style='background-color: rgb(174, 214, 214)'> 접수 </div>"
@@ -717,10 +602,6 @@
     			}
 
     			
-  
-    		
-    		
-    				
    			</script>
             
 

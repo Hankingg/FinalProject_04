@@ -152,9 +152,19 @@
 	 UPDATE member
 		SET MEMBERSHIP = 'Y',
 		    MS_MONTH = 'Y',
-		    END_DATE = BUY_DATE + INTERVAL '30' DAY
+		    END_DATE = SYSDATE + INTERVAL '30' DAY
 		WHERE 
 		     mem_id = #{ memId }
+	</update>
+	
+	<update id="updateMembershipYear">
+	 UPDATE member
+		SET MEMBERSHIP = 'Y',
+		    MS_MONTH = 'Y',
+		    BUY_DATE = SYSDATE,
+		    END_DATE = SYSDATE + INTERVAL '1' YEAR
+		WHERE 
+		     mem_id = #{memId}
 	</update>
 
 	<update id="deleteMember">
@@ -163,4 +173,14 @@
 		   set status = 'N'
 		 where mem_id = #{ memId }
 	</update>
+	
+	<update id="changePwd">
+		update
+			   member
+		   set 
+		      mem_pwd = #{ memPwd }
+		 where
+		      mem_id = #{ memId }     
+	</update>
+	
 </mapper>

@@ -40,7 +40,7 @@ public class EmergencyLiveLoadController {
 			br.close();
 			urlConnection.disconnect();
 			
-			System.out.println(responseText);
+			
 			return responseText;
 	    	
 	  } // loadLive

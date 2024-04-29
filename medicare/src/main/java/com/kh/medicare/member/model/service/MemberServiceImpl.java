@@ -62,12 +62,16 @@ public class MemberServiceImpl implements MemberService{
 		return mDao.deleteMember(sqlSession, memId);
 	}
 
-	
-	
-	
+	@Override
+	public int updateMembershipYear(Member m) {
+		int result = mDao.updateMembershipYear(sqlSession, m);
+		return result;
+	}
 
-	
+	@Override
+	public int changePwd(Member m) {
+		int result = mDao.changePwd(sqlSession, m);
+		return result;
+	}
 
-	
-	
 } // Class
