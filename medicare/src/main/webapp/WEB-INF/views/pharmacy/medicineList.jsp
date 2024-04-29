@@ -79,13 +79,13 @@
 			<button onclick="selectList();">처방전 조회</button>
 
 	
-			<div id="msgStack">ㅋ</div>	
+			<!-- <div id="msgStack"></div>	 -->
 
 
 
 
 
-			<div class="toast" role="alert" aria-live="assertive"  aria-atomic="true">
+			<!-- <div class="toast" role="alert" aria-live="assertive"  aria-atomic="true">
 				<div class="toast-header">
 				  <strong class="mr-auto">Bootstrap</strong>
 				  <small>11 mins ago</small>
@@ -96,7 +96,7 @@
 				<div class="toast-body">
 				  Hello, world! This is a toast message.
 				</div>
-			</div>
+			</div> -->
 
 
 
@@ -135,22 +135,6 @@
 				</div>
 				</div>
 			</div>
-
-
-			
-
-
-
-
-
-
-
-
-			
-
-
-
-			<div id="myDocument" class="info">
 				
 			</div>
 			
@@ -163,98 +147,10 @@
 					
 						// 소켓에 전달되는 메시지
 						// 위에 기술한 EchoHandler에서 ,(comma)를 이용하여 분리시킨다.
-						socket.send("관리자," + target + "," + content);	
+						socket.send("삼성병원," + target + "," + "비대면 진료가 시작되었습니다. 클릭 후 입장해주세요, asdfsdf");	
 						modal.find('.modal-body textarea').val('');	// textarea 초기화
 				});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-				function selectList(){
-					$.ajax({
-						url:"selectList.dc",
-						data:{memNo : "${ loginUser.memNo }"},
-						success:function(list){
-							console.log(list);
-							let value ="";
-							for(let i in list){
-								value += "<h3 style'margin-left: 30px;'>처방전 목록</h3>"
-									+ "<br><br>"
-									+ '<div class="document-outer">'
-
-									+	'<div class="prescription">'
-										
-									+ '<div class="hosName">'
-									+			list[i].memName
-									+ "</div>"
-
-									+ '<div class="psDate">'
-									+  list[i].dcUploadDate
-									+ "</div>"
-
-									+ '<div class="psImgDiv">'
-									+ '<img class="psImg" src="resources/images/prescription1.jpg">'
-									+ "</div>"
-
-									+ "</div>"	
-
-									+ "</div>"
-							}
-							$("#myDocument").html(value);
-
-
-						},
-						error:function(){
-							console.log("문서함조회 ajax호출 실패!");
-						}
-					})
-				}
-
-
 			</script>
-
-
-			<!-- <script>
-				var ws = new WebSocket("ws://localhost:8008/replyEcho");
-
-					ws.onopen = function () {
-						console.log('Info: connection opened.');
-						setTimeout( function(){ connect(); }, 1000); // retry connection!!
-					};
-
-					ws.onmessage = function (event) {
-						console.log(event.data+'\n');
-					};
-
-					ws.onclose = function (event) { console.log('Info: connection closed.'); };
-
-					ws.onerror = function (err) { console.log('Error:', err); };
-
-					$('#btnSend').on('click', function(evt) {
-					evt.preventDefault();
-					if (socket.readyState !== 1) return;
-						let msg = $('input#msg').val();
-						ws.send(msg);
-					});
-			</script> -->
-
-			
-
-
 
 			<script>
 				var socket  = null;

@@ -47,16 +47,17 @@ public class EchoHandler extends TextWebSocketHandler{
 				String[] strs = msg.split(",");
 				log(strs.toString());
 				if(strs != null && strs.length == 4) {
-					String type = strs[0];
+					String hos = strs[0];
 					String target = strs[1]; // m_id 저장
 					String content = strs[2];
 					String url = strs[3];
 					WebSocketSession targetSession = users.get(target);  // 메시지를 받을 세션 조회
+					System.out.println(targetSession);
 					
 					// 실시간 접속시
 					if(targetSession!=null) {
 						// ex: [&분의일] 신청이 들어왔습니다.
-						TextMessage tmpMsg = new TextMessage("<a target='_blank' href='"+ url +"'>[<b>" + type + "</b>] " + content + "</a>" );
+						TextMessage tmpMsg = new TextMessage("<a target='_blank' href='"+ url +"'>[<b>" + hos + "</b>] " + content + "</a>" );
 						targetSession.sendMessage(tmpMsg);
 					}
 				}
