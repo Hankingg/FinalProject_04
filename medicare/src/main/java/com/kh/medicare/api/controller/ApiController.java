@@ -147,13 +147,13 @@ public class ApiController {
 			            h.setHosLatitude(Dwgs84Lat);
 			            h.setHosLongitude(Dwgs84Lon);
 			            list.add(h);
-			            
+			            System.out.println("여기까진 오냐");
 			            
 			            
 			        }
 			    }
 			    
-			    // Collections.sort(list, Comparator.comparingInt(Hospital::getDistance));
+			     Collections.sort(list, Comparator.comparingInt(Hospital::getDistance));
 			    
 			} catch (Exception e) {
 			    e.printStackTrace();

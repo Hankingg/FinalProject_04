@@ -34,5 +34,7 @@ public class HospitalDao {
 		return sqlSession.insert("hospitalMapper.insertOrder", order);
 	}
 	
-	
+	public ArrayList<Review> reviewGraph(SqlSessionTemplate sqlSession, String hosCode){
+		return (ArrayList)sqlSession.selectList("hospitalMapper.reviewGraph", hosCode);
+	}
 }

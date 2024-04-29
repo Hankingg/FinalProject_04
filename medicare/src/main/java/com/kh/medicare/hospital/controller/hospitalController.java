@@ -109,4 +109,11 @@ public class hospitalController {
 		return "hospital/doctorPageSca";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="review.graph", produces = "application/json; charset=utf-8")
+	public String reviewGraph(String hosCode){
+		ArrayList<Review> list = hService.reviewGraph(hosCode);
+		System.out.println(list);
+		return new Gson().toJson(list);
+	}
 }

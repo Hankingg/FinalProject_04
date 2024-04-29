@@ -398,8 +398,13 @@
     border-radius: 10px;
     margin-left: 250px;
     margin-top: 50px;
+    padding-top:20px;
   }
-
+  
+  #graph>div{
+  float:left;
+  }
+	
   #graphImg{
     width: 90%;
     height: 90%;
@@ -488,7 +493,7 @@
                 </div>
                 <br>
                 <div class="diagnosis">
-                  <div class="diagnosisStatus"></div> 
+                  <div class="diagnosisStatus">ㅇㅇ</div> 
                   <div class="diagnosisTime"></div> 
                 </div>
                 <br>
@@ -523,6 +528,8 @@
                     var elementIds = ["${ h.hosStMon }", "${ h.hosCtMon }", "${ h.hosStTue }", "${ h.hosCtTue }", "${ h.hosStWen }", "${ h.hosCtWen }", "${ h.hosStThu }", "${ h.hosCtThu }", "${ h.hosStFri }", "${ h.hosCtFri }", "${ h.hosStSat }", "${ h.hosCtSat }", "${ h.hosStSun }", "${ h.hosCtSun }", "${ h.hosStHol }" , "${ h.hosCtHol }"];
                     var elementIdss = [];
 					var value = "";
+					
+					
                     // Define the convertToTime function
                     function convertToTime(value) {
                         if (value.length === 3) {
@@ -541,6 +548,34 @@
                         elementIdss.push(convertedTime); // Push the converted time into the elementIdss array
                         console.log(elementIdss[i]); // Log the array after the loop
                     }
+                    
+                    var openingHours = {
+						    0: { start: elementIdss[12], end: elementIdss[13] }, // Sunday
+						    1: { start: elementIdss[0], end: elementIdss[1] }, // Monday
+						    2: { start: elementIdss[2], end: elementIdss[3] }, // Tuesday
+						    3: { start: elementIdss[4], end: elementIdss[5] }, // Wednesday
+						    4: { start: elementIdss[6], end: elementIdss[7] }, // Thursday
+						    5: { start: elementIdss[8], end: elementIdss[9] }, // Friday
+						    6: { start: elementIdss[10], end: elementIdss[11] }  // Saturday
+						};
+
+						var currentDate = new Date();
+
+						var currentDayOfWeek = currentDate.getDay();
+						
+						var openingTime = openingHours[currentDayOfWeek].start;
+						var closingTime = openingHours[currentDayOfWeek].end;
+
+						var currentTime = currentDate.getHours() + ":" + currentDate.getMinutes();
+
+						if (currentTime >= openingTime && currentTime <= closingTime) {
+							 $(".diagnosisStatus").text("🟢 영업중");
+                        } else {
+                        	$(".diagnosisStatus").text("🔴 영업종료");
+						}
+						
+						console.log(openingTime)
+						$(".diagnosisTime").text("오늘 영업시간 : "+ openingTime + " ~ " + closingTime );
 
                 
                     
@@ -613,18 +648,90 @@
                   <div id="hsp-review" class="info">
                     <div id="reviewList" >
                       <div id="review-div">
-                        <span>리뷰 ( 총 23개 )</span>
+                        <span id="review-div-span">리뷰 ( 총 23개 )</span>
                         
                         <div id="graph">
-                            <img id="graphImg" src="resources/reviewImg/4.png">
+                            <div><canvas id="bar-chart-horizontal" width="600" height="250"></canvas></div> 
+                            <div>
+                            	<div style="height:100px;"></div>
+                            	<div id="rateAvg">평균별점 : <br> 3.0/5.0</div>
+                            </div>
                         </div>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+                        <script>
+                        $(function(){
+                        	$.ajax({
+                        		url:"review.graph",
+                        		data:{hosCode:"${h.hosCode}"},
+                        		success:function(data){
+                        			var value = [];
+                        			
+                        			var reviewCount = 0;
+                        			for(let i in data){
+                        				reviewCount += data[i].reviewCount;
+                        			}
+                        			console.log(reviewCount);
+                        			$("#review-div-span").text("리뷰 ( 총 " + reviewCount +"개 )")
+                                    for (var i = 5; i >= 0; i--) {
+                                        var found = false;
+                                        for (var j = 0; j < data.length; j++) {
+                                            if (data[j].rate == i) {
+                                                value.push(data[j].reviewCount);
+                                                found = true;
+                                                break; // Break the loop once the review count is found
+                                            }
+                                        }
+                                        if (!found) {
+                                            value.push(0);
+                                        }
+                                        
+                                    }
+                                    var avgValue = ((5 * value[0]) + (4 * value[1]) + (3 * value[2]) + (2 * value[3]) + (1 * value[4]) + (0 * value[5])) / 6;
+                                    avgValue = avgValue.toFixed(1);
+                                    $("#rateAvg").html("평균별점: <br>" + avgValue + "/5.0");
+                        			new Chart(document.getElementById("bar-chart-horizontal"), {
+    								    type: 'horizontalBar',
+    								    data: {
+    								      labels: ["★5점", "★4점", "★3점", "★2점", "★1점", "★0점"],
+    								      datasets: [
+    								        {
+    								          label: "별점 (개수)",
+    								          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#808080"],
+    								          data: value
+    								        }
+    								      ]
+    								    },
+    								    options: {
+    								      legend: { display: false },
+    								      title: {
+    								        display: true,
+    								        text: '평균 별점'
+    								      }
+    								    }
+    								});
+                        		}, error:function(){
+                        			
+                        		}
+								      
+                        	})
+                        })
+					    </script>
                         
                         <div> <!-- 글작성 -->
                         	<div id="hspReview">
 	                          <div id="hspReview1">
 	                            <div id="hpName"><p>${ h.hosName }</p></div>
 	                            <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
-	                            <div id="hpRate"><p id="hPtag">3.5</p></div>
+	                            <div id="hpRate"> <br>
+									<select id="revStar">
+										<option value="0">0점</option>
+										<option value="1">1점</option>
+										<option value="2">2점</option>
+										<option value="3">3점</option>
+										<option value="4">4점</option>
+										<option value="5">5점</option>
+									</select>
+								</div>
 	                            <div id="hpHeart"><img src="resources/reviewImg/starHeart/heart-black2.png" id="heartImg"></div>
 	                          </div>
 	                          <div id="hspReview2">
@@ -646,6 +753,7 @@
 	                              <div id="rvCont_2" style="margin-top:40px; "><button id="reviewBtn" style="border:0px; border-radius: 15px; height:80px; width:50px; background-color: #f2c9d2; color:white;">등록</button></div>
 	                          </div>
 	                        </div>
+	                        
                         </div>
                         
                         <script>
@@ -720,7 +828,7 @@
 	                           						   +  "<div id='hspReview1'>"
 			                	                       +   "<div id='hpName'><p>${ h.hosName }</p></div>"
 			                	                       +   "<div id='hpStar'><img src='resources/reviewImg/starHeart/star2.png' id='starImg'></div>"
-			                	                       +   "<div id='hpRate'><p>"+ data[i].rate + "</p></div>"
+			                	                       +   "<div id='hpRate'><p>"+ data[i].rate + "점</p></div>"
 			                	                       +   "<div id='hpHeart'><img src='resources/reviewImg/starHeart/heart-black2.png' id='heartImg'></div>"
 			                	                       +  "</div>"
 			                	                       +  "<div id='hspReview2'>"
@@ -745,16 +853,17 @@
                         	});
                         	</script>
                         	<script>
-                        
-                        	$(function(){
                         		$("#reviewBtn").click(function(){
+                        			if($("#rvCont_area").val() == ""){
+                        				alert("글을 무조건 작성해야합니다");
+                        			}else{
                         			$.ajax({
                             			url:"review.in",
                             			data:{
                             				memNo:${ loginUser.memNo },
                             				revContent:$("#rvCont_area").val(),
                             				 hosCode:"${ h.hosCode }",
-                            				 rate:$("#hPtag").text()
+                            				 rate:$("#revStar").val()
                             				 },
                             			success:function(data){
                             					console.log(data)
@@ -789,9 +898,9 @@
                             			}
                             			
                             		})
+                        			}
                         		})
                         		
-                        	});
                         </script>
                         
                         <div id="review_wrap" style="z-index:30;overflow: scroll; height:700px; ">
