@@ -814,13 +814,17 @@
 											+ '<div class="modal-body" align="center">'
 											+    '<img class="modalPsImg" src="'+ list[i].dcChangeName +'">'	
 											+ '</div>'
-																											
-											+ '<div class="modal-footer">'
-											+    "<button onclick=\"location.href='selectList.ph?dcNo=" + list[i].dcNo +"'\" type='button' class='btn btn-success dcBtn'>"
-											+    '처방전 전송'
-											+    '</button>'
-
-									        +    "<button data-dcno='"+ list[i].dcNo +"' type='button' class='btn btn-danger dcBtn deleteBtn'>"
+											+ '<div class="modal-footer">';
+											if("${loginUser.mtId}" == "M"){
+												value	+=    "<button onclick=\"location.href='selectList.ph?dcNo=" + list[i].dcNo +"'\" type='button' class='btn btn-success dcBtn'>"
+														+    '처방전 전송'
+														+    '</button>';
+											} else if("${loginUser.mtId}" == "P"){
+												value	+=    "<button onclick=\"location.href='insert.dl?dcNo=" + list[i].dcNo +"'\" type='button' class='btn btn-success dcBtn'>"
+														+    '택배 발송'
+														+    '</button>';
+											}																
+									 value +=     "<button data-dcno='"+ list[i].dcNo +"' type='button' class='btn btn-danger dcBtn deleteBtn'>"
 											+    '삭제'
 											+    '</button>'
 								            + '</div>'

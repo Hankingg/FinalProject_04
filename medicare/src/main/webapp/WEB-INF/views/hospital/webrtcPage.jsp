@@ -70,7 +70,7 @@
         <form action="insertDocument.dc" method="post" enctype="multipart/form-data">
 			        <div class="insDocument">
 			        	받는 사람 : <input type="text" name="dcReceiverMno" id="dcReceiverMno" value="" readonly> <br><br>
-			        	보내는 병원 : <input type="text" name="dcSenderMno" value="${loginUser.memName}" readonly><br><br>
+			        	보내는 병원 : <input type="text" name="dcSenderMno" value="${loginUser.memNo}" readonly><br><br>
 			        	처방전 : <input type="file" id="upfile" name="upfile"> 
 			        </div>
 			        <br> <br>

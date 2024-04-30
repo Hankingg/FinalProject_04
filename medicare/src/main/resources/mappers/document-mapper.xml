@@ -5,7 +5,7 @@
 	<resultMap type="Document" id="documentResult">
 		<result column="DC_NO" property="dcNo"/>
 		<result column="DC_SENDER_MNO" property="dcSenderMno"/>
-		<result column="DC_RECEIVER_MNO" property="dcReceiverMId"/>
+		<result column="DC_RECEIVER_MNO" property="dcReceiverMno"/>
 		<result column="DC_ORIGIN_NAME" property="dcOriginName"/>
 		<result column="DC_CHANGE_NAME" property="dcChangeName"/>
 		<result column="DC_FILE_PATH" property="dcFilePath"/>
@@ -71,7 +71,7 @@
  			   (
  			   seq_dcno.nextval
  			 , #{dcSenderMno}
- 			 , #{dcReceiverMId}
+ 			 , #{dcReceiverMno}
  			 , #{dcOriginName}
  			 , #{dcChangeName}
  			 , '1'

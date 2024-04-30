@@ -324,27 +324,30 @@
                 }
         
                 function saveData(data){
-                  var messages = JSON.parse(localStorage.getItem("messages")) || [];
+                  var userId = "${loginUser.memId}";
+                  var messages = JSON.parse(localStorage.getItem(userId)) || [];
                   // 고유 ID 생성 (예: 현재 시간)
                   var id = new Date().getTime();
                   var message = { id: id, content: data, createdAt: new Date().toISOString()  };
                   messages.push(message);
-                  localStorage.setItem("messages", JSON.stringify(messages));
+                  localStorage.setItem(userId, JSON.stringify(messages));
                 }
-
+                //////////////////////////////////////
                 function removeMessage(id) {
-                  var messages = JSON.parse(localStorage.getItem("messages")) || [];
+                  var userId = "${loginUser.memId}";
+                  var messages = JSON.parse(localStorage.getItem(userId)) || [];
                   // 고유 ID를 이용하여 해당 메시지를 배열에서 제거
                   messages = messages.filter(function(message) {
                     return message.id !== id;
                   });
-                  localStorage.setItem("messages", JSON.stringify(messages));
+                  localStorage.setItem(userId, JSON.stringify(messages));
                   // 화면에서도 알림 제거
                   $("#toast-" + id).remove();
                 }
         
                 function loadDataAndDisplay(){
-                  var messages = JSON.parse(localStorage.getItem("messages")) || [];
+                  var userId = "${loginUser.memId}";
+                  var messages = JSON.parse(localStorage.getItem(userId)) || [];
                   messages.forEach(function(message){
                     displayToast(message.content, message.id, message.createdAt); // displayToast 호출 시 ID 전달
                   });

@@ -608,7 +608,7 @@
 												url:"insertDocument.dc",
 												data:{
 													dcSenderMno : "${thisDocument.dcReceiverMno}",
-													dcReceiverMno : 1,
+													dcReceiverMno : 5,
 													dcOriginName : "${thisDocument.dcOriginName}",  
 													dcChangeName : "${thisDocument.dcChangeName}" 
 												},
