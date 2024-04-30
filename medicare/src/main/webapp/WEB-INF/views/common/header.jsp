@@ -314,7 +314,7 @@
                   toast += "<small class='text-muted'>" + timeString + "</small><button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>";
                   toast += "<span aria-hidden='true'>&times;</span></button>";
                   toast += "</div> <div class='toast-body'>" + data + "</div></div>";
-                  $("#msgStack").append(toast);
+                  $("#msgStack").prepend(toast);
                   $(".toast").toast({"animation": true, "autohide": false});
                   $('.toast').toast('show');
                   // x 버튼에 이벤트 리스너 추가
