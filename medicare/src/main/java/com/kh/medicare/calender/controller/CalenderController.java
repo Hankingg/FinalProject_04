@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.kh.medicare.calender.model.service.CalenderService;
 import com.kh.medicare.calender.model.vo.Calender;
+import com.kh.medicare.hospital.model.vo.Order;
 
 @Controller
 public class CalenderController {
@@ -28,9 +29,9 @@ public class CalenderController {
 	}
 	@ResponseBody
 	@RequestMapping("order.complete")
-	public int completeOrder(int memNo,Model model) {
-		System.out.println(memNo);
-		int result = cService.completeOrder(memNo);
+	public int completeOrder(Order order,Model model) {
+		System.out.println(order);
+		int result = cService.completeOrder(order);
 		
 		if(result > 0) {
 			model.addAttribute("alertMsg","예약 완료");
@@ -42,9 +43,9 @@ public class CalenderController {
 	}
 	@ResponseBody
 	@RequestMapping("order.delete")
-	public int deleteOrder(int memNo,Model model) {
+	public int deleteOrder(Order order,Model model) {
 		System.out.println("타냐");
-		int result = cService.deleteOrder(memNo);
+		int result = cService.deleteOrder(order);
 		
 		if(result > 0) {
 			model.addAttribute("alertMsg","예약 취소 완료");
@@ -54,6 +55,19 @@ public class CalenderController {
 			return result;
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping("order.finish")
+	public int finishOrder(Order order,Model model) {
+		int result = cService.deleteOrder(order);
+		
+		if(result > 0) {
+			return result;
+		}else {
+			return result;
+		}
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="diagnosis.select", produces = "application/json; charset=utf-8")
 	public String myDiagnosisInfo(int memNo, Model model){
