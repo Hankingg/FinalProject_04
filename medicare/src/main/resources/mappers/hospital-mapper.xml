@@ -56,6 +56,7 @@
     <result column="h_name" property="hosCode"/>
     <result column="mem_Id" property="constraint"/>
     <result column="h_code" property="overlap"/>
+	<result column="h_name" property="allow" />
 </resultMap>
 
 	<select id="selectHospitalInfo" resultMap="hospitalResult">
@@ -187,11 +188,14 @@
 	    	else 'gray'
 	   	end as backgroundcolor,
 	   	mem_Id,
-	   	h_code
+	   	h_code,
+		h_name
 	FROM
 	    h_order
 	JOIN
 	    member USING (mem_no)
+	JOIN
+	    hospital using (h_code)
 </select>
 
 	<update id="completeOrder">

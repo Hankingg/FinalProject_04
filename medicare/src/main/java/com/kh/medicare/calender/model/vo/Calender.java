@@ -25,4 +25,5 @@ public class Calender {
 	private String hosCode;
 	private String constraint;
 	private String overlap; // hpid;
+	private String allow; // h_name 대신
 }

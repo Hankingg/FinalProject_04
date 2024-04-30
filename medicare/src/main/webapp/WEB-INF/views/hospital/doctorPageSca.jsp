@@ -45,6 +45,10 @@
 	      	  });
 	        },
 	        eventClick:function(event) {
+				$("#calendar_constraint").val(event.event.constraint);
+	    	    $("#calendar_hospitalName").val(event.event.allow);
+				$("#calendar_hospitalCode").val(event.event.overlap);
+				console.log(event);
 	        	$("#calendarModal").modal("show");
 	        	$("#calendar_memId").val(event.event.id);
 	        	console.log(event.event.borderColor)
@@ -67,6 +71,10 @@
 	        		$("#zoom").removeAttr('disabled');
 	        	}
 	        	
+				console.log(event.event.constraint);
+				console.log("------------------------");
+				console.log(event.event.overlap);
+
 	        	$("#addCalendar").click(function(){
 					$.ajax({
 	    				url:"order.complete",
@@ -79,8 +87,6 @@
 	    	        		$("#sprintSettingModalClose").attr('disabled',true);
 	    	        		$("#zoom_alarm").removeAttr('disabled');
 	    	        		$("#zoom").removeAttr('disabled');
-	    	        		$("#calendar_constraint").val(event.event.constraint);
-	    	        		$("#calendar_hospitalName").val(event.event.overlap);
 	    	        		location.reload();
 	    				},error:function(){
 	    					console.log("에러");
@@ -492,17 +498,45 @@
                         <input type="text" class="form-control" id="calendar_diaType" name="calendar_diaType" readonly>
                         <label for="taskId" class="col-form-label">진료 상태</label>
                         <input type="text" class="form-control" id="calendar_status" name="calendar_status" readonly>
-                       	<input type="hidden" id="calendar_constraint" value="">
-                       	<input type="hidden" id="calendar_hospitalName" value="">
+                       	<input type="hidden" id="calendar_constraint"> 
+                       	<input type="hidden" id="calendar_hospitalName">
+						<input type="hidden" id="calendar_hospitalCode">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" id="addCalendar" disabled>예약 확정</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         id="sprintSettingModalClose" disabled>예약 취소</button>
-                    <button type="button" class="btn btn-outline-warning" data-dismiss="modal" id="zoom_alarm" disabled>알림</button>
+                    <button type="button" id="notifySendBtn" class="btn btn-outline-warning" data-dismiss="modal" id="zoom_alarm">알림</button>
                     <button type="button" class="btn btn-outline-primary" id="zoom" disabled>화상채팅</button>
                 </div>
+
+				<script>
+					$('#notifySendBtn').click(function(){
+						// let modal = $('.modal-content').has(e.target);
+						// let target = modal.find('#target').val();
+						// let content = modal.find('#content').val();
+
+
+						// console.log($("#calendar_constraint").val());   // 아이디
+						// console.log($("#calendar_hospitalName").val()); // 병원 이름
+						// console.log($("#calendar_hospitalCode").val()); // 기관 코드
+						
+						let userId = $("#calendar_constraint").val();
+						let hName = $("#calendar_hospitalName").val();
+						let hCode = $("#calendar_hospitalCode").val();
+						// "webrtcRoom.go?memId=" + userId + "&hosCode=" + hCode
+
+							// 소켓에 전달되는 메시지
+							// 위에 기술한 EchoHandler에서 ,(comma)를 이용하여 분리시킨다.
+						socket.send(hName  + "," + userId + "," + "비대면 진료가 시작되었습니다. 클릭 후 입장해주세요," + "webrtcRoom.go?memId=" + userId + "&hosCode=" + hCode);	
+						
+					});
+				</script>
+
+
+
+
     
             </div>
         </div>
