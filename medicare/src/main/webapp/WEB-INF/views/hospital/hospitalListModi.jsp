@@ -413,9 +413,15 @@
             <br>
 
             <script>
+            $(document).ready(function() {
+                if ("${typeNum}" != null) {
+                    $("#" + "${typeNum}").prop("selected", true);
+                }
+                
+                $("#near").click();
+            });
 			
             $(function(){
-            	
             	if(navigator.geolocation){
 					
 					navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
@@ -563,7 +569,7 @@
     							     + "</div>"
     							     + "<div id='hos1_2'><div>" + data.hosName + "</div></div>"
     							     +   "<div id='hos1_3'>"
-    							     +     "<div id='hos1_3_1'>★5.0</div>"
+    							     +     "<div id='hos1_3_1'> 별점 : "+data.reviewAvg+"점 </div>"
     							     + "<br>"
     							     +    "<div id='hos1_3_2'> " + data.distance +"m | "+ extractSubstringUpToThirdSpace(data.hosAddress) + " | " + selectedOptionText + "</div>"
     							     +  "</div>"

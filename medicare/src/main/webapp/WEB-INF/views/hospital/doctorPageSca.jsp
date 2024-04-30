@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지</title>
+<title>병원페이지</title>
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -47,8 +47,9 @@
 	        eventClick:function(event) {
 	        	$("#calendarModal").modal("show");
 	        	$("#calendar_memId").val(event.event.id);
-	        	console.log(event)
-	        	console.log(event.event.constraint);
+	        	console.log(event.event.borderColor)
+				$("#constraint").val(event.event.constraint);
+				console.log(event.event.constraint);
 	        	if(event.event.borderColor == 'null'){
 	        		$("#calendar_symtom").val("작성한 증상이 없습니다");
 	        	}else{
@@ -77,6 +78,8 @@
 	    	        		$("#sprintSettingModalClose").attr('disabled',true);
 	    	        		$("#zoom_alarm").removeAttr('disabled');
 	    	        		$("#zoom").removeAttr('disabled');
+	    	        		$("#calendar_constraint").val(event.event.constraint);
+	    	        		$("#calendar_hospitalName").val(event.event.overlap);
 	    	        		location.reload();
 	    				},error:function(){
 	    					console.log("에러");
@@ -89,7 +92,7 @@
 				});
 			
 				$("#zoom").click(function(){
-					location.href="webrtcRoom.go?memId="+event.event.constraint;
+					location.href="webrtcRoom.go?memId="+event.event.constraint+"&hosCode="+ event.event.overlap;
 				})
 	        		
 			}
@@ -488,6 +491,8 @@
                         <input type="text" class="form-control" id="calendar_diaType" name="calendar_diaType" readonly>
                         <label for="taskId" class="col-form-label">진료 상태</label>
                         <input type="text" class="form-control" id="calendar_status" name="calendar_status" readonly>
+                       	<input type="hidden" id="calendar_constraint" value="">
+                       	<input type="hidden" id="calendar_hospitalName" value="">
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -154,7 +154,7 @@
                           <option class="optionItem" value="관악구">관악구</option>
                           <option class="optionItem" value="광진구">광진구</option>
                           <option class="optionItem" value="구로구">구로구</option>
-                          <option class="optionItem" value="긂천구">금천구</option>
+                          <option class="optionItem" value="금천구">금천구</option>
                           <option class="optionItem" value="노원구">노원구</option>
                           <option class="optionItem" value="도봉구">도봉구</option>
                           <option class="optionItem" value="동대문구">동대문구</option>

@@ -306,31 +306,86 @@
               <div id="msgStack"> </div>
 
               <script>
-                var socket  = null;
                 $(document).ready(function(){
                   // 웹소켓 연결
-                  sock = new SockJS("<c:url value='/echo-ws'/>")
+                  sock = new SockJS("<c:url value='/echo-ws'/>");
                   socket = sock;
         
-                  // 데이터를 전달 받았을때 
-                  sock.onmessage = onMessage; // toast 생성
-                  
+                  // 데이터를 전달 받았을 때
+                  sock.onmessage = function(evt){
+                    onMessage(evt);
+                    // localStorage에 데이터 저장
+                    saveData(evt.data);
+                  };
+        
+                  // 페이지 로드 시 localStorage에서 데이터 로드
+                  loadDataAndDisplay();
                 });
         
-                // toast생성 및 추가
+                // toast 생성 및 추가
                 function onMessage(evt){
                   var data = evt.data;
-                  // toast
-                  let toast = "<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>";
+                  displayToast(data);
+                };
+
+                function displayToast(data, id, createdAt) { // ID 인자 추가
+                  let timeString = getTimeDifferenceString(createdAt); // 시간 문자열 계산
+                  let toast = "<div class='toast' id='toast-" + id + "' role='alert' aria-live='assertive' aria-atomic='true'>";
                   toast += "<div class='toast-header'><i class='fas fa-bell mr-2'></i><strong class='mr-auto'>알림</strong>";
-                  toast += "<small class='text-muted'>just now</small><button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>";
+                  toast += "<small class='text-muted'>" + timeString + "</small><button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>";
                   toast += "<span aria-hidden='true'>&times;</span></button>";
                   toast += "</div> <div class='toast-body'>" + data + "</div></div>";
-                  $("#msgStack").append(toast);   // msgStack div에 생성한 toast 추가
+                  $("#msgStack").prepend(toast);
                   $(".toast").toast({"animation": true, "autohide": false});
                   $('.toast').toast('show');
-                };	
+                  // x 버튼에 이벤트 리스너 추가
+                  $("#toast-" + id + " .close").click(function() {
+                    removeMessage(id);
+                  });
+                }
         
+                function saveData(data){
+                  var messages = JSON.parse(localStorage.getItem("messages")) || [];
+                  // 고유 ID 생성 (예: 현재 시간)
+                  var id = new Date().getTime();
+                  var message = { id: id, content: data, createdAt: new Date().toISOString()  };
+                  messages.push(message);
+                  localStorage.setItem("messages", JSON.stringify(messages));
+                }
+
+                function removeMessage(id) {
+                  var messages = JSON.parse(localStorage.getItem("messages")) || [];
+                  // 고유 ID를 이용하여 해당 메시지를 배열에서 제거
+                  messages = messages.filter(function(message) {
+                    return message.id !== id;
+                  });
+                  localStorage.setItem("messages", JSON.stringify(messages));
+                  // 화면에서도 알림 제거
+                  $("#toast-" + id).remove();
+                }
+        
+                function loadDataAndDisplay(){
+                  var messages = JSON.parse(localStorage.getItem("messages")) || [];
+                  messages.forEach(function(message){
+                    displayToast(message.content, message.id, message.createdAt); // displayToast 호출 시 ID 전달
+                  });
+                }
+
+                function getTimeDifferenceString(createdAt) {
+                  const now = new Date();
+                  const messageTime = new Date(createdAt);
+                  const timeDiffInSeconds = Math.floor((now - messageTime) / 1000);
+
+                  if (timeDiffInSeconds < 60) {
+                    return '방금 전';
+                  } else if (timeDiffInSeconds < 3600) {
+                    return Math.floor(timeDiffInSeconds / 60) + '분 전';
+                  } else if (timeDiffInSeconds < 86400) {
+                    return Math.floor(timeDiffInSeconds / 3600) + '시간 전';
+                  } else {
+                    return Math.floor(timeDiffInSeconds / 86400) + '일 전';
+                  }
+                }
               </script>
 
 

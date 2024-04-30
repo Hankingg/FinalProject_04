@@ -834,12 +834,11 @@
                         				 hosCode:"${ h.hosCode }"
                         				 },
                         			success:function(data){
-                        					console.log(data)
+                        					console.log("data:"+data)
                         					
                         					let value = "";
                         					for(let i in data){
                         						
-                        					
 	                           					value += "<div id='hspReview'>"
 	                           						   +  "<div id='hspReview1'>"
 			                	                       +   "<div id='hpName'><p>${ h.hosName }</p></div>"
@@ -849,7 +848,7 @@
 			                	                       +  "</div>"
 			                	                       +  "<div id='hspReview2'>"
 			                	                       +  "<div id='rvProfile'>"
-			                	                       +     "<div id='nickName'><p>"+data[i].memNo+"</p></div>"
+			                	                       +     "<div id='nickName'><p>"+data[i].nickName+"</p></div>"
 			                	                       +     "<div id='profile'><img src='resources/reviewImg/profile/profile1.png' id='profileImg'></div>"
 			                	                       +    "</div>"
 			                	                       +    "<div id='rvCont'>"
@@ -950,12 +949,8 @@
                       </div>
                     </div>
                   </div>
-                  <div id="hspReceive">
-                    접수하기 화면
-                    <a href="order.go?hosCode=${ h.hosCode }">접수하기</a>
-                    
-						
-                  
+                  <div id="hspReceive" style="text-align:center; border:0px;">
+                    <button onclick="location.href='order.go?hosCode=${ h.hosCode }'" class="btn btn-danger" style="width:150px; height:50px;">접수하기</button>
 					</div>
                   
                   

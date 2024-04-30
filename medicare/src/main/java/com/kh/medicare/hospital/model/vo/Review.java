@@ -26,4 +26,5 @@ public class Review {
 	private String hosName;
 	private int reviewCount;
 	private String nickName;
+	private double reviewAvg;
 }
