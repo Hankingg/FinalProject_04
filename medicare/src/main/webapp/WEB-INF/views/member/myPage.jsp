@@ -499,6 +499,47 @@
         white-space: nowrap;
         font-size: 14px;
       }
+
+	/* 택배 발송 모달 style */
+	.modal5 {
+		display: none; /* 기본적으로 모달을 보이지 않게 함 */
+		position: fixed; /* 스크롤 시에도 항상 같은 위치에 표시 */
+		z-index: 1; /* 다른 요소보다 위에 표시됨 */
+		left: 0;
+		top: 0;
+		width: 100%; /* 부모 요소인 <body>에 꽉 차도록 너비 설정 */
+		height: 100%; /* 뷰포트에 꽉 차도록 높이 설정 */
+		overflow: auto; /* 내용이 넘칠 경우 스크롤 가능 */
+		background-color: rgba(0,0,0,0.4); /* 반투명 배경 */
+	}
+
+	/* Modal content style */
+	.modal-content5 {
+		background-color: #fefefe;
+		position: absolute; /* 절대 위치 지정 */
+		top: 20%; /* 위에서부터 10%의 위치에 배치 */
+		right: 29%; /* 오른쪽에서부터 10%의 위치에 배치 */
+		padding: 20px;
+		border: 1px solid #888;
+		width: 50%; /* 가로 크기를 50%로 설정하여 작게 표시 */
+		max-width: 600px; /* 최대 가로 크기 설정 */
+		transform: translateX(0%); /* 필요한 경우 위치 조정 */
+	}
+
+	/* Close button style */
+	.close5 {
+		color: #aaa;
+		float: right;
+		font-size: 28px;
+		font-weight: bold;
+	}
+
+	.close5:hover,
+	.close5:focus {
+		color: black;
+		text-decoration: none;
+		cursor: pointer;
+	}
 	
 </style>
 </head>
@@ -820,7 +861,7 @@
 														+    '처방전 전송'
 														+    '</button>';
 											} else if("${loginUser.mtId}" == "P"){
-												value	+=    "<button onclick=\"location.href='insert.dl?dcNo=" + list[i].dcNo +"'\" type='button' class='btn btn-success dcBtn'>"
+												value	+=    "<button onclick='showDeliveryModal("+ list[i].dcNo +");' type='button' class='btn btn-primary dcBtn'>"
 														+    '택배 발송'
 														+    '</button>';
 											}																
@@ -872,6 +913,71 @@
 								// 필요한 경우 여기에 코드를 추가할 수 있습니다. 예를 들어, 어떤 피드백을 주거나 로깅을 할 수 있습니다.
 							}).set('labels', {ok:'확인', cancel:'취소'}); // 버튼 텍스트를 원하는 대로 설정할 수 있습니다.
 						});
+						
+
+						
+
+						function showDeliveryModal(dcNo) {
+							// 모달 HTML 구성
+							var modalHTML = `
+							<div id="deliveryModal" class="modal5">
+								<div class="modal-content5">
+									<span class="close5">&times;</span>
+									<form id="deliveryForm">
+										<label for="courier">택배사:</label>
+										<select id="courier" name="courier">
+											<option value="lotte">롯데택배</option>
+											<option value="logen">로젠택배</option>
+											<option value="cj">CJ대한통운</option>
+											<option value="postoffice">우체국택배</option>
+										</select>
+										<label for="trackingNumber">운송장 번호:</label>
+										<input type="text" id="trackingNumber" name="trackingNumber">
+										<input type="submit" value="택배 정보 전송">
+									</form>
+								</div>
+							</div>
+							`;
+							$("body").append(modalHTML); // body 태그의 끝에 모달 추가
+							$("#deliveryModal").show(); // 모달 보이기
+
+							// 모달의 x 버튼 클릭 시 모달 닫기
+							$("#deliveryModal .close5").click(function() {
+								$("#deliveryModal").remove(); // 모달 제거
+								
+							});
+
+							// 택배 정보 전송 폼 제출 이벤트
+							$("#deliveryForm").submit(function(event) {
+								event.preventDefault(); // 폼 기본 제출 동작 방지
+								
+								// 택배 정보 수집(예: AJAX를 이용하여 서버로 전송)
+								var courier = $("#courier").val();
+								var trackingNumber = $("#trackingNumber").val();
+
+								$.ajax({
+									url:"insert.dl",
+									data:{ dcNo : dcNo
+									     ,      },
+									success:function(){
+										
+									},
+									error:function(){
+
+									}
+								})
+
+
+
+
+								
+
+								$('.modal2').hide();
+								$("#deliveryModal").remove(); // 정보 전송 후 모달 제거
+								
+							});
+						}
+
 
 						
 						
