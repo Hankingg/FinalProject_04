@@ -412,7 +412,93 @@
 		cursor: pointer;
 	}
 
+	
+	 #hos_wrap {
+        margin-top: 10px;
+        display: flex;
+        border-radius: 10px;
+        box-sizing: border-box;
+        border: 1px solid black;
+      }
+      #hos_wrap > div {
+        height: 100%;
+      }
+      #hos_wrap div {
+        border: 0px;
+      }
 
+      #hos1 {
+        width: 80%;
+      }
+      #hos2 {
+        width: 20%;
+      }
+      #hos1_1 {
+        height: 20%;
+      }
+      #hos1_1 > div {
+        display: inline-block;
+        margin-left: 10px;
+        margin-top: 10px;
+        color: rgb(55, 108, 200);
+      }
+      #hos1_2 {
+        height: 30%;
+      }
+      #hos1_2 > div {
+        display: inline-block;
+        margin-top: 6px;
+        margin-left: 10px;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      #hos1_3 {
+        height: 30%;
+      }
+      #hos1_3 > div {
+        display: inline-block;
+        margin-left: 10px;
+      }
+      #hos1_3_1 {
+        height: 70%;
+      }
+      #hos1_3_2 {
+        height: 30%;
+      }
+      #hos1_3_2 > div {
+        display: flex;
+      }
+      #hos1_4 {
+        height: 20%;
+      }
+      #hos1_4 > div {
+        display: inline-block;
+        width: 40px;
+        text-align: center;
+        margin-left: 10px;
+        margin-top: 3px;
+      }
+
+      #hos2_1 {
+        height: 30%;
+      }
+      #hos2_2 {
+        height: 70%;
+      }
+      #hos2_1 p {
+        transform: scale(1);
+        display: inline-block;
+        padding-left: 10px;
+        padding-bottom: 20px;
+      }
+      #hos2_2_1 {
+        text-align: center;
+        margin-left: 8px;
+        margin-top: 70px;
+        width: 80%;
+        white-space: nowrap;
+        font-size: 14px;
+      }
 	
 </style>
 </head>
@@ -426,7 +512,7 @@
 				<div id="myPage-tab">
 					<ul>
 						<li id="info"><a href="myInfo.me" class="tab active">내정보</a></li>
-						<li id="heart"><a class="tab">좋아요 리스트</a></li>
+						<li id="heart"><a class="tab" onclick="myDiagnosisInfo();">진료 내역</a></li>
 						<li id="review"><a onclick="myReviewList();" class="tab">리뷰 리스트</a></li>
 						<li id="delivery"><a class="tab">택배 리스트</a></li>
 						<li id="documents"><a onclick="myDocumentList();" class="tab">문서함</a></li>
@@ -566,6 +652,51 @@
 							}).open();
 						}
 					</script>
+					
+					<script>
+						function myDiagnosisInfo(){
+							$.ajax({
+								url:"diagnosis.select",
+								data:{memNo:"${ loginUser.memNo }"},
+								success:function(data){
+									console.log(data);
+									
+									var value = "";
+									for(var i=0; i<data.length;i++){
+										value +=  "<div id='hos_wrap' style='width: 400px; height: 130px'>"
+										      + "<div id='hos1'>"
+										      +  "<div id='hos1_1'>"
+										      +    "<div>"+ data[i].title+" | "+data[i].id+"</div>"
+										      +  "</div>"
+										      +  "<div id='hos1_2'><div>"+ data[i].hosCode +"</div></div>"
+										      +  "<div id='hos1_3'>"
+										      +    "<div id='hos1_3_1'>" +data[i].start + "</div>"
+										      +    "<br />"
+										      +    "<div id='hos1_3_2'>" + data[i].borderColor + "</div>"
+										      +  "</div>"
+										      +  "<div id='hos1_4'></div>"
+										      +"</div>"
+										      +"<div id='hos2'>"
+										      +  "<div id='hos2_1' style='background-color: '" + data[i].backgroundColor+"';'>"
+										      +    "<p>"+data[i].groupId+"</p>"
+										      +  "</div>"
+										      +  "<div id='hos2_2'>"
+										      +    "<div id='hos2_2_1'></div>"
+										      +  "</div>"
+										      +"</div>"
+										      +"</div>"
+										      
+									}
+									
+								      $(".myPage-info").html(value);
+								      
+								}, error:function(){
+									console.log("ajax 통신실패");
+								}
+							})
+						}
+					</script>
+					
 
 					<script>
 						$(function() {
@@ -724,20 +855,6 @@
 							})
 						}
 						
-						/* function rvDelete(){
-							$.ajax({
-								url:"delete.rv",
-								data:{},
-								success:function(){
-									
-								}, error:function(){
-									console.log("리뷰 삭제 ajax 통신 실패");
-								}
-							})
-						} */
-						
-						
-
 						$('.myPage-info').on('click', '.deleteBtn', function(e){
 							e.preventDefault(); // 기본 동작 방지.
 							var dcNo = $(this).data('dcno'); // dcNo를 data 속성에서 가져옵니다.

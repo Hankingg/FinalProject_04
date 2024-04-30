@@ -87,11 +87,11 @@
 				})	
 				
 				$("#sprintSettingModalClose").click(function(){
-					location.href="order.delete?memNo="+event.event.textColor;
+					location.href="order.delete?memId="+event.event.constraint;
 				});
 			
 				$("#zoom").click(function(){
-					location.href="webrtcRoom.go?memNo="+event.event.textColor;
+					location.href="webrtcRoom.go?memId="+event.event.constraint;
 				})
 	        		
 			}

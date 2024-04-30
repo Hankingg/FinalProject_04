@@ -279,13 +279,13 @@
   }
 
   /* 병원이름 */
-	#hpName{
+	.hpName{
 		width: auto;
 		margin-right: 30px;
 		margin-left: 30px;
 	}
 
-	#hpName p{
+	.hpName p{
 		margin-top: 25px;
 		margin-left: 30px;
 		font-size: 20px;
@@ -514,6 +514,7 @@
 		margin-right: 8px;
 	}
 
+	
 </style>
 </head>
 
@@ -590,11 +591,11 @@
                         <!-- 리뷰 작성 -->
                         <div id="hspReview">
                           <div id="hspReview1">
-                            <div id="hpName"></div>
+                            <div class="hpName"></div>
                             <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
                             <div id="rvRate">
-                            	<select>
-                            		<option>5.0</option>
+                            	<select id="rate">
+                            		<option selected>5.0</option>
                             		<option>4.0</option>
                             		<option>3.0</option>
                             		<option>2.0</option>
@@ -638,42 +639,17 @@
                         </div>
                         
                         <!-- 리뷰 목록 -->
-                        <div id="hspReview">
-                          <div id="hspReview1">
-                            <div id="hpName"><p>하늘피부과</p></div>
-                            <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
-                            <div id="hpRate"><p>3.5</p></div>
-                          </div>
-                          <div id="hspReview2">
-                            <div id="rvProfile">
-                              <div id="nickName"><p>정밍</p></div>
-                              <div id="profile"><img src="resources/reviewImg/profile/profile1.png" id="profileImg"></div>
-                            </div>
-                            <div id="rvCont">
-                              <p> 이 피부과 진짜 추천이에여!! <br>
-                                완전 물광피부 됐어요 친구도 추천해줄라구요~
-                              </p>
-                            </div>
-                          </div>
+                        <div id="review_wrap">
+	                        
                         </div>
                         
-                        <div id="moreReview">
-                          <!-- <button id="moreReviewBtn"><img id="moreBtnImg" src="resources/mainIcon/menu1.png">리뷰 더보기</button> -->
+                        <!-- <div id="moreReview">
                           <button id="moreReviewBtn"><img id="moreBtnImg" src="resources/mainIcon/menu2.png">리뷰 더보기</button>
-                          <!-- <button id="moreReviewBtn"><img id="moreBtnImg" src="resources/mainIcon/menu3.png">리뷰 더보기</button> -->
-                          
-                        </div>
+                        </div> -->
                       </div>
                     </div>
-                  </div>
-                  <!-- <div id="hspReceive">
-                    접수하기 화면
-                  </div>
-                  <div id="hspReserv">
-                    예약하기 화면
-                  </div> -->
-                  
-            </div>    
+                  </div> 
+            </div>  
             <script>
 
                 $(function(){
@@ -910,7 +886,7 @@
                       })
                                
                         $(".mName").html(name);
-                      	$("#hpName").html('<p>' + name + '</p>');
+                      	$(".hpName").html('<p>' + name + '</p>');
                         $(".phoneDetail span").html(phone);
                         $(".mapDetail span").html(address);
                         $(".infoDetail").html(time);
@@ -922,6 +898,86 @@
                 		}
                 	})
                   // 상세정보 ajax 끝
+                  
+                  // 리뷰 조회
+                  $.ajax({
+	          			url:"review.get",
+	          			data:{
+	          				 hosCode:"${ hpid }"
+	          				 },
+	          			success:function(data){
+	          					
+	          					let value = "";
+	          					for(let i in data){
+	               					value += "<div id='hspReview'>"
+	               						   +  "<div id='hspReview1'>"
+		         	                       +   "<div class='hpName'></div>"
+		         	                       +   "<div id='hpStar'><img src='resources/reviewImg/starHeart/star2.png' id='starImg'></div>"
+		         	                       +   "<div id='hpRate'><p>"+ data[i].rate + "</p></div>"
+										   +  "</div>"
+		         	                       +  "<div id='hspReview2'>"
+		         	                       +  "<div id='rvProfile'>"
+		         	                       +     "<div id='nickName'><p>"+data[i].nickName   +"</p></div>"
+		         	                       +     "<div id='profile'><img src='resources/reviewImg/profile/profile1.png' id='profileImg'></div>"
+		         	                       +    "</div>"
+		         	                       +    "<div id='rvCont'>"
+		         	                       +     "<p>"+ data[i].revContent
+		         	                       +     "</p>"
+		         	                       +   "</div>"
+		         	                       +  "</div>"
+		         	                       + "</div>";
+                       					
+                       					}
+	                	                  $("#review_wrap").html(value);     
+                       			}, error:function(){
+                       				console.log("ajax 통신실패");
+                       			}
+                       			
+                       		})
+                  
+                  // 리뷰 등록
+                  $("#rvInsertBtn").click(function(){
+
+             			$.ajax({
+                 			url:"review.in",
+                 			data:{
+                 				memNo:${ loginUser.memNo },
+                 				revContent:$("#rvText").val(),
+                 				hosCode:"${ hpid }",
+                 				rate:$("#rate").val()
+                 				 },
+                 			success:function(data){
+               					
+               					let value = "";
+               					for(let i in data){
+							
+               						value += "<div id='hspReview'>"
+                						   +  "<div id='hspReview1'>"
+			       	                       +   "<div class='hpName'></div>"
+			       	                       +   "<div id='hpStar'><img src='resources/reviewImg/starHeart/star2.png' id='starImg'></div>"
+			       	                       +   "<div id='hpRate'><p>"+ data[i].rate + "</p></div>"
+			       	                       +   "</div>"
+			       	                       +   "<div id='hspReview2'>"
+			       	                       +   "<div id='rvProfile'>"
+			       	                       +   "<div id='nickName'><p>${ loginUser.memName }</p></div>"
+			       	                       +   "<div id='profile'><img src='resources/reviewImg/profile/profile1.png' id='profileImg'></div>"
+			       	                       +   "</div>"
+			       	                       +   "<div id='rvCont'>"
+			       	                       +   "<p>"+ data[i].revContent
+			       	                       +   "</p>"
+			       	                       +   "</div>"
+			       	                       +   "</div>"
+			       	                       +   "</div>";
+               					}
+      	                 	 $("#review_wrap").html(value);
+      	                 	 $("#rvText").val("");
+      	                  
+                 			}, error:function(){
+                 				console.log("리뷰 등록 ajax 통신실패");
+                 			}
+                 			
+                 		})
+             		})
 
 
                   // 주소 복사
@@ -965,24 +1021,6 @@
                     // 대상 div 요소로 스크롤 이동
                     targetDiv.scrollIntoView({ behavior: 'smooth' });
                   });
-
-                  /* $("#receive").on('click', function(){
-                    event.preventDefault(); // 기본 동작 방지
-                    // 이동할 대상 div 요소 선택자
-                    var targetDiv = document.getElementById("hspReceive");
-
-                    // 대상 div 요소로 스크롤 이동
-                    targetDiv.scrollIntoView({ behavior: 'smooth' });
-                  });
-
-                  $("#reservation").on('click', function(){
-                    event.preventDefault(); // 기본 동작 방지
-                    // 이동할 대상 div 요소 선택자
-                    var targetDiv = document.getElementById("hspReserv");
-
-                    // 대상 div 요소로 스크롤 이동
-                    targetDiv.scrollIntoView({ behavior: 'smooth' });
-                  }); */
 
                 })
 

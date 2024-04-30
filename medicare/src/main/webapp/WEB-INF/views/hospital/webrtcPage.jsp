@@ -69,7 +69,7 @@
       <div class="modal-body">
         <form action="insertDocument.dc" method="post" enctype="multipart/form-data">
 			        <div class="insDocument">
-			        	받는 사람 : <input type="text" name="dcReceiverMno" value="${ memNo }" readonly> <br><br>
+			        	받는 사람 : <input type="text" name="dcReceiverMno" id="dcReceiverMno" value="" readonly> <br><br>
 			        	보내는 병원 : <input type="text" name="dcSenderMno" value="${loginUser.memName}" readonly><br><br>
 			        	처방전 : <input type="file" id="upfile" name="upfile"> 
 			        </div>
@@ -87,7 +87,19 @@
   </div>
 </div>
 
-		
+		<script>
+			$(function(){
+				$.ajax({
+					url:"select.memId",
+					data:{memId:"${memId}"},
+					success:function(data){
+						$("#dcReceiverMno").val(data.memNo);
+					},error:function(){
+						console.log("ajax 통신 실패");
+					}
+				})
+			})
+		</script>
 		
 		<!-- webRTC 연결을 위한 js  -->
     <script src="${ pageContext.request.contextPath }/resources/js/peerConfig.js"></script>

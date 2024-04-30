@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.kh.medicare.calender.model.service.CalenderService;
 import com.kh.medicare.calender.model.vo.Calender;
 
@@ -52,6 +53,16 @@ public class CalenderController {
 			model.addAttribute("errorMsg","예약 취소 실패");
 			return result;
 		}
+	}
+	@ResponseBody
+	@RequestMapping(value="diagnosis.select", produces = "application/json; charset=utf-8")
+	public String myDiagnosisInfo(int memNo, Model model){
+		System.out.println("왔냐");
+		ArrayList<Calender> list = cService.myDiagnosisInfo(memNo);
+		System.out.println(list);
+		model.addAttribute("list",list);
+		
+		return new Gson().toJson(list);
 	}
 	
 }
