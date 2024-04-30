@@ -663,16 +663,16 @@
 									
 									var value = "";
 									for(var i=0; i<data.length;i++){
-										value +=  "<div id='hos_wrap' style='width: 400px; height: 130px'>"
+										value +=  "<div id='hos_wrap' style='width: 400px; height: 130px; margin:auto; margin-top:30px;'>"
 										      + "<div id='hos1'>"
 										      +  "<div id='hos1_1'>"
 										      +    "<div>"+ data[i].title+" | "+data[i].id+"</div>"
 										      +  "</div>"
 										      +  "<div id='hos1_2'><div>"+ data[i].hosCode +"</div></div>"
 										      +  "<div id='hos1_3'>"
-										      +    "<div id='hos1_3_1'>" +data[i].start + "</div>"
+										      +    "<div id='hos1_3_1'> 예약 날짜 :" +data[i].start + "</div>"
 										      +    "<br />"
-										      +    "<div id='hos1_3_2'>" + data[i].borderColor + "</div>"
+										      +    "<div id='hos1_3_2'> 접수한 날짜 :" + data[i].orderToday + "</div>"
 										      +  "</div>"
 										      +  "<div id='hos1_4'></div>"
 										      +"</div>"

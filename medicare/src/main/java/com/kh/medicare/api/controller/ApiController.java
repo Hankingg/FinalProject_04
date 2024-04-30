@@ -34,6 +34,7 @@ import com.google.gson.JsonParser;
 import com.kh.medicare.hospital.model.service.HospitalService;
 import com.kh.medicare.hospital.model.service.HospitalServiceImpl;
 import com.kh.medicare.hospital.model.vo.Hospital;
+import com.kh.medicare.hospital.model.vo.Review;
 
 
 @Controller
@@ -129,8 +130,9 @@ public class ApiController {
 			            
 			            double deltaLat = Math.toRadians(Dwgs84Lat - wgs84Lat);
 			            double deltaLon = Math.toRadians(Dwgs84Lon - wgs84Lon);
-			            
-			            
+			            System.out.println("hpid:"+hpid);
+			            Review r = hService.selectReviewAvg(hpid);
+			            System.out.println("r:"+r);
 
 			            double a = Math.pow(Math.sin(deltaLat / 2), 2) +
 			                    Math.cos(Math.toRadians(wgs84Lat)) * Math.cos(Math.toRadians(Dwgs84Lat)) *
@@ -146,6 +148,12 @@ public class ApiController {
 			            h.setDistance(distanceMeters);
 			            h.setHosLatitude(Dwgs84Lat);
 			            h.setHosLongitude(Dwgs84Lon);
+			            if(r == null) {
+			            	h.setReviewAvg(0.0);
+			            }else {
+			            	h.setReviewAvg(r.getReviewAvg());
+			            }
+			            
 			            list.add(h);
 			            System.out.println("여기까진 오냐");
 			            

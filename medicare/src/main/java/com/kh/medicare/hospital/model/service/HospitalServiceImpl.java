@@ -57,4 +57,8 @@ public class HospitalServiceImpl implements HospitalService {
 		return hDao.deleteReview(sqlSession, revNo);
 	}
 
+	@Override
+	public Review selectReviewAvg(String hpid) {
+		return hDao.selectReviewAvg(sqlSession,hpid);
+	}
 }

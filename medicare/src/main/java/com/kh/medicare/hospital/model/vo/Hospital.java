@@ -37,4 +37,5 @@ public class Hospital {
 	private double hosLongitude;
 	private double hosLatitude;
 	private int distance;
+	private double reviewAvg;
 }

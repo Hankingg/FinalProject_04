@@ -43,5 +43,9 @@ public class HospitalDao {
 		
 		return sqlSession.update("hospitalMapper.deleteReview", revNo);
 	}
+	
+	public Review selectReviewAvg(SqlSessionTemplate sqlSession, String hosCode) {
+		return sqlSession.selectOne("hospitalMapper.selectReviewAvg", hosCode);
+	}
 
 }
