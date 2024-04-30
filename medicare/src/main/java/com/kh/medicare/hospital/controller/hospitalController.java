@@ -49,6 +49,12 @@ public class hospitalController {
 		return "hospital/hospitalListModi";
 	}
 	
+	@RequestMapping("hospital.type")
+	public String selectTypeHospitalPage(String typeNum, Model model) {
+		model.addAttribute("typeNum", typeNum);
+		return "hospital/hospitalListModi";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="review.in", produces = "application/json; charset=utf-8")
 	public String insertReview(Review r,HttpSession session, HttpServletResponse response) throws IOException {
@@ -67,6 +73,7 @@ public class hospitalController {
 	@RequestMapping(value="review.get", produces = "application/json; charset=utf-8")
 	public String getReview(Review r) {
 		ArrayList<Review> list = hService.selectReviewList(r);
+		System.out.println(list);
 		return new Gson().toJson(list); 
 	}
 		

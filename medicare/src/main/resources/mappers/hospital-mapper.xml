@@ -40,6 +40,7 @@
 		<result column="h_code" property="hosCode"/>
 		<result column="h_name" property="hosName"/>
 		<result column="nickname" property="nickName"/>
+		<result column="review_avg" property="reviewAvg"/>
 	</resultMap>
 	
 	<resultMap type="Calender" id="calenderResult">
@@ -54,6 +55,7 @@
     <result column="backgroundcolor" property="backgroundColor"/>
     <result column="h_name" property="hosCode"/>
     <result column="mem_Id" property="constraint"/>
+    <result column="h_code" property="overlap"/>
 </resultMap>
 
 	<select id="selectHospitalInfo" resultMap="hospitalResult">
@@ -111,7 +113,7 @@
 	
 	<select id="selectReviewList" resultMap="reviewResult">
 		select
-			   MEM_NAME
+			   NICKNAME
 			 , R_CONTENT
 			 , R_DATE
 			 , RATE
@@ -182,7 +184,8 @@
 	    	when 'C' then 'green'
 	    	else 'gray'
 	   	end as backgroundcolor,
-	   	mem_Id
+	   	mem_Id,
+	   	h_code
 	FROM
 	    h_order
 	JOIN
@@ -231,7 +234,7 @@
 	        ELSE '비대면진료'
 	    END AS diagnosis_type,
 	    add_symtom AS add_symtom,
-	    order_date || 'T' || order_time as "start",
+	    order_date || ' ' || order_time as "start",
 	    order_date || 'T' || to_char((to_date(order_time, 'HH24:MI')+ (INTERVAL '30' MINUTE)),'HH24:MI') AS "end",
 	    order_today,
 	    CASE order_status
@@ -252,5 +255,17 @@
 	join hospital using (h_code) 
    where mem_no = #{ memNo }
 	</select>
+	
+	<select id="selectReviewAvg" resultMap="reviewResult">
+		select
+		       h_code
+		      ,nvl(avg(rate),0) as "review_avg"
+		  from review
+		  right outer join hospital using (h_code)
+		 group
+		    by h_code
+		having h_code = #{ hosCode }
+	</select>
+	
 	
 </mapper>

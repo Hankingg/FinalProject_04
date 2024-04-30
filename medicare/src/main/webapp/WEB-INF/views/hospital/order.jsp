@@ -66,11 +66,10 @@
         <div class="content-wrapper">
         	<div style="height:1100px; width:900px; margin:auto; border:4px solid #F96C85; border-radius:15px;">
         	<form action="order.in">
-        	${ h.hosName } 접수페이지
+        	<div style="text-align:center; font-size:25px;"> ${ h.hosName } 접수페이지</div>
         	<div style="padding-left:50px; padding-top:20px; padding-bottom:20px; border-bottom:1px solid #F96C85;">
         	😄 ${ loginUser.memName }님
         	<input type="hidden" name="memNo" value="${ loginUser.memNo }">
-        	input
         	<input type="hidden" name="orderDate" id="orderDate">
         	<input type="hidden" name="hosCode" value="${ h.hosCode }">
         	</div>
