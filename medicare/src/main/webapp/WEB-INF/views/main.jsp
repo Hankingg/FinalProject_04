@@ -610,14 +610,14 @@
             <div class="inner4s"><img style="width: 100%; height: 100%;" src="resources/mainIcon/whereHospital.png"></div>
           </div>
           <div class="inner5">
-            <div class="inner5s inner5s_1"><img class="inner5s_img" src="resources/mainIcon/hType_child.png"></div>
-            <div class="inner5s inner5s_2"><img class="inner5s_img" src="resources/mainIcon/hType_ear.png"></div>
-            <div class="inner5s inner5s_3"><img class="inner5s_img" src="resources/mainIcon/hType_home.png"></div>
-            <div class="inner5s inner5s_4"><img class="inner5s_img" src="resources/mainIcon/hType_love.png"></div>
-            <div class="inner5s inner5s_5"><img class="inner5s_img" src="resources/mainIcon/hType_inbody.png"></div>
-            <div class="inner5s inner5s_6"><img class="inner5s_img" src="resources/mainIcon/hType_bone.png"></div>
-            <div class="inner5s inner5s_7"><img class="inner5s_img" src="resources/mainIcon/hType_skin.png"></div>
-            <div class="inner5s inner5s_8"><img class="inner5s_img" src="resources/mainIcon/hType_eye.png"></div>
+            <div class="inner5s inner5s_1" onclick="location.href='hospital.type?typeNum=D002'"><img class="inner5s_img" src="resources/mainIcon/hType_child.png"></div>
+            <div class="inner5s inner5s_2" onclick="location.href='hospital.type?typeNum=D013'"><img class="inner5s_img" src="resources/mainIcon/hType_ear.png"></div>
+            <div class="inner5s inner5s_3" onclick="location.href='hospital.type?typeNum=D022'"><img class="inner5s_img" src="resources/mainIcon/hType_home.png"></div>
+            <div class="inner5s inner5s_4" onclick="location.href='hospital.type?typeNum=D011'"><img class="inner5s_img" src="resources/mainIcon/hType_love.png"></div>
+            <div class="inner5s inner5s_5" onclick="location.href='hospital.type?typeNum=D001'"><img class="inner5s_img" src="resources/mainIcon/hType_inbody.png"></div>
+            <div class="inner5s inner5s_6" onclick="location.href='hospital.type?typeNum=D001'"><img class="inner5s_img" src="resources/mainIcon/hType_bone.png"></div>
+            <div class="inner5s inner5s_7" onclick="location.href='hospital.type?typeNum=D005'"><img class="inner5s_img" src="resources/mainIcon/hType_skin.png"></div>
+            <div class="inner5s inner5s_8" onclick="location.href='hospital.type?typeNum=D012'"><img class="inner5s_img" src="resources/mainIcon/hType_eye.png"></div>
           </div>
           <div class="inner6">
             <div class="inner6s"><p class="h_typeName">소아청소년과</p></div>
@@ -633,6 +633,7 @@
         
         
         </div>
+       
         
        
         <!-- 날씨 스크립트 -->

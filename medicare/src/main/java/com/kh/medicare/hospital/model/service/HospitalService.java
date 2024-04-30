@@ -24,4 +24,5 @@ public interface HospitalService {
 	
 	int deleteReview(int revNo);
 	
+	Review selectReviewAvg(String hpid);
 }

@@ -24,4 +24,5 @@ public class Calender {
 	private String backgroundColor;
 	private String hosCode;
 	private String constraint;
+	private String overlap; // hpid;
 }
