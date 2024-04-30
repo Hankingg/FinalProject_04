@@ -48,6 +48,8 @@
 	        	$("#calendarModal").modal("show");
 	        	$("#calendar_memId").val(event.event.id);
 	        	console.log(event.event.borderColor)
+				$("#constraint").val(event.event.constraint);
+				console.log(event.event.constraint);
 	        	if(event.event.borderColor == 'null'){
 	        		$("#calendar_symtom").val("작성한 증상이 없습니다");
 	        	}else{
@@ -76,6 +78,7 @@
 	    	        		$("#sprintSettingModalClose").attr('disabled',true);
 	    	        		$("#zoom_alarm").removeAttr('disabled');
 	    	        		$("#zoom").removeAttr('disabled');
+							
 	    	        		location.reload();
 	    				},error:function(){
 	    					console.log("에러");
@@ -487,6 +490,7 @@
                         <input type="text" class="form-control" id="calendar_diaType" name="calendar_diaType" readonly>
                         <label for="taskId" class="col-form-label">진료 상태</label>
                         <input type="text" class="form-control" id="calendar_status" name="calendar_status" readonly>
+						<input type="hidden" id="calendar_constraint" >
                     </div>
                 </div>
                 <div class="modal-footer">
