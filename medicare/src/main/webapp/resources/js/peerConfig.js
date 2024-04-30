@@ -186,7 +186,7 @@
        
         if(localStream !== undefined){
             document.querySelector('#localStream').style.display = 'block';
-            document.querySelector('#startSteamBtn').style.display = '';
+            document.querySelector('#startSteamBtn').disabled = false;
         }
         roomId = document.querySelector('#roomIdInput').value;
         document.querySelector('#roomIdInput').disabled = true;

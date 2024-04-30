@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.medicare.hospital.model.service.HospitalServiceImpl;
 import com.kh.medicare.hospital.model.vo.Hospital;
+import com.kh.medicare.member.model.service.MemberServiceImpl;
 import com.kh.medicare.member.model.vo.Member;
 
 @Controller
@@ -14,6 +15,9 @@ public class WebRtcPageController {
 	
 	@Autowired
 	private HospitalServiceImpl hService;
+	
+	@Autowired
+	private MemberServiceImpl mService;
 	
 	@RequestMapping("webrtcRoom.go")
 	public String webrtcRoomPage(String memId,String hosCode,Model model) {
@@ -26,9 +30,12 @@ public class WebRtcPageController {
 	}
 	
 	@RequestMapping("webrtc.go")
-	public String webrtcPage(String memId,int roomNum, Model model) {
+	public String webrtcPage(Member memId,int roomNum,String hosCode, Model model) {
+		Member loginUser = mService.loginMember(memId);
 		
-		model.addAttribute("memId",memId);
+		model.addAttribute("hosCode", hosCode);
+		model.addAttribute("memNo",loginUser.getMemNo());
+		model.addAttribute("memId",loginUser.getMemId());
 		model.addAttribute("roomNum", roomNum);
 		return "hospital/webrtcPage";
 	}

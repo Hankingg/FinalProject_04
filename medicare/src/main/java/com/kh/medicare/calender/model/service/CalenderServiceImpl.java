@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.medicare.calender.model.dao.CalenderDao;
 import com.kh.medicare.calender.model.vo.Calender;
+import com.kh.medicare.hospital.model.vo.Order;
 
 @Service
 public class CalenderServiceImpl implements CalenderService {
@@ -23,19 +24,22 @@ public class CalenderServiceImpl implements CalenderService {
 		return cDao.calenList(sqlSession);
 	}
 
-	@Override
-	public int completeOrder(int memNo) {
-		return cDao.completeOrder(sqlSession,memNo);
-	}
-
-	@Override
-	public int deleteOrder(int memNo) {
-		return cDao.deleteOrder(sqlSession,memNo);
-	}
+	
 
 	@Override
 	public ArrayList<Calender> myDiagnosisInfo(int memNo) {
 		return cDao.myDiagnosisInfo(sqlSession,memNo);
 	}
 
+	@Override
+	public int deleteOrder(Order order) {
+		return cDao.deleteOrder(sqlSession, order);
+	}
+
+	@Override
+	public int completeOrder(Order order) {
+		return cDao.completeOrder(sqlSession, order);
+	}
+
+	
 }

@@ -343,7 +343,7 @@ public class MemberController {
     @ResponseBody
     @RequestMapping("select.memId")
     public Member selectMemId(Member m,Model model) {
-    	System.out.println(m);
+    	System.out.println("Member:"+m);
     	Member loginUser = mService.loginMember(m);
     	System.out.println(loginUser);
     	model.addAttribute("m",loginUser);

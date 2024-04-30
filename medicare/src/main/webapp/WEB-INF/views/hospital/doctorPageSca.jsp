@@ -70,7 +70,8 @@
 	        	$("#addCalendar").click(function(){
 					$.ajax({
 	    				url:"order.complete",
-	    				data:{memNo:event.event.textColor},
+	    				data:{memNo:event.event.textColor,
+	    					  hosCode:event.event.overlap},
 	    				success:function(result){
 	    					console.log(result);
 	    					$(".fc-event").css("backgroundColor","green");
@@ -88,7 +89,7 @@
 				})	
 				
 				$("#sprintSettingModalClose").click(function(){
-					location.href="order.delete?memId="+event.event.constraint;
+					location.href="order.delete?memId="+event.event.constraint+"&hosCode="+ event.event.overlap;
 				});
 			
 				$("#zoom").click(function(){
