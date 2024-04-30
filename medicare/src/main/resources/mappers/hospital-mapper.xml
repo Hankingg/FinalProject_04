@@ -198,6 +198,7 @@
 		update h_order
 		   set order_status = 'C'
 		 where mem_no = #{memNo}
+		   and h_code = #{hosCode}
 		   and order_status != 'N'
 	</update>
 	
@@ -205,6 +206,7 @@
 		update h_order
 		   set order_status = 'N'
 		 where mem_no = #{memNo}
+		   and h_code = #{hosCode}
 	</update>
 	
 	<select id="reviewGraph" resultMap="reviewResult">
