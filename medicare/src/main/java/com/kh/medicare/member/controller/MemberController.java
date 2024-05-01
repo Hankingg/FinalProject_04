@@ -421,7 +421,7 @@ public class MemberController {
 	@RequestMapping("moveChatList.ch")
 	public String chatList(HttpSession session) {
 		
-		return "chat/chooseInfoChat";	
+		return "chating/chooseInfoChat";	
 		
 	} //  logoutMember
 	

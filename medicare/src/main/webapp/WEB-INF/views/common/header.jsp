@@ -306,12 +306,12 @@
             <div class="add-items d-flex px-3 mb-0">
               <div id="msgStack"> </div>
 				
-              <!--  
+                
               <script>
                 $(document).ready(function(){
                 
                   // 웹소켓 연결
-                   sock = new SockJS("<c:url value='/echo-ws'/>");
+                   sock = new SockJS("http://192.168.20.28:8008/medicare/echo-ws");
                    socket = sock;
         
                   // 데이터를 전달 받았을 때
@@ -393,7 +393,6 @@
                   }
                 }
               </script>
- 			  -->
  			  
             </div>
             

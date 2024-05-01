@@ -1,4 +1,4 @@
-package com.kh.medicare.socket;
+package com.kh.medicare.websocket.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,8 +15,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.kh.medicare.member.model.vo.Member;
 
-@RequestMapping("/echo-ws")
-public class EchoHandler extends TextWebSocketHandler{
+@RequestMapping("/webSocket-ws")
+public class WebSocketHandler extends TextWebSocketHandler{
 		
 		private List<WebSocketSession> sessions = new ArrayList<WebSocketSession>();
 	
@@ -26,6 +26,8 @@ public class EchoHandler extends TextWebSocketHandler{
 		// 클라이언트가 서버로 연결시
 		@Override
 		public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+			
+			sessions.add(session);
 			
 			String senderId = getMemberId(session); // 접속한 유저의 http세션을 조회하여 id를 얻는 함수
 			
@@ -113,3 +115,4 @@ public class EchoHandler extends TextWebSocketHandler{
 		}
 	
 }
+

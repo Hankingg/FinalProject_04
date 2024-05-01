@@ -520,7 +520,7 @@
                     <button type="button" class="btn btn-warning" id="addCalendar" disabled>예약 확정</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         id="sprintSettingModalClose" disabled>예약 취소</button>
-                    <button type="button" id="notifySendBtn" class="btn btn-outline-warning" data-dismiss="modal" id="zoom_alarm"disabled>알림</button>
+                    <button type="button" id="notifySendBtn" class="btn btn-outline-warning" data-dismiss="modal" id="zoom_alarm">알림</button>
                     <button type="button" class="btn btn-outline-primary" id="zoom" disabled>화상채팅</button>
                 </div>
 
