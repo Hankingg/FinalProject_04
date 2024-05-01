@@ -150,6 +150,7 @@
     margin-left: 20px;
     font-size: 16px;
     color: rgb(58, 58, 58);
+    line-height: 30px;
   }
 
   .infoMap {
@@ -383,7 +384,12 @@
 		margin-top: 15px;
 		padding-top: 20px;
 		padding-left: 15px;
+		padding-right: 15px;
 		background-color: rgb(242, 242, 242);
+	}
+	
+	#rvCont>p{
+		font-size:16px;
 	}
 	
 	#rvCont>div{
@@ -513,6 +519,20 @@
 		margin-left: 10px;
 		margin-right: 8px;
 	}
+	
+	.infoEtc {
+	    width: 1100px;
+	    font-size: 20px;
+	    border-bottom: 3px solid lightgray;
+	    padding-bottom: 20px;
+  	}
+	
+	.hpEtc {
+	    margin-top: 20px;
+	    margin-left: 20px;
+	    font-size: 16px;
+	    color: rgb(58, 58, 58);
+  	}
 
 	
 </style>
@@ -580,14 +600,21 @@
                       <button id="phoneCopy">전화번호 복사</button>
                     </div>
                   </div>
+                  <br><br>
+                  <div class="infoEtc">
+                  	 <strong>기타사항</strong>
+                  	 <div class="hpEtc">
+
+                  	 </div>
+                  </div>
+                  <br><br>
+                  
                   <!-- 리뷰 -->
                   <div id="hsp-review" class="info">
                     <div id="reviewList">
                       <div id="review-div">
                         <span></span>
-                        <div id="graph">
-                            <img id="graphImg" src="resources/reviewImg/4.png">
-                        </div>
+
                         <!-- 리뷰 작성 -->
                         <div id="hspReview">
                           <div id="hspReview1">
@@ -595,11 +622,11 @@
                             <div id="hpStar"><img src="resources/reviewImg/starHeart/star2.png" id="starImg"></div>
                             <div id="rvRate">
                             	<select id="rate">
-                            		<option selected>5.0</option>
-                            		<option>4.0</option>
-                            		<option>3.0</option>
-                            		<option>2.0</option>
-                            		<option>1.0</option>
+                            		<option selected>5</option>
+                            		<option>4</option>
+                            		<option>3</option>
+                            		<option>2</option>
+                            		<option>1</option>
                             	</select>
                             </div>
                           </div>
@@ -643,9 +670,6 @@
 	                        
                         </div>
                         
-                        <!-- <div id="moreReview">
-                          <button id="moreReviewBtn"><img id="moreBtnImg" src="resources/mainIcon/menu2.png">리뷰 더보기</button>
-                        </div> -->
                       </div>
                     </div>
                   </div> 
@@ -653,6 +677,7 @@
             <script>
 
                 $(function(){
+                	reviewGet();
                 	// 상세정보 조회 ajax 시작
                 	$.ajax({
                 		url:"selectDetailInfo.kh",
@@ -665,6 +690,7 @@
 	                      let todayTime = "";
 	                      let address = "";
 	                      let onOff = "";
+                          let etc = "";
                           
                       var now = new Date();
                       var currentHour = now.getHours();
@@ -675,7 +701,7 @@
                         name += $(item).find("dutyName").text()
                         phone += $(item).find("dutyTel1").text()
                         address += $(item).find("dutyAddr").text()
-                        
+                        etc += $(item).find("dutyEtc").text()
                         var position = new naver.maps.LatLng($(item).find("wgs84Lat").text(), $(item).find("wgs84Lon").text());
 		
                     // 지도 생성
@@ -892,6 +918,13 @@
                         $(".infoDetail").html(time);
                         $(".diagnosisTime").html(todayTime);
                         $(".diagnosisStatus").html(onOff);
+                        
+                        if(etc != ""){
+	                        $(".hpEtc").html(etc);
+                        	
+                        }else{
+                        	$(".hpEtc").html("기타사항 없음");
+                        }
                                
                 		}, error:function(){
                 			console.log("상세정보 조회 ajax 통신 실패");
@@ -900,48 +933,51 @@
                   // 상세정보 ajax 끝
                   
                   // 리뷰 조회
-                  $.ajax({
-	          			url:"review.get",
-	          			data:{
-	          				 hosCode:"${ hpid }"
-	          				 },
-	          			success:function(data){
-	          					
-	          					let value = "";
-	          					if(data.length > 0){
-
-		          					for(let i in data){
-		               					value += "<div id='hspReview'>"
-		               						   +  "<div id='hspReview1'>"
-			         	                       +   "<div class='hpName'></div>"
-			         	                       +   "<div id='hpStar'><img src='resources/reviewImg/starHeart/star2.png' id='starImg'></div>"
-			         	                       +   "<div id='hpRate'><p>"+ data[i].rate + "</p></div>"
-											   +  "</div>"
-			         	                       +  "<div id='hspReview2'>"
-			         	                       +  "<div id='rvProfile'>"
-			         	                       +     "<div id='nickName'><p>"+data[i].nickName   +"</p></div>"
-			         	                       +     "<div id='profile'><img src='resources/reviewImg/profile/profile1.png' id='profileImg'></div>"
-			         	                       +    "</div>"
-			         	                       +    "<div id='rvCont'>"
-			         	                       +     "<p>"+ data[i].revContent
-			         	                       +     "</p>"
-			         	                       +   "</div>"
-			         	                       +  "</div>"
-			         	                       + "</div>";
-		          					}
-	                       		}else {
-	                       			value += "<div id='hspReview'>"
-	                       					+ "<p style='text-align:center; font-size:17px; margin-top: 100px;'>등록된 리뷰가 없습니다.<br><br> 리뷰를 등록해주시면 많은 도움이 됩니다😄</p>"
-	                       					+ "</div>";
+                  function reviewGet(){
+                		
+	                  $.ajax({
+		          			url:"review.get",
+		          			data:{
+		          				 hosCode:"${ hpid }"
+		          				 },
+		          			success:function(data){
+		          					
+		          					let value = "";
+		          					if(data.length > 0){
+	
+			          					for(let i in data){
+			               					value += "<div id='hspReview'>"
+			               						   +  "<div id='hspReview1'>"
+				         	                       +   "<div class='hpName'></div>"
+				         	                       +   "<div id='hpStar'><img src='resources/reviewImg/starHeart/star2.png' id='starImg'></div>"
+				         	                       +   "<div id='hpRate'><p>"+ data[i].rate + "</p></div>"
+												   +  "</div>"
+				         	                       +  "<div id='hspReview2'>"
+				         	                       +  "<div id='rvProfile'>"
+				         	                       +     "<div id='nickName'><p>"+data[i].nickName   +"</p></div>"
+				         	                       +     "<div id='profile'><img src='resources/reviewImg/profile/profile1.png' id='profileImg'></div>"
+				         	                       +    "</div>"
+				         	                       +    "<div id='rvCont'>"
+				         	                       +     "<p>"+ data[i].revContent
+				         	                       +     "</p>"
+				         	                       +   "</div>"
+				         	                       +  "</div>"
+				         	                       + "</div>";
+			          					}
+		                       		}else {
+		                       			value += "<div id='hspReview'>"
+		                       					+ "<p style='text-align:center; font-size:17px; margin-top: 100px;'>등록된 리뷰가 없습니다.<br><br> 리뷰를 등록해주시면 많은 도움이 됩니다😄</p>"
+		                       					+ "</div>";
+		                       			
+		                       		}		  
+		          							  $("#review-div span").html("리뷰 ( 총 " + data.length + "개 )");
+		                	                  $("#review_wrap").html(value);     
+	                       			}, error:function(){
+	                       				console.log("ajax 통신실패");
+	                       			}
 	                       			
-	                       		}		  
-	          							  $("#review-div span").html("리뷰 ( 총 " + data.length + "개 )");
-	                	                  $("#review_wrap").html(value);     
-                       			}, error:function(){
-                       				console.log("ajax 통신실패");
-                       			}
-                       			
-                       		})
+	                       		})
+                	}
                   
                   // 리뷰 등록
                   $("#rvInsertBtn").click(function(){
@@ -979,7 +1015,8 @@
                					}
       	                 	 $("#review_wrap").html(value);
       	                 	 $("#rvText").val("");
-      	                  
+      	                 	 reviewGet();
+      	                 	 
                  			}, error:function(){
                  				console.log("리뷰 등록 ajax 통신실패");
                  			}

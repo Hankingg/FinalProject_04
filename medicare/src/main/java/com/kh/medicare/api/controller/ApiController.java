@@ -1,4 +1,5 @@
 package com.kh.medicare.api.controller;
+import java.util.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,8 +10,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
+
+
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -161,7 +162,7 @@ public class ApiController {
 			        }
 			    }
 			    
-			     Collections.sort(list, Comparator.comparingInt(Hospital::getDistance));
+			    //Collections.sort(list, Comparator.comparingInt(Hospital::getDistance));
 			    
 			} catch (Exception e) {
 			    e.printStackTrace();
