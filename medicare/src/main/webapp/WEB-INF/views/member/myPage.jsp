@@ -504,6 +504,146 @@
 	.deliveryStatusBtn:hover {
 	background-color: #218838; /* 마우스 오버 시 배경 색상 변경 */
 	}
+
+	#hos_wrap {
+        display: flex;
+        border-right: 1px solid black;
+        box-sizing: border-box;
+      }
+      #hos_wrap > div {
+        height: 100%;
+      }
+      #hos_wrap div {
+        border: 0px;
+      }
+
+      #hos1 {
+        width: 80%;
+      }
+      #hos2 {
+        width: 20%;
+      }
+      #hos1_1 {
+        height: 20%;
+      }
+      #hos1_1 > div {
+        display: inline-block;
+        margin-left: 10px;
+        margin-top: 10px;
+        color: rgb(55, 108, 200);
+      }
+      #hos1_2 {
+        height: 30%;
+      }
+      #hos1_2 > div {
+        display: inline-block;
+        margin-top: 6px;
+        margin-left: 10px;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      #hos1_3 {
+        height: 30%;
+      }
+      #hos1_3 > div {
+        display: inline-block;
+        margin-left: 10px;
+      }
+      #hos1_3_1 {
+        height: 70%;
+      }
+      #hos1_3_2 {
+        height: 30%;
+      }
+      #hos1_3_2 > div {
+        display: flex;
+      }
+      #hos1_4 {
+        height: 20%;
+      }
+      #hos1_4 > div {
+        display: inline-block;
+        width: 40px;
+        text-align: center;
+        margin-left: 10px;
+        margin-top: 3px;
+      }
+
+      #hos2_1 {
+        height: 30%;
+      }
+      #hos2_2 {
+        height: 70%;
+      }
+      #hos2_1 p {
+        transform: scale(1);
+        display: inline-block;
+        padding-left: 10px;
+        padding-bottom: 20px;
+      }
+      #hos2_2_1 {
+        text-align: center;
+        margin-left: 8px;
+        margin-top: 70px;
+        width: 80%;
+        white-space: nowrap;
+        font-size: 14px;
+      }
+      .hos_wrap_jm {
+        display: flex;
+        height: 150px;
+        width: 500px;
+        border: 1px solid black;
+        border-radius: 10px;
+      }
+      .hos_wrap_jm > div {
+        height: 100%;
+      }
+      #hos_wrap {
+        width: 80%;
+      }
+      #hos_wrap2 {
+        width: 20%;
+        padding-left: 20px;
+        margin-top: 40px;
+      }
+	  /* 택배 발송 모달 style */
+	  .modal5 {
+      display: none; /* 기본적으로 모달을 보이지 않게 함 */
+      position: fixed; /* 스크롤 시에도 항상 같은 위치에 표시 */
+      z-index: 1; /* 다른 요소보다 위에 표시됨 */
+      left: 0;
+      top: 0;
+      width: 100%; /* 부모 요소인 <body>에 꽉 차도록 너비 설정 */
+      height: 100%; /* 뷰포트에 꽉 차도록 높이 설정 */
+      overflow: auto; /* 내용이 넘칠 경우 스크롤 가능 */
+      background-color: rgba(0,0,0,0.4); /* 반투명 배경 */
+   }
+   /* Modal content style */
+   .modal-content5 {
+      background-color: #fefefe;
+      position: absolute; /* 절대 위치 지정 */
+      top: 20%; /* 위에서부터 10%의 위치에 배치 */
+      right: 29%; /* 오른쪽에서부터 10%의 위치에 배치 */
+      padding: 20px;
+      border: 1px solid #888;
+      width: 50%; /* 가로 크기를 50%로 설정하여 작게 표시 */
+      max-width: 600px; /* 최대 가로 크기 설정 */
+      transform: translateX(0%); /* 필요한 경우 위치 조정 */
+   }
+   /* Close button style */
+   .close5 {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+   }
+   .close5:hover,
+   .close5:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+   }
 	
 	
 </style>
@@ -521,16 +661,16 @@
 						<c:when test="${ loginUser.memId eq 'admin' }">
 							<ul>						
 							<li id="info"><a href="myInfo.me" class="tab active">회원관리</a></li>
-							<li id="heart"><a class="tab">좋아요 리스트</a></li>
+							<li id="heart"><a onclick="myDiagnosisInfo();" class="tab">진료내역</a></li>
 							<li id="review"><a onclick="myReviewList();" class="tab">리뷰 리스트</a></li>
-							<li id="delivery"><a class="tab">택배 리스트</a></li>
+							<li id="delivery"><a onclick="myDeliveryList();" class="tab">택배 리스트</a></li>
 							<li id="documents"><a onclick="myDocumentList();" class="tab">문서함</a></li>
 							</ul>
 						</c:when>
 						<c:otherwise> 
 							<ul>						
 								<li id="info"><a href="myInfo.me" class="tab active">내정보</a></li>
-								<li id="heart"><a class="tab">좋아요 리스트</a></li>
+								<li id="heart"><a onclick="myDiagnosisInfo();" class="tab">진료내역</a></li>
 								<li id="review"><a onclick="myReviewList();" class="tab">리뷰 리스트</a></li>
 								<li id="delivery"><a onclick="myDeliveryList();" class="tab">택배 리스트</a></li>
 								<li id="documents"><a onclick="myDocumentList();" class="tab">문서함</a></li>
@@ -705,12 +845,12 @@
 									
 									var value = "";
 									for(var i=0; i<data.length;i++){
-										value +=  "<div id='hos_wrap' style='width: 400px; height: 130px; margin:auto; margin-top:30px;'>"
+										value +=  "<div id='hos_wrap' style='width: 400px; height: 130px; margin:auto; margin-top:30px; border:1px solid black; border-radius:15px;'>"
 										      + "<div id='hos1'>"
 										      +  "<div id='hos1_1'>"
 										      +    "<div>"+ data[i].title+" | "+data[i].id+"</div>"
 										      +  "</div>"
-										      +  "<div id='hos1_2'><div>"+ data[i].hosCode +"</div></div>"
+										      +  "<div id='hos1_2'><div style='white-space:nowrap;'>"+ data[i].hosCode +"</div></div>"
 										      +  "<div id='hos1_3'>"
 										      +    "<div id='hos1_3_1'> 예약 날짜 :" +data[i].start + "</div>"
 										      +    "<br />"
