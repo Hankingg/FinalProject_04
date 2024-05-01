@@ -158,7 +158,6 @@
 
 <script type="text/javascript">
 	var ws;
-	console.log("${loginUser.memId}");
 	
 	let sock1 = new SockJS("http://localhost:8008/medicare/echo-ws");
 	sock1.onmessage = onMessage;

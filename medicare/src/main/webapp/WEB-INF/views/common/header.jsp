@@ -306,7 +306,7 @@
             <div class="add-items d-flex px-3 mb-0">
               <div id="msgStack"> </div>
 				
-              <!-- 
+              <!--  
               <script>
                 $(document).ready(function(){
                 
@@ -393,11 +393,8 @@
                   }
                 }
               </script>
-			 -->
-
-
-
-
+ 			  -->
+ 			  
             </div>
             
             

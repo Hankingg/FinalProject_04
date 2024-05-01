@@ -533,6 +533,20 @@
 	    font-size: 16px;
 	    color: rgb(58, 58, 58);
   	}
+  	
+  	.infoDetail {
+	    width: 1100px;
+	    font-size: 20px;
+	    border-bottom: 3px solid lightgray;
+	    padding-bottom: 20px;
+  	}
+  	
+  	.detailInfo {
+	    margin-top: 20px;
+	    margin-left: 20px;
+	    font-size: 16px;
+	    color: rgb(58, 58, 58);
+  	}
 
 	
 </style>
@@ -608,7 +622,12 @@
                   	 </div>
                   </div>
                   <br><br>
-                  
+                  <div class="infoDetail">
+                  	 <strong>상세 설명</strong>
+                  	 <div class="detailInfo">
+                  	 
+                  	 </div>
+                  </div>
                   <!-- 리뷰 -->
                   <div id="hsp-review" class="info">
                     <div id="reviewList">
@@ -691,6 +710,7 @@
 	                      let address = "";
 	                      let onOff = "";
                           let etc = "";
+                          let detailInfo = "";
                           
                       var now = new Date();
                       var currentHour = now.getHours();
@@ -702,6 +722,8 @@
                         phone += $(item).find("dutyTel1").text()
                         address += $(item).find("dutyAddr").text()
                         etc += $(item).find("dutyEtc").text()
+                        detailInfo += $(item).find("dutyInf").text()
+                        
                         var position = new naver.maps.LatLng($(item).find("wgs84Lat").text(), $(item).find("wgs84Lon").text());
 		
                     // 지도 생성
@@ -921,9 +943,14 @@
                         
                         if(etc != ""){
 	                        $(".hpEtc").html(etc);
-                        	
                         }else{
                         	$(".hpEtc").html("기타사항 없음");
+                        }
+                        
+                        if(detailInfo != ""){
+                        	$(".detailInfo").html(detailInfo);
+                        }else {
+                        	$(".detailInfo").html("상세설명 없음");
                         }
                                
                 		}, error:function(){
