@@ -104,14 +104,14 @@ public class hospitalController {
 	}
 	
 	@RequestMapping("order.in")
-	public String insertOrder(Order order,Model model) {
+	public String insertOrder(Order order,HttpSession session) {
 		System.out.println(order);
 			int result = hService.insertOrder(order);
 		if(result > 0) {
-			model.addAttribute("alertMsg","예약성공했습니다");
+			session.setAttribute("alertMsg","예약성공했습니다");
 			return "redirect:/";
 		}else {
-			model.addAttribute("errorMsg","예약에 성공하지못했습니다");
+			session.setAttribute("errorMsg","예약에 성공하지못했습니다");
 			return "redirect:/";
 		}
 	}

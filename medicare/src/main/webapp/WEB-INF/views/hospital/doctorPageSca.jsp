@@ -88,6 +88,7 @@
 	    	        		$("#zoom_alarm").removeAttr('disabled');
 	    	        		$("#zoom").removeAttr('disabled');
 	    	        		location.reload();
+	    	        		
 	    				},error:function(){
 	    					console.log("에러");
 	    				}
@@ -95,7 +96,19 @@
 				})	
 				
 				$("#sprintSettingModalClose").click(function(){
-					location.href="order.delete?memId="+event.event.constraint+"&hosCode="+ event.event.overlap;
+					$.ajax({
+	    				url:"order.delete",
+	    				data:{memNo:event.event.textColor,
+	    					  hosCode:event.event.overlap},
+	    				success:function(result){
+	    					console.log(result);
+	    					$("#addCalendar").attr('disabled',true);
+	    	        		$("#sprintSettingModalClose").attr('disabled',true);
+	    	        		location.reload();
+	    				},error:function(){
+	    					console.log("에러");
+	    				}
+	    			});
 				});
 			
 				$("#zoom").click(function(){
@@ -507,7 +520,7 @@
                     <button type="button" class="btn btn-warning" id="addCalendar" disabled>예약 확정</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         id="sprintSettingModalClose" disabled>예약 취소</button>
-                    <button type="button" id="notifySendBtn" class="btn btn-outline-warning" data-dismiss="modal" id="zoom_alarm">알림</button>
+                    <button type="button" id="notifySendBtn" class="btn btn-outline-warning" data-dismiss="modal" id="zoom_alarm"disabled>알림</button>
                     <button type="button" class="btn btn-outline-primary" id="zoom" disabled>화상채팅</button>
                 </div>
 
