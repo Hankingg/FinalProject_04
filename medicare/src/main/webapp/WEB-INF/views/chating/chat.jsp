@@ -7,7 +7,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
 <meta charset="UTF-8">
-	<title>DevLog Chating</title>
+	<title>Chating</title>
 	<style>
 		*{
 			margin:0;
@@ -16,176 +16,232 @@
 		.container{
 			width: 500px;
 			margin: 0 auto;
-			padding: 25px
+			padding: 25px;
 		}
-		.container h1{
+
+		#container{
+			margin-left: 400px;
+		}
+		.container h2{
 			text-align: left;
 			padding: 5px 5px 5px 15px;
-			color: #FFBB00;
-			border-left: 3px solid #FFBB00;
+			color: #f96c85;
+			border-left: 3px solid #f96c85;
 			margin-bottom: 20px;
 		}
+		
 		.chating{
-			background-color: #000;
-			width: 500px;
-			height: 500px;
+			background-color: rgb(243, 243, 243);
+			width: 660px;
+			height: 650px;
 			overflow: auto;
+			margin-bottom: 20px;
+			padding-top: 50px;
+			padding-left: 30px;
+			padding-right: 30px;
+			border-radius: 10px;			
 		}
-		.chating .me{
-			color: #F6F6F6;
+		
+		.myChat{
 			text-align: right;
+			margin-left: auto;
 		}
-		.chating .others{
-			color: #FFE400;
-			text-align: left;
+		
+		.chating .me {
+		    margin-left: auto;
+		    padding: 8px;
+		    border-radius: 10px;
+		    display: inline-block;
+		    text-align: left;
+		    max-width: 400px;
+		    word-wrap: break-word;
+		    margin-right: 3px;
+    		margin-top: 7px;
+            background-color: white;
+    		color: #f96c85;
+
+    	}
+
+    	.otChat{
+    		text-align: left;
+			margin-right: auto;
+    	}
+    	
+		.chating .other{
+			margin-right: auto;
+			margin-left: 3px;
+		    padding: 8px;
+		    border-radius: 10px;
+		    display: inline-block;
+		    max-width: 400px;
+		    word-wrap: break-word;
+    		margin-top: 7px;
+            background-color: #f96c85;
+    		color: white;
 		}
 		.chating .start{
-			color: #AAAAAA;
+			color: #f96c85;
 			text-align: center;
 		}
 		.chating .exit{
 			color: red;
 			text-align: center;
 		}
-		input{
-			width: 330px;
-			height: 25px;
-		}
+		
 		#yourMsg{
 			display: none;
 		}
+		
+		#userName{
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+		
+		#startBtn{
+			width: 200px;
+			height: 50px;
+			border: none;
+			border-radius: 10px;
+			background-color: #f96c85;
+			color: white;
+			font-size: 18px;
+		}
+		
+		#chatRoomIn{
+			display: flex;
+			justify-content: center;
+			margin-right: 430px;
+		}
+		
+		#sendBtn{
+			width: 80px;
+			height: 40px;
+			border: none;
+			border-radius: 10px;
+			background-color: #f96c85;
+			color: white;
+		}
+		
+		#chatting{
+			margin-left: 10px;
+			margin-right: 10px;
+			width: 550px;
+			height: 50px;
+			border-radius: 10px;
+			border: 2px solid #f96c85;
+			padding-left: 10px;
+		}
+		
+		.chat-sender{
+			font-size: 15px;
+		}
+		
+		.chat-time{
+			margin-right: 10px;
+			margin-left: 10px;
+			font-size: 13px;
+		}
+		
+		.profile{
+			width: 55px;
+			height: 50px;
+			margin-right: 5px;
+		}
+		
+		.chatCont>div{
+			/* float: left; */
+			display: inline-block;
+		}
+		
 	</style>
 </head>
 
 <script type="text/javascript">
 	var ws;
+	console.log("${loginUser.memId}");
 	
 	let sock1 = new SockJS("http://localhost:8008/medicare/echo-ws");
 	sock1.onmessage = onMessage;
 	sock1.onclose = onClose;
 	
+	$(document).ready(function(){
+		$("#chatting").keypress(function(event){
+			// 엔터키 눌렸는지 확인. 13 : 엔터키
+			if(event.which == 13){
+				sendMessage();
+				event.preventDefault(); // 기본 이벤트(엔터키 입력시 개행)방지
+			}
+		})
+	})
+	
+	function formatTime(date) {
+	    var hours = date.getHours();
+	    var minutes = date.getMinutes();
+	    var ampm = hours >= 12 ? '오후' : '오전';
+	    hours = hours % 12;
+	    hours = hours ? hours : 12; // 0 시간을 12로 변경
+	    minutes = minutes < 10 ? '0' + minutes : minutes; // 분을 두 자리 숫자로 포맷
+	
+	    var strTime = ampm + ' ' + hours + ':' + minutes;
+	    return strTime;
+	}
+	
+	var now = new Date();
+	var formattedTime = formatTime(now);
+	
 	function sendMessage(){
-		sock1.send($("#chatting").val());
+		var chatMessage = $("#chatting").val().trim();
+		var now = new Date();
+		
+		var message = {
+			sender: "${loginUser.nickName}",
+			content: chatMessage,
+			timestamp: formatTime(now)
+		};
+		sock1.send(JSON.stringify(message));
+		$("#chatting").val("").focus();
+		
 	}
 	
 	function onMessage(msg){
 		var data = msg.data;
-		$("#chating").append(data + "<br>");
+		var message = JSON.parse(data);
+		
+		var value = "";
+		
+			// 일반 채팅 메세지일 경우
+			if(message.sender == "${loginUser.nickName}"){
+				value += "<div class='myChat'>"
+					   + "<span class='chat-sender'>" + message.sender + "</span><br>"
+					   + "<div class='chatCont'>"
+					   + "<div><span class='chat-time'>" + message.timestamp + "</span></div>"
+					   + "<div class='me'>" + message.content + "</div>"
+					   + "</div>"
+					   + "</div><br>";
+			}else{
+				value += "<div class='otChat'>"
+					   + "<span class='chat-sender'>" + message.sender + "</span><br>"
+					   + "<div class='chatCont'>"
+					   + "<div><img class='profile' src='resources/reviewImg/profile/profile1.png'></div>"
+					   + "<div class='other'>" + message.content + "</div>"
+					   + "<div><span class='chat-time'>" + message.timestamp + "</span></div>"
+					   + "</div>"
+					   + "</div><br>";
+			}
+
+		$("#chating").append(value);
 	}
 	
 	function onClose(evt){
-		$("#chating").append("연결 끊김");
-	}
-	
-	
-	
-	function wsOpen(){
-		//websocket을 지정한 URL로 연결
-		ws = new WebSocket("ws://" + location.host + "/chating");
-		WebSocket("ws://" + location.host + "/chating");
-		wsEvt();
-	}
-		
-	function wsEvt() {
-		//소켓이 열리면 동작
-		ws.onopen = function(e){
-			console.log("WebSocket 연결 성공");
-			
-		}
-		
-		//서버로부터 데이터 수신 (메세지를 전달 받음)
-		ws.onmessage = function(e) {
-			
-			console.log("서버로부터 메세지 수신 : " + e.data);
-			//e 파라미터는 websocket이 보내준 데이터
-			var msg = e.data; // 전달 받은 데이터
-			if(msg != null && msg.trim() != ''){
-				var d = JSON.parse(msg);
-				
-				//socket 연결시 sessionId 셋팅
-				if(d.type == "getId"){
-					var si = d.sessionId != null ? d.sessionId : "";
-					if(si != ''){
-						$("#sessionId").val(si); 
-						
-						var obj ={
-							type: "open",
-							sessionId : $("#sessionId").val(),
-							userName : $("#userName").val()
-						}
-						//서버에 데이터 전송
-						ws.send(JSON.stringify(obj))
-					}
-				}
-				//채팅 메시지를 전달받은 경우
-				else if(d.type == "message"){
-					if(d.sessionId == $("#sessionId").val()){
-						$("#chating").append("<p class='me'>" + d.msg + "</p>");	
-					}else{
-						$("#chating").append("<p class='others'>" + d.userName + " : " + d.msg + "</p>");
-					}
-						
-				}
-				//새로운 유저가 입장하였을 경우
-				else if(d.type == "open"){
-					if(d.sessionId == $("#sessionId").val()){
-						$("#chating").append("<p class='start'>[채팅에 참가하였습니다.]</p>");
-					}else{
-						$("#chating").append("<p class='start'>[" + d.userName + "]님이 입장하였습니다." + "</p>");
-					}
-				}
-				//유저가 퇴장하였을 경우
-				else if(d.type == "close"){
-					$("#chating").append("<p class='exit'>[" + d.userName + "]님이 퇴장하였습니다." + "</p>");
-					
-				}
-				else{
-					console.warn("unknown type!")
-				}
-			}
-		}
-
-		document.addEventListener("keypress", function(e){
-			if(e.keyCode == 13){ //enter press
-				send();
-			}
-		});
-		
-		ws.onclose = function() {
-		      console.log("WebSocket 연결 종료");
-		      // 연결이 닫혔을 때 할 작업들
-	    };
-
-	    ws.onerror = function(error) {
-	      console.error("WebSocket 에러 발생: ", event);
-	      // 에러가 발생했을 때 할 작업들
-	    };
+		 $("#chating").append("<p class='exit'>[${loginUser.nickName}]님이 퇴장하였습니다.</p>");
 	}
 
-	function chatName(){
-		var userName = $("#userName").val();
-		if(userName == null || userName.trim() == ""){
-			alert("사용자 이름을 입력해주세요.");
-			$("#userName").focus();
-		}else{
-			//wsOpen();
-			$("#yourName").hide();
+	function chatIn(){
+			$("#chatRoomIn").hide();
+			$("#chating").append("<p class='start'>[${loginUser.nickName}]님이 입장하였습니다.</p>");
 			$("#yourMsg").show();
-		}
+			$("#chatting").focus();
 	}
-
-	function send() {
-		var obj ={
-			type: "message",
-			sessionId : $("#sessionId").val(),
-			userName : $("#userName").val(),
-			msg : $("#chatting").val()
-		}
-		//서버에 데이터 전송
-		ws.send(JSON.stringify(obj))
-		$('#chatting').val("");
-	}
-	
 	
 </script>
 <body>
@@ -193,27 +249,20 @@
 	<div class="main-panel">
         <div class="content-wrapper">
 			<div id="container" class="container">
-				<h1>DevLog Chat</h1>
+				<h2>문의하기</h2>
 				<input type="hidden" id="sessionId" value="">
 				
 				<div id="chating" class="chating">
 				</div>
 				
-				<div id="yourName">
-					<table class="inputTable">
-						<tr>
-							<th>닉네임</th>
-							<th><input type="text" name="userName" id="userName"></th>
-							<th><button onclick="chatName()" id="startBtn">채팅 참가</button></th>
-						</tr>
-					</table>
+				<div id="chatRoomIn">
+					<button onclick="chatIn()" id="startBtn">채팅방 입장하기</button>
 				</div>
 				<div id="yourMsg">
 					<table class="inputTable">
 						<tr>
-							<th>메시지</th>
 							<th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
-							<th><button onclick="sendMessage()" id="sendBtn">보내기</button></th>
+							<th><button onclick="sendMessage()" id="sendBtn">전송</button></th>
 						</tr>
 					</table>
 				</div>

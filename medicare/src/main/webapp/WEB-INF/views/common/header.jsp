@@ -255,7 +255,7 @@
       
       	<!-- chat 버튼 -->
           <div id="chatBtn">
-          	   <a href="chat"><img id="chatImg" src="resources/mainIcon/chat1.png"></a>
+          	   <a href="chat"><img id="chatImg" src="resources/mainIcon/chat2.png"></a>
           </div>
         
         <!-- top 버튼 -->
@@ -304,9 +304,11 @@
           <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
             <div class="add-items d-flex px-3 mb-0">
               <div id="msgStack"> </div>
-
+				
+              <!-- 
               <script>
                 $(document).ready(function(){
+                
                   // 웹소켓 연결
                    sock = new SockJS("<c:url value='/echo-ws'/>");
                    socket = sock;
@@ -390,7 +392,7 @@
                   }
                 }
               </script>
-
+			 -->
 
 
 

@@ -101,7 +101,7 @@
 	}
 
 	#liveBtn {
-		height:400px;			
+		height:120px;			
 	}
 	
 	#popup1 {
@@ -109,6 +109,46 @@
 		margin-left:50px;
 	}
 	
+	#map{
+      width: 1000px;
+      height: 600px;
+      margin-top:20px;
+      margin-bottom:20px;
+      border: 1px solid gray;
+      border-radius: 20px;
+      margin-left: 120px;
+   	}
+   	
+   	/* 지도 호버시 정보창 */
+	.infoWindow{
+		width: auto;
+		height: 40px;
+		text-align:center;
+		border-radius: 10px;
+		border: 2px solid #f96c85;
+		font-size: 15px;
+		padding-top: 7px;
+		padding-right: 15px;
+		background-color: white;
+		
+	} 
+	 
+	.infoWindow>div{
+		float: left;
+	}
+   	
+   	.hosName{
+		margin-top: 5px;
+		margin-bottom: 10px;
+	}
+
+	.hosImg{
+		width: 25px;
+		height: 25px;
+		margin-left: 10px;
+		margin-right: 8px;
+	}
+ 
 </style>
 </head>
 <body>
@@ -123,7 +163,7 @@
 	</select>
 	
 	<select id="location2" onchange="liveButton()">
-		<option value="강남구">강남구</option>
+		<option value="강남구" seleted>강남구</option>
 		<option value="강서구">강서구</option>
 		<option value="강동구">강동구</option>
 		<option value="서초구">서초구</option>
@@ -152,6 +192,10 @@
 	
 	<br>
 	
+	<div id="map">
+	
+	</div>
+	 
 	<button id="popup1" onclick=popup1() class="livemap2">실시간 전체 도로상황 보러가기</button>
 	
 	<div id="result">
@@ -166,13 +210,10 @@
         <button id="popup7" onclick=popup7() class="livemap2">삼성서울병원(강남) 근처 실시간 도로상황 보러가기</button>	     
 	</div>
 	
-	
-	 
 	<form action="chatForm.ch">채팅
 		<input type="hidden" value="${ loginUser.memId }" name="memId">
 		<button>채팅</button>
-	</form>
-	 
+	</form> 
 	
 	<script>	
 	
@@ -313,79 +354,6 @@
 		window.open("http://www.utic.go.kr/view/map/cctvStream.jsp?cctvid=L010104&cctvname=%25EB%25B0%259C%25EC%2582%25B0%25EC%2597%25AD&kind=Seoul&cctvip=null&cctvch=51&id=102&cctvpasswd=null&cctvport=null&minX=126.81432261957629&minY=37.54418152551521&maxX=126.85863103850137&maxY=37.56720339247953", "_blank", options);
 	}
 	
-	
-	$(function(){			
-	    function sendAjaxRequest() {
-	        $.ajax({
-	            url:"emer.do",
-	            data:{location1:$("#location1").val(), location2:$("#location2").val()},
-	            success:function(data){
-	                
-	                let bodyTr = "";
-	                $(data).find("item").each(function(i, item){
-	                    bodyTr  += "<tr id='emList'>"	                    	
-	                            + "<th width='300' id='ulh'>기관명</th>"
-	                            + "<th width='120'>응급실</th>"
-	                            + "<th width='100'>수술실</th>"						                    
-	                            + "<th width='100'>일반중환자</th>"
-	                            + "<th width='100'>입원실</th>"	                                      
-	                            + "<th width='150'>구급차가용여부</th>"	                       
-	                            + "<th width='100'>소아</th>"	                                         
-	                            + "<th width='150' id='urh'>응급실전화</th>"                        
-	                            + "</tr>"	
-	                            
-	                            + "<tr id='er'>"
-	                            + "<td id='uld'>" + $(item).find("dutyName").text() + "</td>"	                           
-	                            + "<td>" + ($(item).find("hvec").text() < 0 ? "대기자  : " + $(item).find("hvec").text().substring(1) + "명" + "</td>" : "잔여 : " + $(item).find("hvec").text() + "</td>") 
-	                            + "<td>" + $(item).find("hvoc").text() + "</td>"                                                            
-	                            + "<td>" + $(item).find("hvicc").text() + "</td>"
-	                            + "<td>" + $(item).find("hvgc").text() + "</td>"                                                           
-	                            + "<td>" + $(item).find("hvamyn").text() + "</td>"                            
-	                            + "<td>" + $(item).find("hv10").text() + "</td>"                                                             
-	                            + "<td id='urd'>" + $(item).find("dutyTel3").text() + "</td>"                                                
-	                            + "</tr>"
-	                            + "<tr class='noLine' style='height:30px;>"
-	                            + "<td class='noLine' colspan=11>" + "</td>"
-	                            + "</tr>";
-	                            
-	                            
-	                   $.ajax({
-	                	   url:"hospitalInfo.em",
-	                	   data:{hpid:$(item).find("hpid").text()},
-	                	   success:function(result){
-	                		   
-	                 			
-	                		   
-	                		   $(result).find("item").each(function(i, item){
-	                			  
-	                		   })
-	                		   
-	                		   
-	                	   //let bodyTr2 = "";
-	   	                   //$(data).find("item").each(function(i, item)
-	                		   
-	                	   }
-	                	   
-	                 });        
-	                    
-	                  
-	                });
-	                
-	                $("#result").html(bodyTr);								 
-	            },
-	            error:function(){
-	                console.log("응급실 아작스 통신실패");
-	            }
-	        });
-	    }
-	    
-	  
-	    sendAjaxRequest();
-	    
-	    setInterval(sendAjaxRequest, 1000);
-	});
-
-	
 	$(document).ready(function(){
         // 저장된 값이 있는지 확인합니다.
         var selectedLocation = localStorage.getItem("selectedLocation");
@@ -404,63 +372,135 @@
 	
 	
 	$(function() {
-    // Function to send AJAX request and update the result
-    function sendAjaxRequest() {
-        $.ajax({
-            url: "emer.do",
-            data: {
-                location1: $("#location1").val(),
-                location2: $("#location2").val()
-            },
-            success: function(data) {
-                let bodyTr = "";
-                $(data).find("item").each(function(i, item) {
-                    bodyTr += "<tr id='emList'>"
-                        + "<th width='300' id='ulh'>기관명</th>"
-                        + "<th width='120'>응급실</th>"
-                        + "<th width='100'>수술실</th>"
-                        + "<th width='100'>일반중환자</th>"
-                        + "<th width='100'>입원실</th>"
-                        + "<th width='150'>구급차가용여부</th>"
-                        + "<th width='100'>소아</th>"
-                        + "<th width='150' id='urh'>응급실전화</th>"
-                        + "</tr>"
-                        + "<tr id='er'>"
-                        + "<td id='uld'>" + $(item).find("dutyName").text() + "</td>"
-                        + "<td>" + ($(item).find("hvec").text() < 0 ? "대기자  : " + $(item).find("hvec").text().substring(1) + "명" + "</td>" : $(item).find("hvec").text() + "</td>")
-                        + "<td>" + $(item).find("hvoc").text() + "</td>"
-                        + "<td>" + $(item).find("hvicc").text() + "</td>"
-                        + "<td>" + $(item).find("hvgc").text() + "</td>"
-                        + "<td>" + $(item).find("hvamyn").text() + "</td>"
-                        + "<td>" + $(item).find("hv10").text() + "</td>"
-                        + "<td id='urd'>" + $(item).find("dutyTel3").text() + "</td>"
-                        + "</tr>"
-                        + "<tr class='noLine' style='height:30px;>"
-                        + "<td class='noLine' colspan=11>" + "</td>"
-                        + "</tr>";
-			                });
-			                $("#result").html(bodyTr);
-			            },
-			            error: function() {
-			                console.log("응급실 아작스 통신실패");
-			            }
-			        });
-			    }
-    
-				    sendAjaxRequest();
-				   
-				    $("#btn3").click(function() {
-				        sendAjaxRequest();
-				        
-				    });
-				});
-
-	   
+		
+		var map;
+		sendAjaxRequest();
+	 	// setInterval(sendAjaxRequest, 1000);
+	 	
+	    // Function to send AJAX request and update the result
+	    function sendAjaxRequest() {
+	        $.ajax({
+	            url: "emer.do",
+	            data: {
+	                location1: $("#location1").val(),
+	                location2: $("#location2").val()
+	            },
+	            success: function(data) {
+	                let bodyTr = "";
 	
-	   
-	   
+	                $(data).find("item").each(function(i, item) {
+	      
+	                    bodyTr += "<tr id='emList'>"
+	                        + "<th width='300' id='ulh'>기관명</th>"
+	                        + "<th width='120'>응급실</th>"
+	                        + "<th width='100'>수술실</th>"
+	                        + "<th width='100'>일반중환자</th>"
+	                        + "<th width='100'>입원실</th>"
+	                        + "<th width='150'>구급차가용여부</th>"
+	                        + "<th width='100'>소아</th>"
+	                        + "<th width='150' id='urh'>응급실전화</th>"
+	                        + "</tr>"
+	                        + "<tr id='er'>"
+	                        + "<td id='uld'>" + $(item).find("dutyName").text() + "</td>"
+	                        + "<td>" + ($(item).find("hvec").text() < 0 ? "대기자  : " + $(item).find("hvec").text().substring(1) + "명" + "</td>" : $(item).find("hvec").text() + "</td>")
+	                        + "<td>" + $(item).find("hvoc").text() + "</td>"
+	                        + "<td>" + $(item).find("hvicc").text() + "</td>"
+	                        + "<td>" + $(item).find("hvgc").text() + "</td>"
+	                        + "<td>" + $(item).find("hvamyn").text() + "</td>"
+	                        + "<td>" + $(item).find("hv10").text() + "</td>"
+	                        + "<td id='urd'>" + $(item).find("dutyTel3").text() + "</td>"
+	                        + "</tr>"
+	                        + "<tr class='noLine' style='height:30px;>"
+	                        + "<td class='noLine' colspan=11>" + "</td>"
+	                        + "</tr>";
+	                        
+	                    
+		                   $.ajax({
+		                	   url:"hospitalInfo.em",
+		                	   data:{hpid:$(item).find("hpid").text()},
+		                	   success:function(data){
+		                		   
+		                		   var items = $(data).find("item");
+	
+		                               // 첫 번째 아이템의 위도와 경도로 지도 중심 설정
+		                               var firstItem = $(items[0]);
+		                               var firstLat = firstItem.find("wgs84Lat").text();
+		                               var firstLon = firstItem.find("wgs84Lon").text();
+		                               var firstPosition = new naver.maps.LatLng(firstLat, firstLon);
+	
+		                               // 지도 생성
+		                               map = new naver.maps.Map('map', {
+		                                   center: firstPosition,
+		                                   zoom: 14
+		                               });
+	 
+		                		   items.each(function(i, item){
+		                			  
+		                			   var lat = $(item).find("wgs84Lat").text();
+		                               var lon = $(item).find("wgs84Lon").text();
+		                               var position = new naver.maps.LatLng(lat, lon);
+		           		            
+		           					   var marker = new naver.maps.Marker({
+			           						position: position,
+			           						map: map, // map 변수는 전역으로 선언되어야 함
+			           						icon: {
+			           							url: 'resources/map/pin2.png',
+			           							scaledSize: new naver.maps.Size(40, 40)
+			           						}
+		           						});
+		           		                 
+		           					/* 마커 호버시 정보창 내용 */
+		           					var content = '<div class="infoWindow">'
+		           						+ '<div class="hosImgDiv">'
+		           						+ '<img class="hosImg" src="resources/map/hos3.png">'
+		           						+ '</div>'
+		           						+ '<div class="hosName">'
+		           						+ '<h4>' + $(item).find("dutyName").text() + '</h4>'
+		           						+ '</div>'
+		           						+ '</div>';
+		           					
+		           					/* 마커 호버시 정보창 */
+		           					var infoWindow = new naver.maps.InfoWindow({
+		           						content: content,
+		           						maxWidth: 'auto',
+		           						maxHeight: 40,						                        
+		           						borderWidth: 0,
+		           						borderRadius: '10',
+		           						backgroundColor: 'transparent',
+		           						disableAnchor: true,
+		           					});
+	
+		           					// 마커에 마우스 진입 이벤트
+		           					marker.addListener('mouseover', function() {
+		           						infoWindow.open(map, marker);
+		           					});
+	
+		           					// 마커에서 마우스가 벗어난 경우 정보창 닫기
+		           					marker.addListener('mouseout', function() {
+		           						infoWindow.close();
+		           					});
+	
+		                		   })
+		                	   }
+		                 });
+	
+				                });
+				                $("#result").html(bodyTr);
+				            },
+				            error: function() {
+				                console.log("응급실 아작스 통신실패");
+				            }
+				        });
+				    }
+	    
+					    $("#btn3").click(function() {
+					        sendAjaxRequest();
+					        
+					    });
+					});
 
 	</script>
+
 	</div>
 	
 

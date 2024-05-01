@@ -1,5 +1,6 @@
 package com.kh.medicare.socket;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,7 @@ public class EchoHandler extends TextWebSocketHandler{
 			sessions.add(session);
 			
 			String senderId = getMemberId(session); // 접속한 유저의 http세션을 조회하여 id를 얻는 함수
+			
 			if(senderId!=null) {	// 로그인 값이 있는 경우만
 				log(senderId + " 연결 됨");
 				users.put(senderId, session);   // 로그인중 개별유저 저장
@@ -36,6 +38,7 @@ public class EchoHandler extends TextWebSocketHandler{
 			
 			System.out.println(session);
 			System.out.println(senderId);
+			
 		}
 		
 		
@@ -81,6 +84,7 @@ public class EchoHandler extends TextWebSocketHandler{
 				users.remove(senderId);
 				sessions.remove(session);
 			}
+
 		}
 		// 에러 발생시
 		@Override

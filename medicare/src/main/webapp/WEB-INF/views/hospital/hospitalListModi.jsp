@@ -474,7 +474,6 @@
 		
 		}
             	
-    			
     			$("#near").click(function(){
     				$.ajax({
     					url:"nearhos.in",
@@ -482,7 +481,6 @@
    						 ,QD:$("#dgidIdName").val()
    						 ,QN:$("#QN").val()},
     					success:function(data){
-    						 console.log(data)
     						let value = "";
     						let first = true;
     						
@@ -508,10 +506,6 @@
 
     		    				
 							$.each(data, function(i, data) {
-								console.log("dd" + data);
-								console.log("i" + i);
-					            console.log(hosLocation);
-    							
     							// 한의원 위치에 대한 마커 추가
 								var hosLocation = new naver.maps.LatLng(data.hosLatitude, data.hosLongitude);
 					            
@@ -523,7 +517,6 @@
 										scaledSize: new naver.maps.Size(40, 40)
 									}
 								});
-					            console.log(marker);     	
 								
 								/* 마커 호버시 정보창 내용 */
 								var content = '<div class="infoWindow">'
@@ -534,7 +527,6 @@
 									+ '<h4>' + data.hosName + '</h4>'
 									+ '</div>'
 									+ '</div>';
-								console.log(data.hosName);
 								
 								/* 마커 호버시 정보창 */
 								var infoWindow = new naver.maps.InfoWindow({
@@ -606,23 +598,10 @@
     			    }
     			    return str; // If there are less than three spaces, return the original string
     			}
-
-    			
    			</script>
-            
-
-			
-              <button onclick="location.href='detail.kh'">상세페이지 버튼</button>
+   			
            </div>
-           
-           
-           
-           
-        
         </div>
-        
-        
-        
         
     <jsp:include page="../common/footer.jsp"/>
 </body>
