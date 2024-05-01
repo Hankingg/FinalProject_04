@@ -375,7 +375,7 @@
 		
 		var map;
 		sendAjaxRequest();
-	 	// setInterval(sendAjaxRequest, 1000);
+	 	setInterval(sendAjaxRequest, 1000);
 	 	
 	    // Function to send AJAX request and update the result
 	    function sendAjaxRequest() {
