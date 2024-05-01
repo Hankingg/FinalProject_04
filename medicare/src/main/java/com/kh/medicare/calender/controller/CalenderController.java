@@ -45,8 +45,9 @@ public class CalenderController {
 	@RequestMapping("order.delete")
 	public int deleteOrder(Order order,Model model) {
 		System.out.println("타냐");
+		System.out.println(order);
 		int result = cService.deleteOrder(order);
-		
+		System.out.println("result : " + result);
 		if(result > 0) {
 			model.addAttribute("alertMsg","예약 취소 완료");
 			return result;
