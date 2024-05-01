@@ -275,18 +275,25 @@
   height: 63px;
   padding-left: 90px;
   padding-top: 40.5px;
+  text-decoration-line: none;
 }
 .weight_1_2{
   height: 63px;
   padding-left: 80px;
   padding-top: 18px;
+  text-decoration-line: none;
+  color:black;
 }
 .weight_1_1 p{
   font-size: 23px;
   font-weight: bolder;
+  text-decoration-line: none;
+   color:black;
 }
 .weight_1_2 p{
   font-size: 18px;
+  text-decoration-line: none;
+  color:black;
 }
 
 /* ---------- 진료과목 별 병원 찾기 ---------- */
@@ -489,7 +496,13 @@
   padding-bottom: 4px;
 }
 
+.weight_1_3 {
+	text-decoration-line: none;
+}
 
+p {
+	text-decoration-line: none;
+}
 
 </style>
 </head>
@@ -577,34 +590,52 @@
           </div>
 
          
-		            <div class="inner3 membership">
-		           	<c:choose>
-		           	  <c:when test="${ !empty loginUser and !empty loginUser.endDate }">
-				             <div class="inner3s">             
-				              <div class="membership_2"><button class="membership_btn" style="margin-top:30px; height:60px;">멤버십 만료일 : ${ loginUser.endDate } </button></div>      
-				             </div>
-			            </c:when>
-			           <c:otherwise>			           		            			         	         	
-				           	<div class="inner3s">
-					          	<a href="membership.me" id="membership">	           
-					              <div class="membership_1"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;구독 후 접수, 예약이 가능해요!</p></div>
-					              <div class="membership_2"><button class="membership_btn">멤버십 구독하기</button></div>		           
-					            </a>
-				            </div>     	                	            		           	           	         		  	
-	           		  	</c:otherwise>
-	           		</c:choose>
+          <div class="inner3 membership">
+         	<c:choose>
+         	  <c:when test="${ !empty loginUser and !empty loginUser.endDate }">
+             <div class="inner3s">             
+              <div class="membership_2"><button class="membership_btn" style="margin-top:30px; height:60px;">멤버십 만료일 : ${ loginUser.endDate } </button></div>      
+             </div>
+           </c:when>
+          <c:otherwise>			           		            			         	         	
+           	<div class="inner3s">
+	          	<a href="membership.me" id="membership">	           
+	              <div class="membership_1"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;구독 후 접수, 예약이 가능해요!</p></div>
+	              <div class="membership_2"><button class="membership_btn">멤버십 구독하기</button></div>		           
+	            </a>
+            </div>     	                	            		           	           	         		  	
+     	  </c:otherwise>
+     	  </c:choose>
          
-            
-          <div class="inner3s weight">
+           <c:choose>
+           <c:when test="${ !empty loginUser }">
+           <div class="inner3s weight">
                 <div class="weight_1">
-                    <div class="weight_1_1"><p>우리 아이 키 ▪ 몸무게</p></div>
-                    <div class="weight_1_2"><p>또래 중 몇 등인지 확인해보세요!</p></div>
+                	<a href="moveChatList.ch" class="weight_1_3" style="text-decoration-line: none;">
+                    <div class="weight_1_1"><p>메디케어 커뮤니티</p></div>
+                    <div class="weight_1_2"><p id="chat_font">단체 채팅으로 의료정보를 공유 해보세요!</p></div>
+                    </a>
                 </div>
                 <div class="weight_2">
                     <img style="height: 100px; width: 100px;" src="resources/mainIcon/weight.png">
                 </div>
             </div>
+            </c:when>
+            <c:otherwise>
+             <div class="inner3s weight">
+            	<div class="weight_1">              	
+                    <div class="weight_1_1"><p>메디케어 커뮤니티</p></div>
+                    <div class="weight_1_2"><p id="chat_font">로그인 후 이용 해보세요!</p></div>                   
+                </div>
+                <div class="weight_2">
+                    <img style="height: 100px; width: 100px;" src="resources/mainIcon/weight.png">
+                </div>
+               </div>
+            </c:otherwise>
+           	</c:choose>
+          
           </div>
+                   
           <div class="inner4">
             <div class="inner4s inner4s_1"><p>진료과로 병원찾기</p></div>
             <div class="inner4s"><img style="width: 100%; height: 100%;" src="resources/mainIcon/whereHospital.png"></div>

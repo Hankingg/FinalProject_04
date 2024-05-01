@@ -166,7 +166,7 @@
         <div id="chattingMsg" class="col-md-6 offset-md-3">     
             <div class="chat-window" id="chatWindow" align="center"></div>
             <div class="text-send d-flex"> 
-                <textarea type="text" id="chatMessage" rows="1" onkeydown="if(event.keyCode==13) sendMessage(true);"></textarea>
+                <textarea type="text" id="chatMessage" rows="1" cols="100" onkeyup="if(event.keyCode==13) sendMessage(true);"></textarea>
                 <button class="send-btn" onclick="sendMessage(true)">전송</button> 
             </div>
         </div>
@@ -175,7 +175,7 @@
     <!-- jQuery 추가 -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script>
-        var serverUrl = "ws://192.168.20.28:8008/medicare/ChatingServer";
+       var serverUrl = "ws://192.168.20.28:8008/medicare/HInfoChat";
         var webSocket = new WebSocket(serverUrl);
         
         function sendMessage(isChat) {

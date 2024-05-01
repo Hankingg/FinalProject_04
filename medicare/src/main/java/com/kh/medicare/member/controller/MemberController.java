@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +39,8 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.kh.medicare.common.model.vo.PageInfo;
+import com.kh.medicare.common.template.Pagination;
 import com.kh.medicare.member.model.service.MemberServiceImpl;
 import com.kh.medicare.member.model.vo.Member;
 
@@ -89,6 +92,12 @@ public class MemberController {
 		 
 	} // insertMember
 	
+	@RequestMapping("moveChangePwd.me")
+	public String moveChangePwd() {
+		
+		return "member/changePwd";
+	}
+	
 	 @RequestMapping("changePwd.me")
 	    public ModelAndView changePwd(Member m, ModelAndView mv, HttpSession session) {
 	    	
@@ -114,7 +123,7 @@ public class MemberController {
 	
 	@RequestMapping("myPage.me")
 	public String myPage() {
-
+		
 		return "member/myPage";
 	} // myPage
 	
@@ -143,6 +152,95 @@ public class MemberController {
 		return mv;
 		
 	} // loginMember
+	
+	@RequestMapping("moveAdminMemberCheck.me")
+	public ModelAndView adminCheckPwd(@RequestParam(value="cpage", defaultValue="1") int currentPage, Member m, HttpSession session, ModelAndView mv) {
+		
+		Member selectMember = mService.loginMember(m);
+		
+		int listCount = mService.selectListCount();		
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);		
+		ArrayList<Member> adminSelectMem = mService.adminSelectMem(pi);
+		
+		
+		if(selectMember != null && bcryptPasswordEncoder.matches(m.getMemPwd(), selectMember.getMemPwd())) {
+			mv.addObject("adminSelectMem", adminSelectMem);
+			mv.addObject("pi", pi); 
+			mv.setViewName("member/adminSelectMember");				
+		} else {		
+			session.setAttribute("alertMsg", "관리자 인증에 실패 하였습니다. 비밀번호를 확인 해주세요.");
+			mv.setViewName("redirect:/myPage.me");
+		}
+		
+		return mv;
+	}
+	
+	
+	
+	@RequestMapping("adminCheckPwd.me")
+	public ModelAndView adminMember(@RequestParam(value="cpage", defaultValue="1") int currentPage, Member m, HttpSession session, ModelAndView mv) {
+		
+		int listCount = mService.selectListCount();		
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);		
+		ArrayList<Member> adminSelectMem = mService.adminSelectMem(pi);		
+					 
+			mv.addObject("adminSelectMem", adminSelectMem);
+			mv.addObject("pi", pi); 		
+			mv.setViewName("member/adminSelectMember");	
+			
+			return mv;
+	} // adminMember
+	
+	@RequestMapping("adminRestore.me")
+	public ModelAndView adminRestore(@RequestParam(value="cpage", defaultValue="1") int currentPage, Member m, HttpSession session, ModelAndView mv) {
+		
+		int listCount = mService.selectListCount();		
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);		
+		ArrayList<Member> adminRestoreMem = mService.adminRestoreMem(pi);		
+					 
+			mv.addObject("adminSelectMem", adminRestoreMem);
+			mv.addObject("pi", pi); 		
+			mv.setViewName("member/adminRestoreMember");	
+			
+			return mv;
+	} // adminMember
+	
+	@RequestMapping("adminDeleteMember.me")
+	public ModelAndView adminDeleteMember(@RequestParam("deleteMember") int[] members,HttpSession session, ModelAndView mv) {
+		
+		int result = mService.adminDeleteMember(members);
+		
+		if(result > 0) {
+			mv.addObject("alertMsg", "회원 삭제 성공");				
+			mv.setViewName("redirect:/adminCheckPwd.me");			
+		} else {
+			mv.addObject("errorMsg", "관리자 인증실패");
+			mv.setViewName("common/errorPage");	
+		}
+		
+		return mv;
+		
+	} // adminDeleteMember
+	
+	@RequestMapping("restoreMember.me")
+	public ModelAndView adminRestoreMember(@RequestParam("restoreMember") int[] members,HttpSession session, ModelAndView mv) {
+		
+		int result = mService.adminRestoreMember(members);
+		
+		if(result > 0) {
+			mv.addObject("alertMsg", "회원 복구 성공");				
+			mv.setViewName("redirect:/adminCheckPwd.me");			
+		} else {
+			mv.addObject("errorMsg", "회원 복구 실패");
+			mv.setViewName("common/errorPage");	
+		}
+		
+		return mv;
+		
+	} // adminDeleteMember
 	
 	
 	@RequestMapping("logout.me")
@@ -312,33 +410,90 @@ public class MemberController {
 		
 	}
 	
+	
 	@RequestMapping("myInfo.me")
 	public String myInfo() {
 		
 		return "redirect:myPage.me";
 	}
 	
+	
+	@RequestMapping("moveChatList.ch")
+	public String chatList(HttpSession session) {
+		
+		return "chat/chooseInfoChat";	
+		
+	} //  logoutMember
+	
+	
     @RequestMapping("chatForm.ch")
-    public String chatForm(Member memId, HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
+    public ModelAndView chatForm(Member memId, HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session, ModelAndView mv) {
            
         
         Member loginUser = mService.loginMember(memId);		
         
-        System.out.println("채팅테스트 : " + loginUser);
+        System.out.println("채팅테스트1 : " + loginUser);
         
         
-        session.setAttribute("loginUser", memId);
+        session.setAttribute("loginUser", loginUser);
+               
+        mv.setViewName("member/chattingTest");
         
-        
-        return "member/chattingTest";
+        return mv;
     }
     
-    @RequestMapping("moveChangePwd.me")
-    public String moveChangePwd() {
-    	
-    	return "member/changePwd";
-    	
-    } // moveChangePwd
     
-	
+    @RequestMapping("hInfoChat.ch")
+    public ModelAndView hInfoChat(Member memId, HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session, ModelAndView mv) {
+           
+        
+        Member loginUser = mService.loginMember(memId);		
+        
+        System.out.println("채팅테스트2 : " + loginUser);
+        
+        
+        session.setAttribute("loginUser", loginUser);
+        
+        
+        mv.setViewName("member/hInfoChat");
+        
+        return mv;
+    }
+    
+    @RequestMapping("khInfoChat.ch")
+    public ModelAndView khInfoChat(Member memId, HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session, ModelAndView mv) {
+           
+        
+        Member loginUser = mService.loginMember(memId);		
+        
+        System.out.println("채팅테스트3 : " + loginUser);
+        
+        
+        session.setAttribute("loginUser", loginUser);
+        
+        
+        mv.setViewName("member/khInfoChat");
+        
+        return mv;
+    }
+    
+    @RequestMapping("cInfoChat.ch")
+    public ModelAndView cInfoChat(Member memId, HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session, ModelAndView mv) {
+           
+        
+        Member loginUser = mService.loginMember(memId);		
+        
+        System.out.println("채팅테스트4 : " + loginUser);
+        
+        
+        session.setAttribute("loginUser", loginUser);
+        
+        
+        mv.setViewName("member/cInfoChat");
+        
+        return mv;
+    }
+    
+    
+    
 } //Class

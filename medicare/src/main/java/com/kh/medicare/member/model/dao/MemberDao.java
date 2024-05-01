@@ -1,9 +1,13 @@
 package com.kh.medicare.member.model.dao;
 
+import java.util.ArrayList;
+
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.medicare.common.model.vo.PageInfo;
 import com.kh.medicare.member.model.vo.Member;
 
 @Repository
@@ -14,6 +18,35 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.loginMember", m);
 		
 	} // loginMember
+	
+	public int selectListCount(SqlSession sqlSession) {
+		
+		return sqlSession.selectOne("memberMapper.selectListCount");
+		
+	} // selectListCount
+	
+	public ArrayList<Member> adminSelectMem(SqlSession sqlSession, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); 
+		int limit = pi.getBoardLimit(); 
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.adminSelectMember", null, rowBounds);
+		
+	} // adminSelectMem
+	
+	
+	public ArrayList<Member> adminRestoreMem(SqlSession sqlSession, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); 
+		int limit = pi.getBoardLimit(); 
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.adminRestoreMem", null, rowBounds);
+		
+	} // adminSelectMem
 	
 	public int insertMember(SqlSession sqlSession, Member m) {
 		
@@ -42,6 +75,18 @@ public class MemberDao {
 	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
 		
 		return sqlSession.update("memberMapper.updateMember", m);
+	}
+	
+	public int adminDeleteMember(SqlSessionTemplate sqlSession, int[] members) {
+		
+		return sqlSession.update("memberMapper.adminDeleteMember", members);
+		
+	}
+	
+	public int adminRestoreMember(SqlSessionTemplate sqlSession, int[] members) {
+		
+		return sqlSession.update("memberMapper.adminRestoreMember", members);
+		
 	}
 	
 	public int deleteMember(SqlSessionTemplate sqlSession, String memId) {

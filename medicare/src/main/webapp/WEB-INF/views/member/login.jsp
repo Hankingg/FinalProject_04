@@ -102,7 +102,7 @@
                   <div class="form-check">
                     <label class="form-check-label text-muted" style="accent-color:rgb(240, 130, 120);">
                       <input type="checkbox" class="form-check-input" id="login-keep">
-                      로그인 유지하기
+                      아이디 기억하기
                     </label>
                   </div>
                   <a href="moveChangePwd.me" class="auth-link text-black">비밀번호 찾기</a>

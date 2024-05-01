@@ -1,5 +1,8 @@
 package com.kh.medicare.member.model.service;
 
+import java.util.ArrayList;
+
+import com.kh.medicare.common.model.vo.PageInfo;
 import com.kh.medicare.member.model.vo.Member;
 
 
@@ -25,5 +28,13 @@ public interface MemberService  {
 	int deleteMember(String memId);
 	
 	int changePwd(Member m);
+	
+	int selectListCount();
+	ArrayList<Member> adminSelectMem(PageInfo pi);
+	ArrayList<Member> adminRestoreMem(PageInfo pi);
+
+	int adminDeleteMember(int[] members);
+	
+	int adminRestoreMember(int[] members);
 	
 } // Class

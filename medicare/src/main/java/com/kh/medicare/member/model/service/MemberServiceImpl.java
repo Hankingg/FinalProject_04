@@ -1,9 +1,13 @@
 package com.kh.medicare.member.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.medicare.common.model.vo.PageInfo;
 import com.kh.medicare.member.model.dao.MemberDao;
 import com.kh.medicare.member.model.vo.Member;
 
@@ -45,7 +49,28 @@ public class MemberServiceImpl implements MemberService{
 		
 		return loginUser;
 	}
+	
+	
+	@Override
+	public int selectListCount() {		
+		
+		return mDao.selectListCount(sqlSession);
+		
+	}
+	
+	@Override
+	public ArrayList<Member> adminSelectMem(PageInfo pi) {
 
+		return mDao.adminSelectMem(sqlSession, pi);
+	}
+	
+
+	@Override
+	public ArrayList<Member> adminRestoreMem(PageInfo pi) {
+
+		return mDao.adminRestoreMem(sqlSession, pi);
+	}
+	
 	@Override
 	public int updateMember(Member m) {
 		return mDao.updateMember(sqlSession, m);
@@ -73,6 +98,28 @@ public class MemberServiceImpl implements MemberService{
 		int result = mDao.changePwd(sqlSession, m);
 		return result;
 	}
+
+	@Override
+	public int adminDeleteMember(int[] members) {
+		int result = mDao.adminDeleteMember(sqlSession, members);
+		return result;
+	}
+
+	@Override
+	public int adminRestoreMember(int[] members) {
+		int result = mDao.adminRestoreMember(sqlSession, members);
+		return result;
+	}
+
+	
+
+	
+
+	
+
+	
+
+	
 
 	
 	
