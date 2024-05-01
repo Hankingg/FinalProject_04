@@ -182,8 +182,8 @@
 
   /* 최근 본 병원 */
   #recentView{
-    width: 200px;
-    height: 500px;
+    width: 300px;
+    height: 850px;
     border: 2px solid gray;
     margin-left: 50px;
     border-radius: 10px;
@@ -498,7 +498,6 @@
                 </div>
                 <br>
                 <div class="distance">
-                  <p>현 위치와의 거리 : ${ distance }m | ${ dot } </p>
                 </div>   
                 <div id="map">
                   
@@ -702,8 +701,13 @@
                                         }
                                         
                                     }
-                                    var avgValue = ((5 * value[0]) + (4 * value[1]) + (3 * value[2]) + (2 * value[3]) + (1 * value[4]) + (0 * value[5])) / reviewCount;
-                                    avgValue = avgValue.toFixed(1);
+                                    var avgValue = ((5 * value[0]) + (4 * value[1]) + (3 * value[2]) + (2 * value[3]) + (1 * value[4]) + (0 * value[5])) ;
+                                    if(avgValue != 0){
+                                    	 avgValue/reviewCount
+                                    }
+                                   
+                                    
+                                    console.log(avgValue);
                                     $("#rateAvg").html("평균별점: <br>" + avgValue + "/5.0");
                         			new Chart(document.getElementById("bar-chart-horizontal"), {
     								    type: 'horizontalBar',
@@ -834,7 +838,6 @@
                         				 hosCode:"${ h.hosCode }"
                         				 },
                         			success:function(data){
-                        					console.log("data:"+data)
                         					
                         					let value = "";
                         					for(let i in data){
@@ -857,7 +860,6 @@
 			                	                       +   "</div>"
 			                	                       +  "</div>"
 			                	                       + "</div>"
-                        					
                         					}
 		                	                  $("#review_wrap").html(value);     
                         			}, error:function(){
@@ -1027,8 +1029,105 @@
             </script>
             <div id="recentView">
               <p>최근 본 의료기관</p>
+              
             </div>
         </div>
+        
+        <script src="${ pageContext.request.contextPath }/resources/js/recentHos.js"></script>
+        <script>
+        $(document).ready(function() {
+            // 쿠키에서 최근 본 식당 목록을 읽어옵니다.
+            var recentRests = getCookie('recent_products');
+            if (recentRests) {
+                var restNos = recentRests.split('/');
+                var promises = []; // 각 요청의 Promise를 저장할 배열
+
+                restNos.forEach(function(restNo) {
+                    // 각 식당 번호에 대해 서버에 정보 요청
+                    var promise = $.ajax({
+                        url: "hospitalInfo.em",
+                        type: "get",
+                        data: { hpid: restNo }
+                    }).then(function(result) {
+                        let itemArr = $(result).find("item");
+                        let value = "";
+                        itemArr.each(function(i, item) {
+                            value +=
+                                "<div id='recent_wrap' style='width: 250px; height: 120px; font-size:14px; border:1px solid #F96C85; border-radius:30px; text-align:center; margin-top:30px; margin-left:25px;'>" +
+                                "<br><div>병원이름:" + $(item).find("dutyName").text() + "</div><br>" +
+                                "<div>주소:" + extractSubstringUpToThirdSpace($(item).find("dutyAddr").text()) + "</div><br>" +
+                                "<div>전화번호:" + $(item).find("dutyTel1").text() + "</div>" +
+                                "<div style='display:none;'>"+ $(item).find("hpid").text() +"</div>" +
+                                "</div>";
+                                
+                               
+
+                                
+                                
+                        });
+                        
+                        return value;
+                    });
+                    promises.push(promise);
+                });
+				
+               
+                
+                // 모든 요청이 완료된 후에 실행될 콜백
+                $.when.apply($, promises).done(function() {
+                    var values = Array.prototype.slice.call(arguments); // 각 Promise의 결과들을 가져옴
+                    var html = "<p id='recentP'>최근 본 병원</p>"; // HTML 조각 생성
+                    values.forEach(function(value) {
+                        html += value; // 각 병원 정보를 HTML에 추가
+                    });
+                    $("#recentView").html(html); // 최종 결과를 HTML에 적용
+                });
+            }
+            
+            
+            
+            $.ajax({
+                url: "hospitalInfo.em",
+                type: "get",
+                data: { hpid: "${ h.hosCode }" },
+                success:function(data){
+                	 let itemArr = $(data).find("item");
+                     let value = "";
+                     itemArr.each(function(i, item) {
+                         value = "<p>현 위치와의 거리 : ${ distance } | " + $(item).find("dgidIdName").text() +  "</p>"
+                     })
+                     
+                     $(".distance").html(value);
+                },error:function(){
+                	console.log("통신 에러")
+                }
+            });
+            function extractSubstringUpToThirdSpace(str) {
+                let count = 0;
+                for (let i = 0; i < str.length; i++) {
+                    if (str[i] === ' ') {
+                        count++;
+                        if (count === 3) {
+                            return str.substring(0, i);
+                        }
+                    }
+                }
+                return str; // If there are less than three spaces, return the original string
+            }
+
+            $("#overlay").click(function() {
+                $(this).hide();
+            });
+        });
+        
+        $(document).on("click", "#recent_wrap", function() {
+            var restNo = $(this).children().eq(6).text(); // 클릭된 요소 안에서 hpid 값을 가져옴
+            location.href = "hosDetail.no?hpid=" + restNo; // 해당 기관 코드를 이용하여 페이지 이동
+        });
+        </script>
+        
+        
+        
     	
         <jsp:include page="../common/footer.jsp"/>
 

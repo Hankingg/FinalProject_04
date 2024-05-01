@@ -156,7 +156,7 @@ public class ApiController {
 			            
 			            list.add(h);
 			            System.out.println("여기까진 오냐");
-			            
+			            model.addAttribute("h",h);
 			            
 			        }
 			    }

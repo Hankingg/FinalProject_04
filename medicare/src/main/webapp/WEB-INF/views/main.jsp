@@ -512,7 +512,7 @@
             </div>
             <div class="inner_2">
               <div class="telemedicine_1">
-               <a href="webrtc.go" style="text-decoration: none; color: black;"><p>비대면</p> 
+               <a href="webrtcModi.go" style="text-decoration: none; color: black;"><p>비대면</p> 
                 <p>진료</p></a>
               </div>
               <div class="telemedicine_2">

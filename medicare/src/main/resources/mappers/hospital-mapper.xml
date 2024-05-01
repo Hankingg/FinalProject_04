@@ -267,7 +267,7 @@
 	<select id="selectReviewAvg" resultMap="reviewResult">
 		select
 		       h_code
-		      ,nvl(avg(rate),0) as "review_avg"
+		      ,ROUND(NVL(AVG(rate), 0), 1) AS review_avg
 		  from review
 		  right outer join hospital using (h_code)
 		 group

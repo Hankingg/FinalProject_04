@@ -40,4 +40,5 @@ public class WebRtcPageController {
 		return "hospital/webrtcPage";
 	}
 	
+	
 }
