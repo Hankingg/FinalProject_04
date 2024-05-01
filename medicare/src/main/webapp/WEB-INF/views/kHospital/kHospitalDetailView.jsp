@@ -217,7 +217,6 @@
 
   #hsp-review{
     width: 1100px;
-    border-bottom: 3px solid gray;
     margin-bottom: 50px;
   }
 
@@ -584,7 +583,7 @@
                   <div id="hsp-review" class="info">
                     <div id="reviewList">
                       <div id="review-div">
-                        <span>리뷰 ( 총 23개 )</span>
+                        <span></span>
                         <div id="graph">
                             <img id="graphImg" src="resources/reviewImg/4.png">
                         </div>
@@ -908,26 +907,34 @@
 	          			success:function(data){
 	          					
 	          					let value = "";
-	          					for(let i in data){
-	               					value += "<div id='hspReview'>"
-	               						   +  "<div id='hspReview1'>"
-		         	                       +   "<div class='hpName'></div>"
-		         	                       +   "<div id='hpStar'><img src='resources/reviewImg/starHeart/star2.png' id='starImg'></div>"
-		         	                       +   "<div id='hpRate'><p>"+ data[i].rate + "</p></div>"
-										   +  "</div>"
-		         	                       +  "<div id='hspReview2'>"
-		         	                       +  "<div id='rvProfile'>"
-		         	                       +     "<div id='nickName'><p>"+data[i].nickName   +"</p></div>"
-		         	                       +     "<div id='profile'><img src='resources/reviewImg/profile/profile1.png' id='profileImg'></div>"
-		         	                       +    "</div>"
-		         	                       +    "<div id='rvCont'>"
-		         	                       +     "<p>"+ data[i].revContent
-		         	                       +     "</p>"
-		         	                       +   "</div>"
-		         	                       +  "</div>"
-		         	                       + "</div>";
-                       					
-                       					}
+	          					if(data.length > 0){
+
+		          					for(let i in data){
+		               					value += "<div id='hspReview'>"
+		               						   +  "<div id='hspReview1'>"
+			         	                       +   "<div class='hpName'></div>"
+			         	                       +   "<div id='hpStar'><img src='resources/reviewImg/starHeart/star2.png' id='starImg'></div>"
+			         	                       +   "<div id='hpRate'><p>"+ data[i].rate + "</p></div>"
+											   +  "</div>"
+			         	                       +  "<div id='hspReview2'>"
+			         	                       +  "<div id='rvProfile'>"
+			         	                       +     "<div id='nickName'><p>"+data[i].nickName   +"</p></div>"
+			         	                       +     "<div id='profile'><img src='resources/reviewImg/profile/profile1.png' id='profileImg'></div>"
+			         	                       +    "</div>"
+			         	                       +    "<div id='rvCont'>"
+			         	                       +     "<p>"+ data[i].revContent
+			         	                       +     "</p>"
+			         	                       +   "</div>"
+			         	                       +  "</div>"
+			         	                       + "</div>";
+		          					}
+	                       		}else {
+	                       			value += "<div id='hspReview'>"
+	                       					+ "<p style='text-align:center; font-size:17px; margin-top: 100px;'>등록된 리뷰가 없습니다.<br><br> 리뷰를 등록해주시면 많은 도움이 됩니다😄</p>"
+	                       					+ "</div>";
+	                       			
+	                       		}		  
+	          							  $("#review-div span").html("리뷰 ( 총 " + data.length + "개 )");
 	                	                  $("#review_wrap").html(value);     
                        			}, error:function(){
                        				console.log("ajax 통신실패");
@@ -937,11 +944,11 @@
                   
                   // 리뷰 등록
                   $("#rvInsertBtn").click(function(){
-
+						
              			$.ajax({
                  			url:"review.in",
                  			data:{
-                 				memNo:${ loginUser.memNo },
+                 				memNo:"${ loginUser.memNo }",
                  				revContent:$("#rvText").val(),
                  				hosCode:"${ hpid }",
                  				rate:$("#rate").val()
