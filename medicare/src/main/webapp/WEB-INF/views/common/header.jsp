@@ -516,7 +516,6 @@
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="selectList.ph">약국 목록</a></li>
-                <li class="nav-item"> <a class="nav-link" href="selectList.md">의약품 목록</a></li>
               </ul>
             </div>
           </li>
