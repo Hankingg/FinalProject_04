@@ -162,7 +162,10 @@ ERD Cloud
 ## 📖 프로젝트 구현
 이종민
 
+노정민
 
+• 1:1 채팅
+![채팅](https://github.com/Hankingg/FinalProject_04/assets/151510057/a9f5d593-aa5d-4e5b-9df7-4a366faad9ce)
 
 
 
