@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.medicare.hospital.model.vo.Review;
 import com.kh.medicare.common.model.vo.PageInfo;
 import com.kh.medicare.member.model.vo.Member;
 
@@ -105,6 +106,5 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.changePwd", m);
 		
 	} // changPwd
-	
 	
 } // Class

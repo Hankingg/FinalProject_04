@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="deliveryMapper">
+
+	<resultMap type="Delivery" id="deliveryResult">
+		<result column="D_NO" property="dNo"/>
+		<result column="D_SENDER_MNO" property="dSenderMno"/>
+		<result column="D_RECEIVER_MNO" property="dReceiverMno"/>
+		<result column="BILLING_NO" property="billingNo"/>
+		<result column="mem_name" property="memName"/>
+	</resultMap>
+
+	<insert id="insertDelivery">
+		insert 
+		  into delivery
+		       (
+		         d_no
+		       , d_sender_mno
+		       , d_receiver_mno
+		       , billing_no
+		       , courier
+		       )
+		       values
+		       (
+		       	 seq_dno.nextval
+		       , #{document.dcReceiverMno}
+		       , #{document.dcSenderMno}
+		       , #{billingNo}
+		       , #{courier}
+		       )
+	</insert>
+
+	<select id="selectDeliveryList" resultMap="deliveryResult">
+		select 
+		       d_no
+		     , d_sender_mno
+		     , mem_name
+		     , d_receiver_mno
+		     , billing_no
+		     , courier
+		  from delivery
+		  join member on (mem_no = d_sender_mno)
+		 where d_receiver_mno = #{memNo}
+	</select>
+
+
+
+
+</mapper>

@@ -35,7 +35,7 @@
 		width: 220px;
 		height: 100%;
 		text-align: center;
-		margin-left:150px;
+		margin-left:250px;
 		line-height: 40px;
 	}
 
@@ -379,12 +379,11 @@
 	<div class="main-panel">
 		<div class="content-wrapper" style="background-color: white;">
 			<div class="myPage">
-				<h2 align="center" style="color: gray;">마이페이지</h2>
+				<h2 align="center" style="color: gray;">병원페이지</h2>
 				<br>
 				<div id="myPage-tab" >
 					<ul>
-						<li id="info"><a href="doctorMyPage.in" class="tab active">내정보</a></li>
-						<li id="review"><a onclick="myReviewList();" class="tab">내가 쓴 리뷰</a></li>
+						<li id="info"><a href="doctorMyPage.in" class="tab active">병원정보</a></li>
 						<li id="documents"><a onclick="doctorPage();" class="tab">일정 관리</a></li>
 					</ul>
 				</div>
@@ -486,51 +485,6 @@
 							});
 
 						});
-						
-						function myReviewList(){		
-							$.ajax({
-								url:"myReview.rv",
-								data:{memNo: "${loginUser.memNo}"},
-								success:function(data){
-
-									let value = "";
-									let span = "";
-									value += '<div class="myReview" class="info">'
-									   	   + '<div class="reviewList">'
-									   	   + '<div class="review-div">'
-									   	   + '<span>리뷰 총 (' + data.length + '개)</span>';
-									   	  
-									for(let i in data){
-										value += '<div class="myreview">'
-											   + '<div class="myreview1">'
-											   + '<div class="hpName"><p>' + data[i].hosName + '</p></div>'
-											   + '<div class="hpStar"><img src="resources/reviewImg/starHeart/star2.png" class="starImg"></div>'
-											   + '<div class="hpRate"><p>' + data[i].rate + '</p></div>'
-											   + '<div class="hpHeart"><img src="resources/reviewImg/starHeart/heart-black2.png" class="heartImg"></div>'
-											   + '</div>'
-											   + '<div class="myreview2">'
-											   + '<div class="rvProfile">'
-											   + '<div class="nickName"><p>' + data[i].nickName + '</p></div>'
-											   + '<div class="profile"><img src="resources/reviewImg/profile/profile1.png" class="profileImg"></div>'
-											   + '</div>'
-											   + '<div class="rvCont">'
-											   + '<p>' + data[i].revContent  + '</p>'
-											   + '</div>'
-											   + '</div>'
-											   + '</div>';
-									}
-									
-										value += '</div>'
-											   + '</div>'
-											   + '</div>';
-										
-										$(".myPage-info").html(value);
-
-								}, error:function(){
-									console.log("내리뷰 목록조회 ajax 통신 실패");
-								}
-							})
-						}
 						
 						function doctorPage(){
 							location.href="calenderPage.in";

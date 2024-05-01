@@ -240,7 +240,7 @@
 
 	/* 별점 */
 	.hpRate{
-		width: 30px;
+		width: 90px;
 	}
 
 	.hpRate p{
@@ -461,6 +461,50 @@
 	 		border-color:rgb(240, 130, 120);
 	 		border-radius: 10px;              
         }
+
+	/* 택배목록 조회 */
+	/* 테이블의 전체적인 스타일 */
+	table.list-area {
+	width: 80%; /* 테이블 너비 */
+	margin: 20px auto; /* 중앙 정렬을 위한 마진 설정 */
+	border-collapse: collapse; /* 경계선 겹치게 */
+	text-align: center; /* 모든 텍스트 중앙 정렬 */
+	background-color: #f8f8f8; /* 배경 색상 */
+	}
+
+	/* 테이블 헤더 스타일 */
+	table.list-area thead {
+	background-color: #007bff; /* 헤더 배경 색상 */
+	color: #ffffff; /* 헤더 폰트 색상 */
+	}
+
+	/* 테이블 헤더의 셀 스타일 */
+	table.list-area th {
+	padding: 15px 0; /* 헤더 셀의 상하 패딩 */
+	border: 1px solid #dddddd; /* 경계선 색상 */
+	}
+
+	/* 테이블 바디의 셀 스타일 */
+	table.list-area td {
+	padding: 10px 0; /* 바디 셀의 상하 패딩 */
+	border: 1px solid #dddddd; /* 경계선 색상 */
+	}
+
+	/* 배송조회 버튼 스타일 */
+	.deliveryStatusBtn {
+	padding: 8px 16px; /* 버튼 내부 여백 */
+	font-size: 14px; /* 폰트 크기 */
+	color: #ffffff; /* 폰트 색상 */
+	background-color: #28a745; /* 배경 색상 */
+	border: none; /* 경계선 제거 */
+	border-radius: 5px; /* 경계선 둥글게 */
+	cursor: pointer; /* 마우스 오버 시 커서 변경 */
+	}
+
+	.deliveryStatusBtn:hover {
+	background-color: #218838; /* 마우스 오버 시 배경 색상 변경 */
+	}
+	
 	
 </style>
 </head>
@@ -488,7 +532,7 @@
 								<li id="info"><a href="myInfo.me" class="tab active">내정보</a></li>
 								<li id="heart"><a class="tab">좋아요 리스트</a></li>
 								<li id="review"><a onclick="myReviewList();" class="tab">리뷰 리스트</a></li>
-								<li id="delivery"><a class="tab">택배 리스트</a></li>
+								<li id="delivery"><a onclick="myDeliveryList();" class="tab">택배 리스트</a></li>
 								<li id="documents"><a onclick="myDocumentList();" class="tab">문서함</a></li>
 							</ul>
 						</c:otherwise>
@@ -650,6 +694,51 @@
 							}).open();
 						}
 					</script>
+					
+					<script>
+						function myDiagnosisInfo(){
+							$.ajax({
+								url:"diagnosis.select",
+								data:{memNo:"${ loginUser.memNo }"},
+								success:function(data){
+									console.log(data);
+									
+									var value = "";
+									for(var i=0; i<data.length;i++){
+										value +=  "<div id='hos_wrap' style='width: 400px; height: 130px; margin:auto; margin-top:30px;'>"
+										      + "<div id='hos1'>"
+										      +  "<div id='hos1_1'>"
+										      +    "<div>"+ data[i].title+" | "+data[i].id+"</div>"
+										      +  "</div>"
+										      +  "<div id='hos1_2'><div>"+ data[i].hosCode +"</div></div>"
+										      +  "<div id='hos1_3'>"
+										      +    "<div id='hos1_3_1'> 예약 날짜 :" +data[i].start + "</div>"
+										      +    "<br />"
+										      +    "<div id='hos1_3_2'> 접수한 날짜 :" + data[i].orderToday + "</div>"
+										      +  "</div>"
+										      +  "<div id='hos1_4'></div>"
+										      +"</div>"
+										      +"<div id='hos2'>"
+										      +  "<div id='hos2_1' style='background-color: '" + data[i].backgroundColor+"';'>"
+										      +    "<p>"+data[i].groupId+"</p>"
+										      +  "</div>"
+										      +  "<div id='hos2_2'>"
+										      +    "<div id='hos2_2_1'></div>"
+										      +  "</div>"
+										      +"</div>"
+										      +"</div>"
+										      
+									}
+									
+								      $(".myPage-info").html(value);
+								      
+								}, error:function(){
+									console.log("ajax 통신실패");
+								}
+							})
+						}
+					</script>
+					
 
 					<script>
 						$(function() {
@@ -676,7 +765,7 @@
 
 									let value = "";
 									let span = "";
-									
+									console.log(data);
 									if(data.length != 0){
 										value += '<div class="myReview" class="info">'
 										   	   + '<div class="reviewList">'
@@ -690,10 +779,10 @@
 												   + '<div class="hpStar"><img src="resources/reviewImg/starHeart/star2.png" class="starImg"></div>'
 												   + '<div class="hpRate"><p>' + data[i].rate + '</p></div>';
 												   
-											if(${loginUser.memNo} == data[i].memNo || data[i].memId == "admin"){
-											   value += '<div class="hpDel"><button class="delBtn">삭제</button></div>';
+											if(${loginUser.memNo} == data[i].memNo || "${loginUser.memId}" == "admin"){
+											   value += "<div class='hpDel'><button class='delBtn' onclick=\"location.href='delete.rv?revNo=" + data[i].revNo + "'\">삭제</button></div>";
 											}
-											console.log(data[i].memNo);	   
+											   
 							   				value += '</div>'
 												   + '<div class="myreview2">'
 												   + '<div class="rvProfile">'
@@ -767,13 +856,17 @@
 											+ '<div class="modal-body" align="center">'
 											+    '<img class="modalPsImg" src="'+ list[i].dcChangeName +'">'	
 											+ '</div>'
-																											
-											+ '<div class="modal-footer">'
-											+    "<button onclick=\"location.href='selectList.ph?dcNo=" + list[i].dcNo +"'\" type='button' class='btn btn-success dcBtn'>"
-											+    '처방전 전송'
-											+    '</button>'
-
-									        +    "<button data-dcno='"+ list[i].dcNo +"' type='button' class='btn btn-danger dcBtn deleteBtn'>"
+											+ '<div class="modal-footer">';
+											if("${loginUser.mtId}" == "M"){
+												value	+=    "<button onclick=\"location.href='selectList.ph?dcNo=" + list[i].dcNo +"'\" type='button' class='btn btn-success dcBtn'>"
+														+    '처방전 전송'
+														+    '</button>';
+											} else if("${loginUser.mtId}" == "P"){
+												value	+=    "<button onclick='showDeliveryModal("+ list[i].dcNo +");' type='button' class='btn btn-primary dcBtn'>"
+														+    '택배 발송'
+														+    '</button>';
+											}																
+									 value +=     "<button data-dcno='"+ list[i].dcNo +"' type='button' class='btn btn-danger dcBtn deleteBtn'>"
 											+    '삭제'
 											+    '</button>'
 								            + '</div>'
@@ -807,7 +900,7 @@
 								}
 							})
 						}
-
+						
 						$('.myPage-info').on('click', '.deleteBtn', function(e){
 							e.preventDefault(); // 기본 동작 방지.
 							var dcNo = $(this).data('dcno'); // dcNo를 data 속성에서 가져옵니다.
@@ -821,10 +914,231 @@
 								// 필요한 경우 여기에 코드를 추가할 수 있습니다. 예를 들어, 어떤 피드백을 주거나 로깅을 할 수 있습니다.
 							}).set('labels', {ok:'확인', cancel:'취소'}); // 버튼 텍스트를 원하는 대로 설정할 수 있습니다.
 						});
-
-				
 						
-							
+
+						
+
+						function showDeliveryModal(dcNo) {
+							// 모달 HTML 구성
+							var modalHTML = `
+							<div id="deliveryModal" class="modal5">
+								<div class="modal-content5">
+									<span class="close5">&times;</span>
+									<form id="deliveryForm">
+										<label for="courier">택배사:</label>
+										<select id="courier" name="courier">
+											<option value="롯데택배">롯데택배</option>
+											<option value="로젠택배">로젠택배</option>
+											<option value="CJ대한통운">CJ대한통운</option>
+											<option value="우체국택배">우체국택배</option>
+										</select>
+										<label for="trackingNumber">운송장 번호:</label>
+										<input type="text" id="trackingNumber" name="trackingNumber">
+										<input type="submit" value="택배 정보 전송">
+									</form>
+								</div>
+							</div>
+							`;
+							$("body").append(modalHTML); // body 태그의 끝에 모달 추가
+							$("#deliveryModal").show(); // 모달 보이기
+
+							// 모달의 x 버튼 클릭 시 모달 닫기
+							$("#deliveryModal .close5").click(function() {
+								$("#deliveryModal").remove(); // 모달 제거
+								
+							});
+
+							// 택배 정보 전송 폼 제출 이벤트
+							$("#deliveryForm").submit(function(event) {
+								event.preventDefault(); // 폼 기본 제출 동작 방지
+								
+								// 택배 정보 수집(예: AJAX를 이용하여 서버로 전송)
+								var courier = $("#courier").val();
+								var trackingNumber = $("#trackingNumber").val();
+
+								$.ajax({
+									url:"insert.dl",
+									data:{ dcNo : dcNo
+									     , courier : courier
+										 , billingNo : trackingNumber
+										 },
+									success:function(result){
+										alertify.alert("택배 발송에 성공했습니다.", function() {
+											// 'prescription' 클래스를 가진 모든 요소를 대상으로 하여, 해당 dcNo에 해당하는 항목을 찾아서 DOM에서 제거한다.
+											$(".prescription").each(function() {
+												var currentDcNo = $(this).find(".deleteBtn").data("dcno");
+												if(currentDcNo == dcNo){
+													$(this).remove(); // 해당 처방전 항목을 찾았다면 DOM에서 제거한다.
+												}
+											});
+										});
+									},
+									error:function(){
+										console.log("택배 발송에 실패하였습니다.")
+									}
+								})
+
+
+
+
+								
+
+								$('.modal2').hide();
+								$("#deliveryModal").remove(); // 정보 전송 후 모달 제거
+								
+							});
+						}
+
+
+						function showDeliveryModal(dcNo) {
+							// 모달 HTML 구성
+							var modalHTML = `
+							<div id="deliveryModal" class="modal5">
+								<div class="modal-content5">
+									<span class="close5">&times;</span>
+									<form id="deliveryForm">
+										<label for="courier">택배사:</label>
+										<select id="courier" name="courier">
+											<option value="롯데택배">롯데택배</option>
+											<option value="로젠택배">로젠택배</option>
+											<option value="CJ대한통운">CJ대한통운</option>
+											<option value="우체국택배">우체국택배</option>
+										</select>
+										<label for="trackingNumber">운송장 번호:</label>
+										<input type="text" id="trackingNumber" name="trackingNumber">
+										<input type="submit" value="택배 정보 전송">
+									</form>
+								</div>
+							</div>
+							`;
+							$("body").append(modalHTML); // body 태그의 끝에 모달 추가
+							$("#deliveryModal").show(); // 모달 보이기
+
+							// 모달의 x 버튼 클릭 시 모달 닫기
+							$("#deliveryModal .close5").click(function() {
+								$("#deliveryModal").remove(); // 모달 제거
+								
+							});
+
+							// 택배 정보 전송 폼 제출 이벤트
+							$("#deliveryForm").submit(function(event) {
+								event.preventDefault(); // 폼 기본 제출 동작 방지
+								
+								// 택배 정보 수집(예: AJAX를 이용하여 서버로 전송)
+								var courier = $("#courier").val();
+								var trackingNumber = $("#trackingNumber").val();
+
+								$.ajax({
+									url:"insert.dl",
+									data:{ dcNo : dcNo
+									     , courier : courier
+										 , billingNo : trackingNumber
+										 },
+									success:function(result){
+										alertify.alert("택배 발송에 성공했습니다.", function() {
+											// 'prescription' 클래스를 가진 모든 요소를 대상으로 하여, 해당 dcNo에 해당하는 항목을 찾아서 DOM에서 제거한다.
+											$(".prescription").each(function() {
+												var currentDcNo = $(this).find(".deleteBtn").data("dcno");
+												if(currentDcNo == dcNo){
+													$(this).remove(); // 해당 처방전 항목을 찾았다면 DOM에서 제거한다.
+												}
+											});
+										});
+									},
+									error:function(){
+										console.log("택배 발송에 실패하였습니다.")
+									}
+								})
+
+
+
+
+								
+
+								$('.modal2').hide();
+								$("#deliveryModal").remove(); // 정보 전송 후 모달 제거
+								
+							});
+						}
+
+
+						function myDeliveryList(){
+							$.ajax({
+								url:"selectList.dl",
+								data:{memNo: "${loginUser.memNo}"},
+								success:function(data){
+									console.log(data);
+									var value = '<div id="myDelivery" class="info">'
+											  + '<span>게시판</span> <br />'
+											  + '<table class="list-area" align="center" border="1">'
+						                      + '<thead>'
+											  + '<tr>'
+											  + '<th width="100">택배번호</th>'
+											  + '<th width="100">택배회사</th>'
+											  + '<th width="200">약국 명</th>'
+											  + '<th width="200">운송장번호</th>'
+											  + '<th width="100">배송조회</th>'
+											  + '</tr>'
+											  + '</thead>';
+									for(var i=0; i<data.length;i++){
+										value += '<tbody>'
+											  +	'<tr>'
+											  + '<td>'+ (i+1) +'</td>'
+											  + '<td>'+ data[i].courier +'</td>'
+											  + '<td>'+ data[i].memName +'</td>'
+											  + '<td>'+ data[i].billingNo +'</td>'
+											  + '<td><button class="deliveryStatusBtn">배송조회</button></td>'
+											  + '</tr>'
+											  + '</tbody>';	
+									}
+										value += '</table>'
+											  +  '</div>';
+
+									$(".myPage-info").html(value);
+								},
+								error:function(){
+									
+								}
+							})
+
+						}
+
+						$(document).on('click', '.deliveryStatusBtn', function() {
+							// 배송 조회 버튼이 속한 행에서 데이터 추출
+							var tr = $(this).closest('tr'); // 버튼이 속한 행(tr) 선택
+							var invoiceNumber = tr.find('td:eq(3)').text(); // 운송장 번호
+
+							var courierCode = "";
+							// var courierCode = tr.find('td:eq(1)').text(); // 택배사 코드
+							if(tr.find('td:eq(1)').text() == "롯데택배"){
+								courierCode = "08";
+							} else if(tr.find('td:eq(1)').text() == "CJ대한통운"){
+								courierCode = "04";
+							} else if(tr.find('td:eq(1)').text() == "로젠택배"){
+								courierCode = "06";
+							} else if(tr.find('td:eq(1)').text() == "우체국택배"){
+								courierCode = "01";
+							}
+
+							window.open('http://info.sweettracker.co.kr/tracking/4?t_key=4EuQNNywElBKav3MX8HYkA&t_code='+ courierCode +'&t_invoice=' + invoiceNumber, 'DeliveryStatusWindow', 'width=600, height=600, left=400, top=200');
+						});
+						
+						
+
+						
+
+
+
+
+
+
+
+
+
+
+
+
+					
 					 
 
 
@@ -1019,22 +1333,6 @@
 						</div>
 					</div>
 
-					
-
-					<!-- 좋아요 리스트 -->
-					<div id="myMark" class="info" style="display: none;">
-						<span>좋아요 리스트입니당</span>
-						<table id="rest-table" align="center"></table>
-					</div>
-
-					<!-- <div id="myReview" class="info">
-					   <div id="reviewList">
-					   	  <div id="review-div">
-					   	  	  <span></span>
-					   	  </div>
-					   </div>
-					</div> -->
-					
 					<!-- 택배 목록 -->
 					<div id="myDelivery" class="info" style="display: none;">
 						<!-- 게시판 목록-->
@@ -1042,12 +1340,12 @@
 						<table class="list-area" align="center">
 							<thead>
 								<tr>
-									<th width="100">작성번호</th>
-									<th width="200">게시판유형</th>
-									<th width="350">제목</th>
-									<th width="100">작성자</th>
-									<th width="100">조회수</th>
-									<th width="150">작성일자</th>
+									<th width="100">택배번호</th>
+									<th width="200">택배회사</th>
+									<th width="350">약국 명</th>
+									<th width="100">운송장번호</th>
+									<th width="100">배송상태</th>
+									<th width="150">배송조회</th>
 								</tr>
 							</thead>
 							<tbody></tbody>

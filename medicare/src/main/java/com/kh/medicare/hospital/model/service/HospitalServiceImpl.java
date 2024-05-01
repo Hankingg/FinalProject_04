@@ -47,4 +47,18 @@ public class HospitalServiceImpl implements HospitalService {
 		return hDao.insertOrder(sqlSession,order);
 	}
 
+	@Override
+	public ArrayList<Review> reviewGraph(String hosCode) {
+		return hDao.reviewGraph(sqlSession,hosCode);
+	}
+
+	@Override
+	public int deleteReview(int revNo) {
+		return hDao.deleteReview(sqlSession, revNo);
+	}
+
+	@Override
+	public Review selectReviewAvg(String hpid) {
+		return hDao.selectReviewAvg(sqlSession,hpid);
+	}
 }

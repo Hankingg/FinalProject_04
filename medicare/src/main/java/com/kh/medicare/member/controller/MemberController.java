@@ -443,6 +443,18 @@ public class MemberController {
     }
     
     
+    @ResponseBody
+    @RequestMapping("select.memId")
+    public Member selectMemId(Member m,Model model) {
+    	System.out.println("Member:"+m);
+    	Member loginUser = mService.loginMember(m);
+    	System.out.println(loginUser);
+    	model.addAttribute("m",loginUser);
+    	
+    	return loginUser;
+    }
+    
+	
     @RequestMapping("hInfoChat.ch")
     public ModelAndView hInfoChat(Member memId, HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session, ModelAndView mv) {
            

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지</title>
+<title>병원페이지</title>
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -45,9 +45,15 @@
 	      	  });
 	        },
 	        eventClick:function(event) {
+				$("#calendar_constraint").val(event.event.constraint);
+	    	    $("#calendar_hospitalName").val(event.event.allow);
+				$("#calendar_hospitalCode").val(event.event.overlap);
+				console.log(event);
 	        	$("#calendarModal").modal("show");
 	        	$("#calendar_memId").val(event.event.id);
 	        	console.log(event.event.borderColor)
+				$("#constraint").val(event.event.constraint);
+				console.log(event.event.constraint);
 	        	if(event.event.borderColor == 'null'){
 	        		$("#calendar_symtom").val("작성한 증상이 없습니다");
 	        	}else{
@@ -65,10 +71,15 @@
 	        		$("#zoom").removeAttr('disabled');
 	        	}
 	        	
+				console.log(event.event.constraint);
+				console.log("------------------------");
+				console.log(event.event.overlap);
+
 	        	$("#addCalendar").click(function(){
 					$.ajax({
 	    				url:"order.complete",
-	    				data:{memNo:event.event.textColor},
+	    				data:{memNo:event.event.textColor,
+	    					  hosCode:event.event.overlap},
 	    				success:function(result){
 	    					console.log(result);
 	    					$(".fc-event").css("backgroundColor","green");
@@ -77,6 +88,7 @@
 	    	        		$("#zoom_alarm").removeAttr('disabled');
 	    	        		$("#zoom").removeAttr('disabled');
 	    	        		location.reload();
+	    	        		
 	    				},error:function(){
 	    					console.log("에러");
 	    				}
@@ -84,11 +96,23 @@
 				})	
 				
 				$("#sprintSettingModalClose").click(function(){
-					location.href="order.delete?memNo="+event.event.textColor;
+					$.ajax({
+	    				url:"order.delete",
+	    				data:{memNo:event.event.textColor,
+	    					  hosCode:event.event.overlap},
+	    				success:function(result){
+	    					console.log(result);
+	    					$("#addCalendar").attr('disabled',true);
+	    	        		$("#sprintSettingModalClose").attr('disabled',true);
+	    	        		location.reload();
+	    				},error:function(){
+	    					console.log("에러");
+	    				}
+	    			});
 				});
 			
 				$("#zoom").click(function(){
-					location.href="webrtcRoom.go?memNo="+event.event.textColor;
+					location.href="webrtcRoom.go?memId="+event.event.constraint+"&hosCode="+ event.event.overlap;
 				})
 	        		
 			}
@@ -487,15 +511,45 @@
                         <input type="text" class="form-control" id="calendar_diaType" name="calendar_diaType" readonly>
                         <label for="taskId" class="col-form-label">진료 상태</label>
                         <input type="text" class="form-control" id="calendar_status" name="calendar_status" readonly>
+                       	<input type="hidden" id="calendar_constraint"> 
+                       	<input type="hidden" id="calendar_hospitalName">
+						<input type="hidden" id="calendar_hospitalCode">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" id="addCalendar" disabled>예약 확정</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         id="sprintSettingModalClose" disabled>예약 취소</button>
-                    <button type="button" class="btn btn-outline-warning" data-dismiss="modal" id="zoom_alarm" disabled>알림</button>
+                    <button type="button" id="notifySendBtn" class="btn btn-outline-warning" data-dismiss="modal" id="zoom_alarm"disabled>알림</button>
                     <button type="button" class="btn btn-outline-primary" id="zoom" disabled>화상채팅</button>
                 </div>
+
+				<script>
+					$('#notifySendBtn').click(function(){
+						// let modal = $('.modal-content').has(e.target);
+						// let target = modal.find('#target').val();
+						// let content = modal.find('#content').val();
+
+
+						// console.log($("#calendar_constraint").val());   // 아이디
+						// console.log($("#calendar_hospitalName").val()); // 병원 이름
+						// console.log($("#calendar_hospitalCode").val()); // 기관 코드
+						
+						let userId = $("#calendar_constraint").val();
+						let hName = $("#calendar_hospitalName").val();
+						let hCode = $("#calendar_hospitalCode").val();
+						// "webrtcRoom.go?memId=" + userId + "&hosCode=" + hCode
+
+							// 소켓에 전달되는 메시지
+							// 위에 기술한 EchoHandler에서 ,(comma)를 이용하여 분리시킨다.
+						socket.send(hName  + "," + userId + "," + "비대면 진료가 시작되었습니다. 클릭 후 입장해주세요," + "webrtcRoom.go?memId=" + userId + "&hosCode=" + hCode);	
+						
+					});
+				</script>
+
+
+
+
     
             </div>
         </div>

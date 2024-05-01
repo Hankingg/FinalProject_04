@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=gxxbcfildl&submodules=geocoder"></script>
 
   <style>
@@ -36,6 +37,21 @@
     #loginBtn:hover {
     	color:gray;
     }
+    
+    /* 채팅 이미지 */
+    #chatBtn{
+    	position: fixed;
+        left: 95%;
+        top: 83%;
+        z-index: 999;
+        cursor: pointer;
+    }
+
+	#chatImg{
+		width: 45px;
+	    height: 45px;
+	}
+
 
 	/* 탑버튼 */
 	  #topBtn{
@@ -96,7 +112,13 @@
   <!-- icon CDN -->
   <script src="https://use.fontawesome.com/releases/v6.5.0/js/all.js"></script>
   
-  
+
+  <!-- sockjs 라이브러리 -->
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <!-- Bootstrap CSS -->
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"> -->
+  <!-- Option 1: Bootstrap Bundle with Popper (Bootstrap JS + Popper.js) -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
   
 </head>
 <body>
@@ -231,6 +253,12 @@
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_settings-panel.html -->
       <div class="theme-setting-wrapper">
+      
+      	<!-- chat 버튼 -->
+          <div id="chatBtn">
+          	   <a href="chat"><img id="chatImg" src="resources/mainIcon/chat2.png"></a>
+          </div>
+        
         <!-- top 버튼 -->
             <div id="topBtn">
 				<a href="#">
@@ -261,91 +289,124 @@
           </div>
         </div>
       </div>
+
       <div id="right-sidebar" class="settings-panel">
         <i class="settings-close ti-close"></i>
         <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
+            <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">알림</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="chats-tab" data-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section">CHATS</a>
           </li>
         </ul>
+
         <div class="tab-content" id="setting-content">
           <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
             <div class="add-items d-flex px-3 mb-0">
-              <form class="form w-100">
-                <div class="form-group d-flex">
-                  <input type="text" class="form-control todo-list-input" placeholder="Add To-do">
-                  <button type="submit" class="add btn btn-primary todo-list-add-btn" id="add-task">Add</button>
-                </div>
-              </form>
+              <div id="msgStack"> </div>
+				
+              <!--  
+              <script>
+                $(document).ready(function(){
+                
+                  // 웹소켓 연결
+                   sock = new SockJS("<c:url value='/echo-ws'/>");
+                   socket = sock;
+        
+                  // 데이터를 전달 받았을 때
+                  sock.onmessage = function(evt){
+                    onMessage(evt);
+                    // localStorage에 데이터 저장
+                    saveData(evt.data);
+                  };
+        
+                  // 페이지 로드 시 localStorage에서 데이터 로드
+                  loadDataAndDisplay();
+                });
+        
+                // toast 생성 및 추가
+                function onMessage(evt){
+                  var data = evt.data;
+                  displayToast(data);
+                };
+
+                function displayToast(data, id, createdAt) { // ID 인자 추가
+                  let timeString = getTimeDifferenceString(createdAt); // 시간 문자열 계산
+                  let toast = "<div class='toast' id='toast-" + id + "' role='alert' aria-live='assertive' aria-atomic='true'>";
+                  toast += "<div class='toast-header'><i class='fas fa-bell mr-2'></i><strong class='mr-auto'>알림</strong>";
+                  toast += "<small class='text-muted'>" + timeString + "</small><button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>";
+                  toast += "<span aria-hidden='true'>&times;</span></button>";
+                  toast += "</div> <div class='toast-body'>" + data + "</div></div>";
+                  $("#msgStack").prepend(toast);
+                  $(".toast").toast({"animation": true, "autohide": false});
+                  $('.toast').toast('show');
+                  // x 버튼에 이벤트 리스너 추가
+                  $("#toast-" + id + " .close").click(function() {
+                    removeMessage(id);
+                  });
+                }
+        
+                function saveData(data){
+                  var userId = "${loginUser.memId}";
+                  var messages = JSON.parse(localStorage.getItem(userId)) || [];
+                  // 고유 ID 생성 (예: 현재 시간)
+                  var id = new Date().getTime();
+                  var message = { id: id, content: data, createdAt: new Date().toISOString()  };
+                  messages.push(message);
+                  localStorage.setItem(userId, JSON.stringify(messages));
+                }
+                //////////////////////////////////////
+                function removeMessage(id) {
+                  var userId = "${loginUser.memId}";
+                  var messages = JSON.parse(localStorage.getItem(userId)) || [];
+                  // 고유 ID를 이용하여 해당 메시지를 배열에서 제거
+                  messages = messages.filter(function(message) {
+                    return message.id !== id;
+                  });
+                  localStorage.setItem(userId, JSON.stringify(messages));
+                  // 화면에서도 알림 제거
+                  $("#toast-" + id).remove();
+                }
+        
+                function loadDataAndDisplay(){
+                  var userId = "${loginUser.memId}";
+                  var messages = JSON.parse(localStorage.getItem(userId)) || [];
+                  messages.forEach(function(message){
+                    displayToast(message.content, message.id, message.createdAt); // displayToast 호출 시 ID 전달
+                  });
+                }
+
+                function getTimeDifferenceString(createdAt) {
+                  const now = new Date();
+                  const messageTime = new Date(createdAt);
+                  const timeDiffInSeconds = Math.floor((now - messageTime) / 1000);
+
+                  if (timeDiffInSeconds < 60) {
+                    return '방금 전';
+                  } else if (timeDiffInSeconds < 3600) {
+                    return Math.floor(timeDiffInSeconds / 60) + '분 전';
+                  } else if (timeDiffInSeconds < 86400) {
+                    return Math.floor(timeDiffInSeconds / 3600) + '시간 전';
+                  } else {
+                    return Math.floor(timeDiffInSeconds / 86400) + '일 전';
+                  }
+                }
+              </script>
+ 			  -->
+ 			  
             </div>
-            <div class="list-wrapper px-3">
-              <ul class="d-flex flex-column-reverse todo-list">
-                <li>
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="checkbox" type="checkbox">
-                      Team review meeting at 3.00 PM
-                    </label>
-                  </div>
-                  <i class="remove ti-close"></i>
-                </li>
-                <li>
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="checkbox" type="checkbox">
-                      Prepare for presentation
-                    </label>
-                  </div>
-                  <i class="remove ti-close"></i>
-                </li>
-                <li>
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="checkbox" type="checkbox">
-                      Resolve all the low priority tickets due today
-                    </label>
-                  </div>
-                  <i class="remove ti-close"></i>
-                </li>
-                <li class="completed">
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="checkbox" type="checkbox" checked>
-                      Schedule meeting for next week
-                    </label>
-                  </div>
-                  <i class="remove ti-close"></i>
-                </li>
-                <li class="completed">
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="checkbox" type="checkbox" checked>
-                      Project review
-                    </label>
-                  </div>
-                  <i class="remove ti-close"></i>
-                </li>
-              </ul>
-            </div>
-            <h4 class="px-3 text-muted mt-5 font-weight-light mb-0">Events</h4>
+            
+            
             <div class="events pt-4 px-3">
               <div class="wrapper d-flex mb-2">
-                <i class="ti-control-record text-primary mr-2"></i>
-                <span>Feb 11 2018</span>
+                
               </div>
-              <p class="mb-0 font-weight-thin text-gray">Creating component page build a js</p>
-              <p class="text-gray mb-0">The total number of sessions</p>
             </div>
             <div class="events pt-4 px-3">
               <div class="wrapper d-flex mb-2">
-                <i class="ti-control-record text-primary mr-2"></i>
-                <span>Feb 7 2018</span>
+                
               </div>
-              <p class="mb-0 font-weight-thin text-gray">Meeting with Alisa</p>
-              <p class="text-gray mb-0 ">Call Sarah Graves</p>
             </div>
           </div>
           <!-- To do section tab ends -->

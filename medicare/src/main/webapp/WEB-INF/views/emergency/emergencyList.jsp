@@ -111,6 +111,46 @@
 		margin-left:50px;
 	}
 	
+	#map{
+      width: 1000px;
+      height: 600px;
+      margin-top:20px;
+      margin-bottom:20px;
+      border: 1px solid gray;
+      border-radius: 20px;
+      margin-left: 120px;
+   	}
+   	
+   	/* 지도 호버시 정보창 */
+	.infoWindow{
+		width: auto;
+		height: 40px;
+		text-align:center;
+		border-radius: 10px;
+		border: 2px solid #f96c85;
+		font-size: 15px;
+		padding-top: 7px;
+		padding-right: 15px;
+		background-color: white;
+		
+	} 
+	 
+	.infoWindow>div{
+		float: left;
+	}
+   	
+   	.hosName{
+		margin-top: 5px;
+		margin-bottom: 10px;
+	}
+
+	.hosImg{
+		width: 25px;
+		height: 25px;
+		margin-left: 10px;
+		margin-right: 8px;
+	}
+ 
 	#btn3 {
 		background-color: rgb(240, 130, 120);
 		border-radius: 8px;
@@ -138,7 +178,7 @@
 	</select>
 	
 	<select id="location2" onchange="liveButton()">
-		<option value="강남구">강남구</option>
+		<option value="강남구" seleted>강남구</option>
 		<option value="강서구">강서구</option>
 		<option value="강동구">강동구</option>
 		<option value="서초구">서초구</option>
@@ -167,6 +207,10 @@
 	
 	<br>
 	
+	<div id="map">
+	
+	</div>
+	 
 	<button id="popup1" onclick=popup1() class="livemap2">실시간 전체 도로상황 보러가기</button>
 	
 	<div id="result">
@@ -766,7 +810,10 @@
 	
 	
 	$(function() {
-    // Function to send AJAX request and update the result
+		var map;
+	 	setInterval(sendAjaxRequest, 1000);
+
+		// Function to send AJAX request and update the result
     function sendAjaxRequest() {
         $.ajax({
             url: "emer.do",
@@ -823,6 +870,7 @@
 	   
 
 	</script>
+
 	</div>
 	
 

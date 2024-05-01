@@ -36,11 +36,17 @@ public class hospitalController {
 	private HospitalServiceImpl hService;
 	
 	@RequestMapping("hosDetail.go")
-	public String goHospital(String hpid,int distance, String dot,HttpSession session) {
+	public String goHospital(String hpid,String distance,HttpSession session) {
+		Hospital h = hService.selectHospitalInfo(hpid);
+			session.setAttribute("distance", distance);
+			session.setAttribute("h", h);
+			return "hospital/hospitalDetail";
+	}
+	
+	@RequestMapping("hosDetail.no")
+	public String noHospital(String hpid,HttpSession session) {
 		Hospital h = hService.selectHospitalInfo(hpid);
 			session.setAttribute("h", h);
-			session.setAttribute("distance", distance);
-			session.setAttribute("dot", dot);
 			return "hospital/hospitalDetail";
 	}
 	
@@ -49,10 +55,18 @@ public class hospitalController {
 		return "hospital/hospitalListModi";
 	}
 	
+	@RequestMapping("hospital.type")
+	public String selectTypeHospitalPage(String typeNum, Model model) {
+		model.addAttribute("typeNum", typeNum);
+		return "hospital/hospitalListModi";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="review.in", produces = "application/json; charset=utf-8")
 	public String insertReview(Review r,HttpSession session, HttpServletResponse response) throws IOException {
+		System.out.println(r);
 		int result = hService.insertReview(r);
+		System.out.println(result);
 		if(result > 0) {
 			ArrayList<Review> list = hService.selectReviewList(r);
 			return new Gson().toJson(list); 
@@ -67,11 +81,14 @@ public class hospitalController {
 	@RequestMapping(value="review.get", produces = "application/json; charset=utf-8")
 	public String getReview(Review r) {
 		ArrayList<Review> list = hService.selectReviewList(r);
+		System.out.println(list);
 		return new Gson().toJson(list); 
 	}
 		
 	@RequestMapping("order.go")
-	public String orderPage() {
+	public String orderPage(String hosCode, Model model) {
+		Hospital h = hService.selectHospitalInfo(hosCode);
+		model.addAttribute("h",h);
 		return "hospital/order";
 	}
 	
@@ -87,14 +104,14 @@ public class hospitalController {
 	}
 	
 	@RequestMapping("order.in")
-	public String insertOrder(Order order,Model model) {
+	public String insertOrder(Order order,HttpSession session) {
 		System.out.println(order);
 			int result = hService.insertOrder(order);
 		if(result > 0) {
-			model.addAttribute("alertMsg","예약성공했습니다");
+			session.setAttribute("alertMsg","예약성공했습니다");
 			return "redirect:/";
 		}else {
-			model.addAttribute("errorMsg","예약에 성공하지못했습니다");
+			session.setAttribute("errorMsg","예약에 성공하지못했습니다");
 			return "redirect:/";
 		}
 	}
@@ -108,5 +125,37 @@ public class hospitalController {
 	public String goCalenderPage() {
 		return "hospital/doctorPageSca";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="review.graph", produces = "application/json; charset=utf-8")
+	public String reviewGraph(String hosCode){
+		ArrayList<Review> list = hService.reviewGraph(hosCode);
+		System.out.println(list);
+		return new Gson().toJson(list);
+	}
+	
+	
+	// 마이페이지 리뷰 삭제
+	@RequestMapping("delete.rv")
+    public String deleteReview(int revNo, HttpSession session, Model model) {
+    	
+		System.out.println(revNo);
+    	int result = hService.deleteReview(revNo);
+    	
+    	if(result > 0) {
+    		session.setAttribute("alertMsg", "성공적으로 리뷰가 삭제되었습니다.");
+			return "redirect:myPage.me";
+    	}else {
+    		model.addAttribute("errorMsg", "리뷰 삭제 실패!");
+			return "common/errorPage";
+    	}
+    }
+	
+	@RequestMapping("recentHospital.in")
+	public Hospital recentHospitalInfo(String hosCode) {
+		Hospital h = hService.selectHospitalInfo(hosCode);
+		return h;
+	}
+	
 	
 }

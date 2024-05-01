@@ -20,4 +20,9 @@ public interface HospitalService {
 	
 	int insertOrder(Order order);
 	
+	ArrayList<Review> reviewGraph(String hosCode);
+	
+	int deleteReview(int revNo);
+	
+	Review selectReviewAvg(String hpid);
 }
