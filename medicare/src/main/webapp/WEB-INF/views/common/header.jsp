@@ -291,7 +291,7 @@
                 $(document).ready(function(){
                 
                   // 웹소켓 연결
-                   sock = new SockJS("http://192.168.20.28:8008/medicare/echo-ws");
+                   sock = new SockJS("https://192.168.20.28:8008/medicare/echo-ws");
                    socket = sock;
         
                   // 데이터를 전달 받았을 때
