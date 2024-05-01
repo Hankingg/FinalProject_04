@@ -14,6 +14,8 @@ public class Delivery {
 	private int dNo;
 	private int dSenderMno;
 	private int dReceiverMno;
-	private int billingNo;
+	private String billingNo;
+	private String courier;
+	private String memName;
 	
 }

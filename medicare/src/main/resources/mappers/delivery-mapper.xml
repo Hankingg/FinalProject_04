@@ -7,6 +7,7 @@
 		<result column="D_SENDER_MNO" property="dSenderMno"/>
 		<result column="D_RECEIVER_MNO" property="dReceiverMno"/>
 		<result column="BILLING_NO" property="billingNo"/>
+		<result column="mem_name" property="memName"/>
 	</resultMap>
 
 	<insert id="insertDelivery">
@@ -17,17 +18,30 @@
 		       , d_sender_mno
 		       , d_receiver_mno
 		       , billing_no
+		       , courier
 		       )
 		       values
 		       (
 		       	 seq_dno.nextval
-		       , #{dcReceiverMno}
-		       , #{dcSenderMno}
-		       , 406627731602
+		       , #{document.dcReceiverMno}
+		       , #{document.dcSenderMno}
+		       , #{billingNo}
+		       , #{courier}
 		       )
-
 	</insert>
 
+	<select id="selectDeliveryList" resultMap="deliveryResult">
+		select 
+		       d_no
+		     , d_sender_mno
+		     , mem_name
+		     , d_receiver_mno
+		     , billing_no
+		     , courier
+		  from delivery
+		  join member on (mem_no = d_sender_mno)
+		 where d_receiver_mno = #{memNo}
+	</select>
 
 
 

@@ -540,6 +540,50 @@
 		text-decoration: none;
 		cursor: pointer;
 	}
+
+	/* 택배목록 조회 */
+	/* 테이블의 전체적인 스타일 */
+	table.list-area {
+	width: 80%; /* 테이블 너비 */
+	margin: 20px auto; /* 중앙 정렬을 위한 마진 설정 */
+	border-collapse: collapse; /* 경계선 겹치게 */
+	text-align: center; /* 모든 텍스트 중앙 정렬 */
+	background-color: #f8f8f8; /* 배경 색상 */
+	}
+
+	/* 테이블 헤더 스타일 */
+	table.list-area thead {
+	background-color: #007bff; /* 헤더 배경 색상 */
+	color: #ffffff; /* 헤더 폰트 색상 */
+	}
+
+	/* 테이블 헤더의 셀 스타일 */
+	table.list-area th {
+	padding: 15px 0; /* 헤더 셀의 상하 패딩 */
+	border: 1px solid #dddddd; /* 경계선 색상 */
+	}
+
+	/* 테이블 바디의 셀 스타일 */
+	table.list-area td {
+	padding: 10px 0; /* 바디 셀의 상하 패딩 */
+	border: 1px solid #dddddd; /* 경계선 색상 */
+	}
+
+	/* 배송조회 버튼 스타일 */
+	.deliveryStatusBtn {
+	padding: 8px 16px; /* 버튼 내부 여백 */
+	font-size: 14px; /* 폰트 크기 */
+	color: #ffffff; /* 폰트 색상 */
+	background-color: #28a745; /* 배경 색상 */
+	border: none; /* 경계선 제거 */
+	border-radius: 5px; /* 경계선 둥글게 */
+	cursor: pointer; /* 마우스 오버 시 커서 변경 */
+	}
+
+	.deliveryStatusBtn:hover {
+	background-color: #218838; /* 마우스 오버 시 배경 색상 변경 */
+	}
+	
 	
 </style>
 </head>
@@ -555,7 +599,7 @@
 						<li id="info"><a href="myInfo.me" class="tab active">내정보</a></li>
 						<li id="heart"><a class="tab" onclick="myDiagnosisInfo();">진료 내역</a></li>
 						<li id="review"><a onclick="myReviewList();" class="tab">리뷰 리스트</a></li>
-						<li id="delivery"><a class="tab">택배 리스트</a></li>
+						<li id="delivery"><a onclick="myDeliveryList();" class="tab">택배 리스트</a></li>
 						<li id="documents"><a onclick="myDocumentList();" class="tab">문서함</a></li>
 					</ul>
 				</div>
@@ -926,10 +970,10 @@
 									<form id="deliveryForm">
 										<label for="courier">택배사:</label>
 										<select id="courier" name="courier">
-											<option value="lotte">롯데택배</option>
-											<option value="logen">로젠택배</option>
-											<option value="cj">CJ대한통운</option>
-											<option value="postoffice">우체국택배</option>
+											<option value="롯데택배">롯데택배</option>
+											<option value="로젠택배">로젠택배</option>
+											<option value="CJ대한통운">CJ대한통운</option>
+											<option value="우체국택배">우체국택배</option>
 										</select>
 										<label for="trackingNumber">운송장 번호:</label>
 										<input type="text" id="trackingNumber" name="trackingNumber">
@@ -958,12 +1002,22 @@
 								$.ajax({
 									url:"insert.dl",
 									data:{ dcNo : dcNo
-									     ,      },
-									success:function(){
-										
+									     , courier : courier
+										 , billingNo : trackingNumber
+										 },
+									success:function(result){
+										alertify.alert("택배 발송에 성공했습니다.", function() {
+											// 'prescription' 클래스를 가진 모든 요소를 대상으로 하여, 해당 dcNo에 해당하는 항목을 찾아서 DOM에서 제거한다.
+											$(".prescription").each(function() {
+												var currentDcNo = $(this).find(".deleteBtn").data("dcno");
+												if(currentDcNo == dcNo){
+													$(this).remove(); // 해당 처방전 항목을 찾았다면 DOM에서 제거한다.
+												}
+											});
+										});
 									},
 									error:function(){
-
+										console.log("택배 발송에 실패하였습니다.")
 									}
 								})
 
@@ -979,9 +1033,155 @@
 						}
 
 
+						function showDeliveryModal(dcNo) {
+							// 모달 HTML 구성
+							var modalHTML = `
+							<div id="deliveryModal" class="modal5">
+								<div class="modal-content5">
+									<span class="close5">&times;</span>
+									<form id="deliveryForm">
+										<label for="courier">택배사:</label>
+										<select id="courier" name="courier">
+											<option value="롯데택배">롯데택배</option>
+											<option value="로젠택배">로젠택배</option>
+											<option value="CJ대한통운">CJ대한통운</option>
+											<option value="우체국택배">우체국택배</option>
+										</select>
+										<label for="trackingNumber">운송장 번호:</label>
+										<input type="text" id="trackingNumber" name="trackingNumber">
+										<input type="submit" value="택배 정보 전송">
+									</form>
+								</div>
+							</div>
+							`;
+							$("body").append(modalHTML); // body 태그의 끝에 모달 추가
+							$("#deliveryModal").show(); // 모달 보이기
+
+							// 모달의 x 버튼 클릭 시 모달 닫기
+							$("#deliveryModal .close5").click(function() {
+								$("#deliveryModal").remove(); // 모달 제거
+								
+							});
+
+							// 택배 정보 전송 폼 제출 이벤트
+							$("#deliveryForm").submit(function(event) {
+								event.preventDefault(); // 폼 기본 제출 동작 방지
+								
+								// 택배 정보 수집(예: AJAX를 이용하여 서버로 전송)
+								var courier = $("#courier").val();
+								var trackingNumber = $("#trackingNumber").val();
+
+								$.ajax({
+									url:"insert.dl",
+									data:{ dcNo : dcNo
+									     , courier : courier
+										 , billingNo : trackingNumber
+										 },
+									success:function(result){
+										alertify.alert("택배 발송에 성공했습니다.", function() {
+											// 'prescription' 클래스를 가진 모든 요소를 대상으로 하여, 해당 dcNo에 해당하는 항목을 찾아서 DOM에서 제거한다.
+											$(".prescription").each(function() {
+												var currentDcNo = $(this).find(".deleteBtn").data("dcno");
+												if(currentDcNo == dcNo){
+													$(this).remove(); // 해당 처방전 항목을 찾았다면 DOM에서 제거한다.
+												}
+											});
+										});
+									},
+									error:function(){
+										console.log("택배 발송에 실패하였습니다.")
+									}
+								})
+
+
+
+
+								
+
+								$('.modal2').hide();
+								$("#deliveryModal").remove(); // 정보 전송 후 모달 제거
+								
+							});
+						}
+
+
+						function myDeliveryList(){
+							$.ajax({
+								url:"selectList.dl",
+								data:{memNo: "${loginUser.memNo}"},
+								success:function(data){
+									console.log(data);
+									var value = '<div id="myDelivery" class="info">'
+											  + '<span>게시판</span> <br />'
+											  + '<table class="list-area" align="center" border="1">'
+						                      + '<thead>'
+											  + '<tr>'
+											  + '<th width="100">택배번호</th>'
+											  + '<th width="100">택배회사</th>'
+											  + '<th width="200">약국 명</th>'
+											  + '<th width="200">운송장번호</th>'
+											  + '<th width="100">배송조회</th>'
+											  + '</tr>'
+											  + '</thead>';
+									for(var i=0; i<data.length;i++){
+										value += '<tbody>'
+											  +	'<tr>'
+											  + '<td>'+ (i+1) +'</td>'
+											  + '<td>'+ data[i].courier +'</td>'
+											  + '<td>'+ data[i].memName +'</td>'
+											  + '<td>'+ data[i].billingNo +'</td>'
+											  + '<td><button class="deliveryStatusBtn">배송조회</button></td>'
+											  + '</tr>'
+											  + '</tbody>';	
+									}
+										value += '</table>'
+											  +  '</div>';
+
+									$(".myPage-info").html(value);
+								},
+								error:function(){
+									
+								}
+							})
+
+						}
+
+						$(document).on('click', '.deliveryStatusBtn', function() {
+							// 배송 조회 버튼이 속한 행에서 데이터 추출
+							var tr = $(this).closest('tr'); // 버튼이 속한 행(tr) 선택
+							var invoiceNumber = tr.find('td:eq(3)').text(); // 운송장 번호
+
+							var courierCode = "";
+							// var courierCode = tr.find('td:eq(1)').text(); // 택배사 코드
+							if(tr.find('td:eq(1)').text() == "롯데택배"){
+								courierCode = "08";
+							} else if(tr.find('td:eq(1)').text() == "CJ대한통운"){
+								courierCode = "04";
+							} else if(tr.find('td:eq(1)').text() == "로젠택배"){
+								courierCode = "06";
+							} else if(tr.find('td:eq(1)').text() == "우체국택배"){
+								courierCode = "01";
+							}
+
+							window.open('http://info.sweettracker.co.kr/tracking/4?t_key=4EuQNNywElBKav3MX8HYkA&t_code='+ courierCode +'&t_invoice=' + invoiceNumber, 'DeliveryStatusWindow', 'width=600, height=600, left=400, top=200');
+						});
 						
 						
-							
+
+						
+
+
+
+
+
+
+
+
+
+
+
+
+					
 					 
 
 
@@ -1183,12 +1383,12 @@
 						<table class="list-area" align="center">
 							<thead>
 								<tr>
-									<th width="100">작성번호</th>
-									<th width="200">게시판유형</th>
-									<th width="350">제목</th>
-									<th width="100">작성자</th>
-									<th width="100">조회수</th>
-									<th width="150">작성일자</th>
+									<th width="100">택배번호</th>
+									<th width="200">택배회사</th>
+									<th width="350">약국 명</th>
+									<th width="100">운송장번호</th>
+									<th width="100">배송상태</th>
+									<th width="150">배송조회</th>
 								</tr>
 							</thead>
 							<tbody></tbody>

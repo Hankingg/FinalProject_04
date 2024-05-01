@@ -7,9 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-.main-panel div{
+/* .main-panel div{
 	border: 1px solid red;
-}
+} */
 
 .outer{
 		border: 2px solid rgb(140, 192, 81);
@@ -75,8 +75,34 @@
         	<div class="outer">
         		
 			
-			<button data-toggle="modal" data-target="#selectDelivery">배송정보조회하기</button>
+			
 			<button onclick="selectList();">처방전 조회</button>
+
+				 <!-- 택배 목록 -->
+				<div id="myDelivery" class="info">
+					<!-- 게시판 목록-->
+					<span>게시판</span> <br />
+					<table class="list-area" align="center" border="1">
+						<thead>
+							<tr>
+								<th width="100">택배번호</th>
+								<th width="100">택배회사</th>
+								<th width="200">약국 명</th>
+								<th width="200">운송장번호</th>
+								<th width="100">배송조회</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>롯데택배</td>
+								<td>일번지약국</td>
+								<td>123015481249</td>
+								<td><button>조회</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 
 	
 			<!-- <div id="msgStack"></div>	 -->
@@ -201,7 +227,8 @@
 				} -->
 			</script>
 
-        	
+        	<button data-toggle="modal" data-target="#selectDelivery">배송정보조회하기</button>
+
 			<!-- The Modal -->
 			<div class="modal" id="selectDelivery">
 				<div class="modal-dialog">
@@ -217,8 +244,7 @@
 					  <div class="modal-body">
 						<form action="http://info.sweettracker.co.kr/tracking/5" method="post" target="_blank">
 							<div class="form-group">
-							  <label for="t_key">API key</label>
-							  <input type="text" class="form-control" id="t_key" name="t_key" placeholder="제공받은 APIKEY">
+							  <input type="hidden" class="form-control" id="t_key" name="t_key" value="4EuQNNywElBKav3MX8HYkA">
 							</div>
 							<div class="form-group">
 							  <label for="t_code">택배사 코드</label>
@@ -241,7 +267,7 @@
 				   </div>
 				</div>
 			 </div>
-
+		
 
 				
 				
@@ -249,6 +275,7 @@
         	</div>
         	
         </div>
+		
 
     <jsp:include page="../common/footer.jsp"/>
 
