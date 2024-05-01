@@ -38,21 +38,6 @@
     	color:gray;
     }
     
-    /* 채팅 이미지 */
-    #chatBtn{
-    	position: fixed;
-        left: 95%;
-        top: 83%;
-        z-index: 999;
-        cursor: pointer;
-    }
-
-	#chatImg{
-		width: 45px;
-	    height: 45px;
-	}
-
-
 	/* 탑버튼 */
 	  #topBtn{
 	        position: fixed;
@@ -254,11 +239,6 @@
       <!-- partial:partials/_settings-panel.html -->
       <div class="theme-setting-wrapper">
       
-      	<!-- chat 버튼 -->
-          <div id="chatBtn">
-          	   <a href="chat"><img id="chatImg" src="resources/mainIcon/chat2.png"></a>
-          </div>
-        
         <!-- top 버튼 -->
             <div id="topBtn">
 				<a href="#">

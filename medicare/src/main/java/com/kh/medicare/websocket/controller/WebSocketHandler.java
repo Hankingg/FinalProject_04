@@ -1,9 +1,6 @@
 package com.kh.medicare.websocket.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,104 +12,74 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.kh.medicare.member.model.vo.Member;
 
-@RequestMapping("/webSocket-ws")
-public class WebSocketHandler extends TextWebSocketHandler{
-		
-		private List<WebSocketSession> sessions = new ArrayList<WebSocketSession>();
-	
-		// 로그인중인 개별유저
-		private Map<String, WebSocketSession> users = new ConcurrentHashMap<String, WebSocketSession>();
-		
-		// 클라이언트가 서버로 연결시
-		@Override
-		public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-			
-			sessions.add(session);
-			
-			String senderId = getMemberId(session); // 접속한 유저의 http세션을 조회하여 id를 얻는 함수
-			
-			if(senderId!=null) {	// 로그인 값이 있는 경우만
-				log(senderId + " 연결 됨");
-				users.put(senderId, session);   // 로그인중 개별유저 저장
-			}
+@RequestMapping("/medicare/chat")
+public class WebSocketHandler extends TextWebSocketHandler {
 
-		}
-			
-		// 클라이언트가 Data 전송 시
-		@Override
-		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-			String senderId = getMemberId(session); 
-			
-			for(WebSocketSession sess : sessions) {
-				sess.sendMessage(new TextMessage(message.getPayload()));
-			}
-			
-			// 특정 유저에게 보내기
-			String msg = message.getPayload();
+    private Map<String, WebSocketSession> users = new ConcurrentHashMap<>();
 
-			if(msg != null) {
-				String[] strs = msg.split(",");
-				log(strs.toString());
-				if(strs != null && strs.length == 4) {
-					String hos = strs[0];
-					String target = strs[1]; // m_id 저장
-					String content = strs[2];
-					String url = strs[3];
-					WebSocketSession targetSession = users.get(target);  // 메시지를 받을 세션 조회
-					System.out.println(targetSession);
-					
-					// 실시간 접속시
-					if(targetSession!=null) {
-						// ex: [&분의일] 신청이 들어왔습니다.
-						TextMessage tmpMsg = new TextMessage("<a target='_blank' href='"+ url +"'>[<b>" + hos + "</b>] " + content + "</a>" );
-						targetSession.sendMessage(tmpMsg);
-					}
-				}
-			}
-		}
-		
-		// 연결 해제될 때
-		@Override
-		public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-			String senderId = getMemberId(session);
-			if(senderId!=null) {	// 로그인 값이 있는 경우만
-				log(senderId + " 연결 종료됨");
-				users.remove(senderId);
-				sessions.remove(session);
-			}
+    @Override
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        String senderId = getMemberId(session);
+        if (senderId != null) {
+            users.put(senderId, session);
+        }
+    }
 
-		}
-		// 에러 발생시
-		@Override
-		public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-			log(session.getId() + " 익셉션 발생: " + exception.getMessage());
+    @Override
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        String senderId = getMemberId(session);
 
-		}
-		// 로그 메시지
-		private void log(String logmsg) {
-			System.out.println(new Date() + " : " + logmsg);
-		}
-		
-		// 웹소켓에 id 가져오기
-	    // 접속한 유저의 http세션을 조회하여 id를 얻는 함수
-		private String getMemberId(WebSocketSession session) {
-			Map<String, Object> httpSession = session.getAttributes();
-			
-			//		for (String key : httpSession.keySet()) {
-			//		       System.out.println("Session Key: " + key + ", Value: " + httpSession.get(key));
-			//		}
-			
-			// 세션에서 Member 객체를 가져옵니다.
-			Member member = (Member)httpSession.get("loginUser");
+        if (senderId != null) {
+            String msg = message.getPayload();
 
-			// Member 객체에서 memId 값을 얻습니다.
-			String memId = null;
-			if (member != null) {
-			    memId = member.getMemId();
-			}
-			
-			return memId == null ? null : memId;
-		}
-	
+            if (msg != null) {
+                String[] strs = msg.split(",");
+                if (strs != null && strs.length == 4) {
+                    String hos = strs[0];
+                    String target = strs[1];
+                    String content = strs[2];
+                    WebSocketSession targetSession = users.get(target);
+
+                    if (targetSession != null) {
+                        TextMessage tmpMsg = new TextMessage("[<" + hos + ">] " + content);
+                        try {
+                            targetSession.sendMessage(tmpMsg);
+                        } catch (IOException e) {
+                            // 에러 처리
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        String senderId = getMemberId(session);
+        if (senderId != null) {
+            users.remove(senderId);
+        }
+    }
+
+    @Override
+    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+        // 오류 로깅
+        System.err.println("WebSocket 전송 오류 발생: " + exception.getMessage());
+
+        // 클라이언트와의 연결 종료
+        if (session.isOpen()) {
+            session.close();
+        }
+    }
+
+    private String getMemberId(WebSocketSession session) {
+        Map<String, Object> httpSession = session.getAttributes();
+        Member member = (Member) httpSession.get("loginUser");
+        String memId = null;
+        if (member != null) {
+            memId = member.getMemId();
+        }
+        return memId;
+    }
 }
-

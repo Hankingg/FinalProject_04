@@ -506,6 +506,18 @@ public class MemberController {
         return mv;
     }
     
-    
+    /*
+    @RequestMapping("chatTest.ch")
+    public ModelAndView chatTest(Member memId, HttpSession session, ModelAndView mv) {
+    	System.out.println(memId);
+    	Member loginUser = mService.loginMember(memId);
+    	System.out.println(loginUser);
+    	session.setAttribute("loginUser", loginUser);    	
+    	mv.setViewName("chating/chat");
+    	
+    	return mv;
+    	
+    }
+    */
     
 } //Class

@@ -18,10 +18,10 @@ import com.kh.medicare.member.model.vo.Member;
 @RequestMapping("/echo-ws")
 public class EchoHandler extends TextWebSocketHandler{
 		
-		private List<WebSocketSession> sessions = new ArrayList<WebSocketSession>();
+		List<WebSocketSession> sessions = new ArrayList<WebSocketSession>();
 	
 		// 로그인중인 개별유저
-		private Map<String, WebSocketSession> users = new ConcurrentHashMap<String, WebSocketSession>();
+		Map<String, WebSocketSession> users = new ConcurrentHashMap<String, WebSocketSession>();
 		
 		// 클라이언트가 서버로 연결시
 		@Override
@@ -31,6 +31,7 @@ public class EchoHandler extends TextWebSocketHandler{
 			
 			if(senderId!=null) {	// 로그인 값이 있는 경우만
 				log(senderId + " 연결 됨");
+				System.out.println("연결 됨11");
 				users.put(senderId, session);   // 로그인중 개별유저 저장
 			}
 
@@ -40,10 +41,6 @@ public class EchoHandler extends TextWebSocketHandler{
 		@Override
 		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 			String senderId = getMemberId(session); 
-			
-			for(WebSocketSession sess : sessions) {
-				sess.sendMessage(new TextMessage(message.getPayload()));
-			}
 			
 			// 특정 유저에게 보내기
 			String msg = message.getPayload();
@@ -75,6 +72,7 @@ public class EchoHandler extends TextWebSocketHandler{
 			String senderId = getMemberId(session);
 			if(senderId!=null) {	// 로그인 값이 있는 경우만
 				log(senderId + " 연결 종료됨");
+				
 				users.remove(senderId);
 				sessions.remove(session);
 			}
