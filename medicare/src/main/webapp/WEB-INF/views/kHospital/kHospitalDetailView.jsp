@@ -14,7 +14,8 @@
     border: 2px solid #F96C85;
     border-radius: 10px;
     padding-left: 50px;
-    padding-top: 30px;
+    padding-top: 50px;
+    padding-bottom: 30px;
   }
 
   /* 병원 이름 */
