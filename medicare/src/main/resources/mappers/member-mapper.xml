@@ -54,6 +54,69 @@
 	    and MEM_ID = #{ memId }  
 	</select>
 	
+	<select id="adminSelectMember" resultMap="memberResultSet">
+		select
+			 MEM_NO
+		   , MT_ID
+		   , MEM_ID
+		   , MEM_PWD
+		   , MEM_NAME
+		   , NICKNAME
+		   , EMAIL
+		   , POSTCODE
+		   , ADDRESS
+		   , DETAIL_ADDR
+		   , EXTRA_ADDR
+		   , PHONE
+		   , MEMBERSHIP
+		   , STATUS
+		   , ENROLL_DATE
+		   , MODIFY_DATE
+		   , MS_MONTH
+		   , MS_YEAR
+		   , BUY_DATE
+		   , END_DATE
+		   , ENROLL_TYPE
+	     from member
+	   where status = 'Y'	
+	   order by ENROLL_DATE	DESC        
+	</select>
+	
+	<select id="adminRestoreMem" resultMap="memberResultSet">
+		select
+			 MEM_NO
+		   , MT_ID
+		   , MEM_ID
+		   , MEM_PWD
+		   , MEM_NAME
+		   , NICKNAME
+		   , EMAIL
+		   , POSTCODE
+		   , ADDRESS
+		   , DETAIL_ADDR
+		   , EXTRA_ADDR
+		   , PHONE
+		   , MEMBERSHIP
+		   , STATUS
+		   , ENROLL_DATE
+		   , MODIFY_DATE
+		   , MS_MONTH
+		   , MS_YEAR
+		   , BUY_DATE
+		   , END_DATE
+		   , ENROLL_TYPE
+	     from member
+	   where status = 'N'	
+	   order by ENROLL_DATE	DESC        
+	</select>
+	
+	<select id="selectListCount" resultType="_int">
+ 		select
+ 			   count(*)
+ 		  from member
+ 		 where status='Y' 	  
+ 	</select>
+	
 	<select id="kakaoLogin" resultMap="memberResultSet">
 		select	
 			  mem_no
@@ -182,5 +245,24 @@
 		 where
 		      mem_id = #{ memId }     
 	</update>
+	
+	
+	<update id="adminDeleteMember" parameterType="int[]">	    
+	    update member
+	    set status = 'N'
+	    where mem_no IN
+	    <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+	        #{item}
+	    </foreach>	   
+	</update>   
+	
+	<update id="adminRestoreMember" parameterType="int[]">	    
+	    update member
+	    set status = 'Y'
+	    where mem_no IN
+	    <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+	        #{item}
+	    </foreach>	   
+	</update> 
 	
 </mapper>

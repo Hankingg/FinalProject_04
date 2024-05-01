@@ -1,4 +1,5 @@
 package com.kh.medicare.api.controller;
+import java.util.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,8 +10,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
+
+
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -88,7 +89,6 @@ public class ApiController {
 			url += "&ORD=NAME";
 			url += "&pageNo=1";
 			url += "&numOfRows=10";
-			System.out.println(url);
 			URL requestUrl = new URL(url);
 			HttpURLConnection urlConnection = (HttpURLConnection)requestUrl.openConnection();
 			urlConnection.setRequestMethod("GET");
@@ -102,7 +102,6 @@ public class ApiController {
 			while((line = br.readLine()) != null) {
 				responseText += line;
 			}
-			System.out.println(responseText);
 			
 			br.close();
 			urlConnection.disconnect();
@@ -130,9 +129,7 @@ public class ApiController {
 			            
 			            double deltaLat = Math.toRadians(Dwgs84Lat - wgs84Lat);
 			            double deltaLon = Math.toRadians(Dwgs84Lon - wgs84Lon);
-			            System.out.println("hpid:"+hpid);
 			            Review r = hService.selectReviewAvg(hpid);
-			            System.out.println("r:"+r);
 
 			            double a = Math.pow(Math.sin(deltaLat / 2), 2) +
 			                    Math.cos(Math.toRadians(wgs84Lat)) * Math.cos(Math.toRadians(Dwgs84Lat)) *
@@ -141,7 +138,6 @@ public class ApiController {
 			            
 			            double distanceKm = RADIUS * c;
 			            int distanceMeters = (int)(distanceKm * 1000);
-			            System.out.println(distanceMeters);
 			            h.setHosCode(hpid);
 			            h.setHosName(dutyName);
 			            h.setHosAddress(dutyAddr);
@@ -156,12 +152,12 @@ public class ApiController {
 			            
 			            list.add(h);
 			            System.out.println("여기까진 오냐");
-			            
+			            model.addAttribute("h",h);
 			            
 			        }
 			    }
 			    
-			     Collections.sort(list, Comparator.comparingInt(Hospital::getDistance));
+			    //Collections.sort(list, Comparator.comparingInt(Hospital::getDistance));
 			    
 			} catch (Exception e) {
 			    e.printStackTrace();

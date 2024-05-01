@@ -474,7 +474,6 @@
 		
 		}
             	
-    			
     			$("#near").click(function(){
     				$.ajax({
     					url:"nearhos.in",
@@ -482,7 +481,6 @@
    						 ,QD:$("#dgidIdName").val()
    						 ,QN:$("#QN").val()},
     					success:function(data){
-    						 console.log(data)
     						let value = "";
     						let first = true;
     						
@@ -508,10 +506,6 @@
 
     		    				
 							$.each(data, function(i, data) {
-								console.log("dd" + data);
-								console.log("i" + i);
-					            console.log(hosLocation);
-    							
     							// 한의원 위치에 대한 마커 추가
 								var hosLocation = new naver.maps.LatLng(data.hosLatitude, data.hosLongitude);
 					            
@@ -523,7 +517,6 @@
 										scaledSize: new naver.maps.Size(40, 40)
 									}
 								});
-					            console.log(marker);     	
 								
 								/* 마커 호버시 정보창 내용 */
 								var content = '<div class="infoWindow">'
@@ -534,7 +527,6 @@
 									+ '<h4>' + data.hosName + '</h4>'
 									+ '</div>'
 									+ '</div>';
-								console.log(data.hosName);
 								
 								/* 마커 호버시 정보창 */
 								var infoWindow = new naver.maps.InfoWindow({
@@ -561,17 +553,19 @@
 									
 									location.href = 'hosDetail.go?hpid=' + data.hosCode + "&distance=" + data.distance + "&dot=" + selectedOptionText;
 								});
+								
+								let formattedDistance = data.distance >= 1000 ? (Math.round(data.distance / 100) / 10) + " km" : data.distance + " m";
     							
-    							value += "<div id='hos_wrap' style='width: 600px; height: 150px' onclick='location.href=\"hosDetail.go?hpid=" + data.hosCode + "&distance=" + data.distance + "&dot=" + selectedOptionText + "\"'>"
+    							value += "<div id='hos_wrap' style='width: 600px; height: 150px' onclick='location.href=\"hosDetail.go?hpid=" + data.hosCode + "&distance=" + formattedDistance + "\"'>"
     							     + "<div id='hos1'>"
     							     + "<div id='hos1_1'>"
     							     +    "<div>진료중</div>"
     							     + "</div>"
     							     + "<div id='hos1_2'><div>" + data.hosName + "</div></div>"
     							     +   "<div id='hos1_3'>"
-    							     +     "<div id='hos1_3_1'> 별점 : "+data.reviewAvg+"점 </div>"
+    							     +     "<div id='hos1_3_1'> 별점 : "+ data.reviewAvg +"점 </div>"
     							     + "<br>"
-    							     +    "<div id='hos1_3_2'> " + data.distance +"m | "+ extractSubstringUpToThirdSpace(data.hosAddress) + " | " + selectedOptionText + "</div>"
+    							     +    "<div id='hos1_3_2'> " + formattedDistance +" | "+ extractSubstringUpToThirdSpace(data.hosAddress) + " | " + selectedOptionText + "</div>"
     							     +  "</div>"
     							     +  "<div id='hos1_4'>"
     							     +    "<div style='background-color: rgb(174, 214, 214)'> 접수 </div>"
@@ -606,23 +600,10 @@
     			    }
     			    return str; // If there are less than three spaces, return the original string
     			}
-
-    			
    			</script>
-            
-
-			
-              <button onclick="location.href='detail.kh'">상세페이지 버튼</button>
+   			
            </div>
-           
-           
-           
-           
-        
         </div>
-        
-        
-        
         
     <jsp:include page="../common/footer.jsp"/>
 </body>

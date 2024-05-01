@@ -37,6 +37,21 @@
     #loginBtn:hover {
     	color:gray;
     }
+    
+    /* 채팅 이미지 */
+    #chatBtn{
+    	position: fixed;
+        left: 95%;
+        top: 83%;
+        z-index: 999;
+        cursor: pointer;
+    }
+
+	#chatImg{
+		width: 45px;
+	    height: 45px;
+	}
+
 
 	/* 탑버튼 */
 	  #topBtn{
@@ -238,6 +253,12 @@
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_settings-panel.html -->
       <div class="theme-setting-wrapper">
+      
+      	<!-- chat 버튼 -->
+          <div id="chatBtn">
+          	   <a href="chat"><img id="chatImg" src="resources/mainIcon/chat2.png"></a>
+          </div>
+        
         <!-- top 버튼 -->
             <div id="topBtn">
 				<a href="#">
@@ -284,12 +305,14 @@
           <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
             <div class="add-items d-flex px-3 mb-0">
               <div id="msgStack"> </div>
-
+				
+              <!--  
               <script>
                 $(document).ready(function(){
+                
                   // 웹소켓 연결
-                  sock = new SockJS("<c:url value='/echo-ws'/>");
-                  socket = sock;
+                   sock = new SockJS("<c:url value='/echo-ws'/>");
+                   socket = sock;
         
                   // 데이터를 전달 받았을 때
                   sock.onmessage = function(evt){
@@ -370,11 +393,8 @@
                   }
                 }
               </script>
-
-
-
-
-
+ 			  -->
+ 			  
             </div>
             
             
@@ -485,7 +505,7 @@
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="">가용병상조회</a></li>
+                <li class="nav-item"><a class="nav-link" href="emergencyList.em">가용병상조회</a></li>
               </ul>
             </div>
           </li>

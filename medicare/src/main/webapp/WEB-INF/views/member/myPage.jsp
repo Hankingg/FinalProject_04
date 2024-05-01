@@ -412,134 +412,55 @@
 		cursor: pointer;
 	}
 
+	#adminMember th,td{		
+		text-align:center;
+		height:50px;
+	}
 	
-	 #hos_wrap {
-        margin-top: 10px;
-        display: flex;
-        border-radius: 10px;
-        box-sizing: border-box;
-        border: 1px solid black;
-      }
-      #hos_wrap > div {
-        height: 100%;
-      }
-      #hos_wrap div {
-        border: 0px;
-      }
-
-      #hos1 {
-        width: 80%;
-      }
-      #hos2 {
-        width: 20%;
-      }
-      #hos1_1 {
-        height: 20%;
-      }
-      #hos1_1 > div {
-        display: inline-block;
-        margin-left: 10px;
-        margin-top: 10px;
-        color: rgb(55, 108, 200);
-      }
-      #hos1_2 {
-        height: 30%;
-      }
-      #hos1_2 > div {
-        display: inline-block;
-        margin-top: 6px;
-        margin-left: 10px;
-        font-size: 20px;
-        font-weight: bold;
-      }
-      #hos1_3 {
-        height: 30%;
-      }
-      #hos1_3 > div {
-        display: inline-block;
-        margin-left: 10px;
-      }
-      #hos1_3_1 {
-        height: 70%;
-      }
-      #hos1_3_2 {
-        height: 30%;
-      }
-      #hos1_3_2 > div {
-        display: flex;
-      }
-      #hos1_4 {
-        height: 20%;
-      }
-      #hos1_4 > div {
-        display: inline-block;
-        width: 40px;
-        text-align: center;
-        margin-left: 10px;
-        margin-top: 3px;
-      }
-
-      #hos2_1 {
-        height: 30%;
-      }
-      #hos2_2 {
-        height: 70%;
-      }
-      #hos2_1 p {
-        transform: scale(1);
-        display: inline-block;
-        padding-left: 10px;
-        padding-bottom: 20px;
-      }
-      #hos2_2_1 {
-        text-align: center;
-        margin-left: 8px;
-        margin-top: 70px;
-        width: 80%;
-        white-space: nowrap;
-        font-size: 14px;
-      }
-
-	/* 택배 발송 모달 style */
-	.modal5 {
-		display: none; /* 기본적으로 모달을 보이지 않게 함 */
-		position: fixed; /* 스크롤 시에도 항상 같은 위치에 표시 */
-		z-index: 1; /* 다른 요소보다 위에 표시됨 */
-		left: 0;
-		top: 0;
-		width: 100%; /* 부모 요소인 <body>에 꽉 차도록 너비 설정 */
-		height: 100%; /* 뷰포트에 꽉 차도록 높이 설정 */
-		overflow: auto; /* 내용이 넘칠 경우 스크롤 가능 */
-		background-color: rgba(0,0,0,0.4); /* 반투명 배경 */
+	#adminMember {
+	 width:1150px;
+	 border:1px solid red;
 	}
-
-	/* Modal content style */
-	.modal-content5 {
-		background-color: #fefefe;
-		position: absolute; /* 절대 위치 지정 */
-		top: 20%; /* 위에서부터 10%의 위치에 배치 */
-		right: 29%; /* 오른쪽에서부터 10%의 위치에 배치 */
-		padding: 20px;
-		border: 1px solid #888;
-		width: 50%; /* 가로 크기를 50%로 설정하여 작게 표시 */
-		max-width: 600px; /* 최대 가로 크기 설정 */
-		transform: translateX(0%); /* 필요한 경우 위치 조정 */
+	
+	#inputPwd {
+		border: 1px solid rgb(240, 130, 120);
+		width : 600px;
+		height : 400px;
+		border-radius: 10px;
 	}
-
-	/* Close button style */
-	.close5 {
-		color: #aaa;
-		float: right;
-		font-size: 28px;
-		font-weight: bold;
+	
+	.admin_checkpwd_content {
+		margin-left: 420px;
 	}
-
-	.close5:hover,
-	.close5:focus {
-		color: black;
-		text-decoration: none;
-		cursor: pointer;
+	
+	#inputPwd>h4 {
+		margin-top: 30px;
 	}
+	
+	
+	#selectMember {
+		margin-right:120px;
+	}
+	
+	#adminMember {
+		text-align:center;
+		width:400px;
+		height:400px;
+		border-radius: 10px;
+		padding-top:70px;
+	}
+	
+	#pwdBtn {
+		background-color: white;
+		border-radius: 10px;
+		border-color:rgb(240, 130, 120);
+		height:40px;
+	}
+	
+	 #memPwd:focus{
+	 		border-color:rgb(240, 130, 120);
+	 		border-radius: 10px;              
+        }
 
 	/* 택배목록 조회 */
 	/* 테이블의 전체적인 스타일 */
@@ -595,96 +516,132 @@
 				<h2 align="center" style="color: gray;">마이페이지</h2>
 				<br>
 				<div id="myPage-tab">
-					<ul>
-						<li id="info"><a href="myInfo.me" class="tab active">내정보</a></li>
-						<li id="heart"><a class="tab" onclick="myDiagnosisInfo();">진료 내역</a></li>
-						<li id="review"><a onclick="myReviewList();" class="tab">리뷰 리스트</a></li>
-						<li id="delivery"><a onclick="myDeliveryList();" class="tab">택배 리스트</a></li>
-						<li id="documents"><a onclick="myDocumentList();" class="tab">문서함</a></li>
-					</ul>
+				
+					<c:choose>
+						<c:when test="${ loginUser.memId eq 'admin' }">
+							<ul>						
+							<li id="info"><a href="myInfo.me" class="tab active">회원관리</a></li>
+							<li id="heart"><a class="tab">좋아요 리스트</a></li>
+							<li id="review"><a onclick="myReviewList();" class="tab">리뷰 리스트</a></li>
+							<li id="delivery"><a class="tab">택배 리스트</a></li>
+							<li id="documents"><a onclick="myDocumentList();" class="tab">문서함</a></li>
+							</ul>
+						</c:when>
+						<c:otherwise> 
+							<ul>						
+								<li id="info"><a href="myInfo.me" class="tab active">내정보</a></li>
+								<li id="heart"><a class="tab">좋아요 리스트</a></li>
+								<li id="review"><a onclick="myReviewList();" class="tab">리뷰 리스트</a></li>
+								<li id="delivery"><a onclick="myDeliveryList();" class="tab">택배 리스트</a></li>
+								<li id="documents"><a onclick="myDocumentList();" class="tab">문서함</a></li>
+							</ul>
+						</c:otherwise>
+					</c:choose>
 				</div>
+				
+				
 				<div class="myPage-info">
-					<!-- 내 정보 -->
-					<div id="myInfo" class="info active">
-						<form action="update.me" method="post">
-							<table id="myInfoTb">
-								<tr>
-									<td width="100">아이디</td>
-									<c:choose>
-										<c:when test="${ loginUser.enrollType eq 'K' }">
+				
+					<c:choose>
+						<c:when test="${ loginUser.memId eq 'admin' }">
+							<div id="selectMember" align="center">
+								<div id="adminMember">
+								<h4 align="center">관리자 비밀번호 입력</h4>
+									<br><br><br>
+									<form action="moveAdminMemberCheck.me">
+										<input id="memPwd" name="memPwd" type="password" style="border-radius:10px;" required>
+										<input id="memId" name="memId" type="hidden" value="${ loginUser.memId }">
+										<br><br>
+										<button id="pwdBtn" type="submit">회원관리 이동</button>
+									</form>
+								</div>		
+							</div>
+						</c:when>
+						<c:otherwise>					
+							<!-- 내 정보 -->
+							<div id="myInfo" class="info active">
+								<form action="update.me" method="post">
+									<table id="myInfoTb">
+										<tr>
+											<td width="100">아이디</td>
+											<c:choose>
+												<c:when test="${ loginUser.enrollType eq 'K' }">
+													<td colspan="2">
+														<input type="text" name="memId" value="카카오계정입니다." readonly>
+													</td>
+												</c:when>
+												<c:when test="${ loginUser.enrollType eq 'N' }">
+													<td colspan="2">
+														<input type="text" name="memId" value="네이버계정입니다." readonly>
+													</td>
+												</c:when>
+												<c:otherwise>
+													<td colspan="2">
+														<input type="text" name="memId" value="${ loginUser.memId }" readonly>
+													</td>
+												</c:otherwise>
+											</c:choose>
+										</tr>
+										<tr>
+											<td>이&nbsp;&nbsp;&nbsp;름</td>
 											<td colspan="2">
-												<input type="text" name="memId" value="카카오계정입니다." readonly>
+												<input type="text" name="memName" value="${ loginUser.memName }" readonly> 
+												<span id="nameMsg" class="message" style="display: none"></span>
 											</td>
-										</c:when>
-										<c:when test="${ loginUser.enrollType eq 'N' }">
+										</tr>
+										<tr>
+											<td>닉네임</td>
 											<td colspan="2">
-												<input type="text" name="memId" value="네이버계정입니다." readonly>
+												<input type="text" name="nickName" value="${ loginUser.nickName }">
+												<span id="nicknameMsg" class="message" style="display: none"></span>
 											</td>
-										</c:when>
-										<c:otherwise>
+										</tr>
+										<tr>
+											<td>번&nbsp;&nbsp;&nbsp;호</td>
 											<td colspan="2">
-												<input type="text" name="memId" value="${ loginUser.memId }" readonly>
+												<input type="text" name="phone" value="${ loginUser.phone }">
 											</td>
-										</c:otherwise>
-									</c:choose>
-								</tr>
-								<tr>
-									<td>이&nbsp;&nbsp;&nbsp;름</td>
-									<td colspan="2">
-										<input type="text" name="memName" value="${ loginUser.memName }" readonly> 
-										<span id="nameMsg" class="message" style="display: none"></span>
-									</td>
-								</tr>
-								<tr>
-									<td>닉네임</td>
-									<td colspan="2">
-										<input type="text" name="nickName" value="${ loginUser.nickName }">
-										<span id="nicknameMsg" class="message" style="display: none"></span>
-									</td>
-								</tr>
-								<tr>
-									<td>번&nbsp;&nbsp;&nbsp;호</td>
-									<td colspan="2">
-										<input type="text" name="phone" value="${ loginUser.phone }">
-									</td>
-								</tr>
-								<tr>
-									<td>이메일</td>
-									<td colspan="2"><input type="text" name="email" value="${ loginUser.email }"></td>
-								</tr>
-								<tr>
-									<td>우편번호</td>
-									<td colspan="2">
-										<input id="myPostcode" type="text" name="postcode" placeholder="우편번호" value="${ loginUser.postcode }" readonly>
-									</td>
-								</tr>
-								<tr>
-									<td>주소</td>
-									<td>
-										<input id="myAddress" type="text" name="address" value="${ loginUser.address }" style="font-size: 15px;" placeholder="주소를 검색해주세요." readonly>
-									</td>
-									<td>
-										<a onclick="myExecDaumPostcode()" id="addressBtn">주소 검색</a>
-									</td>
-								</tr>
-								<tr>
-									<td>상세주소</td>
-									<td colspan="2">
-										<input id="myDetailAddress" type="text" name="detailAddr" value="${ loginUser.detailAddr }" style="font-size: 15px;">
-									</td>
-								</tr>
-								<tr>
-									<td>참고항목</td>
-									<td colspan="2">
-										<input id="myExtraAddress" type="text" name="extraAddr" placeholder="참고항목" value="${ loginUser.extraAddr } " readonly>
-									</td>
-								</tr>
-							</table>
-							<button type="submit" class="btn">회원정보 수정</button>
-						</form>
-						<a id="leaveBtn" data-toggle="modal" data-target="#deleteForm"
-							style="color: rgb(177, 177, 177); cursor: pointer;"> 회원 탈퇴 ></a>
-					</div>
+										</tr>
+										<tr>
+											<td>이메일</td>
+											<td colspan="2"><input type="text" name="email" value="${ loginUser.email }"></td>
+										</tr>
+										<tr>
+											<td>우편번호</td>
+											<td colspan="2">
+												<input id="myPostcode" type="text" name="postcode" placeholder="우편번호" value="${ loginUser.postcode }" readonly>
+											</td>
+										</tr>
+										<tr>
+											<td>주소</td>
+											<td>
+												<input id="myAddress" type="text" name="address" value="${ loginUser.address }" style="font-size: 15px;" placeholder="주소를 검색해주세요." readonly>
+											</td>
+											<td>
+												<a onclick="myExecDaumPostcode()" id="addressBtn">주소 검색</a>
+											</td>
+										</tr>
+										<tr>
+											<td>상세주소</td>
+											<td colspan="2">
+												<input id="myDetailAddress" type="text" name="detailAddr" value="${ loginUser.detailAddr }" style="font-size: 15px;">
+											</td>
+										</tr>
+										<tr>
+											<td>참고항목</td>
+											<td colspan="2">
+												<input id="myExtraAddress" type="text" name="extraAddr" placeholder="참고항목" value="${ loginUser.extraAddr } " readonly>
+											</td>
+										</tr>
+									</table>
+									<button type="submit" class="btn">회원정보 수정</button>
+								</form>
+								<a id="leaveBtn" data-toggle="modal" data-target="#deleteForm"
+									style="color: rgb(177, 177, 177); cursor: pointer;"> 회원 탈퇴 ></a>
+							</div>
+						</c:otherwise>
+					</c:choose>
+					
 
 					<!-- 주소 검색 -->
 					<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -1331,9 +1288,9 @@
 						}
 						}
 
-						
-						
 					</script>
+					
+					
 					
 					<!-- 회원 탈퇴시 보여질 Modal -->
 					<!-- The Modal -->

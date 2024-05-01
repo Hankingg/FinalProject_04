@@ -1,11 +1,13 @@
 package com.kh.medicare.socket;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -13,36 +15,41 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.kh.medicare.member.model.vo.Member;
 
-
+@RequestMapping("/echo-ws")
 public class EchoHandler extends TextWebSocketHandler{
 		
-		List<WebSocketSession> sessions = new ArrayList<WebSocketSession>();
+		private List<WebSocketSession> sessions = new ArrayList<WebSocketSession>();
 	
 		// 로그인중인 개별유저
-		Map<String, WebSocketSession> users = new ConcurrentHashMap<String, WebSocketSession>();
+		private Map<String, WebSocketSession> users = new ConcurrentHashMap<String, WebSocketSession>();
 		
 		// 클라이언트가 서버로 연결시
 		@Override
 		public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+			
+			sessions.add(session);
+			
 			String senderId = getMemberId(session); // 접속한 유저의 http세션을 조회하여 id를 얻는 함수
+			
 			if(senderId!=null) {	// 로그인 값이 있는 경우만
 				log(senderId + " 연결 됨");
 				users.put(senderId, session);   // 로그인중 개별유저 저장
 			}
-			
-			System.out.println(session);
-			System.out.println(senderId);
+
 		}
-		
-		
+			
 		// 클라이언트가 Data 전송 시
 		@Override
 		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 			String senderId = getMemberId(session); 
 			
+			for(WebSocketSession sess : sessions) {
+				sess.sendMessage(new TextMessage(message.getPayload()));
+			}
+			
 			// 특정 유저에게 보내기
 			String msg = message.getPayload();
-			System.out.println(msg);
+
 			if(msg != null) {
 				String[] strs = msg.split(",");
 				log(strs.toString());
@@ -73,6 +80,7 @@ public class EchoHandler extends TextWebSocketHandler{
 				users.remove(senderId);
 				sessions.remove(session);
 			}
+
 		}
 		// 에러 발생시
 		@Override
