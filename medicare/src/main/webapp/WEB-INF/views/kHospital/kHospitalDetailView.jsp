@@ -534,7 +534,7 @@
 	    color: rgb(58, 58, 58);
   	}
   	
-  	.infoDetail {
+  	.info-Detail {
 	    width: 1100px;
 	    font-size: 20px;
 	    border-bottom: 3px solid lightgray;
@@ -622,7 +622,7 @@
                   	 </div>
                   </div>
                   <br><br>
-                  <div class="infoDetail">
+                  <div class="info-Detail">
                   	 <strong>상세 설명</strong>
                   	 <div class="detailInfo">
                   	 
