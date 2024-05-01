@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
 
 <style>
 	#streamWrap{
@@ -41,7 +40,7 @@
 			</div>
 				<!-- 내 웹캠 화면을 보여주는 video html -->
 			<div>
-				<div style="margin-left:300px;">의사화면&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<div style="margin-left:300px;"> 의사화면&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -61,7 +60,7 @@
 				    	<video id="localStream" autoplay playsinline controls  style=" width:100%; height:100%;"></video>
 				    </div>
 						<!-- WebRTC에 연결된 웹캠들이 추가되는 Div  -->
-				    <div id="remoteStreamDiv" style="border:1px solid black; width:700px; height:100%;">
+				    <div id="remoteStreamDiv" style=" width:700px; height:100%; margin-top:40px;">
 				    
 				    </div>
 			    </div>
@@ -77,28 +76,7 @@
 			</c:if>
 		</div>
 		
-		<script>
-			function showDiagBtn() {
-				$.ajax({
-					url:"order.finish",
-					data:{memNo:"${memNo}",
-						  hosCode:"${hosCode}"},
-					success:function(data){
-						alert("진료가 종료되었습니다.");
-					    $("#diagBtn").css("visibility", "visible");
-					}, error:function(){
-						
-					}
-				})
-			}
-			$("#startSteamBtn").click(function(){
-				$("#closeOrder").attr("disabled",false);
-			})
-			
-			$("#closeOrder").click(function(){
-				$("#diagBtn").attr("disabled", false);
-			})
-		</script>
+		
 		<!-- The Modal -->
 <div class="modal" id="myModal">
   <div class="modal-dialog">
@@ -132,24 +110,50 @@
   </div>
 </div>
 
-		<script>
-			$(function(){
-				console.log("${memId}");
-				$.ajax({
-					url:"select.memId",
-					data:{memId:"${memId}"},
-					success:function(data){
-						console.log(data);
-						$("#dcReceiverMno").val(data.memNo);
-					},error:function(){
-						console.log("ajax 통신 실패");
-					}
-				})
-			})
-		</script>
+<script>
+function showDiagBtn() {
+	$.ajax({
+		url:"order.finish",
+		data:{memNo:"${memNo}",
+			  hosCode:"${hosCode}"},
+		success:function(data){
+			alert("진료가 종료되었습니다.");
+		    $("#diagBtn").css("visibility", "visible");
+		}, error:function(){
+			
+		}
+	})
+}
+$("#startSteamBtn").click(function(){
+	$("#closeOrder").attr("disabled",false);
+})
+
+$("#closeOrder").click(function(){
+	$("#diagBtn").attr("disabled", false);
+})
+
+
+$(function(){
+	console.log("${memId}");
+	$.ajax({
+		url:"select.memId",
+		data:{memId:"${memId}"},
+		success:function(data){
+			console.log(data);
+			$("#dcReceiverMno").val(data.memNo);
+		},error:function(){
+			console.log("ajax 통신 실패");
+		}
+	})
+})
+</script>
+
+		
 		
 		<!-- webRTC 연결을 위한 js  -->
     <script src="${ pageContext.request.contextPath }/resources/js/peerConfig.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
         
     <jsp:include page="../common/footer.jsp"/>
 </body>

@@ -553,17 +553,19 @@
 									
 									location.href = 'hosDetail.go?hpid=' + data.hosCode + "&distance=" + data.distance + "&dot=" + selectedOptionText;
 								});
+								
+								let formattedDistance = data.distance >= 1000 ? (Math.round(data.distance / 100) / 10) + " km" : data.distance + " m";
     							
-    							value += "<div id='hos_wrap' style='width: 600px; height: 150px' onclick='location.href=\"hosDetail.go?hpid=" + data.hosCode + "&distance=" + data.distance + "&dot=" + selectedOptionText + "\"'>"
+    							value += "<div id='hos_wrap' style='width: 600px; height: 150px' onclick='location.href=\"hosDetail.go?hpid=" + data.hosCode + "&distance=" + formattedDistance + "\"'>"
     							     + "<div id='hos1'>"
     							     + "<div id='hos1_1'>"
     							     +    "<div>진료중</div>"
     							     + "</div>"
     							     + "<div id='hos1_2'><div>" + data.hosName + "</div></div>"
     							     +   "<div id='hos1_3'>"
-    							     +     "<div id='hos1_3_1'> 별점 : "+data.reviewAvg+"점 </div>"
+    							     +     "<div id='hos1_3_1'> 별점 : "+ data.reviewAvg +"점 </div>"
     							     + "<br>"
-    							     +    "<div id='hos1_3_2'> " + data.distance +"m | "+ extractSubstringUpToThirdSpace(data.hosAddress) + " | " + selectedOptionText + "</div>"
+    							     +    "<div id='hos1_3_2'> " + formattedDistance +" | "+ extractSubstringUpToThirdSpace(data.hosAddress) + " | " + selectedOptionText + "</div>"
     							     +  "</div>"
     							     +  "<div id='hos1_4'>"
     							     +    "<div style='background-color: rgb(174, 214, 214)'> 접수 </div>"

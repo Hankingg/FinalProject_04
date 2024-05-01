@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>login</title>
+<title>비밀번호 변경</title>
 <style>
 	.form-group{
 		border-radius: 10px;

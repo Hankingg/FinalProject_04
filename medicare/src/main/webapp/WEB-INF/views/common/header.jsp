@@ -505,7 +505,7 @@
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="">가용병상조회</a></li>
+                <li class="nav-item"><a class="nav-link" href="emergencyList.em">가용병상조회</a></li>
               </ul>
             </div>
           </li>

@@ -36,11 +36,17 @@ public class hospitalController {
 	private HospitalServiceImpl hService;
 	
 	@RequestMapping("hosDetail.go")
-	public String goHospital(String hpid,int distance, String dot,HttpSession session) {
+	public String goHospital(String hpid,String distance,HttpSession session) {
+		Hospital h = hService.selectHospitalInfo(hpid);
+			session.setAttribute("distance", distance);
+			session.setAttribute("h", h);
+			return "hospital/hospitalDetail";
+	}
+	
+	@RequestMapping("hosDetail.no")
+	public String noHospital(String hpid,HttpSession session) {
 		Hospital h = hService.selectHospitalInfo(hpid);
 			session.setAttribute("h", h);
-			session.setAttribute("distance", distance);
-			session.setAttribute("dot", dot);
 			return "hospital/hospitalDetail";
 	}
 	
@@ -144,6 +150,12 @@ public class hospitalController {
 			return "common/errorPage";
     	}
     }
+	
+	@RequestMapping("recentHospital.in")
+	public Hospital recentHospitalInfo(String hosCode) {
+		Hospital h = hService.selectHospitalInfo(hosCode);
+		return h;
+	}
 	
 	
 }
