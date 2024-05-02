@@ -504,19 +504,6 @@ p {
 	text-decoration-line: none;
 }
 
-/* 채팅 이미지 */
-    #chatBtn{
-    	position: fixed;
-        left: 95%;
-        top: 83%;
-        z-index: 999;
-        cursor: pointer;
-    }
-
-	#chatImg{
-		width: 45px;
-	    height: 45px;
-	}
 
 </style>
 </head>
@@ -525,14 +512,7 @@ p {
 	 <div class="main-panel">
         <div class="content-wrapper" style="background-color: white;">
         <div class="outer">
-        
-        <!-- chat 버튼 -->
-          <div id="chatBtn">
-          	   <a href="chat"><img id="chatImg" src="resources/mainIcon/chat2.png">
-          	   	<input type="hidden" value="${ loginUser.memId }">
-          	   </a>
-          </div>
-          
+
           <div class="inner1">
             <div class="inner_1">
               <a href="emergencyList.em" id="emerList">
@@ -781,7 +761,7 @@ p {
 		                                  "background-size": "cover",
 		                                  "color":"white"
 		                           	  });
-		                              $(".right").css({"color":"#F96C85"});
+		                              $(".right").css({"color":"orange"});
 		                              $(".weather-date").css({"color":"white"});
 	                                 break;
 	                              case "2":

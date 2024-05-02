@@ -27,6 +27,8 @@ public class EchoHandler extends TextWebSocketHandler{
 		@Override
 		public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 			
+			sessions.add(session);
+			
 			String senderId = getMemberId(session); // 접속한 유저의 http세션을 조회하여 id를 얻는 함수
 			
 			if(senderId!=null) {	// 로그인 값이 있는 경우만
@@ -41,6 +43,10 @@ public class EchoHandler extends TextWebSocketHandler{
 		@Override
 		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 			String senderId = getMemberId(session); 
+			
+			for(WebSocketSession sess : sessions) {
+				sess.sendMessage(new TextMessage(message.getPayload()));
+			}
 			
 			// 특정 유저에게 보내기
 			String msg = message.getPayload();

@@ -1,6 +1,7 @@
 package com.kh.medicare.websocket.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,7 +16,7 @@ import com.kh.medicare.member.model.vo.Member;
 @RequestMapping("/medicare/chat")
 public class WebSocketHandler extends TextWebSocketHandler {
 
-    private Map<String, WebSocketSession> users = new ConcurrentHashMap<>();
+    private Map<String, WebSocketSession> users = new HashMap();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {

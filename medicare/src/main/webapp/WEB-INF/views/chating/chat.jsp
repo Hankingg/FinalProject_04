@@ -159,7 +159,7 @@
 <script type="text/javascript">
 	var ws;
 	
-	let sock1 = new SockJS("http://192.168.20.28:8008/medicare/chat");
+	let sock1 = new SockJS("http://localhost:8008/medicare/echo-ws");
 	sock1.onmessage = onMessage;
 	sock1.onclose = onClose;
 	

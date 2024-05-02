@@ -54,13 +54,28 @@
     /* 폰트!!!!!!!!!!! */
     @font-face {
       font-family: 'LINESeedKR-Bd';
-      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+      src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
       font-weight: 700;
       font-style: normal;
     }
     * {
     font-family: 'LINESeedKR-Bd';
     }
+  
+	  /* 채팅 이미지 */
+	    #chatBtn{
+	    	position: fixed;
+	        left: 95%;
+	        top: 83%;
+	        z-index: 999;
+	        cursor: pointer;
+	    }
+	
+		#chatImg{
+			width: 45px;
+		    height: 45px;
+		}
+  
   
   </style>
  <!-- Required meta tags -->
@@ -86,20 +101,20 @@
 
   <!-- alertify -->
   <!-- JavaScript -->
-	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+	<script src="//gcore.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
   <!-- CSS -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+	<link rel="stylesheet" href="//gcore.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
 	<!-- Default theme -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+	<link rel="stylesheet" href="//gcore.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
 	<!-- Semantic UI theme -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+	<link rel="stylesheet" href="//gcore.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
 
   <!-- icon CDN -->
   <script src="https://use.fontawesome.com/releases/v6.5.0/js/all.js"></script>
   
 
   <!-- sockjs 라이브러리 -->
-  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="https://gcore.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
   <!-- Bootstrap CSS -->
   <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"> -->
   <!-- Option 1: Bootstrap Bundle with Popper (Bootstrap JS + Popper.js) -->
@@ -238,6 +253,12 @@
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_settings-panel.html -->
       <div class="theme-setting-wrapper">
+      <!-- chat 버튼 -->
+          <div id="chatBtn">
+          	   <a href="chat"><img id="chatImg" src="resources/mainIcon/chat2.png">
+          	   	<input type="hidden" value="${ loginUser.memId }">
+          	   </a>
+          </div>
       
         <!-- top 버튼 -->
             <div id="topBtn">
@@ -286,7 +307,7 @@
             <div class="add-items d-flex px-3 mb-0">
               <div id="msgStack"> </div>
 				
-                
+              <!-- 
               <script>
                 $(document).ready(function(){
                 
@@ -373,7 +394,7 @@
                   }
                 }
               </script>
- 			  
+ 			   -->
             </div>
             
             

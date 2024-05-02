@@ -772,7 +772,7 @@
 									// 지도 생성
 									map = new naver.maps.Map('map', {
 										center: initialLocation,
-										zoom: 14
+										zoom: 15
 									});
 									first = false;  // 첫 번째 항목을 처리한 후 false로 설정
 									
