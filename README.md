@@ -171,12 +171,45 @@ ERD Cloud
 
 윤상연
 
+•  회원가입
+![회원가입](https://github.com/Hankingg/FinalProject_04/assets/151510176/6ccefb90-bbe5-4d45-a127-67865ebfffea)
+
+
+
+•  일반 로그인
+![일반로그인](https://github.com/Hankingg/FinalProject_04/assets/151510176/ad00df48-82f9-4c40-a8cd-91d661aa41e2)
+
+
 •  카카오 로그인
 ![카카오로그인](https://github.com/Hankingg/FinalProject_04/assets/151510176/a80ccb65-e8dc-436f-aa0b-c64035b6ceca)
 
 
+•  네이버 로그인
+![네이버 로그인](https://github.com/Hankingg/FinalProject_04/assets/151510176/134c2ab7-550a-4e5a-b54e-92a545e7d04f)
 
 
+•  비밀번호 변경
+![비밀번호 변경](https://github.com/Hankingg/FinalProject_04/assets/151510176/d62b7029-b189-43be-8713-2c37f9c9aebb)
+
+
+•  관리자 회원
+![관리자회원관리](https://github.com/Hankingg/FinalProject_04/assets/151510176/26e54d42-4082-48eb-89c7-268529e8fd86)
+
+
+•  멤버십 월간구독
+![멤버십 월간구독권](https://github.com/Hankingg/FinalProject_04/assets/151510176/9b229a98-a99f-486f-aba3-192f9974212a)
+
+
+•  멤버십 연간구독
+![멤버십 연간구독권](https://github.com/Hankingg/FinalProject_04/assets/151510176/dffdf137-f8e9-4074-a0d9-5f551ad3edb0)
+
+
+•  응급실 실시간
+![응급실2](https://github.com/Hankingg/FinalProject_04/assets/151510176/81e501ba-48ec-4421-84f7-b8f75cd79560)
+
+
+•  단체채팅
+![단체채팅](https://github.com/Hankingg/FinalProject_04/assets/151510176/003eb866-a2ef-454c-a2ca-513d9ee5e13c)
 
 
 
