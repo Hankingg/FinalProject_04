@@ -168,11 +168,28 @@ ERD Cloud
 
 노정민
 
+• 날씨 맑음
+![맑은 날씨](https://github.com/Hankingg/FinalProject_04/assets/151510057/66737563-e89d-42c7-ab32-4726b1c11b20)
+
+• 날씨 구름많음
+![구름많음 날씨](https://github.com/Hankingg/FinalProject_04/assets/151510057/58062e62-5e97-4c93-9b6f-3de047860a62)
+
+• 날씨 비
+
+• 회원 정보 조회, 수정 / 리뷰 조회, 삭제 / 회원 탈퇴
+![회원정보 조회,수정, 리뷰조회,삭제,회원탈퇴](https://github.com/Hankingg/FinalProject_04/assets/151510057/63120df6-f6c0-48cf-9b84-67bf0ff98b00)
+
+• 한의원 목록페이지
+![한의원 목록페이지](https://github.com/Hankingg/FinalProject_04/assets/151510057/d85b39da-ef75-4d66-868b-682f638e1b54)
+
+• 한의원 상세페이지
+![한의원 상세페이지](https://github.com/Hankingg/FinalProject_04/assets/151510057/d888e74a-cf75-4869-b411-acf88344b9ec)
+
 • 1:1 채팅
 ![채팅](https://github.com/Hankingg/FinalProject_04/assets/151510057/a9f5d593-aa5d-4e5b-9df7-4a366faad9ce)
 
-
-
+• 리뷰 작성, 조회
+![리뷰 작성, 조회](https://github.com/Hankingg/FinalProject_04/assets/151510057/5738ad4e-afee-45e7-9d9a-20242ad4074b)
 
 
 
