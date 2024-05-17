@@ -166,14 +166,17 @@ ERD Cloud
 ## 📖 프로젝트 구현
 이종민
 
+병원 목록 조회
+<img src="https://github.com/Hankingg/FinalProject_04/assets/151510208/61a634b9-78ab-49e0-a1e4-3179b3dd35f6">
+
 상세페이지
-<img src="https://github.com/Hankingg/FinalProject_04/assets/151510208/6efa63a9-7131-4075-af11-a716f6204d83">
+
 
 진료예약, 진료 내역 확인
-<img src="https://github.com/Hankingg/FinalProject_04/assets/151510208/c1f63238-e8a3-4d75-96bf-277debd314fd">
+
 
 예약 일정 관리
-<img src="https://github.com/Hankingg/FinalProject_04/assets/151510208/97384528-4169-4275-a67a-761500551f8f">
+
 
 비대면 진료
 <img src="https://github.com/Hankingg/FinalProject_04/assets/151510208/28dfe5a8-0138-4424-951a-44c13627a9f0">
