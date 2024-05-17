@@ -170,6 +170,7 @@ ERD Cloud
 <img src="https://github.com/Hankingg/FinalProject_04/assets/151510208/61a634b9-78ab-49e0-a1e4-3179b3dd35f6">
 
 상세페이지
+<img src="https://github.com/Hankingg/FinalProject_04/assets/151510208/1d8ca7ea-0cba-40d5-928f-3f2a2769261e">
 
 
 진료예약, 진료 내역 확인
