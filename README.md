@@ -174,6 +174,7 @@ ERD Cloud
 
 
 진료예약, 진료 내역 확인
+<img src="https://github.com/Hankingg/FinalProject_04/assets/151510208/cd3f317d-1bdd-493a-abc1-b345d3496372">
 
 
 예약 일정 관리
