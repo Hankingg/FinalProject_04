@@ -12,7 +12,7 @@
 <body>
 
 	 <script>
-          var naver_id_login = new naver_id_login("laHiH9mRP4ErMef14VeP", "http://localhost:8008/medicare/");
+          var naver_id_login = new naver_id_login("#", "http://localhost:8008/medicare/");
           // 접근 토큰 값 출력
           //alert(naver_id_login.oauthParams.access_token);
           
