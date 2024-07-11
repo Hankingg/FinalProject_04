@@ -127,8 +127,6 @@
 	
 	<script>
         
-         IMP.init("imp36818141");
-         
         
          function kakaopayMonth() {
             
@@ -162,8 +160,7 @@
     </script>
 	
 	<script>
-	 IMP.init("imp36818141");
-     
+	
      
      function kakaopayYear() {
         
