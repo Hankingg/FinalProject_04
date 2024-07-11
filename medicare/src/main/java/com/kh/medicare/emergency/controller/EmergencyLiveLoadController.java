@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class EmergencyLiveLoadController {
 	
-		private static final String key = "NMmkVM1ukPmnoSzZyfEYj5aCLaHFdgiy2znTVHU2f5Ggd05KbqM3ufP25oe77Slbp9i4a4vYM7T33oYDL2Q";
-		// http://www.utic.go.kr/etc/telMap.do?key=NMmkVM1ukPmnoSzZyfEYj5aCLaHFdgiy2znTVHU2f5Ggd05KbqM3ufP25oe77Slbp9i4a4vYM7T33oYDL2Q#
+		private static final String key = "";
+		
 		
 	    @ResponseBody
 	    @RequestMapping(value="emLive.em", produces="text/xml; charset=UTF-8")
