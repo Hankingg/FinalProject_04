@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class EmergencyUserHospitalController {
 
-	private static final String serviceKey = "YpWfxXHIJ%2Br47HRPOcTmmYXIn8QipimYeIn4NoAHIGg4of5Lohy7taToY2ecMf7mFZEdgzlTLPWR0Br895FXXw%3D%3D";
+	private static final String serviceKey = "#";
 	
 	@ResponseBody
 	@RequestMapping(value="hospitalInfo.em", produces = "text/xml; charset=UTF-8")
