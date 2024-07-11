@@ -145,7 +145,7 @@
  
   <script>
     // 카카오 SDK 초기화
-    Kakao.init('2e9ad81f2d94fa28edbb4d9ebe990822');
+    Kakao.init('#');
     // 카카오 로그인 버튼 클릭 시 호출되는 함수
     document.getElementById('kakao-login-btn').addEventListener('click', function () {
         // 카카오 로그인 창 열기
